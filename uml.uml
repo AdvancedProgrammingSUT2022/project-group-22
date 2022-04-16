@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>E:/java/Project/project/src/main/java</OriginalElement>
+  <nodes>
+    <node x="201.0" y="0.0">Model.Resource</node>
+    <node x="108.34693877551018" y="360.0">Model.Tiles</node>
+    <node x="285.11734693877554" y="1360.0">Model.RegisterMenu</node>
+    <node x="0.0" y="0.0">Model.LandType</node>
+    <node x="437.4719387755102" y="516.5">Model.MilitaryUnit</node>
+    <node x="248.1173469387755" y="924.0">Model.Player</node>
+    <node x="289.61734693877554" y="794.0">Model.City</node>
+    <node x="1056.0" y="0.0">View.PrintMap</node>
+    <node x="861.0" y="0.0">Main.Main</node>
+    <node x="266.11734693877554" y="1464.0">Controller.RegisterMenuController</node>
+    <node x="399.0" y="112.0">Model.MilitaryType</node>
+    <node x="639.0" y="0.0">Model.Research</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Model.RegisterMenu" target="Model.Player" relationship="TO_MANY">
+      <point x="-42.25" y="-27.0" />
+      <point x="327.36734693877554" y="1335.0" />
+      <point x="308.86734693877554" y="1335.0" />
+      <point x="-60.75" y="193.0" />
+    </edge>
+    <edge source="Model.Tiles" target="Model.Resource" relationship="TO_ONE">
+      <point x="-41.75" y="-171.0" />
+      <point x="150.09693877551018" y="340.0" />
+      <point x="87.47193877551018" y="340.0" />
+      <point x="87.47193877551018" y="330.0" />
+      <point x="245.5" y="330.0" />
+      <point x="-44.5" y="150.0" />
+    </edge>
+    <edge source="Model.Player" target="Model.City" relationship="DEPENDENCY">
+      <point x="-60.75" y="-193.0" />
+      <point x="308.86734693877554" y="903.0" />
+      <point x="213.75" y="903.0" />
+      <point x="213.75" y="893.0" />
+      <point x="329.61734693877554" y="893.0" />
+      <point x="-40.0" y="39.0" />
+    </edge>
+    <edge source="Controller.RegisterMenuController" target="Model.RegisterMenu" relationship="CREATE">
+      <point x="-51.75" y="-27.0" />
+      <point x="317.86734693877554" y="1439.0" />
+      <point x="327.36734693877554" y="1439.0" />
+      <point x="-42.25" y="27.0" />
+    </edge>
+    <edge source="Model.Tiles" target="Model.Player" relationship="TO_ONE">
+      <point x="41.75" y="171.0" />
+      <point x="233.59693877551018" y="733.0" />
+      <point x="399.86734693877554" y="733.0" />
+      <point x="399.86734693877554" y="743.0" />
+      <point x="460.11734693877554" y="743.0" />
+      <point x="460.11734693877554" y="893.0" />
+      <point x="528.7219387755101" y="893.0" />
+      <point x="528.7219387755101" y="903.0" />
+      <point x="430.36734693877554" y="903.0" />
+      <point x="60.75" y="-193.0" />
+    </edge>
+    <edge source="Model.City" target="Model.MilitaryUnit" relationship="DEPENDENCY">
+      <point x="-40.0" y="-39.0" />
+      <point x="329.61734693877554" y="773.0" />
+      <point x="364.61734693877554" y="773.0" />
+      <point x="364.61734693877554" y="743.0" />
+      <point x="339.36734693877554" y="743.0" />
+      <point x="339.36734693877554" y="723.0" />
+      <point x="467.9719387755102" y="723.0" />
+      <point x="-30.5" y="14.5" />
+    </edge>
+    <edge source="Model.City" target="Model.Tiles" relationship="DEPENDENCY">
+      <point x="-40.0" y="-39.0" />
+      <point x="329.61734693877554" y="773.0" />
+      <point x="364.61734693877554" y="773.0" />
+      <point x="364.61734693877554" y="753.0" />
+      <point x="101.34693877551018" y="753.0" />
+      <point x="101.34693877551018" y="743.0" />
+      <point x="150.09693877551018" y="743.0" />
+      <point x="-41.75" y="171.0" />
+    </edge>
+    <edge source="Model.MilitaryUnit" target="Model.MilitaryType" relationship="DEPENDENCY">
+      <point x="30.5" y="-14.5" />
+      <point x="528.9719387755101" y="340.0" />
+      <point x="545.25" y="340.0" />
+      <point x="48.75" y="38.0" />
+    </edge>
+    <edge source="Model.Player" target="Model.MilitaryUnit" relationship="TO_MANY">
+      <point x="60.75" y="-193.0" />
+      <point x="430.36734693877554" y="903.0" />
+      <point x="528.7219387755101" y="903.0" />
+      <point x="528.7219387755101" y="893.0" />
+      <point x="565.4923469387755" y="893.0" />
+      <point x="565.4923469387755" y="753.0" />
+      <point x="528.9719387755101" y="753.0" />
+      <point x="30.5" y="14.5" />
+    </edge>
+    <edge source="Model.Tiles" target="Model.LandType" relationship="DEPENDENCY">
+      <point x="41.75" y="-171.0" />
+      <point x="233.59693877551018" y="340.0" />
+      <point x="296.9719387755102" y="340.0" />
+      <point x="296.9719387755102" y="320.0" />
+      <point x="135.75" y="320.0" />
+      <point x="45.25" y="150.0" />
+    </edge>
+    <edge source="Model.RegisterMenu" target="Model.Player" relationship="DEPENDENCY">
+      <point x="42.25" y="-27.0" />
+      <point x="411.86734693877554" y="1335.0" />
+      <point x="430.36734693877554" y="1335.0" />
+      <point x="60.75" y="193.0" />
+    </edge>
+    <edge source="Model.MilitaryUnit" target="Model.MilitaryType" relationship="TO_ONE">
+      <point x="-30.5" y="-14.5" />
+      <point x="467.9719387755102" y="340.0" />
+      <point x="447.75" y="340.0" />
+      <point x="-48.75" y="38.0" />
+    </edge>
+    <edge source="Controller.RegisterMenuController" target="Model.RegisterMenu" relationship="TO_ONE">
+      <point x="51.75" y="-27.0" />
+      <point x="421.36734693877554" y="1439.0" />
+      <point x="411.86734693877554" y="1439.0" />
+      <point x="42.25" y="27.0" />
+    </edge>
+    <edge source="Model.City" target="Model.Tiles" relationship="TO_MANY">
+      <point x="40.0" y="-39.0" />
+      <point x="409.61734693877554" y="773.0" />
+      <point x="374.61734693877554" y="773.0" />
+      <point x="374.61734693877554" y="753.0" />
+      <point x="399.86734693877554" y="753.0" />
+      <point x="399.86734693877554" y="733.0" />
+      <point x="233.59693877551018" y="733.0" />
+      <point x="41.75" y="171.0" />
+    </edge>
+    <edge source="Model.Tiles" target="Model.LandType" relationship="TO_ONE">
+      <point x="-41.75" y="-171.0" />
+      <point x="150.09693877551018" y="340.0" />
+      <point x="87.47193877551018" y="340.0" />
+      <point x="87.47193877551018" y="330.0" />
+      <point x="45.25" y="330.0" />
+      <point x="-45.25" y="150.0" />
+    </edge>
+    <edge source="Model.Tiles" target="Model.Resource" relationship="DEPENDENCY">
+      <point x="41.75" y="-171.0" />
+      <point x="233.59693877551018" y="340.0" />
+      <point x="296.9719387755102" y="340.0" />
+      <point x="296.9719387755102" y="320.0" />
+      <point x="334.5" y="320.0" />
+      <point x="44.5" y="150.0" />
+    </edge>
+    <edge source="Model.Tiles" target="Model.Player" relationship="DEPENDENCY">
+      <point x="-41.75" y="171.0" />
+      <point x="150.09693877551018" y="743.0" />
+      <point x="101.34693877551018" y="743.0" />
+      <point x="101.34693877551018" y="893.0" />
+      <point x="213.75" y="893.0" />
+      <point x="213.75" y="903.0" />
+      <point x="308.86734693877554" y="903.0" />
+      <point x="-60.75" y="-193.0" />
+    </edge>
+    <edge source="Model.City" target="Model.MilitaryUnit" relationship="TO_MANY">
+      <point x="40.0" y="-39.0" />
+      <point x="409.61734693877554" y="773.0" />
+      <point x="374.61734693877554" y="773.0" />
+      <point x="374.61734693877554" y="763.0" />
+      <point x="565.4923469387755" y="763.0" />
+      <point x="565.4923469387755" y="753.0" />
+      <point x="528.9719387755101" y="753.0" />
+      <point x="30.5" y="14.5" />
+    </edge>
+    <edge source="Model.Player" target="Model.City" relationship="TO_MANY">
+      <point x="60.75" y="-193.0" />
+      <point x="430.36734693877554" y="903.0" />
+      <point x="528.7219387755101" y="903.0" />
+      <point x="528.7219387755101" y="893.0" />
+      <point x="409.61734693877554" y="893.0" />
+      <point x="40.0" y="39.0" />
+    </edge>
+    <edge source="Model.Player" target="Model.MilitaryUnit" relationship="DEPENDENCY">
+      <point x="-60.75" y="-193.0" />
+      <point x="308.86734693877554" y="903.0" />
+      <point x="213.75" y="903.0" />
+      <point x="213.75" y="893.0" />
+      <point x="279.11734693877554" y="893.0" />
+      <point x="279.11734693877554" y="763.0" />
+      <point x="339.36734693877554" y="763.0" />
+      <point x="339.36734693877554" y="723.0" />
+      <point x="467.9719387755102" y="723.0" />
+      <point x="-30.5" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.5548764629388817" showDependencies="true" x="582.0000000000002" y="1311.6273728614951" />
+  <SelectedNodes>
+    <node>Model.Tiles</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
