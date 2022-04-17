@@ -11,27 +11,23 @@ public class Controller {
     private RegisterMenuController registerMenuController = new RegisterMenuController();
     private MainMenuController mainMenuController = new MainMenuController();
     private GameController gameController = new GameController();
-    private ProfileMenuController profileMenuController = new ProfileMenuController();;
+    private ProfileMenuController profileMenuController = new ProfileMenuController();
 
     public static Controller getInstance() {
         return instance;
     }
 
-    public void run() {
+    public String run() {
         String input;
-        while (!database.getState().equals("exit")) {
-            input = processor.getInput();
-            if (database.getState().equals("register")) {
-                registerMenuController.run(input);
-            } else if (database.getState().equals("main")) {
-                mainMenuController.run(input);
-            } else if (database.getState().equals("game")) {
-                gameController.run(input);
-            } else if (database.getState().equals("profile")) {
-                profileMenuController.run(input);
-            }
+        input = registerMenuController.run();
+        while (true) {
+            if(input.equals("Exit")) break;
+            if(input.equals("main menu")) mainMenuController.run();
+            if(input.equals("game menu")) gameController.run();
+            if(input.equals("create game")) gameController.run();
         }
         processor.closeScanner();
+        return null;
     }
 
     protected Matcher getMatcher(String input, String regex) {

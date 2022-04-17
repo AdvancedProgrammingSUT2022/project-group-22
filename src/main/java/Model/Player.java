@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
+    //technology
     private int score;
     private int population;
     private String currentResearch;
+    private float foodAmount;
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<City> cities = new ArrayList<>();
     private ArrayList<MilitaryUnit> militaryUnits = new ArrayList<>();
+    private ArrayList<Resource> resources = new ArrayList<>();
+    private ArrayList<Civilian> civilians = new ArrayList<>();
     private City currentCity;
     private MilitaryUnit currentMilitary = null;
     private Civilian currentCivilian = null;
@@ -26,11 +30,11 @@ public class Player {
         return cities;
     }
 
-    public void setCities(ArrayList<City> cities) {
-        this.cities = cities;
+    public void setCities(City city) {
+        this.cities.add(city);
     }
 
-    public void setMessages(ArrayList<String> messages) {
+    public void addMessages(ArrayList<String> messages) {
         this.messages = messages;
     }
 
@@ -41,8 +45,6 @@ public class Player {
     public void setPopulation(int population) {
         this.population = population;
     }
-
-
 
     public int getScore() {
         return score;
@@ -55,4 +57,9 @@ public class Player {
     public ArrayList<String> getMessages() {
         return messages;
     }
+
+
+
+
+
 }
