@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
+    //technology
     private int score;
     private int population;
     private String currentResearch;
+    private float foodAmount;
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<City> cities = new ArrayList<>();
     private ArrayList<MilitaryUnit> militaryUnits = new ArrayList<>();

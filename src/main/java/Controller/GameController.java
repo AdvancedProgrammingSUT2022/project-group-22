@@ -1,58 +1,28 @@
 package Controller;
 
 import Model.Player;
+import Model.User;
+
+import java.util.ArrayList;
 
 public class GameController extends Controller {
-    private Player player;
-    public void run(String input) {
-        this.player = player;
+private ArrayList<User> usersToPlay = new ArrayList<User>();
+    public String  run() {
+        //get players that
+        //and run the whoseturn to start the game
+    }
+
+    public void whichPlayer(){
+        //look in user to see if this user exists or not
     }
 
     private void whoseTurn(){
-        //while ture
-        //for in database
+        //while true
+        //look in userToPlay for each player to play their turn
+        //call the player controller to manage what should he do and pass the player
     }
 
-    private void chooseCity(){
-        //choose city and assign the current city in player
-    }
 
-    private void showMessages(){}
-
-    private void showResearches(){
-
-    }
-
-    private void showUnites(){
-
-    }
-
-    private void showCities(){
-
-    }
-
-    private void showDiplomacy(){
-
-    }
-
-    private void showPopulation(){
-        //Gold
-        //Military
-        //Wealth
-        //Compare to others
-    }
-
-    private void activeUnit(){
-
-    }
-
-    private void stateCompereTo(){
-        //get information from date base and each player score and sort them
-    }
-
-    private void showMilitaryUnitStatus(){
-        //print military unit status
-    }
 
 
 
