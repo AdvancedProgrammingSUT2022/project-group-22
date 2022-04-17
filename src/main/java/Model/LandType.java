@@ -20,13 +20,13 @@ public enum LandType {
     private final int food;
     private final int product;
     private final int gold;
-    private final int battleChange;
+    private final int combatModifier;
     private final int  movePrice;
 
 
-    LandType(int food, int product, int gold, int battleChange, int movePrice) {
+    LandType(int food, int product, int gold, int combatModifier, int movePrice) {
         this.food = food;
-        this.battleChange = battleChange;
+        this.combatModifier = combatModifier;
         this.gold = gold;
         this.movePrice = movePrice;
         this.product = product;
@@ -36,8 +36,8 @@ public enum LandType {
         return movePrice;
     }
 
-    public int getBattleChange() {
-        return battleChange;
+    public int getCombatModifier() {
+        return combatModifier;
     }
 
     public int getGold() {

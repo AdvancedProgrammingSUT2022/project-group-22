@@ -17,21 +17,16 @@ public class Controller {
         return instance;
     }
 
-    public void run() {
+    public String run() {
         String input;
-        while (!database.getState().equals("exit")) {
-            input = processor.getInput();
-            if (database.getState().equals("register")) {
-                registerMenuController.run(input);
-            } else if (database.getState().equals("main")) {
-                mainMenuController.run(input);
-            } else if (database.getState().equals("game")) {
-                gameController.run(input);
-            } else if (database.getState().equals("profile")) {
-                profileMenuController.run(input);
-            }
+        input = registerMenuController.run();
+        while (true) {
+            if(input.equals("Exit")) break;
+
+            else{mainMenuController.run();}
+
         }
-        processor.closeScanner();
+        //processor.closeScanner();
     }
 
     protected Matcher getMatcher(String input, String regex) {
