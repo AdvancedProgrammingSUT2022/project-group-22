@@ -1,7 +1,8 @@
-package Controller;
+package controllers;
+
 import java.util.regex.*;
 
-public class ProfileMenuController extends Controller{
+public class ProfileMenuController extends Controller {
     public void changeNickname(Matcher matcher) {
     }
 

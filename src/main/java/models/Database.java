@@ -1,0 +1,81 @@
+package models;
+
+import java.util.*;
+import controllers.*;
+
+public class Database {
+    private static Database instance = new Database();
+    private ArrayList<User> users = new ArrayList<User>();
+    private String state = "register";
+
+    private GameController game;
+    private ArrayList<Player> players;
+    private Player currentPlayer;
+
+    public static Database getInstance() {
+        return instance;
+    }
+
+    public ArrayList<User> getUsers() {
+        return this.users;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
+    }
+
+    public String getState() {
+        return this.state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void createGame(ArrayList<Player> players) {
+        game = new GameController();
+        this.players = players;
+        currentPlayer = players.get(0);
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return this.players;
+    }
+
+    public void addPlayer(Player player) {
+        this.players.add(player);
+    }
+
+    public GameController getGame() {
+        return this.game;
+    }
+
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    public void nextTurn() {
+        currentPlayer = players.get(players.indexOf(currentPlayer) + 1);
+    }
+
+    public User getUserByUsername(String username) {
+        for (User user : this.users) {
+            if (user.getUsername() == username) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public User getUserByNickname(String nickname) {
+        for (User user : this.users) {
+            if (user.getNickname() == nickname) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public void sortPlayers() {
+    }
+}

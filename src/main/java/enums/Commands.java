@@ -1,4 +1,4 @@
-package Controller;
+package enums;
 
 public enum Commands {
     REGISTER,
