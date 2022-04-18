@@ -15,8 +15,7 @@ public class Processor {
         return scanner.nextLine();
     }
 
-    public void printMap(ArrayList<Tile> tiles) {
-    }
+
 
     public void printOutput(String output) {
         System.out.println(output);

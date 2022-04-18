@@ -15,6 +15,8 @@ public class Tile {
     private int combatModifier;
     private Resource resource;
     private CivilianUnit workerUnit;
+    private boolean[] hasRiver = new boolean[6];
+    private boolean[] hasRoad = new boolean[6];
     private ArrayList<Building> buildings = new ArrayList<Building>();
 
     public Tile(int x, int y, LandType landType, LandType landFeature, Resource resource) {
@@ -25,7 +27,7 @@ public class Tile {
         this.food = this.landFeature.getFood() + this.landType.getFood();
         this.gold = this.landType.getGold() + this.landFeature.getGold();
         this.production = this.landType.getProduct() + this.landFeature.getProduct();
-        this.movementCost = this.landType.getMovementCost() + this.landFeature.getMovementCost();
+        this.movementCost = this.landType.getMovePrice() + this.landFeature.getMovePrice();
         this.combatModifier = this.landFeature.getCombatModifier() + this.landType.getCombatModifier();
         this.resource = resource;
     }
@@ -85,4 +87,6 @@ public class Tile {
     public void addBuilding(Building building) {
         this.buildings.add(building);
     }
+
+
 }

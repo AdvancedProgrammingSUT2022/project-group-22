@@ -50,4 +50,5 @@ public enum LandType {
     public int getFood() {
         return food;
     }
+
 }

@@ -6,6 +6,7 @@ import controllers.*;
 public class Database {
     private static Database instance = new Database();
     private ArrayList<User> users = new ArrayList<User>();
+    private ArrayList<Tile> tiles = new ArrayList<>();
     private String state = "register";
 
     private GameController game;
@@ -77,5 +78,10 @@ public class Database {
     }
 
     public void sortPlayers() {
+    }
+
+    public void addTile(){
+        tiles.add(new Tile(GenerateMap.createCoordinate(),GenerateMap.createCoordinate(),GenerateMap.landType(),
+                GenerateMap.landFeature(),GenerateMap.resource()));
     }
 }

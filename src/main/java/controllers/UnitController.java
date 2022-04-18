@@ -28,6 +28,7 @@ public class UnitController extends Controller {
     }
 
     public void attack(Matcher matcher) {
+        // baray faz 1 serfan bayad matcher begirim ama badan bayad unit bgirim
     }
 
     public void foundCity() {
@@ -54,7 +55,8 @@ public class UnitController extends Controller {
     // public boolean canWin() {
     // }
 
-    // public String howCanItFight() {
-    // }
+     public String howCanItFight() {
+        return null;
+     }
 
 }

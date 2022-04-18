@@ -6,7 +6,19 @@ public enum Resource {
     COW(1, 0, 0, "PLAIN", "Pasture"),
     GAZELLE(1, 0, 0, "TOUNDRA,FOREST,HIILS", "CAMP"),
     SHEEP(1, 0, 0, "DASHT,GRASSLAND,DESERT,HILS", "PASTURE"),
-    WHEAT(1, 0, 0, "DASHT,PLAIN", "FARM");
+    WHEAT(1, 0, 0, "DASHT,PLAIN", "FARM"),
+    COTTON(0,0,2,"Grass Land, Plain, Desert", "Plantation"),
+    DYES(0,0,2,"Jungle, Forest", "Plantation"),
+    FURS(0,0,2,"Forest Tundra","Camp"),
+    GEMS(0,0,3,"Jungle,GrassLand,Plains,Desert,Tundra,Hills", "Mine"),
+    GOLD(0,0,2,"Desert,Plain","Plantation"),
+    IVORY(0,0,2,"Plains", "Camp"),
+    MARBLE(0,0,2,"GrassLand,Plains, Desert,Tundra,Hills","Quarry"),
+    PEARLS(0,0,2,"Coast","FishingBoat"),
+    SILK(0,0,2,"Forest","Plantation"),
+    SILVER(0,0,2,"Tundra,Desert,Hills","Mine"),
+    SPICES(0,0,2,"Jungle","Plantation"),
+    SUGAR(0,0,2,"FloodPlains, Marsh","Plantation");
 
     private final int food;
     private final int product;
