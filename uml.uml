@@ -3,199 +3,740 @@
   <ID>JAVA</ID>
   <OriginalElement>E:/java/Project/project/src/main/java</OriginalElement>
   <nodes>
-    <node x="201.0" y="0.0">Model.Resource</node>
-    <node x="108.34693877551018" y="360.0">Model.Tiles</node>
-    <node x="285.11734693877554" y="1360.0">Model.RegisterMenu</node>
-    <node x="0.0" y="0.0">Model.LandType</node>
-    <node x="437.4719387755102" y="516.5">Model.MilitaryUnit</node>
-    <node x="248.1173469387755" y="924.0">Model.Player</node>
-    <node x="289.61734693877554" y="794.0">Model.City</node>
-    <node x="1056.0" y="0.0">View.PrintMap</node>
-    <node x="861.0" y="0.0">Main.Main</node>
-    <node x="266.11734693877554" y="1464.0">Controller.RegisterMenuController</node>
-    <node x="399.0" y="112.0">Model.MilitaryType</node>
-    <node x="639.0" y="0.0">Model.Research</node>
+    <node x="2614.5753129890454" y="5881.0">views.MainMenuView</node>
+    <node x="1220.8368544600964" y="1410.0">enums.UnitType</node>
+    <node x="1004.0753129890454" y="4336.0">models.Tile</node>
+    <node x="2200.3333333333335" y="5330.0">views.Map</node>
+    <node x="582.5035211267632" y="1344.0">enums.Building</node>
+    <node x="1678.4618544600964" y="1608.0">models.MilitaryUnit</node>
+    <node x="1026.6493544600967" y="5881.0">views.ProfileMenuView</node>
+    <node x="675.4919796557122" y="0.0">enums.Technology</node>
+    <node x="1245.6493544600964" y="6110.0">controllers.ProfileMenuController</node>
+    <node x="367.8253129890454" y="5187.0">controllers.UnitController</node>
+    <node x="1494.2118544600964" y="2730.0">models.CivilianUnit</node>
+    <node x="842.2118544600964" y="2499.0">enums.LandType</node>
+    <node x="289.3019366197202" y="3645.0">controllers.GenerateMap</node>
+    <node x="2983.5753129890454" y="0.0">enums.Commands</node>
+    <node x="1115.0868544600964" y="2466.0">models.City</node>
+    <node x="132.67820813771777" y="4448.0">controllers.GameController</node>
+    <node x="10.5" y="5297.0">controllers.RegisterMenuController</node>
+    <node x="2783.5753129890454" y="5881.0">views.GameMenuView</node>
+    <node x="966.8368544600964" y="1498.0">enums.Resource</node>
+    <node x="556.8253129890454" y="5284.0">controllers.MainMenuController</node>
+    <node x="1869.7535211267632" y="3280.0">models.Player</node>
+    <node x="1593.7916666666667" y="451.0">models.Unit</node>
+    <node x="2472.3333333333335" y="5284.0">views.Processor</node>
+    <node x="1844.6352699530535" y="4512.0">models.User</node>
+    <node x="3412.5753129890454" y="0.0">views.RegisterMenuView</node>
+    <node x="773.8253129890454" y="5108.0">models.Database</node>
+    <node x="1204.6493544600967" y="5756.0">controllers.Controller</node>
+    <node x="3217.5753129890454" y="0.0">Main</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="Model.RegisterMenu" target="Model.Player" relationship="TO_MANY">
-      <point x="-42.25" y="-27.0" />
-      <point x="327.36734693877554" y="1335.0" />
-      <point x="308.86734693877554" y="1335.0" />
-      <point x="-60.75" y="193.0" />
+    <edge source="models.Player" target="models.MilitaryUnit" relationship="TO_ONE">
+      <point x="-68.0" y="-471.0" />
+      <point x="1937.7535211267632" y="3258.0" />
+      <point x="1407.2916666666667" y="3258.0" />
+      <point x="1407.2916666666667" y="3248.0" />
+      <point x="1762.7118544600964" y="3248.0" />
+      <point x="-84.25" y="240.0" />
     </edge>
-    <edge source="Model.Tiles" target="Model.Resource" relationship="TO_ONE">
-      <point x="-41.75" y="-171.0" />
-      <point x="150.09693877551018" y="340.0" />
-      <point x="87.47193877551018" y="340.0" />
-      <point x="87.47193877551018" y="330.0" />
-      <point x="245.5" y="330.0" />
-      <point x="-44.5" y="150.0" />
+    <edge source="models.Tile" target="models.Player" relationship="TO_ONE">
+      <point x="-70.0" y="-339.0" />
+      <point x="1074.0753129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4274.0" />
+      <point x="1065.2118544600964" y="4274.0" />
+      <point x="1065.2118544600964" y="4264.0" />
+      <point x="1937.7535211267632" y="4264.0" />
+      <point x="-68.0" y="471.0" />
     </edge>
-    <edge source="Model.Player" target="Model.City" relationship="DEPENDENCY">
-      <point x="-60.75" y="-193.0" />
-      <point x="308.86734693877554" y="903.0" />
-      <point x="213.75" y="903.0" />
-      <point x="213.75" y="893.0" />
-      <point x="329.61734693877554" y="893.0" />
-      <point x="-40.0" y="39.0" />
+    <edge source="controllers.MainMenuController" target="controllers.Controller" relationship="GENERALIZATION">
+      <point x="-65.33333333333337" y="97.0" />
+      <point x="589.491979655712" y="5705.0" />
+      <point x="156.40864632237867" y="5705.0" />
+      <point x="156.40864632237867" y="5735.0" />
+      <point x="1242.2743544600967" y="5735.0" />
+      <point x="-112.875" y="-152.0" />
     </edge>
-    <edge source="Controller.RegisterMenuController" target="Model.RegisterMenu" relationship="CREATE">
-      <point x="-51.75" y="-27.0" />
-      <point x="317.86734693877554" y="1439.0" />
-      <point x="327.36734693877554" y="1439.0" />
-      <point x="-42.25" y="27.0" />
+    <edge source="models.Player" target="models.CivilianUnit" relationship="TO_ONE">
+      <point x="-68.0" y="-471.0" />
+      <point x="1937.7535211267632" y="3258.0" />
+      <point x="1407.2916666666667" y="3258.0" />
+      <point x="1407.2916666666667" y="3228.0" />
+      <point x="1280.0753129890454" y="3228.0" />
+      <point x="1280.0753129890454" y="3218.0" />
+      <point x="1558.7118544600964" y="3218.0" />
+      <point x="-64.5" y="86.0" />
     </edge>
-    <edge source="Model.Tiles" target="Model.Player" relationship="TO_ONE">
-      <point x="41.75" y="171.0" />
-      <point x="233.59693877551018" y="733.0" />
-      <point x="399.86734693877554" y="733.0" />
-      <point x="399.86734693877554" y="743.0" />
-      <point x="460.11734693877554" y="743.0" />
-      <point x="460.11734693877554" y="893.0" />
-      <point x="528.7219387755101" y="893.0" />
-      <point x="528.7219387755101" y="903.0" />
-      <point x="430.36734693877554" y="903.0" />
-      <point x="60.75" y="-193.0" />
+    <edge source="models.Player" target="models.City" relationship="TO_MANY">
+      <point x="-68.0" y="-471.0" />
+      <point x="1937.7535211267632" y="3258.0" />
+      <point x="1407.2916666666667" y="3258.0" />
+      <point x="1407.2916666666667" y="3238.0" />
+      <point x="1175.3368544600964" y="3238.0" />
+      <point x="-60.25" y="350.0" />
     </edge>
-    <edge source="Model.City" target="Model.MilitaryUnit" relationship="DEPENDENCY">
-      <point x="-40.0" y="-39.0" />
-      <point x="329.61734693877554" y="773.0" />
-      <point x="364.61734693877554" y="773.0" />
-      <point x="364.61734693877554" y="743.0" />
-      <point x="339.36734693877554" y="743.0" />
-      <point x="339.36734693877554" y="723.0" />
-      <point x="467.9719387755102" y="723.0" />
-      <point x="-30.5" y="14.5" />
+    <edge source="models.Database" target="models.User" relationship="TO_MANY">
+      <point x="0.0" y="-273.0" />
+      <point x="894.8253129890454" y="5086.0" />
+      <point x="859.7419796557122" y="5086.0" />
+      <point x="859.7419796557122" y="5076.0" />
+      <point x="1890.6352699530535" y="5076.0" />
+      <point x="-46.0" y="163.0" />
     </edge>
-    <edge source="Model.City" target="Model.Tiles" relationship="DEPENDENCY">
-      <point x="-40.0" y="-39.0" />
-      <point x="329.61734693877554" y="773.0" />
-      <point x="364.61734693877554" y="773.0" />
-      <point x="364.61734693877554" y="753.0" />
-      <point x="101.34693877551018" y="753.0" />
-      <point x="101.34693877551018" y="743.0" />
-      <point x="150.09693877551018" y="743.0" />
-      <point x="-41.75" y="171.0" />
+    <edge source="enums.Building" target="enums.Technology" relationship="TO_ONE">
+      <point x="-55.5" y="-504.0" />
+      <point x="638.0035211267632" y="1323.0" />
+      <point x="727.7419796557122" y="1323.0" />
+      <point x="-52.25" y="636.0" />
     </edge>
-    <edge source="Model.MilitaryUnit" target="Model.MilitaryType" relationship="DEPENDENCY">
-      <point x="30.5" y="-14.5" />
-      <point x="528.9719387755101" y="340.0" />
-      <point x="545.25" y="340.0" />
-      <point x="48.75" y="38.0" />
+    <edge source="models.City" target="enums.Resource" relationship="TO_MANY">
+      <point x="60.25" y="-350.0" />
+      <point x="1295.8368544600964" y="2444.0" />
+      <point x="1240.5868544600964" y="2444.0" />
+      <point x="1240.5868544600964" y="2384.0" />
+      <point x="1160.8368544600964" y="2384.0" />
+      <point x="1160.8368544600964" y="2374.0" />
+      <point x="1142.3368544600964" y="2374.0" />
+      <point x="58.5" y="350.0" />
     </edge>
-    <edge source="Model.Player" target="Model.MilitaryUnit" relationship="TO_MANY">
-      <point x="60.75" y="-193.0" />
-      <point x="430.36734693877554" y="903.0" />
-      <point x="528.7219387755101" y="903.0" />
-      <point x="528.7219387755101" y="893.0" />
-      <point x="565.4923469387755" y="893.0" />
-      <point x="565.4923469387755" y="753.0" />
-      <point x="528.9719387755101" y="753.0" />
-      <point x="30.5" y="14.5" />
+    <edge source="models.Database" target="models.User" relationship="DEPENDENCY">
+      <point x="80.66666666666652" y="-273.0" />
+      <point x="975.4919796557119" y="5086.0" />
+      <point x="2010.8852699530535" y="5086.0" />
+      <point x="2010.8852699530535" y="5056.0" />
+      <point x="1982.6352699530535" y="5056.0" />
+      <point x="46.0" y="163.0" />
     </edge>
-    <edge source="Model.Tiles" target="Model.LandType" relationship="DEPENDENCY">
-      <point x="41.75" y="-171.0" />
-      <point x="233.59693877551018" y="340.0" />
-      <point x="296.9719387755102" y="340.0" />
-      <point x="296.9719387755102" y="320.0" />
-      <point x="135.75" y="320.0" />
-      <point x="45.25" y="150.0" />
+    <edge source="controllers.Controller" target="controllers.MainMenuController" relationship="TO_ONE">
+      <point x="37.625" y="-152.0" />
+      <point x="1392.7743544600967" y="5715.0" />
+      <point x="560.0868544600966" y="5715.0" />
+      <point x="560.0868544600966" y="5685.0" />
+      <point x="720.1586463223787" y="5685.0" />
+      <point x="65.33333333333326" y="97.0" />
     </edge>
-    <edge source="Model.RegisterMenu" target="Model.Player" relationship="DEPENDENCY">
-      <point x="42.25" y="-27.0" />
-      <point x="411.86734693877554" y="1335.0" />
-      <point x="430.36734693877554" y="1335.0" />
-      <point x="60.75" y="193.0" />
+    <edge source="models.Player" target="models.City" relationship="DEPENDENCY">
+      <point x="68.0" y="-471.0" />
+      <point x="2073.753521126763" y="3248.0" />
+      <point x="1830.8253129890454" y="3248.0" />
+      <point x="1830.8253129890454" y="3208.0" />
+      <point x="1295.8368544600964" y="3208.0" />
+      <point x="60.25" y="350.0" />
     </edge>
-    <edge source="Model.MilitaryUnit" target="Model.MilitaryType" relationship="TO_ONE">
-      <point x="-30.5" y="-14.5" />
-      <point x="467.9719387755102" y="340.0" />
-      <point x="447.75" y="340.0" />
-      <point x="-48.75" y="38.0" />
+    <edge source="models.City" target="enums.UnitType" relationship="DEPENDENCY">
+      <point x="-60.25" y="-350.0" />
+      <point x="1175.3368544600964" y="2444.0" />
+      <point x="1230.5868544600964" y="2444.0" />
+      <point x="1230.5868544600964" y="2414.0" />
+      <point x="1328.8368544600964" y="2414.0" />
+      <point x="0.0" y="438.0" />
     </edge>
-    <edge source="Controller.RegisterMenuController" target="Model.RegisterMenu" relationship="TO_ONE">
-      <point x="51.75" y="-27.0" />
-      <point x="421.36734693877554" y="1439.0" />
-      <point x="411.86734693877554" y="1439.0" />
-      <point x="42.25" y="27.0" />
+    <edge source="models.Database" target="models.Player" relationship="TO_ONE">
+      <point x="0.0" y="-273.0" />
+      <point x="894.8253129890454" y="5086.0" />
+      <point x="859.7419796557122" y="5086.0" />
+      <point x="859.7419796557122" y="4284.0" />
+      <point x="1065.2118544600964" y="4284.0" />
+      <point x="1065.2118544600964" y="4264.0" />
+      <point x="1937.7535211267632" y="4264.0" />
+      <point x="-68.0" y="471.0" />
     </edge>
-    <edge source="Model.City" target="Model.Tiles" relationship="TO_MANY">
-      <point x="40.0" y="-39.0" />
-      <point x="409.61734693877554" y="773.0" />
-      <point x="374.61734693877554" y="773.0" />
-      <point x="374.61734693877554" y="753.0" />
-      <point x="399.86734693877554" y="753.0" />
-      <point x="399.86734693877554" y="733.0" />
-      <point x="233.59693877551018" y="733.0" />
-      <point x="41.75" y="171.0" />
+    <edge source="controllers.Controller" target="controllers.UnitController" relationship="CREATE">
+      <point x="-37.625" y="-152.0" />
+      <point x="1317.5243544600967" y="5725.0" />
+      <point x="301.5753129890454" y="5725.0" />
+      <point x="301.5753129890454" y="5695.0" />
+      <point x="452.3253129890454" y="5695.0" />
+      <point x="0.0" y="194.0" />
     </edge>
-    <edge source="Model.Tiles" target="Model.LandType" relationship="TO_ONE">
-      <point x="-41.75" y="-171.0" />
-      <point x="150.09693877551018" y="340.0" />
-      <point x="87.47193877551018" y="340.0" />
-      <point x="87.47193877551018" y="330.0" />
-      <point x="45.25" y="330.0" />
-      <point x="-45.25" y="150.0" />
+    <edge source="controllers.Controller" target="models.Database" relationship="DEPENDENCY">
+      <point x="112.875" y="-152.0" />
+      <point x="1468.0243544600967" y="5735.0" />
+      <point x="2347.5519366197204" y="5735.0" />
+      <point x="2347.5519366197204" y="5675.0" />
+      <point x="955.3253129890454" y="5675.0" />
+      <point x="60.5" y="273.0" />
     </edge>
-    <edge source="Model.Tiles" target="Model.Resource" relationship="DEPENDENCY">
-      <point x="41.75" y="-171.0" />
-      <point x="233.59693877551018" y="340.0" />
-      <point x="296.9719387755102" y="340.0" />
-      <point x="296.9719387755102" y="320.0" />
-      <point x="334.5" y="320.0" />
-      <point x="44.5" y="150.0" />
+    <edge source="models.Tile" target="enums.LandType" relationship="DEPENDENCY">
+      <point x="70.0" y="-339.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1692.0102699530535" y="4254.0" />
+      <point x="1075.7118544600964" y="4254.0" />
+      <point x="1075.7118544600964" y="3238.0" />
+      <point x="948.2118544600964" y="3238.0" />
+      <point x="948.2118544600964" y="3228.0" />
+      <point x="993.7118544600964" y="3228.0" />
+      <point x="50.5" y="317.0" />
     </edge>
-    <edge source="Model.Tiles" target="Model.Player" relationship="DEPENDENCY">
-      <point x="-41.75" y="171.0" />
-      <point x="150.09693877551018" y="743.0" />
-      <point x="101.34693877551018" y="743.0" />
-      <point x="101.34693877551018" y="893.0" />
-      <point x="213.75" y="893.0" />
-      <point x="213.75" y="903.0" />
-      <point x="308.86734693877554" y="903.0" />
-      <point x="-60.75" y="-193.0" />
+    <edge source="models.CivilianUnit" target="models.Unit" relationship="GENERALIZATION">
+      <point x="0.0" y="-86.0" />
+      <point x="1623.2118544600964" y="1323.0" />
+      <point x="1694.7916666666667" y="1323.0" />
+      <point x="0.0" y="185.0" />
     </edge>
-    <edge source="Model.City" target="Model.MilitaryUnit" relationship="TO_MANY">
-      <point x="40.0" y="-39.0" />
-      <point x="409.61734693877554" y="773.0" />
-      <point x="374.61734693877554" y="773.0" />
-      <point x="374.61734693877554" y="763.0" />
-      <point x="565.4923469387755" y="763.0" />
-      <point x="565.4923469387755" y="753.0" />
-      <point x="528.9719387755101" y="753.0" />
-      <point x="30.5" y="14.5" />
+    <edge source="controllers.RegisterMenuController" target="controllers.Controller" relationship="GENERALIZATION">
+      <point x="-67.33333333333348" y="84.0" />
+      <point x="44.166666666666515" y="5705.0" />
+      <point x="156.40864632237867" y="5705.0" />
+      <point x="156.40864632237867" y="5735.0" />
+      <point x="1242.2743544600967" y="5735.0" />
+      <point x="-112.875" y="-152.0" />
     </edge>
-    <edge source="Model.Player" target="Model.City" relationship="TO_MANY">
-      <point x="60.75" y="-193.0" />
-      <point x="430.36734693877554" y="903.0" />
-      <point x="528.7219387755101" y="903.0" />
-      <point x="528.7219387755101" y="893.0" />
-      <point x="409.61734693877554" y="893.0" />
-      <point x="40.0" y="39.0" />
+    <edge source="models.Database" target="models.Tile" relationship="CREATE">
+      <point x="-80.66666666666652" y="-273.0" />
+      <point x="814.1586463223789" y="5086.0" />
+      <point x="793.9919796557122" y="5086.0" />
+      <point x="793.9919796557122" y="5066.0" />
+      <point x="1050.7419796557122" y="5066.0" />
+      <point x="-93.33333333333326" y="339.0" />
     </edge>
-    <edge source="Model.Player" target="Model.MilitaryUnit" relationship="DEPENDENCY">
-      <point x="-60.75" y="-193.0" />
-      <point x="308.86734693877554" y="903.0" />
-      <point x="213.75" y="903.0" />
-      <point x="213.75" y="893.0" />
-      <point x="279.11734693877554" y="893.0" />
-      <point x="279.11734693877554" y="763.0" />
-      <point x="339.36734693877554" y="763.0" />
-      <point x="339.36734693877554" y="723.0" />
-      <point x="467.9719387755102" y="723.0" />
-      <point x="-30.5" y="14.5" />
+    <edge source="models.Tile" target="models.CivilianUnit" relationship="TO_ONE">
+      <point x="-70.0" y="-339.0" />
+      <point x="1074.0753129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4264.0" />
+      <point x="1054.7118544600964" y="4264.0" />
+      <point x="1054.7118544600964" y="3258.0" />
+      <point x="1280.0753129890454" y="3258.0" />
+      <point x="1280.0753129890454" y="3218.0" />
+      <point x="1558.7118544600964" y="3218.0" />
+      <point x="-64.5" y="86.0" />
+    </edge>
+    <edge source="controllers.Controller" target="views.Processor" relationship="DEPENDENCY">
+      <point x="112.875" y="-152.0" />
+      <point x="1468.0243544600967" y="5735.0" />
+      <point x="2347.5519366197204" y="5735.0" />
+      <point x="2347.5519366197204" y="5675.0" />
+      <point x="2560.8333333333335" y="5675.0" />
+      <point x="0.0" y="97.0" />
+    </edge>
+    <edge source="controllers.Controller" target="controllers.ProfileMenuController" relationship="CREATE">
+      <point x="0.0" y="152.0" />
+      <point x="0.0" y="-84.0" />
+    </edge>
+    <edge source="controllers.GenerateMap" target="enums.LandType" relationship="DEPENDENCY">
+      <point x="0.0" y="-106.0" />
+      <point x="382.8019366197202" y="3258.0" />
+      <point x="948.2118544600964" y="3258.0" />
+      <point x="948.2118544600964" y="3228.0" />
+      <point x="993.7118544600964" y="3228.0" />
+      <point x="50.5" y="317.0" />
+    </edge>
+    <edge source="models.Tile" target="enums.Building" relationship="DEPENDENCY">
+      <point x="70.0" y="-339.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1692.0102699530535" y="4254.0" />
+      <point x="1075.7118544600964" y="4254.0" />
+      <point x="1075.7118544600964" y="2444.0" />
+      <point x="975.1782081377178" y="2444.0" />
+      <point x="975.1782081377178" y="2394.0" />
+      <point x="749.0035211267632" y="2394.0" />
+      <point x="55.5" y="504.0" />
+    </edge>
+    <edge source="models.Database" target="models.Tile" relationship="TO_MANY">
+      <point x="0.0" y="-273.0" />
+      <point x="894.8253129890454" y="5086.0" />
+      <point x="859.7419796557122" y="5086.0" />
+      <point x="859.7419796557122" y="5076.0" />
+      <point x="1144.0753129890454" y="5076.0" />
+      <point x="0.0" y="339.0" />
+    </edge>
+    <edge source="models.Database" target="controllers.GameController" relationship="CREATE">
+      <point x="-80.66666666666652" y="-273.0" />
+      <point x="814.1586463223789" y="5086.0" />
+      <point x="793.9919796557122" y="5086.0" />
+      <point x="793.9919796557122" y="5056.0" />
+      <point x="223.0" y="5056.0" />
+      <point x="223.0" y="5046.0" />
+      <point x="254.17820813771777" y="5046.0" />
+      <point x="0.0" y="227.0" />
+    </edge>
+    <edge source="models.User" target="models.Player" relationship="TO_ONE">
+      <point x="-46.0" y="-163.0" />
+      <point x="1890.6352699530535" y="4284.0" />
+      <point x="1065.2118544600964" y="4284.0" />
+      <point x="1065.2118544600964" y="4264.0" />
+      <point x="1937.7535211267632" y="4264.0" />
+      <point x="-68.0" y="471.0" />
+    </edge>
+    <edge source="models.City" target="models.MilitaryUnit" relationship="DEPENDENCY">
+      <point x="-60.25" y="-350.0" />
+      <point x="1175.3368544600964" y="2444.0" />
+      <point x="1230.5868544600964" y="2444.0" />
+      <point x="1230.5868544600964" y="2434.0" />
+      <point x="2094.0753129890454" y="2434.0" />
+      <point x="2094.0753129890454" y="2424.0" />
+      <point x="1931.2118544600964" y="2424.0" />
+      <point x="84.25" y="240.0" />
+    </edge>
+    <edge source="enums.Building" target="enums.Technology" relationship="DEPENDENCY">
+      <point x="55.5" y="-504.0" />
+      <point x="749.0035211267632" y="1303.0" />
+      <point x="737.7419796557122" y="1303.0" />
+      <point x="737.7419796557122" y="1293.0" />
+      <point x="832.2419796557122" y="1293.0" />
+      <point x="52.25" y="636.0" />
+    </edge>
+    <edge source="models.City" target="models.Tile" relationship="DEPENDENCY">
+      <point x="60.25" y="350.0" />
+      <point x="1295.8368544600964" y="3208.0" />
+      <point x="1830.8253129890454" y="3208.0" />
+      <point x="1830.8253129890454" y="4254.0" />
+      <point x="1692.0102699530535" y="4254.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="70.0" y="-339.0" />
+    </edge>
+    <edge source="views.Map" target="models.Tile" relationship="DEPENDENCY">
+      <point x="0.0" y="-51.0" />
+      <point x="2326.3333333333335" y="5066.0" />
+      <point x="1237.4086463223787" y="5066.0" />
+      <point x="93.33333333333326" y="339.0" />
+    </edge>
+    <edge source="models.Database" target="controllers.GenerateMap" relationship="DEPENDENCY">
+      <point x="80.66666666666652" y="-273.0" />
+      <point x="975.4919796557119" y="5086.0" />
+      <point x="2010.8852699530535" y="5086.0" />
+      <point x="2010.8852699530535" y="5056.0" />
+      <point x="1294.5753129890454" y="5056.0" />
+      <point x="1294.5753129890454" y="4304.0" />
+      <point x="382.8019366197202" y="4304.0" />
+      <point x="0.0" y="106.0" />
+    </edge>
+    <edge source="models.City" target="enums.Resource" relationship="DEPENDENCY">
+      <point x="-60.25" y="-350.0" />
+      <point x="1175.3368544600964" y="2444.0" />
+      <point x="1230.5868544600964" y="2444.0" />
+      <point x="1230.5868544600964" y="2394.0" />
+      <point x="1078.8368544600964" y="2394.0" />
+      <point x="1078.8368544600964" y="2384.0" />
+      <point x="1025.3368544600964" y="2384.0" />
+      <point x="-58.5" y="350.0" />
+    </edge>
+    <edge source="views.Map" target="models.Player" relationship="DEPENDENCY">
+      <point x="0.0" y="-51.0" />
+      <point x="2326.3333333333335" y="4314.0" />
+      <point x="2227.916666666667" y="4314.0" />
+      <point x="2227.916666666667" y="4244.0" />
+      <point x="2073.753521126763" y="4244.0" />
+      <point x="68.0" y="471.0" />
+    </edge>
+    <edge source="controllers.GenerateMap" target="enums.Resource" relationship="DEPENDENCY">
+      <point x="0.0" y="-106.0" />
+      <point x="382.8019366197202" y="2424.0" />
+      <point x="1078.8368544600964" y="2424.0" />
+      <point x="1078.8368544600964" y="2384.0" />
+      <point x="1025.3368544600964" y="2384.0" />
+      <point x="-58.5" y="350.0" />
+    </edge>
+    <edge source="models.Tile" target="enums.Resource" relationship="TO_ONE">
+      <point x="-70.0" y="-339.0" />
+      <point x="1074.0753129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4264.0" />
+      <point x="1054.7118544600964" y="4264.0" />
+      <point x="1054.7118544600964" y="2434.0" />
+      <point x="1160.8368544600964" y="2434.0" />
+      <point x="1160.8368544600964" y="2374.0" />
+      <point x="1142.3368544600964" y="2374.0" />
+      <point x="58.5" y="350.0" />
+    </edge>
+    <edge source="models.Database" target="controllers.GameController" relationship="TO_ONE">
+      <point x="0.0" y="-273.0" />
+      <point x="894.8253129890454" y="5086.0" />
+      <point x="859.7419796557122" y="5086.0" />
+      <point x="859.7419796557122" y="5046.0" />
+      <point x="763.3253129890454" y="5046.0" />
+      <point x="763.3253129890454" y="5036.0" />
+      <point x="335.1782081377178" y="5036.0" />
+      <point x="81.0" y="227.0" />
+    </edge>
+    <edge source="models.Player" target="models.CivilianUnit" relationship="TO_MANY">
+      <point x="-68.0" y="-471.0" />
+      <point x="1937.7535211267632" y="3258.0" />
+      <point x="1407.2916666666667" y="3258.0" />
+      <point x="1407.2916666666667" y="3228.0" />
+      <point x="1280.0753129890454" y="3228.0" />
+      <point x="1280.0753129890454" y="3218.0" />
+      <point x="1558.7118544600964" y="3218.0" />
+      <point x="-64.5" y="86.0" />
+    </edge>
+    <edge source="models.Player" target="enums.Technology" relationship="DEPENDENCY">
+      <point x="68.0" y="-471.0" />
+      <point x="2073.753521126763" y="3188.0" />
+      <point x="2025.9618544600964" y="3188.0" />
+      <point x="2025.9618544600964" y="1303.0" />
+      <point x="737.7419796557122" y="1303.0" />
+      <point x="737.7419796557122" y="1293.0" />
+      <point x="832.2419796557122" y="1293.0" />
+      <point x="52.25" y="636.0" />
+    </edge>
+    <edge source="models.Database" target="models.Player" relationship="TO_MANY">
+      <point x="0.0" y="-273.0" />
+      <point x="894.8253129890454" y="5086.0" />
+      <point x="859.7419796557122" y="5086.0" />
+      <point x="859.7419796557122" y="4284.0" />
+      <point x="1065.2118544600964" y="4284.0" />
+      <point x="1065.2118544600964" y="4264.0" />
+      <point x="1937.7535211267632" y="4264.0" />
+      <point x="-68.0" y="471.0" />
+    </edge>
+    <edge source="models.Player" target="models.City" relationship="TO_ONE">
+      <point x="-68.0" y="-471.0" />
+      <point x="1937.7535211267632" y="3258.0" />
+      <point x="1407.2916666666667" y="3258.0" />
+      <point x="1407.2916666666667" y="3238.0" />
+      <point x="1175.3368544600964" y="3238.0" />
+      <point x="-60.25" y="350.0" />
+    </edge>
+    <edge source="models.Player" target="models.Tile" relationship="TO_MANY">
+      <point x="-68.0" y="471.0" />
+      <point x="1937.7535211267632" y="4264.0" />
+      <point x="1065.2118544600964" y="4264.0" />
+      <point x="1065.2118544600964" y="4274.0" />
+      <point x="944.4503129890454" y="4274.0" />
+      <point x="944.4503129890454" y="4314.0" />
+      <point x="1074.0753129890454" y="4314.0" />
+      <point x="-70.0" y="-339.0" />
+    </edge>
+    <edge source="views.GameMenuView" target="views.Processor" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="2861.0753129890454" y="5705.0" />
+      <point x="2692.5349178403762" y="5705.0" />
+      <point x="2692.5349178403762" y="5695.0" />
+      <point x="2619.8333333333335" y="5695.0" />
+      <point x="59.0" y="97.0" />
+    </edge>
+    <edge source="controllers.Controller" target="models.Database" relationship="TO_ONE">
+      <point x="37.625" y="-152.0" />
+      <point x="1392.7743544600967" y="5715.0" />
+      <point x="560.0868544600966" y="5715.0" />
+      <point x="560.0868544600966" y="5685.0" />
+      <point x="834.3253129890454" y="5685.0" />
+      <point x="-60.5" y="273.0" />
+    </edge>
+    <edge source="models.Tile" target="enums.LandType" relationship="TO_ONE">
+      <point x="-70.0" y="-339.0" />
+      <point x="1074.0753129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4264.0" />
+      <point x="938.2118544600964" y="4264.0" />
+      <point x="938.2118544600964" y="3248.0" />
+      <point x="892.7118544600964" y="3248.0" />
+      <point x="-50.5" y="317.0" />
+    </edge>
+    <edge source="controllers.ProfileMenuController" target="controllers.Controller" relationship="GENERALIZATION">
+      <point x="-73.0" y="-84.0" />
+      <point x="1282.1493544600964" y="6085.0" />
+      <point x="1254.8160211267634" y="6085.0" />
+      <point x="-100.33333333333331" y="152.0" />
+    </edge>
+    <edge source="models.Player" target="models.MilitaryUnit" relationship="TO_MANY">
+      <point x="-68.0" y="-471.0" />
+      <point x="1937.7535211267632" y="3258.0" />
+      <point x="1407.2916666666667" y="3258.0" />
+      <point x="1407.2916666666667" y="3248.0" />
+      <point x="1762.7118544600964" y="3248.0" />
+      <point x="-84.25" y="240.0" />
+    </edge>
+    <edge source="models.Player" target="models.CivilianUnit" relationship="DEPENDENCY">
+      <point x="68.0" y="-471.0" />
+      <point x="2073.753521126763" y="3258.0" />
+      <point x="2152.253521126763" y="3258.0" />
+      <point x="2152.253521126763" y="3198.0" />
+      <point x="1687.7118544600964" y="3198.0" />
+      <point x="64.5" y="86.0" />
+    </edge>
+    <edge source="models.Player" target="enums.Technology" relationship="TO_MANY">
+      <point x="-68.0" y="-471.0" />
+      <point x="1937.7535211267632" y="3258.0" />
+      <point x="1407.2916666666667" y="3258.0" />
+      <point x="1407.2916666666667" y="3248.0" />
+      <point x="1483.7118544600964" y="3248.0" />
+      <point x="1483.7118544600964" y="1323.0" />
+      <point x="727.7419796557122" y="1323.0" />
+      <point x="-52.25" y="636.0" />
+    </edge>
+    <edge source="controllers.Controller" target="controllers.ProfileMenuController" relationship="TO_ONE">
+      <point x="100.33333333333326" y="152.0" />
+      <point x="1455.48268779343" y="6085.0" />
+      <point x="1428.1493544600964" y="6085.0" />
+      <point x="73.0" y="-84.0" />
+    </edge>
+    <edge source="controllers.Controller" target="views.Processor" relationship="TO_ONE">
+      <point x="37.625" y="-152.0" />
+      <point x="1392.7743544600967" y="5715.0" />
+      <point x="560.0868544600966" y="5715.0" />
+      <point x="560.0868544600966" y="5685.0" />
+      <point x="2501.8333333333335" y="5685.0" />
+      <point x="-59.0" y="97.0" />
+    </edge>
+    <edge source="models.Database" target="models.Player" relationship="DEPENDENCY">
+      <point x="80.66666666666652" y="-273.0" />
+      <point x="975.4919796557119" y="5086.0" />
+      <point x="2010.8852699530535" y="5086.0" />
+      <point x="2010.8852699530535" y="5056.0" />
+      <point x="2227.916666666667" y="5056.0" />
+      <point x="2227.916666666667" y="4244.0" />
+      <point x="2073.753521126763" y="4244.0" />
+      <point x="68.0" y="471.0" />
+    </edge>
+    <edge source="models.Unit" target="models.Tile" relationship="DEPENDENCY">
+      <point x="67.33333333333326" y="185.0" />
+      <point x="1762.125" y="1293.0" />
+      <point x="2172.5753129890454" y="1293.0" />
+      <point x="2172.5753129890454" y="4254.0" />
+      <point x="1692.0102699530535" y="4254.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="70.0" y="-339.0" />
+    </edge>
+    <edge source="controllers.Controller" target="controllers.MainMenuController" relationship="CREATE">
+      <point x="-37.625" y="-152.0" />
+      <point x="1317.5243544600967" y="5725.0" />
+      <point x="301.5753129890454" y="5725.0" />
+      <point x="301.5753129890454" y="5695.0" />
+      <point x="654.8253129890454" y="5695.0" />
+      <point x="0.0" y="97.0" />
+    </edge>
+    <edge source="controllers.Controller" target="controllers.GameController" relationship="CREATE">
+      <point x="-37.625" y="-152.0" />
+      <point x="1317.5243544600967" y="5725.0" />
+      <point x="301.5753129890454" y="5725.0" />
+      <point x="301.5753129890454" y="5695.0" />
+      <point x="223.0" y="5695.0" />
+      <point x="223.0" y="5046.0" />
+      <point x="254.17820813771777" y="5046.0" />
+      <point x="0.0" y="227.0" />
+    </edge>
+    <edge source="models.City" target="models.MilitaryUnit" relationship="TO_ONE">
+      <point x="60.25" y="-350.0" />
+      <point x="1295.8368544600964" y="2444.0" />
+      <point x="1240.5868544600964" y="2444.0" />
+      <point x="1240.5868544600964" y="2424.0" />
+      <point x="1762.7118544600964" y="2424.0" />
+      <point x="-84.25" y="240.0" />
+    </edge>
+    <edge source="models.User" target="models.Player" relationship="DEPENDENCY">
+      <point x="46.0" y="-163.0" />
+      <point x="1982.6352699530535" y="4314.0" />
+      <point x="2227.916666666667" y="4314.0" />
+      <point x="2227.916666666667" y="4244.0" />
+      <point x="2073.753521126763" y="4244.0" />
+      <point x="68.0" y="471.0" />
+    </edge>
+    <edge source="models.City" target="models.Tile" relationship="TO_MANY">
+      <point x="-60.25" y="350.0" />
+      <point x="1175.3368544600964" y="3248.0" />
+      <point x="1054.7118544600964" y="3248.0" />
+      <point x="1054.7118544600964" y="4264.0" />
+      <point x="944.4503129890454" y="4264.0" />
+      <point x="944.4503129890454" y="4314.0" />
+      <point x="1074.0753129890454" y="4314.0" />
+      <point x="-70.0" y="-339.0" />
+    </edge>
+    <edge source="views.MainMenuView" target="views.Processor" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="2689.0753129890454" y="5705.0" />
+      <point x="2692.5349178403762" y="5705.0" />
+      <point x="2692.5349178403762" y="5695.0" />
+      <point x="2619.8333333333335" y="5695.0" />
+      <point x="59.0" y="97.0" />
+    </edge>
+    <edge source="models.Tile" target="enums.Building" relationship="TO_MANY">
+      <point x="-70.0" y="-339.0" />
+      <point x="1074.0753129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4314.0" />
+      <point x="944.4503129890454" y="4264.0" />
+      <point x="638.0035211267632" y="4264.0" />
+      <point x="-55.5" y="504.0" />
+    </edge>
+    <edge source="controllers.Controller" target="controllers.GameController" relationship="TO_ONE">
+      <point x="37.625" y="-152.0" />
+      <point x="1392.7743544600967" y="5715.0" />
+      <point x="560.0868544600966" y="5715.0" />
+      <point x="560.0868544600966" y="5685.0" />
+      <point x="763.3253129890454" y="5685.0" />
+      <point x="763.3253129890454" y="5036.0" />
+      <point x="335.1782081377178" y="5036.0" />
+      <point x="81.0" y="227.0" />
+    </edge>
+    <edge source="views.ProfileMenuView" target="views.Processor" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="1105.6493544600967" y="5705.0" />
+      <point x="2692.5349178403762" y="5705.0" />
+      <point x="2692.5349178403762" y="5695.0" />
+      <point x="2619.8333333333335" y="5695.0" />
+      <point x="59.0" y="97.0" />
+    </edge>
+    <edge source="controllers.UnitController" target="controllers.Controller" relationship="GENERALIZATION">
+      <point x="-56.33333333333337" y="194.0" />
+      <point x="395.99197965571204" y="5705.0" />
+      <point x="156.40864632237867" y="5705.0" />
+      <point x="156.40864632237867" y="5735.0" />
+      <point x="1242.2743544600967" y="5735.0" />
+      <point x="-112.875" y="-152.0" />
+    </edge>
+    <edge source="controllers.Controller" target="controllers.RegisterMenuController" relationship="TO_ONE">
+      <point x="37.625" y="-152.0" />
+      <point x="1392.7743544600967" y="5715.0" />
+      <point x="560.0868544600966" y="5715.0" />
+      <point x="560.0868544600966" y="5685.0" />
+      <point x="178.83333333333326" y="5685.0" />
+      <point x="67.33333333333326" y="84.0" />
+    </edge>
+    <edge source="controllers.GenerateMap" target="enums.Building" relationship="DEPENDENCY">
+      <point x="0.0" y="-106.0" />
+      <point x="382.8019366197202" y="2444.0" />
+      <point x="975.1782081377178" y="2444.0" />
+      <point x="975.1782081377178" y="2394.0" />
+      <point x="749.0035211267632" y="2394.0" />
+      <point x="55.5" y="504.0" />
+    </edge>
+    <edge source="models.Tile" target="models.CivilianUnit" relationship="DEPENDENCY">
+      <point x="70.0" y="-339.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1692.0102699530535" y="4254.0" />
+      <point x="2152.253521126763" y="4254.0" />
+      <point x="2152.253521126763" y="3198.0" />
+      <point x="1687.7118544600964" y="3198.0" />
+      <point x="64.5" y="86.0" />
+    </edge>
+    <edge source="models.CivilianUnit" target="models.Tile" relationship="DEPENDENCY">
+      <point x="64.5" y="86.0" />
+      <point x="1687.7118544600964" y="3198.0" />
+      <point x="2152.253521126763" y="3198.0" />
+      <point x="2152.253521126763" y="4254.0" />
+      <point x="1692.0102699530535" y="4254.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="70.0" y="-339.0" />
+    </edge>
+    <edge source="controllers.GameController" target="controllers.GenerateMap" relationship="DEPENDENCY">
+      <point x="0.0" y="-227.0" />
+      <point x="254.17820813771777" y="4304.0" />
+      <point x="382.8019366197202" y="4304.0" />
+      <point x="0.0" y="106.0" />
+    </edge>
+    <edge source="models.City" target="enums.Building" relationship="DEPENDENCY">
+      <point x="-60.25" y="-350.0" />
+      <point x="1175.3368544600964" y="2444.0" />
+      <point x="1230.5868544600964" y="2444.0" />
+      <point x="1230.5868544600964" y="2404.0" />
+      <point x="975.1782081377178" y="2404.0" />
+      <point x="975.1782081377178" y="2394.0" />
+      <point x="749.0035211267632" y="2394.0" />
+      <point x="55.5" y="504.0" />
+    </edge>
+    <edge source="models.Unit" target="models.Tile" relationship="TO_ONE">
+      <point x="-67.33333333333326" y="185.0" />
+      <point x="1627.4583333333335" y="1313.0" />
+      <point x="831.7118544600964" y="1313.0" />
+      <point x="831.7118544600964" y="4264.0" />
+      <point x="944.4503129890454" y="4264.0" />
+      <point x="944.4503129890454" y="4314.0" />
+      <point x="1074.0753129890454" y="4314.0" />
+      <point x="-70.0" y="-339.0" />
+    </edge>
+    <edge source="controllers.Controller" target="controllers.UnitController" relationship="TO_ONE">
+      <point x="37.625" y="-152.0" />
+      <point x="1392.7743544600967" y="5715.0" />
+      <point x="560.0868544600966" y="5715.0" />
+      <point x="560.0868544600966" y="5685.0" />
+      <point x="508.6586463223788" y="5685.0" />
+      <point x="56.33333333333337" y="194.0" />
+    </edge>
+    <edge source="controllers.GameController" target="controllers.Controller" relationship="GENERALIZATION">
+      <point x="-81.0" y="227.0" />
+      <point x="173.17820813771777" y="5086.0" />
+      <point x="0.0" y="5086.0" />
+      <point x="0.0" y="5705.0" />
+      <point x="156.40864632237867" y="5705.0" />
+      <point x="156.40864632237867" y="5735.0" />
+      <point x="1242.2743544600967" y="5735.0" />
+      <point x="-112.875" y="-152.0" />
+    </edge>
+    <edge source="controllers.Controller" target="controllers.RegisterMenuController" relationship="CREATE">
+      <point x="-37.625" y="-152.0" />
+      <point x="1317.5243544600967" y="5725.0" />
+      <point x="301.5753129890454" y="5725.0" />
+      <point x="301.5753129890454" y="5695.0" />
+      <point x="111.5" y="5695.0" />
+      <point x="0.0" y="84.0" />
+    </edge>
+    <edge source="models.Tile" target="enums.Resource" relationship="DEPENDENCY">
+      <point x="70.0" y="-339.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1692.0102699530535" y="4254.0" />
+      <point x="1075.7118544600964" y="4254.0" />
+      <point x="1075.7118544600964" y="2424.0" />
+      <point x="1078.8368544600964" y="2424.0" />
+      <point x="1078.8368544600964" y="2384.0" />
+      <point x="1025.3368544600964" y="2384.0" />
+      <point x="-58.5" y="350.0" />
+    </edge>
+    <edge source="models.MilitaryUnit" target="models.Tile" relationship="DEPENDENCY">
+      <point x="84.25" y="240.0" />
+      <point x="1931.2118544600964" y="2424.0" />
+      <point x="2094.0753129890454" y="2424.0" />
+      <point x="2094.0753129890454" y="2444.0" />
+      <point x="2172.5753129890454" y="2444.0" />
+      <point x="2172.5753129890454" y="4254.0" />
+      <point x="1692.0102699530535" y="4254.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="70.0" y="-339.0" />
+    </edge>
+    <edge source="models.MilitaryUnit" target="models.Unit" relationship="GENERALIZATION">
+      <point x="0.0" y="-240.0" />
+      <point x="1846.9618544600964" y="1323.0" />
+      <point x="1694.7916666666667" y="1323.0" />
+      <point x="0.0" y="185.0" />
+    </edge>
+    <edge source="models.Tile" target="models.Player" relationship="DEPENDENCY">
+      <point x="70.0" y="-339.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1692.0102699530535" y="4274.0" />
+      <point x="2227.916666666667" y="4274.0" />
+      <point x="2227.916666666667" y="4244.0" />
+      <point x="2073.753521126763" y="4244.0" />
+      <point x="68.0" y="471.0" />
+    </edge>
+    <edge source="models.Player" target="models.Tile" relationship="DEPENDENCY">
+      <point x="68.0" y="471.0" />
+      <point x="2073.753521126763" y="4244.0" />
+      <point x="2227.916666666667" y="4244.0" />
+      <point x="2227.916666666667" y="4274.0" />
+      <point x="1692.0102699530535" y="4274.0" />
+      <point x="1692.0102699530535" y="4294.0" />
+      <point x="1214.0753129890454" y="4294.0" />
+      <point x="70.0" y="-339.0" />
+    </edge>
+    <edge source="models.Player" target="models.MilitaryUnit" relationship="DEPENDENCY">
+      <point x="68.0" y="-471.0" />
+      <point x="2073.753521126763" y="3188.0" />
+      <point x="2079.003521126763" y="3188.0" />
+      <point x="2079.003521126763" y="2444.0" />
+      <point x="2094.0753129890454" y="2444.0" />
+      <point x="2094.0753129890454" y="2424.0" />
+      <point x="1931.2118544600964" y="2424.0" />
+      <point x="84.25" y="240.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.5548764629388817" showDependencies="true" x="582.0000000000002" y="1311.6273728614951" />
-  <SelectedNodes>
-    <node>Model.Tiles</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic" zoom="0.06382978723404255" showDependencies="true" x="1791.0" y="3139.0000000000005" />
+  <SelectedNodes />
   <Categories>
+    <Category>Constructors</Category>
     <Category>Fields</Category>
-    <Category>Inner Classes</Category>
     <Category>Methods</Category>
-    <Category>Properties</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
