@@ -12,7 +12,8 @@ public class Player {
     private ArrayList<CivilianUnit> civilianUnits = new ArrayList<CivilianUnit>();
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
     private ArrayList<String> messages = new ArrayList<>();
-
+    private int happiness;
+    private ArrayList<Tile> visibleTiles = new ArrayList<>();
     private City currentCity;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
@@ -105,6 +106,10 @@ public class Player {
             tiles.add(tile);
         }
         return tiles;
+    }
+
+    public void setHappiness(){
+
     }
 
     public City getCurrentCity() {

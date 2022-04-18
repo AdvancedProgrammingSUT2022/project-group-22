@@ -63,6 +63,7 @@ public class GameController extends Controller {
     }
 
     public void run() {
+        GenerateMap.generateMap();
     }
 
     // private boolean isOkToMostagharShodan() {
