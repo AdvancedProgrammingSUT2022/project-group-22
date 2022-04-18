@@ -33,9 +33,9 @@ public enum UnitType {
     private final int range;
     private final int movement;
 
-    UnitType(int cost, int cambatStrengh, int rangedCombatStrengh, int range, int movement) {
+    UnitType(int cost, int combatStrengh, int rangedCombatStrengh, int range, int movement) {
         this.cost = cost;
-        this.combatStrengh = cambatStrengh;
+        this.combatStrengh = combatStrengh;
         this.rangedCombatStrengh = rangedCombatStrengh;
         this.range = range;
         this.movement = movement;
