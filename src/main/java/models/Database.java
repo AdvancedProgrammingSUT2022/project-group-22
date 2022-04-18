@@ -60,7 +60,7 @@ public class Database {
 
     public User getUserByUsername(String username) {
         for (User user : this.users) {
-            if (user.getUsername() == username) {
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }
@@ -69,7 +69,7 @@ public class Database {
 
     public User getUserByNickname(String nickname) {
         for (User user : this.users) {
-            if (user.getNickname() == nickname) {
+            if (user.getNickname().equals(nickname)) {
                 return user;
             }
         }
