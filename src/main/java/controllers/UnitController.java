@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.regex.*;
-import models.*;
 
 public class UnitController extends Controller {
 
@@ -46,7 +45,7 @@ public class UnitController extends Controller {
     public void cancel() {
     }
 
-    public void run() {
+    public String run() {
     }
 
     // public boolean canMove() {

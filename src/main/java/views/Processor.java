@@ -4,8 +4,8 @@ import models.*;
 import java.util.*;
 
 public class Processor {
-    private static Processor instance = new Processor();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Processor instance = new Processor();
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static Processor getInstance() {
         return instance;

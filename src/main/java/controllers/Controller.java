@@ -19,21 +19,17 @@ public class Controller {
         return instance;
     }
 
-    public void run() {
-        // String input;
-        // while (true) {
-        // input = registerMenuController.run();
-        // if (input.equals("Exit"))
-        // break;
-        // if (input.equals("main menu"))
-        // mainMenuController.run();
-        // if (input.equals("game menu"))
-        // gameController.run();
-        // if (input.equals("create game"))
-        // gameController.run();
-        // }
-        // processor.closeScanner();
-        // return null;
+    public String run() {
+         String input;
+         input = registerMenuController.run();
+         while (true) {
+         if (input.equals("Exit")) break;
+         if (input.equals("mainMenu")) input = mainMenuController.run();
+         if (input.equals("gameMenu")) input = gameController.run();
+         if (input.equals("createGame")) input = gameController.run();
+         }
+         processor.closeScanner();
+         return null;
     }
 
     protected Matcher getMatcher(String input, String regex) {

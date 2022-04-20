@@ -1,13 +1,18 @@
 package controllers;
 
-import java.util.regex.*;
-import models.*;
+import models.Database;
+import views.Processor;
+import views.RegisterMenuView;
 
-public class RegisterMenuController extends Controller {
+import java.util.regex.*;
+
+public class RegisterMenuController {
     // String name = "registerMenu";
-    public void createUser(Matcher matcher) {
-        // see if there is
-        // call is there player and then create user
+    public boolean createUser(Matcher matcher) {
+        if(!isUserNameUnique(matcher)) return true;
+        if()
+
+        return false;
     }
 
     public void login(Matcher matcher) {
@@ -22,9 +27,25 @@ public class RegisterMenuController extends Controller {
         // Print Controller name
     }
 
-    public void run() {
-        while (true) {
+    private void checkPassword(Matcher matcher){
+    }
 
+    private void checkUserName(){
+    }
+
+    private boolean isUserNameUnique(Matcher matcher){
+        for(int i = 0 ; i < Database.getInstance().getUsers().size() ; i++){
+            if(matcher.group("username").trim().equals(Database.getInstance().getUsers().get(i).getUsername())) return false;
+        }
+        return true;
+
+    }
+
+
+
+    public String run() {
+        while (true) {
+            RegisterMenuView.run();
             // switch between login and createUser and Exit and ShowMenu
         }
     }
