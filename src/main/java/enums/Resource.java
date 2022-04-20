@@ -1,56 +1,66 @@
 package enums;
 
 public enum Resource {
-    // remember to split canFind by ","
-    BANANA(1, 0, 0, "FOREST", "farming"),
-    COW(1, 0, 0, "PLAIN", "Pasture"),
-    GAZELLE(1, 0, 0, "TOUNDRA,FOREST,HIILS", "CAMP"),
-    SHEEP(1, 0, 0, "DASHT,GRASSLAND,DESERT,HILS", "PASTURE"),
-    WHEAT(1, 0, 0, "DASHT,PLAIN", "FARM"),
-    COTTON(0,0,2,"Grass Land, Plain, Desert", "Plantation"),
-    DYES(0,0,2,"Jungle, Forest", "Plantation"),
-    FURS(0,0,2,"Forest Tundra","Camp"),
-    GEMS(0,0,3,"Jungle,GrassLand,Plains,Desert,Tundra,Hills", "Mine"),
-    GOLD(0,0,2,"Desert,Plain","Plantation"),
-    IVORY(0,0,2,"Plains", "Camp"),
-    MARBLE(0,0,2,"GrassLand,Plains, Desert,Tundra,Hills","Quarry"),
-    PEARLS(0,0,2,"Coast","FishingBoat"),
-    SILK(0,0,2,"Forest","Plantation"),
-    SILVER(0,0,2,"Tundra,Desert,Hills","Mine"),
-    SPICES(0,0,2,"Jungle","Plantation"),
-    SUGAR(0,0,2,"FloodPlains, Marsh","Plantation");
+    BANANA("BONUS", 1, 0, 0, Improvement.PLANTATION, null),
+    COW("BONUS", 1, 0, 0, Improvement.PASTURE, null),
+    GAZELLE("BONUS", 1, 0, 0, Improvement.CAMP, null),
+    SHEEP("BONUS", 1, 0, 0, Improvement.PASTURE, null),
+    WHEAT("BONUS", 1, 0, 0, Improvement.FARM, null),
 
+    COTTON("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
+    DYES("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
+    FURS("LUXURY", 0, 0, 2, Improvement.CAMP, null),
+    GEMS("LUXURY", 0, 0, 3, Improvement.MINE, null),
+    GOLD("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
+    IVORY("LUXURY", 0, 0, 2, Improvement.CAMP, null),
+    MARBLE("LUXURY", 0, 0, 2, Improvement.QUARRY, null),
+    SILK("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
+    SILVER("LUXURY", 0, 0, 2, Improvement.MINE, null),
+    SPICES("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
+    SUGAR("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
+
+    COAL("STRATEGIC", 0, 1, 0, Improvement.MINE, Technology.SCIENTIFICTHEORY),
+    HORSE("STRATEGIC", 0, 1, 0, Improvement.PASTURE, Technology.ANIMALHUSBANDRY),
+    IRON("STRATEGIC", 0, 1, 0, Improvement.MINE, Technology.IRONWORKING);
+
+    private final String type;
     private final int food;
-    private final int product;
+    private final int production;
     private final int gold;
-    private final String canFind;
-    private final String technology;
+    private final Improvement improvement;
+    private final Technology technology;
 
-    Resource(int food, int product, int gold, String canFind, String technology) {
+    Resource(String type, int food, int production, int gold, Improvement improvement,
+            Technology technology) {
+        this.type = type;
         this.food = food;
-        this.product = product;
+        this.production = production;
         this.gold = gold;
-        this.canFind = canFind;
+        this.improvement = improvement;
         this.technology = technology;
     }
 
-    public String getTechnology() {
-        return technology;
-    }
-
-    public String getCanFind() {
-        return canFind;
-    }
-
-    public int getGold() {
-        return gold;
-    }
-
-    public int getProduction() {
-        return product;
+    public String getType() {
+        return type;
     }
 
     public int getFood() {
-        return food;
+        return this.food;
+    }
+
+    public int getProduction() {
+        return this.production;
+    }
+
+    public int getGold() {
+        return this.gold;
+    }
+
+    public Improvement getImprovement() {
+        return this.improvement;
+    }
+
+    public Technology getTechnology() {
+        return technology;
     }
 }
