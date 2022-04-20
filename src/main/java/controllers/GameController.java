@@ -1,9 +1,8 @@
 package controllers;
 
 import java.util.regex.*;
-import models.*;
 
-public class GameController extends Controller {
+public class GameController{
 
     private void researchInfo() {
     }
@@ -62,7 +61,7 @@ public class GameController extends Controller {
     private void nextTurn() {
     }
 
-    public void run() {
+    public String run() {
         GenerateMap.generateMap();
     }
 

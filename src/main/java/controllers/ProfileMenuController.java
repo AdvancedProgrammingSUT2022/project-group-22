@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.regex.*;
 
-public class ProfileMenuController extends Controller {
+public class ProfileMenuController{
     public void changeNickname(Matcher matcher) {
     }
 
@@ -15,6 +15,6 @@ public class ProfileMenuController extends Controller {
     public void showMenu(Matcher matcher) {
     }
 
-    public void run(String input) {
+    public String  run(String input) {
     }
 }

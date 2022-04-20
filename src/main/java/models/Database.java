@@ -4,7 +4,7 @@ import java.util.*;
 import controllers.*;
 
 public class Database {
-    private static Database instance = new Database();
+    private static final Database instance = new Database();
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<Tile> tiles = new ArrayList<>();
     private String state = "register";
