@@ -36,7 +36,7 @@ public class Database {
     public void createGame(ArrayList<Player> players) {
         game = new GameController();
         this.players = players;
-        currentPlayer = players.get(0);
+        currentPlayer = this.players.get(0);
     }
 
     public ArrayList<Player> getPlayers() {
@@ -56,7 +56,8 @@ public class Database {
     }
 
     public void nextTurn() {
-        currentPlayer = players.get(players.indexOf(currentPlayer) + 1);
+        Player nextPlayer = players.get(players.indexOf(currentPlayer) + 1);
+        currentPlayer = nextPlayer != null ? nextPlayer : this.players.get(0);
     }
 
     public User getUserByUsername(String username) {
@@ -80,8 +81,8 @@ public class Database {
     public void sortPlayers() {
     }
 
-    public void addTile(){
-        tiles.add(new Tile(GenerateMap.createCoordinate(),GenerateMap.createCoordinate(),GenerateMap.landType(),
-                GenerateMap.landFeature(),GenerateMap.resource()));
+    public void addTile() {
+        tiles.add(new Tile(GenerateMap.createCoordinate(), GenerateMap.createCoordinate(), GenerateMap.landType(),
+                GenerateMap.landFeature(), GenerateMap.resource()));
     }
 }
