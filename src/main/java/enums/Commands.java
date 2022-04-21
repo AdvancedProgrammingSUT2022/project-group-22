@@ -11,7 +11,16 @@ public enum Commands {
     CREATEUSER5("\\s*user\\s+create\\s+(--nickname|-n)\\s+(?<nickname>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s+(--password|-p)\\s+(?<password>\\S+)\\s*"),
     CREATEUSER6("\\s*user\\s+create\\s+(--nickname|-n)\\s+(?<nickname>\\S+)\\s+(--password|-p)\\s+(?<password>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s*"),
     LOGIN1("\\s*user\\s+login\\s+(--username|-u)\\s+(?<username>\\S+)\\s+(--password|-p)\\s+(?<password>\\S+)\\s*"),
-    LOGIN2("\\s*user\\s+login\\s+(--password|-p)\\s+(?<password>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s*");
+    LOGIN2("\\s*user\\s+login\\s+(--password|-p)\\s+(?<password>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s*"),
+
+
+
+
+    MENUENTER("\\s*menu\\s+enter\\s+(?<menuname>\\S+)\\s*"),
+    MENUEXIT("\\s*menu\\s+exit"),
+    LOGOUT("\\s*user\\s+logout"),
+    SHOWMENU("\\s*menu\\s+show-current\\s*");
+
 
 
 
