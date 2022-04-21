@@ -5,31 +5,31 @@ import enums.*;
 
 public class Tile {
     private Player player;
+
     private LandType landType;
-    private LandType landFeature;
-    private int[] coordinate;
+    private Feature feature;
+    private Resource resource;
+    private boolean[] hasRiver = new boolean[6];
+
     private int food;
     private int gold;
     private int production;
     private int movementCost;
     private int combatModifier;
-    private Resource resource;
-    private CivilianUnit workerUnit;
-    private boolean[] hasRiver = new boolean[6];
-    private boolean[] hasRoad = new boolean[6];
-    private ArrayList<Building> buildings = new ArrayList<Building>();
 
-    public Tile(int x, int y, LandType landType, LandType landFeature, Resource resource) {
-        this.coordinate[0] = x;
-        this.coordinate[1] = y;
-        this.landFeature = landFeature;
+    private CivilianUnit workerUnit;
+    private ArrayList<Building> buildings = new ArrayList<Building>();
+    private boolean[] hasRoad = new boolean[6];
+
+    public Tile(LandType landType, Feature feature, Resource resource) {
         this.landType = landType;
-        this.food = this.landFeature.getFood() + this.landType.getFood();
-        this.gold = this.landType.getGold() + this.landFeature.getGold();
-        this.production = this.landType.getProduct() + this.landFeature.getProduct();
-        this.movementCost = this.landType.getMovePrice() + this.landFeature.getMovePrice();
-        this.combatModifier = this.landFeature.getCombatModifier() + this.landType.getCombatModifier();
+        this.feature = feature;
         this.resource = resource;
+        this.food = landType.getFood() + (feature != null ? feature.getFood() : 0);
+        this.gold = landType.getGold() + (feature != null ? feature.getGold() : 0);
+        this.production = landType.getProduction() + (feature != null ? feature.getProduction() : 0);
+        this.movementCost = landType.getMovementCost() + (feature != null ? feature.getMovementCost() : 0);
+        this.combatModifier = landType.getCombatModifier() + (feature != null ? feature.getCombatModifier() : 0);
     }
 
     public Player getPlayer() {
@@ -40,12 +40,24 @@ public class Tile {
         this.player = player;
     }
 
-    public LandType getLandFeature() {
-        return this.landFeature;
-    }
-
     public LandType getLandType() {
         return this.landType;
+    }
+
+    public Feature getFeature() {
+        return this.feature;
+    }
+
+    public Resource getResource() {
+        return this.resource;
+    }
+
+    public boolean[] getHasRiver() {
+        return this.hasRiver;
+    }
+
+    public void setHasRiver(boolean[] hasRiver) {
+        this.hasRiver = hasRiver;
     }
 
     public int getCombatModifier() {
@@ -68,10 +80,6 @@ public class Tile {
         return this.food;
     }
 
-    public Resource getResource() {
-        return this.resource;
-    }
-
     public CivilianUnit getWorkerUnit() {
         return this.workerUnit;
     }
@@ -87,6 +95,4 @@ public class Tile {
     public void addBuilding(Building building) {
         this.buildings.add(building);
     }
-
-
 }

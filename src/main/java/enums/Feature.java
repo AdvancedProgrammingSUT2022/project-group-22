@@ -11,18 +11,18 @@ public enum Feature {
     OASIS(3, 0, 1, -33, 1, null);
 
     private final int food;
-    private final int product;
+    private final int production;
     private final int gold;
     private final int combatModifier;
     private final int movementCost;
     private final List<Resource> resources;
 
-    Feature(int food, int product, int gold, int combatModifier, int movementCost, List<Resource> resources) {
+    Feature(int food, int production, int gold, int combatModifier, int movementCost, List<Resource> resources) {
         this.food = food;
         this.combatModifier = combatModifier;
         this.gold = gold;
         this.movementCost = movementCost;
-        this.product = product;
+        this.production = production;
         this.resources = resources;
     }
 
@@ -42,8 +42,8 @@ public enum Feature {
         return this.gold;
     }
 
-    public int getProduct() {
-        return this.product;
+    public int getProduction() {
+        return this.production;
     }
 
     public int getFood() {
