@@ -12,6 +12,7 @@ public enum Resource {
     FURS("LUXURY", 0, 0, 2, Improvement.CAMP, null),
     GEMS("LUXURY", 0, 0, 3, Improvement.MINE, null),
     GOLD("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
+    INCENSE("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
     IVORY("LUXURY", 0, 0, 2, Improvement.CAMP, null),
     MARBLE("LUXURY", 0, 0, 2, Improvement.QUARRY, null),
     SILK("LUXURY", 0, 0, 2, Improvement.PLANTATION, null),
@@ -41,7 +42,7 @@ public enum Resource {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public int getFood() {
@@ -61,6 +62,6 @@ public enum Resource {
     }
 
     public Technology getTechnology() {
-        return technology;
+        return this.technology;
     }
 }
