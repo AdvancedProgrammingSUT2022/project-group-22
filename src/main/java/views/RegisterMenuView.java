@@ -21,8 +21,12 @@ public class RegisterMenuView {
                 registerMenuController.createUser(matcher);
             else if((matcher = Commands.getMatcher(command,Commands.LOGIN1)) != null
             || (matcher = Commands.getMatcher(command,Commands.LOGIN2)) != null) {
-                if (registerMenuController.login(matcher)) return matcher;
-            }else System.out.println("invalid command!");
+                if (registerMenuController.login(matcher)) {
+                    loggedIn();
+                    return matcher;
+                }
+            }else if((matcher = Commands.getMatcher(command,Commands.SHOWMENU)) != null) showMenu();
+            else System.out.println("invalid command!");
 
         }
     }
@@ -50,5 +54,11 @@ public class RegisterMenuView {
     public static void accountDoesNotExists(){
         System.out.println("username and password didn't match");
     }
+
+    public static void loggedIn(){
+        System.out.println("user logged in successfully");
+    }
+
+
 
 }

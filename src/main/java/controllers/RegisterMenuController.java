@@ -37,9 +37,6 @@ public class RegisterMenuController {
         return true;
     }
 
-    public void showMenu(Matcher matcher) {
-        RegisterMenuView.showMenu();
-    }
 
     public String run() {
         Matcher matcher;
