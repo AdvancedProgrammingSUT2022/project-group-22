@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Database;
+import models.User;
 import views.Processor;
 import views.RegisterMenuView;
 
@@ -8,45 +9,45 @@ import java.util.regex.*;
 
 public class RegisterMenuController {
     // String name = "registerMenu";
-    public boolean createUser(Matcher matcher) {
-        if(!isUserNameUnique(matcher)) return true;
-        if()
+    public void createUser(Matcher matcher) {
+        if(Database.getInstance().getUserByUsername(matcher.group("username")) != null){
+            RegisterMenuView.accountExists(matcher.group("username"));
+            return;
+        }
+        else if(Database.getInstance().getUserByNickname(matcher.group("nickname")) != null){
+            RegisterMenuView.nicknameExists(matcher.group("nickname"));
+            return;
+        }
+        RegisterMenuView.userCreated();
+        Database.getInstance().addUser(new User(matcher.group("username"), matcher.group("password"), matcher.group("nickname")));
 
-        return false;
+
     }
 
-    public void login(Matcher matcher) {
-        // call is there player to check if there is player or not
-        // find the current player and pass it to Player Controller
-    }
-
-    public void changeMenu(Matcher matcher) {
+    public boolean login(Matcher matcher) {
+        if(Database.getInstance().getUserByUsername(matcher.group("username")) == null){
+            RegisterMenuView.accountDoesNotExists();
+            return false;
+        }
+        User user = Database.getInstance().getUserByUsername(matcher.group("username"));
+        if(!user.getPassword().equals(matcher.group("password"))) {
+            RegisterMenuView.accountDoesNotExists();
+            return false;
+        }
+        return true;
     }
 
     public void showMenu(Matcher matcher) {
-        // Print Controller name
+        RegisterMenuView.showMenu();
     }
-
-    private void checkPassword(Matcher matcher){
-    }
-
-    private void checkUserName(){
-    }
-
-    private boolean isUserNameUnique(Matcher matcher){
-        for(int i = 0 ; i < Database.getInstance().getUsers().size() ; i++){
-            if(matcher.group("username").trim().equals(Database.getInstance().getUsers().get(i).getUsername())) return false;
-        }
-        return true;
-
-    }
-
-
 
     public String run() {
+        Matcher matcher;
         while (true) {
-            RegisterMenuView.run();
-            // switch between login and createUser and Exit and ShowMenu
+            matcher = RegisterMenuView.run();
+            return matcher.group("username");
         }
     }
+
+
 }

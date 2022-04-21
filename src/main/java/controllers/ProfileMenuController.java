@@ -15,6 +15,11 @@ public class ProfileMenuController{
     public void showMenu(Matcher matcher) {
     }
 
-    public String  run(String input) {
+    public String  run() {
+        return null;
+    }
+
+    public void menuNavigation(){
+
     }
 }

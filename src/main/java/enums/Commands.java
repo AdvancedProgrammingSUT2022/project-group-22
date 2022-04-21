@@ -4,12 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Commands {
-    CREATEUSER1("\\s*user\\s+create\\s+(--username|-u)\\s+(?<username>\\w+)\\s+(--nickname|-n)\\s+(?<nickname>\\w+)\\s+(--password|-p)\\s+(?<password>\\w+)\\s*"),
-    CREATEUSER2("\\s*user\\s+create\\s+(--username|-u)\\s+(?<username>\\w+)\\s+(--password|-p)\\s+(?<password>\\w+)\\s+(--nickname|-n)\\s+(?<nickname>\\w+)\\s*"),
-    CREATEUSER3("\\s*user\\s+create\\s+(--password|-p)\\s+(?<password>\\w+)\\s+(--username|-u)\\s+(?<username>\\w+)\\s+(--nickname|-n)\\s+(?<nickname>\\w+)\\s*"),
-    CREATEUSER4("\\s*user\\s+create\\s+(--password|-p)\\s+(?<password>\\w+)\\s+(--nickname|-n)\\s+(?<nickname>\\w+)\\s+(--username|-u)\\s+(?<username>\\w+)\\s*"),
-    CREATEUSER5("\\s*user\\s+create\\s+(--nickname|-n)\\s+(?<nickname>\\w+)\\s+(--username|-u)\\s+(?<username>\\w+)\\s+(--password|-p)\\s+(?<password>\\w+)\\s*"),
-    CREATEUSER6("\\s*user\\s+create\\s+(--nickname|-n)\\s+(?<nickname>\\w+)\\s+(--password|-p)\\s+(?<password>\\w+)\\s+(--username|-u)\\s+(?<username>\\w+)\\s*");
+    CREATEUSER1("\\s*user\\s+create\\s+(--username|-u)\\s+(?<username>\\S+)\\s+(--nickname|-n)\\s+(?<nickname>\\S+)\\s+(--password|-p)\\s+(?<password>\\S+)\\s*"),
+    CREATEUSER2("\\s*user\\s+create\\s+(--username|-u)\\s+(?<username>\\S+)\\s+(--password|-p)\\s+(?<password>\\S+)\\s+(--nickname|-n)\\s+(?<nickname>\\S+)\\s*"),
+    CREATEUSER3("\\s*user\\s+create\\s+(--password|-p)\\s+(?<password>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s+(--nickname|-n)\\s+(?<nickname>\\S+)\\s*"),
+    CREATEUSER4("\\s*user\\s+create\\s+(--password|-p)\\s+(?<password>\\S+)\\s+(--nickname|-n)\\s+(?<nickname>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s*"),
+    CREATEUSER5("\\s*user\\s+create\\s+(--nickname|-n)\\s+(?<nickname>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s+(--password|-p)\\s+(?<password>\\S+)\\s*"),
+    CREATEUSER6("\\s*user\\s+create\\s+(--nickname|-n)\\s+(?<nickname>\\S+)\\s+(--password|-p)\\s+(?<password>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s*"),
+    LOGIN1("\\s*user\\s+login\\s+(--username|-u)\\s+(?<username>\\S+)\\s+(--password|-p)\\s+(?<password>\\S+)\\s*"),
+    LOGIN2("\\s*user\\s+login\\s+(--password|-p)\\s+(?<password>\\S+)\\s+(--username|-u)\\s+(?<username>\\S+)\\s*");
 
 
 

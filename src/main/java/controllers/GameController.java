@@ -4,6 +4,10 @@ import java.util.regex.*;
 
 public class GameController{
 
+    public void menuNavigation(){
+
+    }
+
     private void researchInfo() {
     }
 
@@ -63,6 +67,7 @@ public class GameController{
 
     public String run() {
         GenerateMap.generateMap();
+        return null;
     }
 
     // private boolean isOkToMostagharShodan() {
