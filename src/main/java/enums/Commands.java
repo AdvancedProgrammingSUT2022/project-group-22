@@ -19,7 +19,16 @@ public enum Commands {
     MENUENTER("\\s*menu\\s+enter\\s+(?<menuname>\\S+)\\s*"),
     MENUEXIT("\\s*menu\\s+exit"),
     LOGOUT("\\s*user\\s+logout"),
-    SHOWMENU("\\s*menu\\s+show-current\\s*");
+    SHOWMENU("\\s*menu\\s+show-current\\s*"),
+
+
+
+    PLAYGAME("\\s*play\\s+game\\s+--player1\\s+(?<username1>\\S+)\\s+--player2(?<username2>\\S+)\\s*"),
+
+
+    NICKNAMECHANGE("\\s*profile\\s+change\\s+--nickname\\s+(?<newnickname>\\S+)"),
+    CHANGEPASSWORD1("\\s*profile\\s+change\\s+--password\\s+--current\\s+(?<currentpassword>\\S+)\\s+--new\\s+(?<newpassword>\\S+)\\s*"),
+    CHANGEPASSWORD2("\\s*profile\\s+change\\s+--new\\s(?<newpassword>\\S+)\\s+--password\\s+--current\\s(?<currentpassword>\\S+)\\s*");
 
 
 

@@ -35,7 +35,7 @@ public class Controller {
              user = Database.getInstance().getUserByUsername(input);
              input = mainMenuController.run(user);
          }
-//         if(input.equals("profileMenu")) input = profileMenuController.run(new User());
+         if(input.equals("profileMenu")) input = profileMenuController.run(user);
          }
          processor.closeScanner();
          return null;
