@@ -1,8 +1,11 @@
 package controllers;
 
+import models.User;
+
 import java.util.regex.*;
 
 public class MainMenuController{
+    User user;
     String name = "main menu";
 
     public void createGame(Matcher matcher) {
@@ -19,7 +22,12 @@ public class MainMenuController{
         // print name
     }
 
-    public String  run() {
+    public String  run(User user) {
+        this.user = user;
+        return null;
+    }
+
+    public void menuNavigation(String whichMenu){
 
     }
 }

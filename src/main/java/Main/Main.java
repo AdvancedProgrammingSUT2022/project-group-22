@@ -1,3 +1,5 @@
+package Main;
+
 import controllers.Controller;
 
 public class Main {

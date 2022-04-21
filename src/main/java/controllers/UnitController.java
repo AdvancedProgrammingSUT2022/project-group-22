@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.regex.*;
 
-public class UnitController extends Controller {
+public class UnitController {
 
     public void move() {
     }
@@ -46,6 +46,7 @@ public class UnitController extends Controller {
     }
 
     public String run() {
+        return null;
     }
 
     // public boolean canMove() {

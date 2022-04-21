@@ -6,27 +6,36 @@ import models.*;
 import views.*;
 
 public class Controller {
-    private static Controller instance = new Controller();
+//    private static Controller instance = new Controller();
     protected Database database = Database.getInstance();
     protected Processor processor = Processor.getInstance();
-    private RegisterMenuController registerMenuController = new RegisterMenuController();
-    private MainMenuController mainMenuController = new MainMenuController();
-    private ProfileMenuController profileMenuController = new ProfileMenuController();
-    private GameController gameController = new GameController();
-    private UnitController unitController = new UnitController();
+    private final RegisterMenuController registerMenuController = new RegisterMenuController();
+    private final MainMenuController mainMenuController = new MainMenuController();
+    private final ProfileMenuController profileMenuController = new ProfileMenuController();
+    private final GameController gameController = new GameController();
+    private final UnitController unitController = new UnitController();
+    private User user = new User("a","a","a");
 
-    public static Controller getInstance() {
-        return instance;
-    }
+//    public static Controller getInstance() {
+//        return instance;
+//    }
 
     public String run() {
          String input;
          input = registerMenuController.run();
+         user = Database.getInstance().getUserByUsername(input);
+         input = mainMenuController.run(user);
          while (true) {
          if (input.equals("Exit")) break;
-         if (input.equals("mainMenu")) input = mainMenuController.run();
+         if (input.equals("mainMenu")) input = mainMenuController.run(user);
          if (input.equals("gameMenu")) input = gameController.run();
          if (input.equals("createGame")) input = gameController.run();
+         if(input.equals("registerMenu")){
+             input = registerMenuController.run();
+             user = Database.getInstance().getUserByUsername(input);
+             input = mainMenuController.run(user);
+         }
+//         if(input.equals("profileMenu")) input = profileMenuController.run(new User());
          }
          processor.closeScanner();
          return null;

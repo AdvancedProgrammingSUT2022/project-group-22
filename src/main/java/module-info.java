@@ -1,3 +1,4 @@
-module Project.Main {
+
+module Project {
     exports Main;
 }
