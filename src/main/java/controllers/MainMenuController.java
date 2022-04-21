@@ -1,12 +1,12 @@
 package controllers;
 
 import models.User;
+import views.MainMenuView;
 
 import java.util.regex.*;
 
 public class MainMenuController{
     User user;
-    String name = "main menu";
 
     public void createGame(Matcher matcher) {
         //TODO: scan players and create a new game
@@ -15,16 +15,21 @@ public class MainMenuController{
     public void logout(Matcher matcher) {
     }
 
-    public void changeMenu(Matcher matcher) {
-    }
 
     public void showMenu(Matcher matcher) {
-        // print name
+        MainMenuView.showMenu();
     }
 
     public String  run(User user) {
         this.user = user;
-        return null;
+        while(true){
+            String whichMenu = MainMenuView.run();
+            if (whichMenu.equals("gameMenu")) return "gameMenu";
+            else if (whichMenu.equals("profileMenu")) return "profileMenu";
+            else if (whichMenu.equals("Exit")) return "registerMenu";
+            else if(whichMenu.equals("logout")) return "registerMenu";
+            else MainMenuView.menuNavigationNotPossible();
+        }
     }
 
     public void menuNavigation(String whichMenu){
