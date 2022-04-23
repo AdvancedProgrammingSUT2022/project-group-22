@@ -8,43 +8,60 @@ import java.util.regex.*;
 
 public class ProfileMenuController{
     User user = new User("a", "a","a");
+
     public void changeNickname(Matcher matcher) {
         if(Database.getInstance().getUserByNickname(matcher.group("newnickname").trim()) != null) {
             ProfileMenuView.nicknameExists(matcher.group("newnickname").trim());
             return;
-
         }
+        setNewNickname(matcher);
+    }
+
+    private void setNewNickname(Matcher matcher){
         user.setNickname(matcher.group("newnickname").trim());
         ProfileMenuView.changed("nickname");
     }
-
-    public void changePassword(Matcher matcher) {
+    private boolean isPasswordValid(Matcher matcher){
         if(!user.getPassword().equals(matcher.group("currentpassword").trim())){
             ProfileMenuView.passwordInvalid();
-            return;
+            return false;
         }
+        return true;
+    }
+
+    private boolean isPasswordDifferent(Matcher matcher){
         if(matcher.group("currentpassword").trim().equals(matcher.group("newpassword").trim())){
             ProfileMenuView.samePassword();
-            return;
+            return false;
         }
+        return true;
+    }
+    public void changePassword(Matcher matcher) {
+        if(!isPasswordValid(matcher)) return;
+        if(!isPasswordDifferent(matcher)) return;
+        setNewPassword(matcher);
+    }
+
+    private void setNewPassword(Matcher matcher){
         user.setPassword(matcher.group("newpassword").trim());
         ProfileMenuView.changed("password");
     }
 
-    public void changeMenu(Matcher matcher) {
-    }
-
-    public void showMenu(Matcher matcher) {
+    public boolean changeMenu(String whichMenu) {
+        if(whichMenu.equals("gameMenu")) {
+            ProfileMenuView.menuNavigationNotPossible();
+            return false;
+        }
+        return true;
     }
 
     public String  run(User user) {
+        String whickMenu;
         this.user = Database.getInstance().getUserByUsername(user.getUsername());
-        System.out.println(this.user.getUsername());
-        ProfileMenuView.run();
-        return null;
+        while (true){
+            whickMenu = ProfileMenuView.run();
+            if(changeMenu(whickMenu)) return whickMenu;
+        }
     }
 
-    public void menuNavigation(){
-
-    }
 }

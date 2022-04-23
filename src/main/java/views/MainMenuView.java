@@ -5,7 +5,7 @@ import enums.Commands;
 
 import java.util.regex.Matcher;
 
-public class MainMenuView extends Processor{
+public class MainMenuView {
     //TODO: print messages for main menu controller
     public static String run(){
         MainMenuController mainMenuController = new MainMenuController();

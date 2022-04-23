@@ -81,8 +81,8 @@ public class Database {
     public void sortPlayers() {
     }
 
-    public void addTile() {
-        tiles.add(new Tile(GenerateMap.createCoordinate(), GenerateMap.createCoordinate(), GenerateMap.landType(),
-                GenerateMap.landFeature(), GenerateMap.resource()));
-    }
+//    public void addTile() {
+//        tiles.add(new Tile(GenerateMap.createCoordinate(), GenerateMap.createCoordinate(), GenerateMap.landType(),
+//                GenerateMap.landFeature(), GenerateMap.resource()));
+//    }
 }

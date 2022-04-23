@@ -1,5 +1,5 @@
 package views;
 
-public class GameMenuView extends Processor{
+public class GameMenuView {
     //TODO: print messages for game menu controller
 }
