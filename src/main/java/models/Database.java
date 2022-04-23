@@ -6,10 +6,12 @@ import controllers.*;
 public class Database {
     private static final Database instance = new Database();
     private ArrayList<User> users = new ArrayList<User>();
-    private ArrayList<Tile> tiles = new ArrayList<>();
+    private Tile[][] map;
+    private Boolean[][] rivers;
     private String state = "register";
 
-    private GameController game;
+    private GameController gameController;
+    private MapController mapController;
     private ArrayList<Player> players;
     private Player currentPlayer;
 
@@ -33,10 +35,13 @@ public class Database {
         this.state = state;
     }
 
-    public void createGame(ArrayList<Player> players) {
-        game = new GameController();
+    public void createGame(ArrayList<Player> players, int x, int y) {
         this.players = players;
         currentPlayer = this.players.get(0);
+        gameController = new GameController();
+        mapController = new MapController();
+        map = mapController.generateTiles(x, y);
+        rivers = mapController.generateRivers(map, x, y);
     }
 
     public ArrayList<Player> getPlayers() {
@@ -48,7 +53,7 @@ public class Database {
     }
 
     public GameController getGame() {
-        return this.game;
+        return this.gameController;
     }
 
     public Player getCurrentPlayer() {
@@ -81,8 +86,6 @@ public class Database {
     public void sortPlayers() {
     }
 
-    public void addTile() {
-        tiles.add(new Tile(GenerateMap.createCoordinate(), GenerateMap.createCoordinate(), GenerateMap.landType(),
-                GenerateMap.landFeature(), GenerateMap.resource()));
+    public void addTileToCity() {
     }
 }
