@@ -10,7 +10,8 @@ public class TileView {
     private String feature;
     ArrayList<String> hasRiver;
 
-    TileView(String color, String nickname, String militaryUnit, String civilianUnit, String feature, ArrayList hasRiver){
+    TileView(String color, String nickname, String militaryUnit, String civilianUnit, String feature,
+            ArrayList<String> hasRiver) {
         this.color = color;
         this.nickname = nickname;
         this.militaryUnit = militaryUnit;

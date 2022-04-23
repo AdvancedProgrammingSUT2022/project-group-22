@@ -83,9 +83,18 @@ public class Database {
         return null;
     }
 
+    public User getUserByPLayer() {
+    }
+
     public void sortPlayers() {
     }
 
     public void addTileToCity() {
+    }
+
+    public void getMilitaryUnitByTile() {
+    }
+
+    public void getCivilianUnitByTile() {
     }
 }

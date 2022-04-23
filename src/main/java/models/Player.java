@@ -14,6 +14,7 @@ public class Player {
     private ArrayList<String> messages = new ArrayList<>();
     private int happiness;
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
+    private ArrayList<Tile> revealedTiles = new ArrayList<>();
     private City currentCity;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
@@ -32,6 +33,20 @@ public class Player {
 
     public void addCity(City city) {
         this.cities.add(city);
+    }
+
+    public ArrayList<Tile> getVisibleTiles() {
+        return visibleTiles;
+    }
+
+    public void addVisibleTiles(ArrayList<Tile> visibleTiles) {
+    }
+
+    public ArrayList<Tile> getRevealedTiles() {
+        return revealedTiles;
+    }
+
+    public void addRevealedTiles(ArrayList<Tile> revealedTiles) {
     }
 
     public int getPopulation() {
@@ -108,8 +123,26 @@ public class Player {
         return tiles;
     }
 
-    public void setHappiness(){
+    public int findTile(Tile tile) {
+        for (Tile tempTile : this.getTiles()) {
+            if (tempTile.equals(tile)) {
+                return 1;
+            }
+        }
+        for (Tile tempTile : this.visibleTiles) {
+            if (tempTile.equals(tile)) {
+                return 1;
+            }
+        }
+        for (Tile tempTile : this.revealedTiles) {
+            if (tempTile.equals(tile)) {
+                return 0;
+            }
+        }
+        return -1;
+    }
 
+    public void setHappiness() {
     }
 
     public City getCurrentCity() {

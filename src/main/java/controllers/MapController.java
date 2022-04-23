@@ -2,12 +2,15 @@ package controllers;
 
 import java.util.*;
 import models.*;
+import views.TileView;
 import enums.*;
 
 public class MapController {
     // neighboring tiles of map[i][j] : map[i][j - 1] / [i][j + 1] / [i + 1][j] /
     // [i - 1][j] / [i - 1][j - 1] / [i - 1][j + 1]
     private final Random random = new Random();
+    Database database = Database.getInstance();
+    Player player = database.getCurrentPlayer();
 
     public Tile[][] generateTiles(int x, int y) {
         Tile[][] map = new Tile[x][y];
@@ -32,6 +35,16 @@ public class MapController {
         rivers[i * y + j][(i - 1) * y + j - 1] = random.nextBoolean();
     }
 
+    public void hasRiver(Boolean[][] rivers, int y, int i, int j) {
+        Boolean[] hasRiver;
+        rivers[i * y + j][i * y + j + 1] = hasRiver[0];
+        rivers[i * y + j][i * y + j - 1] = hasRiver[1];
+        rivers[i * y + j][(i + 1) * y + j] = hasRiver[2];
+        rivers[i * y + j][(i - 1) * y + j] = hasRiver[3];
+        rivers[i * y + j][(i - 1) * y + j + 1] = hasRiver[4];
+        rivers[i * y + j][(i - 1) * y + j - 1] = hasRiver[5];
+    }
+
     public Boolean[][] generateRivers(Tile[][] map, int x, int y) {
         Boolean[][] rivers = new Boolean[x * y * x * y][x * y * x * y];
         for (int i = 0; i < x; i++) {
@@ -46,5 +59,16 @@ public class MapController {
             }
         }
         return rivers;
+    }
+
+    public void printMap(Tile[][] map, int x1, int y1, int x2, int y2) {
+        ArrayList<TileView> tileView = new ArrayList<TileView>();
+        for (int i = x1; i < x2; i++) {
+            for (int j = y1; j < y2; j++) {
+                tileView.add(
+                        TileView(map[i][j].getLandType().getColor.getColor(), database.getUserByPLayer(map[i][j].getPlayer()).getNickname(), database.getMilitaryUnitByTile().getType().name(), database.getCivilianUnitByTile().getType().name(), map[i][j].getFeature().name(), hasRiver);
+            }
+        }
+        mapView.printMap(tileView);
     }
 }

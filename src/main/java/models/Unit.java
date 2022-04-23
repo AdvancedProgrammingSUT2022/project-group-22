@@ -1,6 +1,9 @@
 package models;
 
+import enums.*;
+
 public class Unit {
+    protected UnitType type;
     protected int movementPoints;
     protected int combatStrength;
     protected Tile positon;
