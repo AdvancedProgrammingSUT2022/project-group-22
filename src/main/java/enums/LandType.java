@@ -3,41 +3,45 @@ package enums;
 import java.util.*;
 
 public enum LandType {
-    DESERT(0, 0, 0, -33, 1, Feature.OASIS, Feature.FLOODPLAIN,
+    DESERT(0, 0, 0, -33, 1, Color.YELLOW_BG, Feature.OASIS, Feature.FLOODPLAIN,
             Arrays.asList(Resource.IRON, Resource.GOLD, Resource.SILVER, Resource.GEMS, Resource.MARBLE,
                     Resource.COTTON, Resource.INCENSE, Resource.SHEEP)),
-    GRASSLAND(2, 0, 0, -33, 1, Feature.JUNGLE, Feature.SWAMP,
-            Arrays.asList(Resource.IRON, Resource.HORSE, Resource.COAL, Resource.COW, Resource.GOLD, Resource.GEMS,
-                    Resource.MARBLE, Resource.COTTON, Resource.SHEEP)),
-    HIILS(0, 2, 0, +25, 2, Feature.JUNGLE, Feature.FOREST, Arrays.asList(Resource.IRON, Resource.COAL, Resource.GAZELLE,
-            Resource.GOLD, Resource.SILVER, Resource.GEMS, Resource.MARBLE, Resource.SHEEP)),
-    MOUNTAIN(0, 0, 0, 0, -1, null, null, null),
-    OCEAN(0, 0, 0, 0, -1, null, null, null),
-    PLAIN(1, 1, 0, -33, 1, Feature.JUNGLE, Feature.FOREST,
+    GRASSLAND(2, 0, 0, -33, 1, Color.GREEN_BRIGHT_BG, Feature.JUNGLE, Feature.SWAMP,
+            Arrays.asList(Resource.IRON, Resource.HORSE, Resource.COAL, Resource.COW, Resource.GOLD,
+                    Resource.GEMS, Resource.MARBLE, Resource.COTTON, Resource.SHEEP)),
+    HIILS(0, 2, 0, +25, 2, Color.RED_BRIGHT_BG, Feature.JUNGLE, Feature.FOREST,
+            Arrays.asList(Resource.IRON, Resource.COAL, Resource.GAZELLE,
+                    Resource.GOLD, Resource.SILVER, Resource.GEMS, Resource.MARBLE, Resource.SHEEP)),
+    MOUNTAIN(0, 0, 0, 0, -1, Color.RED_BG, null, null, null),
+    OCEAN(0, 0, 0, 0, -1, Color.BLUE_BRIGHT_BG, null, null, null),
+    PLAIN(1, 1, 0, -33, 1, Color.GREEN_BG, Feature.JUNGLE, Feature.FOREST,
             Arrays.asList(Resource.IRON, Resource.HORSE, Resource.COAL, Resource.WHEAT, Resource.GOLD, Resource.GEMS,
                     Resource.MARBLE, Resource.IVORY, Resource.COTTON, Resource.INCENSE, Resource.SHEEP)),
-    SNOW(0, 0, 0, -33, 1, null, null, Arrays.asList(Resource.IRON)),
-    TOUNDRA(1, 0, 0, -33, 1, Feature.JUNGLE, null, Arrays.asList(Resource.IRON, Resource.HORSE, Resource.GAZELLE,
-            Resource.SILVER, Resource.GEMS, Resource.MARBLE, Resource.FURS));
+    SNOW(0, 0, 0, -33, 1, Color.WHITE_BG, null, null, Arrays.asList(Resource.IRON)),
+    TUNDRA(1, 0, 0, -33, 1, Color.PURPLE_BRIGHT_BG, Feature.JUNGLE, null,
+            Arrays.asList(Resource.IRON, Resource.HORSE, Resource.GAZELLE,
+                    Resource.SILVER, Resource.GEMS, Resource.MARBLE, Resource.FURS));
 
     private final int food;
     private final int production;
     private final int gold;
     private final int combatModifier;
     private final int movementCost;
+    private final Color color;
     private final Feature feature1;
     private final Feature feature2;
     private final List<Resource> resources;
 
     private static final Random random = new Random();
 
-    LandType(int food, int production, int gold, int combatModifier, int movementCost, Feature feature1,
-            Feature feature2, List<Resource> resources) {
+    LandType(int food, int production, int gold, int combatModifier, int movementCost, Color color,
+            Feature feature1, Feature feature2, List<Resource> resources) {
         this.food = food;
         this.combatModifier = combatModifier;
         this.gold = gold;
         this.movementCost = movementCost;
         this.production = production;
+        this.color = color;
         this.feature1 = feature1;
         this.feature2 = feature2;
         this.resources = resources;
@@ -71,6 +75,10 @@ public enum LandType {
 
     public Feature getFeature1() {
         return this.feature1;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public int getMovementCost() {

@@ -3,12 +3,16 @@ package models;
 import enums.*;
 
 public class Unit {
-    protected UnitType type;
+    protected UnitType unitType;
     protected int movementPoints;
     protected int combatStrength;
     protected Tile positon;
     protected boolean isSleeping;
     protected int taskTurns;
+
+    public UnitType getUnitType() {
+        return this.unitType;
+    }
 
     public Tile getPositon() {
         return positon;
