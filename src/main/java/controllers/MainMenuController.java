@@ -12,8 +12,6 @@ public class MainMenuController{
         //TODO: scan players and create a new game
     }
 
-    public void logout(Matcher matcher) {
-    }
 
 
     public void showMenu(Matcher matcher) {

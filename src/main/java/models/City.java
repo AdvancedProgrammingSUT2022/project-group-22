@@ -5,6 +5,7 @@ import enums.*;
 
 public class City {
     private ArrayList<Tile> tiles = new ArrayList<Tile>();
+    private String name;
     private int food;
     private int gold;
     private int production;
@@ -102,5 +103,13 @@ public class City {
     }
 
     public void build(Building building) {
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
     }
 }

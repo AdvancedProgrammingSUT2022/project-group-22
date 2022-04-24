@@ -28,7 +28,22 @@ public enum Commands {
 
     NICKNAMECHANGE("\\s*profile\\s+change\\s+--nickname\\s+(?<newnickname>\\S+)"),
     CHANGEPASSWORD1("\\s*profile\\s+change\\s+--password\\s+--current\\s+(?<currentpassword>\\S+)\\s+--new\\s+(?<newpassword>\\S+)\\s*"),
-    CHANGEPASSWORD2("\\s*profile\\s+change\\s+--new\\s(?<newpassword>\\S+)\\s+--password\\s+--current\\s(?<currentpassword>\\S+)\\s*");
+    CHANGEPASSWORD2("\\s*profile\\s+change\\s+--new\\s(?<newpassword>\\S+)\\s+--password\\s+--current\\s(?<currentpassword>\\S+)\\s*"),
+
+
+
+    //game enums
+    INFORESEARCH("\\s*info\\s+research\\s*"),
+    INFOUNIT("\\s*info\\s+unit\\s*"),
+    INFOCITY("\\s*info\\s+city\\s*"),
+    INFODIPLOMACY("\\s*info\\s+diplomacy\\s*"),
+    INFOVICTORY("\\s*info\\s+victory\\s*"),
+    INFODEMOGRAPHICS("\\s*info\\s+demographics\\s*"),
+    INFONOTIFICATIONS("\\s*info\\s+notification\\s*"),
+    INFOMILITARY("\\s*info\\s+military\\s*"),
+    INFOECONOMIC("\\s*info\\s+economic\\s*"),
+    INFODIPLOMATIC("\\s*info\\s+diplomacy\\s*"),
+    INFODEALS("\\s*info\\s+deals\\s*");
 
 
 

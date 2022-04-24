@@ -3,7 +3,7 @@ package models;
 import java.util.*;
 import enums.*;
 
-public class Player {
+public class Player extends User {
     private int score;
     private int population;
     private int happiness;
@@ -18,6 +18,11 @@ public class Player {
     private City currentCity;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
+    private ArrayList<Technology> researches = new ArrayList<>();
+
+    public Player(String username, String password, String nickname) {
+        super(username, password, nickname);
+    }
 
     public City getCapital() {
         return this.capital;
@@ -133,6 +138,17 @@ public class Player {
         return tiles;
     }
 
+<<<<<<< HEAD
+//    public void setHappiness(){
+//    }
+
+    public ArrayList<Technology> getResearches(){
+        return researches;
+    }
+
+    public void addResearch(Technology technology){
+        researches.add(technology);
+=======
     public int findTile(Tile tile) {
         for (Tile tempTile : this.getTiles()) {
             if (tempTile.equals(tile)) {
@@ -153,6 +169,7 @@ public class Player {
     }
 
     public void setHappiness() {
+>>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
     }
 
     public City getCurrentCity() {

@@ -5,7 +5,6 @@ import enums.*;
 
 public class Tile {
     private Player player;
-
     private int[] coordinates;
     private LandType landType;
     private Feature feature;

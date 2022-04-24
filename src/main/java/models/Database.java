@@ -97,6 +97,12 @@ public class Database {
     public void sortPlayers() {
     }
 
+<<<<<<< HEAD
+//    public void addTile() {
+//        tiles.add(new Tile(GenerateMap.createCoordinate(), GenerateMap.createCoordinate(), GenerateMap.landType(),
+//                GenerateMap.landFeature(), GenerateMap.resource()));
+//    }
+=======
     public void addTileToCity() {
     }
 
@@ -140,4 +146,5 @@ public class Database {
         }
         return null;
     }
+>>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
 }

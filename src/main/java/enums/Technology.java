@@ -59,6 +59,7 @@ public enum Technology {
         this.leadsToTechs = leadsToTechs;
     }
 
+
     public int getCost() { return cost; }
 
     public String getPrerequisiteTechs() { return prerequisiteTechs; }

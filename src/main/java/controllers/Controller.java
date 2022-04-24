@@ -14,6 +14,7 @@ public class Controller {
     private final ProfileMenuController profileMenuController = new ProfileMenuController();
     private final GameController gameController = new GameController();
     private final UnitController unitController = new UnitController();
+    private final GameMenuController gameMenuController = new GameMenuController();
     private User user = new User("a","a","a");
 
 //    public static Controller getInstance() {
@@ -28,8 +29,8 @@ public class Controller {
          while (true) {
          if (input.equals("Exit")) break;
          if (input.equals("mainMenu")) input = mainMenuController.run(user);
-         if (input.equals("gameMenu")) input = gameController.run();
-         if (input.equals("createGame")) input = gameController.run();
+         if (input.equals("gameMenu")) input = gameMenuController.run();
+//         if (input.equals("createGame")) input = gameMenuController.run();
          if(input.equals("registerMenu")){
              input = registerMenuController.run();
              user = Database.getInstance().getUserByUsername(input);

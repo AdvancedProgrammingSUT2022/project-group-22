@@ -4,6 +4,7 @@ import java.util.*;
 import models.*;
 import views.*;
 import enums.*;
+import views.*;
 
 public class MapController {
     private final Random random = new Random();
@@ -20,7 +21,6 @@ public class MapController {
                 map[i][j] = new Tile(coordinates, landType, feature, resource);
             }
         }
-    }
 
     public void addRivers(Tile tile) {
         for (int i = 0; i < 6; i++) {
