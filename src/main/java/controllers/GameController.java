@@ -1,11 +1,11 @@
 package controllers;
 
+import models.Player;
+
 import java.util.regex.*;
 
 public class GameController{
-
     public void menuNavigation(){
-
     }
 
     private void researchInfo() {
@@ -62,11 +62,10 @@ public class GameController{
     private void moveMap(Matcher matcher) {
     }
 
-    private void nextTurn() {
-    }
+//    private void nextTurn() {
+//    }
 
-    public String run() {
-        GenerateMap.generateMap();
+    public String run(Player player) {
         return null;
     }
 

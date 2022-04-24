@@ -4,8 +4,8 @@ import java.util.*;
 import enums.*;
 
 public class Tile {
-    private Player player;
 
+    private Player player;
     private LandType landType;
     private Feature feature;
     private Resource resource;

@@ -7,21 +7,19 @@ import views.ProfileMenuView;
 import java.util.regex.*;
 
 public class ProfileMenuController{
-    User user = new User("a", "a","a");
-
-    public void changeNickname(Matcher matcher) {
+    public void changeNickname(Matcher matcher, User user) {
         if(Database.getInstance().getUserByNickname(matcher.group("newnickname").trim()) != null) {
             ProfileMenuView.nicknameExists(matcher.group("newnickname").trim());
             return;
         }
-        setNewNickname(matcher);
+        setNewNickname(matcher, user);
     }
 
-    private void setNewNickname(Matcher matcher){
+    private void setNewNickname(Matcher matcher,User user){
         user.setNickname(matcher.group("newnickname").trim());
         ProfileMenuView.changed("nickname");
     }
-    private boolean isPasswordValid(Matcher matcher){
+    private boolean isPasswordValid(Matcher matcher, User user){
         if(!user.getPassword().equals(matcher.group("currentpassword").trim())){
             ProfileMenuView.passwordInvalid();
             return false;
@@ -36,13 +34,13 @@ public class ProfileMenuController{
         }
         return true;
     }
-    public void changePassword(Matcher matcher) {
-        if(!isPasswordValid(matcher)) return;
+    public void changePassword(Matcher matcher,User user) {
+        if(!isPasswordValid(matcher, user)) return;
         if(!isPasswordDifferent(matcher)) return;
-        setNewPassword(matcher);
+        setNewPassword(matcher,user);
     }
 
-    private void setNewPassword(Matcher matcher){
+    private void setNewPassword(Matcher matcher, User user){
         user.setPassword(matcher.group("newpassword").trim());
         ProfileMenuView.changed("password");
     }
@@ -57,9 +55,8 @@ public class ProfileMenuController{
 
     public String  run(User user) {
         String whickMenu;
-        this.user = Database.getInstance().getUserByUsername(user.getUsername());
         while (true){
-            whickMenu = ProfileMenuView.run();
+            whickMenu = ProfileMenuView.run(user);
             if(changeMenu(whickMenu)) return whickMenu;
         }
     }

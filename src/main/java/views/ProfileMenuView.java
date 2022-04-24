@@ -2,6 +2,7 @@ package views;
 
 import controllers.ProfileMenuController;
 import enums.Commands;
+import models.User;
 
 import java.util.ConcurrentModificationException;
 import java.util.concurrent.ConcurrentMap;
@@ -9,14 +10,14 @@ import java.util.regex.Matcher;
 
 public class ProfileMenuView extends Processor{
     //TODO: print messages for profile menu controllerf
-    public static String run(){
+    public static String run(User user){
         ProfileMenuController profileMenuController = new ProfileMenuController();
         while (true){
             String command = Processor.getInstance().getInput();
             Matcher matcher;
-            if((matcher = Commands.getMatcher(command,Commands.NICKNAMECHANGE)) != null) profileMenuController.changeNickname(matcher);
+            if((matcher = Commands.getMatcher(command,Commands.NICKNAMECHANGE)) != null) profileMenuController.changeNickname(matcher, user);
             else if((matcher =Commands.getMatcher(command,Commands.CHANGEPASSWORD1)) != null
-                   ||(matcher = Commands.getMatcher(command,Commands.CHANGEPASSWORD2)) != null) profileMenuController.changePassword(matcher);
+                   ||(matcher = Commands.getMatcher(command,Commands.CHANGEPASSWORD2)) != null) profileMenuController.changePassword(matcher, user);
             else if((matcher = Commands.getMatcher(command,Commands.SHOWMENU)) != null) showMenu();
             else if((matcher = Commands.getMatcher(command, Commands.MENUENTER)) != null) return matcher.group("menuname");
             else if((matcher = Commands.getMatcher(command, Commands.MENUEXIT)) != null) return "mainMenu";

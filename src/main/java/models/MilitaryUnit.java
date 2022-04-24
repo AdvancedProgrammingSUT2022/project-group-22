@@ -1,13 +1,12 @@
 package models;
 
 public class MilitaryUnit extends Unit {
+
     private int experiencePoints;
     private boolean isAlert;
-
     private boolean isRanged;
     private int range;
     private int rangedCombatStrength;
-
     private boolean needsSetUp;
     private int setUp;
 
