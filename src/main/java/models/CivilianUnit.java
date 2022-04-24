@@ -1,13 +1,16 @@
 package models;
 
+import enums.*;
+
 public class CivilianUnit extends Unit {
     private boolean isWorker;
     private boolean isLocked;
 
-    public CivilianUnit(int mp, Tile position, boolean isWorker, boolean isSleeping) {
-        this.isWorker = isWorker;
-        this.movementPoints = mp;
-        this.combatStrength = 0;
+    public CivilianUnit(UnitType unitType, Tile position) {
+        this.unitType = unitType;
+        this.isWorker = unitType.name().equals("WORKER") ? true : false;
+        this.movementPoints = unitType.getMovementPoints();
+        this.combatStrength = unitType.getCombatStrengh();
         this.positon = position;
         this.isSleeping = false;
     }

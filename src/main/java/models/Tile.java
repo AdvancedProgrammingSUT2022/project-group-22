@@ -4,16 +4,12 @@ import java.util.*;
 import enums.*;
 
 public class Tile {
-
-<<<<<<< HEAD
     private Player player;
-=======
-    private int numTile;
->>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
+    private int[] coordinates;
     private LandType landType;
     private Feature feature;
     private Resource resource;
-    private boolean[] hasRiver = new boolean[6];
+    private Boolean[] hasRiver = new Boolean[6];
 
     private int food;
     private int gold;
@@ -24,10 +20,10 @@ public class Tile {
     private MilitaryUnit garrisonUnit;
     private CivilianUnit workerUnit;
     private ArrayList<Building> buildings = new ArrayList<Building>();
-    private boolean[] hasRoad = new boolean[6];
+    private Boolean[] hasRoad = new Boolean[6];
 
-    public Tile(int numTile, LandType landType, Feature feature, Resource resource) {
-        this.numTile = numTile;
+    public Tile(int[] coordinates, LandType landType, Feature feature, Resource resource) {
+        this.coordinates = coordinates;
         this.landType = landType;
         this.feature = feature;
         this.resource = resource;
@@ -46,8 +42,8 @@ public class Tile {
         this.player = player;
     }
 
-    public int getNumTile() {
-        return numTile;
+    public int[] getCoordinates() {
+        return coordinates;
     }
 
     public LandType getLandType() {
@@ -62,12 +58,12 @@ public class Tile {
         return this.resource;
     }
 
-    public boolean[] getHasRiver() {
+    public Boolean[] getHasRiver() {
         return this.hasRiver;
     }
 
-    public void setHasRiver(boolean[] hasRiver) {
-        this.hasRiver = hasRiver;
+    public void setHasRiver(int side, Boolean hasRiver) {
+        this.hasRiver[side] = hasRiver;
     }
 
     public int getCombatModifier() {
@@ -112,5 +108,13 @@ public class Tile {
 
     public void addBuilding(Building building) {
         this.buildings.add(building);
+    }
+
+    public Boolean[] getHasRoad() {
+        return this.hasRoad;
+    }
+
+    public void setHasRoad(int index, Boolean hasRoad) {
+        this.hasRoad[index] = hasRoad;
     }
 }

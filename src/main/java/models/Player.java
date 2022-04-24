@@ -6,13 +6,13 @@ import enums.*;
 public class Player extends User {
     private int score;
     private int population;
+    private int happiness;
     private City capital;
     private ArrayList<City> cities = new ArrayList<City>();
     private ArrayList<MilitaryUnit> militaryUnits = new ArrayList<MilitaryUnit>();
     private ArrayList<CivilianUnit> civilianUnits = new ArrayList<CivilianUnit>();
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
     private ArrayList<String> messages = new ArrayList<>();
-    private int happiness;
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
     private ArrayList<Tile> revealedTiles = new ArrayList<>();
     private City currentCity;
@@ -44,14 +44,24 @@ public class Player extends User {
         return visibleTiles;
     }
 
-    public void addVisibleTiles(ArrayList<Tile> visibleTiles) {
+    public void addVisibleTiles(Tile tile) {
+        visibleTiles.add(tile);
     }
 
     public ArrayList<Tile> getRevealedTiles() {
         return revealedTiles;
     }
 
-    public void addRevealedTiles(ArrayList<Tile> revealedTiles) {
+    public void addRevealedTiles(Tile tile) {
+        revealedTiles.add(tile);
+    }
+
+    public int getHappiness() {
+        return this.happiness;
+    }
+
+    public void setHappiness(int happiness) {
+        this.happiness = happiness;
     }
 
     public int getPopulation() {
@@ -82,7 +92,7 @@ public class Player extends User {
         militaryUnits.remove(militaryUnit);
     }
 
-    public ArrayList<CivilianUnit> getCivilianUnit() {
+    public ArrayList<CivilianUnit> getCivilianUnits() {
         return this.civilianUnits;
     }
 

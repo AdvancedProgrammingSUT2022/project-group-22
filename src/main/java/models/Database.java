@@ -4,10 +4,9 @@ import java.util.*;
 import controllers.*;
 
 public class Database {
-    private static final Database instance = new Database();
+    private static final Database instance = null;
     private ArrayList<User> users = new ArrayList<User>();
     private Tile[][] map;
-    private Boolean[][] rivers;
     private String state = "register";
 
     private GameController gameController;
@@ -16,11 +15,15 @@ public class Database {
     private Player currentPlayer;
 
     public static Database getInstance() {
-        return instance;
+        return instance != null ? instance : new Database();
     }
 
     public ArrayList<User> getUsers() {
         return this.users;
+    }
+
+    public Tile[][] getMap() {
+        return this.map;
     }
 
     public void addUser(User user) {
@@ -40,8 +43,7 @@ public class Database {
         currentPlayer = this.players.get(0);
         gameController = new GameController();
         mapController = new MapController();
-        map = mapController.generateTiles(x, y);
-        rivers = mapController.generateRivers(map, x, y);
+        map = mapController.generateMap(20, 42);
     }
 
     public ArrayList<Player> getPlayers() {
@@ -83,7 +85,13 @@ public class Database {
         return null;
     }
 
-    public User getUserByPLayer() {
+    public User getUserByPLayer(Player player) {
+        for (User user : this.users) {
+            if (user.getPlayer().equals(player)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     public void sortPlayers() {
@@ -98,10 +106,45 @@ public class Database {
     public void addTileToCity() {
     }
 
-    public void getMilitaryUnitByTile() {
+    public MilitaryUnit getMilitaryUnitByTile(Tile tile) {
+        for (Player player : this.players) {
+            for (MilitaryUnit unit : player.getMilitaryUnits()) {
+                if (unit.getPositon().equals(tile)) {
+                    return unit;
+                }
+            }
+        }
+        return null;
     }
 
-    public void getCivilianUnitByTile() {
+    public CivilianUnit getCivilianUnitByTile(Tile tile) {
+        for (Player player : this.players) {
+            for (CivilianUnit unit : player.getCivilianUnits()) {
+                if (unit.getPositon().equals(tile)) {
+                    return unit;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Tile getNeighbor(Tile tile, int side) {
+        int i = tile.getCoordinates()[0];
+        int j = tile.getCoordinates()[1];
+        if (side == 0) {
+            return map[i - 1][j];
+        } else if (side == 1) {
+            return j % 2 == 0 ? map[i][j + 1] : map[i - 1][j + 1];
+        } else if (side == 2) {
+            return j % 2 == 0 ? map[i + 1][j + 1] : map[i][j + 1];
+        } else if (side == 3) {
+            return map[i + 1][j];
+        } else if (side == 4) {
+            return j % 2 == 0 ? map[i + 1][j - 1] : map[i][j - 1];
+        } else if (side == 5) {
+            return j % 2 == 0 ? map[i][j - 1] : map[i - 1][j - 1];
+        }
+        return null;
     }
 >>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
 }
