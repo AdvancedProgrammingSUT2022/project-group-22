@@ -31,14 +31,14 @@ public enum UnitType {
     private final int combatStrengh;
     private final int rangedCombatStrengh;
     private final int range;
-    private final int movement;
+    private final int movementPoints;
 
-    UnitType(int cost, int combatStrengh, int rangedCombatStrengh, int range, int movement) {
+    UnitType(int cost, int combatStrengh, int rangedCombatStrengh, int range, int movementPoints) {
         this.cost = cost;
         this.combatStrengh = combatStrengh;
         this.rangedCombatStrengh = rangedCombatStrengh;
         this.range = range;
-        this.movement = movement;
+        this.movementPoints = movementPoints;
     }
 
     public int getCost() {
@@ -57,7 +57,7 @@ public enum UnitType {
         return range;
     }
 
-    public int getMovement() {
-        return movement;
+    public int getMovementPoints() {
+        return movementPoints;
     }
 }

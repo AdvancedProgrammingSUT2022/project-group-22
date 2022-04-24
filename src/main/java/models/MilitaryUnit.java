@@ -1,5 +1,7 @@
 package models;
 
+import enums.*;
+
 public class MilitaryUnit extends Unit {
     private int experiencePoints;
     private boolean isAlert;
@@ -11,15 +13,14 @@ public class MilitaryUnit extends Unit {
     private boolean needsSetUp;
     private int setUp;
 
-    public MilitaryUnit(int mp, int cs, Tile position, int xp, boolean isRanged, int range,
-            int rangedCS, boolean needsSetUp) {
-        this.movementPoints = mp;
-        this.combatStrength = cs;
-        this.experiencePoints = xp;
+    public MilitaryUnit(UnitType unitType, Tile position, boolean needsSetUp) {
+        this.unitType = unitType;
+        this.movementPoints = unitType.getMovementPoints();
+        this.combatStrength = unitType.getCombatStrengh();
+        this.experiencePoints = 0;
         this.positon = position;
-        this.isRanged = isRanged;
-        this.range = range;
-        this.rangedCombatStrength = rangedCS;
+        this.range = unitType.getRange();
+        this.rangedCombatStrength = unitType.getRangedCombatStrengh();
         this.isSleeping = false;
         this.isAlert = false;
         this.needsSetUp = needsSetUp;
