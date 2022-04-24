@@ -14,6 +14,7 @@ public class Player extends User {
     private ArrayList<String> messages = new ArrayList<>();
     private int happiness;
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
+    private ArrayList<Tile> revealedTiles = new ArrayList<>();
     private City currentCity;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
@@ -37,6 +38,20 @@ public class Player extends User {
 
     public void addCity(City city) {
         this.cities.add(city);
+    }
+
+    public ArrayList<Tile> getVisibleTiles() {
+        return visibleTiles;
+    }
+
+    public void addVisibleTiles(ArrayList<Tile> visibleTiles) {
+    }
+
+    public ArrayList<Tile> getRevealedTiles() {
+        return revealedTiles;
+    }
+
+    public void addRevealedTiles(ArrayList<Tile> revealedTiles) {
     }
 
     public int getPopulation() {
@@ -113,8 +128,9 @@ public class Player extends User {
         return tiles;
     }
 
-    public void setHappiness(){
-    }
+<<<<<<< HEAD
+//    public void setHappiness(){
+//    }
 
     public ArrayList<Technology> getResearches(){
         return researches;
@@ -122,6 +138,28 @@ public class Player extends User {
 
     public void addResearch(Technology technology){
         researches.add(technology);
+=======
+    public int findTile(Tile tile) {
+        for (Tile tempTile : this.getTiles()) {
+            if (tempTile.equals(tile)) {
+                return 1;
+            }
+        }
+        for (Tile tempTile : this.visibleTiles) {
+            if (tempTile.equals(tile)) {
+                return 1;
+            }
+        }
+        for (Tile tempTile : this.revealedTiles) {
+            if (tempTile.equals(tile)) {
+                return 0;
+            }
+        }
+        return -1;
+    }
+
+    public void setHappiness() {
+>>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
     }
 
     public City getCurrentCity() {

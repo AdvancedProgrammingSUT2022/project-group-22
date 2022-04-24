@@ -5,7 +5,11 @@ import enums.*;
 
 public class Tile {
 
+<<<<<<< HEAD
     private Player player;
+=======
+    private int numTile;
+>>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
     private LandType landType;
     private Feature feature;
     private Resource resource;
@@ -17,11 +21,13 @@ public class Tile {
     private int movementCost;
     private int combatModifier;
 
+    private MilitaryUnit garrisonUnit;
     private CivilianUnit workerUnit;
     private ArrayList<Building> buildings = new ArrayList<Building>();
     private boolean[] hasRoad = new boolean[6];
 
-    public Tile(LandType landType, Feature feature, Resource resource) {
+    public Tile(int numTile, LandType landType, Feature feature, Resource resource) {
+        this.numTile = numTile;
         this.landType = landType;
         this.feature = feature;
         this.resource = resource;
@@ -38,6 +44,10 @@ public class Tile {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public int getNumTile() {
+        return numTile;
     }
 
     public LandType getLandType() {
@@ -78,6 +88,14 @@ public class Tile {
 
     public int getFood() {
         return this.food;
+    }
+
+    public MilitaryUnit getGarrisonUnit() {
+        return garrisonUnit;
+    }
+
+    public void setGarrisonUnit(MilitaryUnit garrisonUnit) {
+        this.garrisonUnit = garrisonUnit;
     }
 
     public CivilianUnit getWorkerUnit() {
