@@ -72,6 +72,7 @@ public class MapController {
                         map[i][j].getFeature().name(), getRiverColor(map[i][j].getHasRiver())));
             }
         }
-        // mapView.printMap(tileView);
+        MapView mapView = new MapView();
+        mapView.printMap(tileView);
     }
 }
