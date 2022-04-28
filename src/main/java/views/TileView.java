@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public class TileView {
     private String color;
+    private String backgroundColor;
     private String nickname;
     private String militaryUnit;
     private String civilianUnit;
     private String feature;
     ArrayList<String> hasRiver;
 
-    public TileView(String color, String nickname, String militaryUnit, String civilianUnit, String feature,
-            ArrayList<String> hasRiver) {
+    public TileView(String color, String backgroundColor, String nickname, String militaryUnit,
+            String civilianUnit, String feature, ArrayList<String> hasRiver) {
         this.color = color;
+        this.backgroundColor = backgroundColor;
         this.nickname = nickname;
         this.militaryUnit = militaryUnit;
         this.civilianUnit = civilianUnit;
@@ -21,26 +23,30 @@ public class TileView {
     }
 
     public String getColor() {
-        return color;
+        return this.color;
+    }
+
+    public String getBackgroundColor() {
+        return this.backgroundColor;
     }
 
     public String getNickname() {
-        return nickname;
+        return this.nickname;
     }
 
     public String getMilitaryUnit() {
-        return militaryUnit;
+        return this.militaryUnit;
     }
 
     public String getCivilianUnit() {
-        return civilianUnit;
+        return this.civilianUnit;
     }
 
     public String getFeature() {
-        return feature;
+        return this.feature;
     }
 
     public ArrayList<String> getHasRiver() {
-        return hasRiver;
+        return this.hasRiver;
     }
 }

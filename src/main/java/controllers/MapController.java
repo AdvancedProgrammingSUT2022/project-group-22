@@ -4,7 +4,6 @@ import java.util.*;
 import models.*;
 import views.*;
 import enums.*;
-import views.*;
 
 public class MapController {
     private final Random random = new Random();
@@ -14,13 +13,15 @@ public class MapController {
     public void generateTiles(Tile[][] map, int x, int y) {
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                LandType landType = LandType.randomLandType();
-                Feature feature = LandType.randomFeature(landType);
-                Resource resource = LandType.randomResource(landType);
+                LandType landType = LandType.DESERT;
+                landType = landType.randomLandType();
+                Feature feature = landType.randomFeature();
+                Resource resource = landType.randomResource(feature);
                 int[] coordinates = { i, j };
                 map[i][j] = new Tile(coordinates, landType, feature, resource);
             }
         }
+    }
 
     public void addRivers(Tile tile) {
         for (int i = 0; i < 6; i++) {
@@ -65,14 +66,14 @@ public class MapController {
         ArrayList<TileView> tileView = new ArrayList<TileView>();
         for (int i = x1; i < x2; i++) {
             for (int j = y1; j < y2; j++) {
-                tileView.add(new TileView(map[i][j].getLandType().getColor().getColor(),
+                tileView.add(new TileView(map[i][j].getPlayer().getColor().getColor(),
+                        map[i][j].getLandType().getColor().getColor(),
                         database.getUserByPLayer(map[i][j].getPlayer()).getNickname(),
                         database.getMilitaryUnitByTile(map[i][j]).getUnitType().name(),
                         database.getCivilianUnitByTile(map[i][j]).getUnitType().name(),
                         map[i][j].getFeature().name(), getRiverColor(map[i][j].getHasRiver())));
             }
         }
-        MapView mapView = new MapView();
-        mapView.printMap(tileView);
+        MapView.getInstance().printMap(tileView);
     }
 }
