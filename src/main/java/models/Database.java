@@ -4,7 +4,7 @@ import java.util.*;
 import controllers.*;
 
 public class Database {
-    private static final Database instance = null;
+    private static Database instance = null;
     private ArrayList<User> users = new ArrayList<User>();
     private Tile[][] map;
     private String state = "register";
@@ -15,7 +15,8 @@ public class Database {
     private Player currentPlayer;
 
     public static Database getInstance() {
-        return instance != null ? instance : new Database();
+        instance = instance != null ? instance : new Database();
+        return instance;
     }
 
     public ArrayList<User> getUsers() {
@@ -140,5 +141,4 @@ public class Database {
         }
         return null;
     }
-//>>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
 }

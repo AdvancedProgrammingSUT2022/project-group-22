@@ -32,7 +32,7 @@ public enum LandType {
     private final Feature feature2;
     private final List<Resource> resources;
 
-    private static final Random random = new Random();
+    private final Random random = new Random();
 
     LandType(int food, int production, int gold, int combatModifier, int movementCost, Color color,
             Feature feature1, Feature feature2, List<Resource> resources) {
@@ -47,20 +47,20 @@ public enum LandType {
         this.resources = resources;
     }
 
-    public static LandType randomLandType() {
+    public LandType randomLandType() {
         return LandType.values()[random.nextInt(Arrays.asList(LandType.values()).size())];
     }
 
-    public static Feature randomFeature(LandType landType) {
+    public Feature randomFeature() {
         int num = random.nextInt(3);
-        return num == 0 ? null : num == 1 ? landType.getFeature1() : landType.getFeature2();
+        return num == 0 ? null : num == 1 ? this.feature1 : this.feature2;
     }
 
-    public static Resource randomResource(LandType landType) {
+    public Resource randomResource(Feature feature) {
         ArrayList<Resource> resourceList = new ArrayList<Resource>();
-        resourceList.addAll(landType.getResources());
-        resourceList.addAll(landType.getFeature1().getResources());
-        resourceList.addAll(landType.getFeature2().getResources());
+        resourceList.addAll(this.getResources());
+        resourceList.addAll(feature.equals(this.feature1) ? this.feature1.getResources()
+                : feature.equals(this.feature2) ? this.feature2.getResources() : null);
         int i = random.nextInt(resourceList.size() + 1);
         return i == resourceList.size() ? null : resourceList.get(i);
     }

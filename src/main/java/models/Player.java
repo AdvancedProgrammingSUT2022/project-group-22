@@ -4,6 +4,8 @@ import java.util.*;
 import enums.*;
 
 public class Player extends User {
+    private Color color;
+
     private int score;
     private int population;
     private int happiness;
@@ -15,13 +17,22 @@ public class Player extends User {
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
     private ArrayList<Tile> revealedTiles = new ArrayList<>();
+    private ArrayList<Technology> researches = new ArrayList<>();
+
     private City currentCity;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
-    private ArrayList<Technology> researches = new ArrayList<>();
 
     public Player(String username, String password, String nickname) {
         super(username, password, nickname);
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public City getCapital() {
@@ -138,18 +149,21 @@ public class Player extends User {
         return tiles;
     }
 
-//<<<<<<< HEAD
-//    public void setHappiness(){
-//    }
 
-    public ArrayList<Technology> getResearches(){
+    public void setHappiness() {
+    }
+
+
+    public ArrayList<Technology> getResearches() {
         return researches;
     }
 
     public void addResearch(Technology technology) {
         researches.add(technology);
     }
-//=======
+
+
+
     public int findTile(Tile tile) {
         for (Tile tempTile : this.getTiles()) {
             if (tempTile.equals(tile)) {
@@ -167,10 +181,6 @@ public class Player extends User {
             }
         }
         return -1;
-    }
-
-    public void setHappiness() {
-//>>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
     }
 
     public City getCurrentCity() {

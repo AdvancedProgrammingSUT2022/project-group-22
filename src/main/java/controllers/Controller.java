@@ -41,10 +41,4 @@ public class Controller {
          processor.closeScanner();
          return null;
     }
-
-    protected Matcher getMatcher(String input, String regex) {
-        regex = "^\\s*" + regex.replace(" ", "\\s+") + "\\s*$";
-        Matcher matcher = Pattern.compile(regex).matcher(input);
-        return matcher.matches() ? matcher : null;
-    }
 }
