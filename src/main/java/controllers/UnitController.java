@@ -1,9 +1,7 @@
 package controllers;
 
 import java.util.regex.*;
-
-import enums.Feature;
-import enums.LandType;
+import enums.*;
 import models.*;
 import views.*;
 
@@ -12,7 +10,7 @@ public class UnitController {
     Player player = database.getCurrentPlayer();
     Tile[][] map = database.getMap();
 
-    GameMenuView gameMenuView = GameMenuView.getInstance();
+    GameView gameView = GameView.getInstance();
 
     public void move(Matcher matcher, CivilianUnit civUnit, MilitaryUnit milUnit) {
         Unit unit = civUnit != null ? civUnit : milUnit;
@@ -21,18 +19,18 @@ public class UnitController {
         Tile tile = map[i][j];
 
         if (unit == null) {
-            gameMenuView.printOutput(Error.NO_UNIT);
+            gameView.noUnitSelected();
             return;
         } else if (map.length < i || map[0].length < j) {
-            gameMenuView.printOutput(Error.NO_TILE);
+            gameView.incorrectTile();
             return;
         } else if (civUnit != null && database.getCivilianUnitByTile(tile) != null
                 || milUnit != null && database.getMilitaryUnitByTile(tile) != null) {
-            gameMenuView.printOutput(Error.TILE_OCCUPIED);
+            gameView.tileOccupied();
             return;
         } else if (tile.getLandType().equals(LandType.MOUNTAIN) || tile.getLandType().equals(LandType.OCEAN)
                 || tile.getLandType().equals(LandType.SNOW) || tile.getFeature().equals(Feature.ICE)) {
-            gameMenuView.printOutput(Error.TILE_INACCESSABLE);
+            gameView.tileInaccessible();
             return;
         } else {
             ShortestPath shortestPath = new ShortestPath();
@@ -51,7 +49,7 @@ public class UnitController {
                         return;
                     }
                 }
-                gameMenuView.printOutput(Error.MP_LOW);
+                gameView.mpLow();
             }
         }
     }
@@ -95,11 +93,12 @@ public class UnitController {
     }
 
     public String run() {
-        while (true){
-          if (command.equals(Commands.MOVE)) {
-            move(Matcher matcher, player.getCurrentCivilian(), player.getCurrentMilitary());
-        }  
-        }
+        // while (true){
+        // if (command.equals(Commands.MOVE)) {
+        // move(Matcher matcher, player.getCurrentCivilian(),
+        // player.getCurrentMilitary());
+        // }
+        // }
         return null;
     }
 }
