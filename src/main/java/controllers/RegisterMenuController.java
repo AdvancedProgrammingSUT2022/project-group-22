@@ -2,7 +2,6 @@ package controllers;
 
 import models.Database;
 import models.User;
-import views.Processor;
 import views.RegisterMenuView;
 
 import java.util.regex.*;
@@ -42,10 +41,9 @@ public class RegisterMenuController {
 
     public String run() {
         Matcher matcher;
-        while (true) {
-            matcher = RegisterMenuView.run();
-            return matcher.group("username");
-        }
+        matcher = RegisterMenuView.run();
+        return matcher.group("username");
+
     }
 
 

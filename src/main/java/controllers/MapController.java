@@ -17,11 +17,11 @@ public class MapController {
                 LandType landType = LandType.randomLandType();
                 Feature feature = LandType.randomFeature(landType);
                 Resource resource = LandType.randomResource(landType);
-                int[] coordinates = { i, j };
+                int[] coordinates = {i, j};
                 map[i][j] = new Tile(coordinates, landType, feature, resource);
             }
         }
-
+    }
     public void addRivers(Tile tile) {
         for (int i = 0; i < 6; i++) {
             Boolean hasRiver = random.nextBoolean();

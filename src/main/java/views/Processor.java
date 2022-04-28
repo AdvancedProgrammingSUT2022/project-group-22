@@ -17,9 +17,9 @@ public class Processor {
 
 
 
-    public void printOutput(String output) {
-        System.out.println(output);
-    }
+//    public void printOutput(String output) {
+//        System.out.println(output);
+//    }
 
     public void closeScanner() {
         scanner.close();

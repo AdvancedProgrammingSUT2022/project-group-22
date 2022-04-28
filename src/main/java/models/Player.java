@@ -138,7 +138,7 @@ public class Player extends User {
         return tiles;
     }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //    public void setHappiness(){
 //    }
 
@@ -146,9 +146,10 @@ public class Player extends User {
         return researches;
     }
 
-    public void addResearch(Technology technology){
+    public void addResearch(Technology technology) {
         researches.add(technology);
-=======
+    }
+//=======
     public int findTile(Tile tile) {
         for (Tile tempTile : this.getTiles()) {
             if (tempTile.equals(tile)) {
@@ -169,7 +170,7 @@ public class Player extends User {
     }
 
     public void setHappiness() {
->>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
+//>>>>>>> 23130f893eb72565a7024e7cd366b4e766a7fe1d
     }
 
     public City getCurrentCity() {

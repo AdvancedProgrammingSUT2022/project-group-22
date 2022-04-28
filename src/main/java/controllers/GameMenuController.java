@@ -41,11 +41,11 @@ public class GameMenuController {
         user = Database.getInstance().getUserByUsername(username);
         Database.getInstance().addPlayer((Player) user);
     }
-
+//return to controller
     private void startGame(){
         while(true){
             for(int i = 0 ; i < Database.getInstance().getPlayers().size() ; i++){
-                gameController.run(Database.getInstance().getPlayers().get(i));
+                Database.getInstance().setCurrentPlayer(Database.getInstance().getPlayers().get(i));
             }
         }
     }

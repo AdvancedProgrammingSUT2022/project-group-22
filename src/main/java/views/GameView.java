@@ -2,6 +2,7 @@ package views;
 
 import controllers.GameController;
 import enums.Commands;
+import models.City;
 import models.Player;
 
 import java.util.regex.Matcher;
@@ -21,10 +22,14 @@ public class GameView {
             else if((matcher = Commands.getMatcher(command,Commands.INFODIPLOMATIC)) != null) return;
             else if((matcher = Commands.getMatcher(command,Commands.INFOECONOMIC)) != null) return;
             else if((matcher = Commands.getMatcher(command,Commands.INFOMILITARY)) != null) return;
-            else if((matcher = Commands.getMatcher(command,Commands.INFONOTIFICATIONS)) != null) return;
+            else if((matcher = Commands.getMatcher(command,Commands.INFONOTIFICATIONS)) != null) showMessages(player);
             else if((matcher = Commands.getMatcher(command,Commands.INFOUNIT)) != null) return;
             else if((matcher = Commands.getMatcher(command,Commands.INFOVICTORY)) != null) return;
             else if((matcher = Commands.getMatcher(command,Commands.MENUEXIT)) != null) return;
+            else if((matcher = Commands.getMatcher(command,Commands.SELECTCITYNAME)) != null) return;
+            else if((matcher = Commands.getMatcher(command,Commands.SELECTCITYPOS)) != null) return;
+            else if((matcher = Commands.getMatcher(command,Commands.SELECTUNITCOMBAT)) != null) gameController.unitCombatPosition(matcher);
+            else if((matcher = Commands.getMatcher(command,Commands.SELECTUNITNONCOMBAT)) != null) return;
             else System.out.println("invalid command");
         }
     }
@@ -49,5 +54,15 @@ public class GameView {
     }
 
     private void showDiplomacy(){
+    }
+
+    private void showMessages(Player player){
+        for(int i = 0 ; i < player.getMessages().size() ; i++){
+            System.out.println(player.getMessages().get(i));
+        }
+    }
+
+    public static void showCurrentCity(City city){
+
     }
 }

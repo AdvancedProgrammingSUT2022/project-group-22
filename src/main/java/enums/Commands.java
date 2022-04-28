@@ -43,7 +43,11 @@ public enum Commands {
     INFOMILITARY("\\s*info\\s+military\\s*"),
     INFOECONOMIC("\\s*info\\s+economic\\s*"),
     INFODIPLOMATIC("\\s*info\\s+diplomacy\\s*"),
-    INFODEALS("\\s*info\\s+deals\\s*");
+    INFODEALS("\\s*info\\s+deals\\s*"),
+    SELECTUNITCOMBAT("\\s*select\\s+unit\\s+combat\\s+(?<position>\\d+)\\s*"),
+    SELECTUNITNONCOMBAT("\\s*select\\s+unit\\s+non\\s+combat\\s+(?<position>\\d+)\\s*"),
+    SELECTCITYNAME("\\s*select\\s+city\\s+(?<cityname>\\S+)\\s*"),
+    SELECTCITYPOS("\\s*select\\s+city\\s+(?<position>\\d+)\\s*");
 
 
 

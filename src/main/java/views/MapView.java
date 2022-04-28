@@ -5,7 +5,7 @@ import models.Player;
 import models.Tile;
 
 import java.util.ArrayList;
-
+//move to game view
 public class MapView {
     public void printMap(ArrayList<TileView> tiles) {
         int temp = 0;

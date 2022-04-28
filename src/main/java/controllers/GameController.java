@@ -62,10 +62,14 @@ public class GameController{
     private void moveMap(Matcher matcher) {
     }
 
+    public void unitCombatPosition(Matcher matcher){
+
+    }
+
 //    private void nextTurn() {
 //    }
 
-    public String run(Player player) {
+    public String run() {
         return null;
     }
 
