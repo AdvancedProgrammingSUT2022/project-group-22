@@ -1,7 +1,7 @@
 package views;
 
 import controllers.GameMenuController;
-import enums.Commands;
+import enums.Command;
 
 import java.util.regex.Matcher;
 
@@ -18,12 +18,12 @@ public class GameMenuView {
         while (true) {
             String command = Processor.getInstance().getInput();
             Matcher matcher;
-            if ((matcher = Commands.getMatcher(command, Commands.PLAYGAME)) != null) {
+            if ((matcher = Command.getMatcher(command, Command.PLAYGAME)) != null) {
                 if (gameMenuController.playGame(matcher))
                     return "startGame";
-            } else if ((matcher = Commands.getMatcher(command, Commands.MENUEXIT)) != null)
+            } else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
                 return "mainMenu";
-            else if ((matcher = Commands.getMatcher(command, Commands.SHOWMENU)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.SHOWMENU)) != null)
                 System.out.println("game Menu");
             else
                 System.out.println("invalid Command!");

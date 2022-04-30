@@ -1,9 +1,7 @@
 package views;
 
-
 import enums.*;
 import java.util.*;
-
 
 public class MapView {
     private static MapView instance = null;

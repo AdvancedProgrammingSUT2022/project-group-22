@@ -105,11 +105,11 @@ public class City {
     public void build(Building building) {
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

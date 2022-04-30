@@ -4,8 +4,8 @@ import models.Player;
 
 import java.util.regex.*;
 
-public class GameController{
-    public void menuNavigation(){
+public class GameController {
+    public void menuNavigation() {
     }
 
     private void researchInfo() {
@@ -62,12 +62,12 @@ public class GameController{
     private void moveMap(Matcher matcher) {
     }
 
-    public void unitCombatPosition(Matcher matcher){
+    public void unitCombatPosition(Matcher matcher) {
 
     }
 
-//    private void nextTurn() {
-//    }
+    // private void nextTurn() {
+    // }
 
     public String run() {
         return null;

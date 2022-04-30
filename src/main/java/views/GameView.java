@@ -6,7 +6,6 @@ import models.*;
 import java.util.*;
 import java.util.regex.*;;
 
-
 public class GameView {
     private static GameView instance = null;
 
@@ -20,29 +19,29 @@ public class GameView {
         GameController gameController = new GameController();
         while (true) {
             String command = Processor.getInstance().getInput();
-            if ((matcher = Commands.getMatcher(command, Commands.INFOCITY)) != null)
+            if ((matcher = Command.getMatcher(command, Command.INFOCITY)) != null)
                 showCity(player);
-            else if ((matcher = Commands.getMatcher(command, Commands.INFORESEARCH)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFORESEARCH)) != null)
                 showResearch(player);
-            else if ((matcher = Commands.getMatcher(command, Commands.INFODEALS)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFODEALS)) != null)
                 showDeals(player);
-            else if ((matcher = Commands.getMatcher(command, Commands.INFODEMOGRAPHICS)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFODEMOGRAPHICS)) != null)
                 showDemographics(player);
-            else if ((matcher = Commands.getMatcher(command, Commands.INFODIPLOMACY)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFODIPLOMACY)) != null)
                 showDiplomacy();
-            else if ((matcher = Commands.getMatcher(command, Commands.INFODIPLOMATIC)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFODIPLOMATIC)) != null)
                 return;
-            else if ((matcher = Commands.getMatcher(command, Commands.INFOECONOMIC)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFOECONOMIC)) != null)
                 return;
-            else if ((matcher = Commands.getMatcher(command, Commands.INFOMILITARY)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFOMILITARY)) != null)
                 return;
-            else if ((matcher = Commands.getMatcher(command, Commands.INFONOTIFICATIONS)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFONOTIFICATIONS)) != null)
                 return;
-            else if ((matcher = Commands.getMatcher(command, Commands.INFOUNIT)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFOUNIT)) != null)
                 return;
-            else if ((matcher = Commands.getMatcher(command, Commands.INFOVICTORY)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.INFOVICTORY)) != null)
                 return;
-            else if ((matcher = Commands.getMatcher(command, Commands.MENUEXIT)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
                 return;
             else
                 System.out.println("invalid command");
@@ -91,13 +90,13 @@ public class GameView {
         System.out.println("you don't have enough mp to move to this tile");
     }
 
-    private void showMessages(Player player){
-        for(int i = 0 ; i < player.getMessages().size() ; i++){
+    private void showMessages(Player player) {
+        for (int i = 0; i < player.getMessages().size(); i++) {
             System.out.println(player.getMessages().get(i));
         }
     }
 
-    public static void showCurrentCity(City city){
+    public static void showCurrentCity(City city) {
 
     }
 }

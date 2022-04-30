@@ -1,7 +1,7 @@
 package views;
 
 import controllers.ProfileMenuController;
-import enums.Commands;
+import enums.Command;
 import models.User;
 
 import java.util.regex.Matcher;
@@ -13,16 +13,16 @@ public class ProfileMenuView extends Processor {
         while (true) {
             String command = Processor.getInstance().getInput();
             Matcher matcher;
-            if ((matcher = Commands.getMatcher(command, Commands.NICKNAMECHANGE)) != null)
+            if ((matcher = Command.getMatcher(command, Command.NICKNAMECHANGE)) != null)
                 profileMenuController.changeNickname(matcher, user);
-            else if ((matcher = Commands.getMatcher(command, Commands.CHANGEPASSWORD1)) != null
-                    || (matcher = Commands.getMatcher(command, Commands.CHANGEPASSWORD2)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.CHANGEPASSWORD1)) != null
+                    || (matcher = Command.getMatcher(command, Command.CHANGEPASSWORD2)) != null)
                 profileMenuController.changePassword(matcher, user);
-            else if ((matcher = Commands.getMatcher(command, Commands.SHOWMENU)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.SHOWMENU)) != null)
                 showMenu();
-            else if ((matcher = Commands.getMatcher(command, Commands.MENUENTER)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.MENUENTER)) != null)
                 return matcher.group("menuname");
-            else if ((matcher = Commands.getMatcher(command, Commands.MENUEXIT)) != null)
+            else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
                 return "mainMenu";
             else
                 System.out.println("invalid Command!");

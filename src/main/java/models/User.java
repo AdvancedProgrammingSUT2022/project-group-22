@@ -6,7 +6,7 @@ public class User {
     private String nickname;
     private Player player;
 
-    public User(String username,String password, String nickname){
+    public User(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;

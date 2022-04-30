@@ -3,7 +3,7 @@ package enums;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum Commands {
+public enum Command {
         CREATEUSER1(
                         "user create (--username|-u) (?<username>\\S+) (--nickname|-n) (?<nickname>\\S+) (--password|-p) (?<password>\\S+)"),
         CREATEUSER2(
@@ -47,13 +47,13 @@ public enum Commands {
 
         private String regex;
 
-        Commands(String regex) {
+        Command(String regex) {
                 this.regex = regex;
         }
 
-        public static Matcher getMatcher(String input, Commands command) {
-            String regex = "\\s*" + command.regex.replace(" ", "\\s+") + "\\s*";
-            Matcher matcher = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(input);
-            return matcher.matches() ? matcher : null;
+        public static Matcher getMatcher(String input, Command command) {
+                String regex = "\\s*" + command.regex.replace(" ", "\\s+") + "\\s*";
+                Matcher matcher = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(input);
+                return matcher.matches() ? matcher : null;
         }
 }

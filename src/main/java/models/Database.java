@@ -97,7 +97,6 @@ public class Database {
     public void sortPlayers() {
     }
 
-
     public void addTileToCity() {
     }
 

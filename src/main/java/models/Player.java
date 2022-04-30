@@ -149,10 +149,8 @@ public class Player extends User {
         return tiles;
     }
 
-
     public void setHappiness() {
     }
-
 
     public ArrayList<Technology> getResearches() {
         return researches;
@@ -161,8 +159,6 @@ public class Player extends User {
     public void addResearch(Technology technology) {
         researches.add(technology);
     }
-
-
 
     public int findTile(Tile tile) {
         for (Tile tempTile : this.getTiles()) {

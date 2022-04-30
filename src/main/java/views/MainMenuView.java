@@ -1,37 +1,41 @@
 package views;
 
 import controllers.MainMenuController;
-import enums.Commands;
+import enums.Command;
 
 import java.util.regex.Matcher;
 
 public class MainMenuView {
-    //TODO: print messages for main menu controller
-    public static String run(){
+    // TODO: print messages for main menu controller
+    public static String run() {
         MainMenuController mainMenuController = new MainMenuController();
-        while(true){
+        while (true) {
             String command = Processor.getInstance().getInput();
             Matcher matcher;
-            if((matcher = Commands.getMatcher(command, Commands.MENUENTER)) != null) return matcher.group("menuname");
-            else if((matcher = Commands.getMatcher(command,Commands.MENUEXIT)) != null) return "Exit";
-            else if((matcher = Commands.getMatcher(command,Commands.LOGOUT)) != null) {
+            if ((matcher = Command.getMatcher(command, Command.MENUENTER)) != null)
+                return matcher.group("menuname");
+            else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
+                return "Exit";
+            else if ((matcher = Command.getMatcher(command, Command.LOGOUT)) != null) {
                 loggedOut();
                 return "logout";
-            }else if((matcher = Commands.getMatcher(command, Commands.SHOWMENU)) != null) showMenu();
-            else System.out.println("invalid command!");
+            } else if ((matcher = Command.getMatcher(command, Command.SHOWMENU)) != null)
+                showMenu();
+            else
+                System.out.println("invalid command!");
         }
 
     }
 
-    public static void menuNavigationNotPossible(){
+    public static void menuNavigationNotPossible() {
         System.out.println("menu navigation is not possible");
     }
 
-    public static void showMenu(){
+    public static void showMenu() {
         System.out.println("Main Menu");
     }
 
-    public static void loggedOut(){
+    public static void loggedOut() {
         System.out.println("user logged out successfully");
     }
 }

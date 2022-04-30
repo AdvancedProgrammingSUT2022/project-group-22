@@ -21,7 +21,7 @@ public enum Technology {
     CIVILSERVICE(400, "PHILOSOPHY,TRAPPING", "CHIVALRY"),
     CURRENCY(250, "MATHMATICS", "CHIVALRY"),
     EDUCATION(440, "THEOLOGY", "ACOUSTICS,BANKING"),
-    ENGINEERING(250,"MATHMATICS,CONSTRUCTION", "MACHINERY,PHYSICS"),
+    ENGINEERING(250, "MATHMATICS,CONSTRUCTION", "MACHINERY,PHYSICS"),
     MACHINERY(440, "ENGINEERING", "PRINTINGPRESS"),
     METALCASTING(240, "IRONWORKING", "PHYSICS,STEEL"),
     PHYSICS(440, "ENGINEERING,METALCASTING", "PRINTINGPRESS,GUNPOWDER"),
@@ -37,7 +37,7 @@ public enum Technology {
     METALLURGY(900, "GUNPOWDER", "RIFLING"),
     MILITARYSIENCE(1300, "ECONOMICS,CHEMISTRY", "STEAMPOWER"),
     PRINTINGPRESS(650, "MACHINERY,PHYSICS", "ECONOMICS"),
-    RIFLING(1425, "METALLURGY","DYNAMITE"),
+    RIFLING(1425, "METALLURGY", "DYNAMITE"),
     SCIENTIFICTHEORY(1300, "ACOUSTICS", "BIOLOGY,STEAMPOWER"),
     BIOLOGY(1680, "ARCHAEOLOGY,SCIENTIFICTHEORY", "ELECTRICITY"),
     COMBUSTION(2200, "REPLACEABLEPARTS,RAILROAD,DYNAMITE", ""),
@@ -53,17 +53,21 @@ public enum Technology {
     private final String prerequisiteTechs;
     private final String leadsToTechs;
 
-    Technology(int cost, String prerequisiteTechs, String leadsToTechs){
+    Technology(int cost, String prerequisiteTechs, String leadsToTechs) {
         this.cost = cost;
         this.prerequisiteTechs = prerequisiteTechs;
         this.leadsToTechs = leadsToTechs;
     }
 
+    public int getCost() {
+        return cost;
+    }
 
-    public int getCost() { return cost; }
+    public String getPrerequisiteTechs() {
+        return prerequisiteTechs;
+    }
 
-    public String getPrerequisiteTechs() { return prerequisiteTechs; }
-
-    public String getLeadsToTechs() { return leadsToTechs; }
+    public String getLeadsToTechs() {
+        return leadsToTechs;
+    }
 }
-

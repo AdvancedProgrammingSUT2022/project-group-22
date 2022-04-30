@@ -17,8 +17,8 @@ public enum Building {
     CASTLE(200, 3, Technology.CHIVALRY),
     FORGE(150, 2, Technology.METALCASTING),
     GARDEN(120, 2, Technology.THEOLOGY),
-    MARKET(120,0,Technology.CURRENCY),
-    MINT(120,0,Technology.CURRENCY),
+    MARKET(120, 0, Technology.CURRENCY),
+    MINT(120, 0, Technology.CURRENCY),
     MONASTERY(120, 2, Technology.THEOLOGY),
     UNIVERSITY(200, 2, Technology.EDUCATION),
     WORKSHOP(100, 2, Technology.METALCASTING),
@@ -41,16 +41,21 @@ public enum Building {
     private final int maintenance;
     Technology technologyRequired;
 
-    Building(int cost , int maintenance, Technology technology){
+    Building(int cost, int maintenance, Technology technology) {
         this.cost = cost;
         this.maintenance = maintenance;
         this.technologyRequired = technology;
     }
 
-    public int getCost() { return cost; }
+    public int getCost() {
+        return cost;
+    }
 
-    public int getMaintenance() { return maintenance; }
+    public int getMaintenance() {
+        return maintenance;
+    }
 
-    public Technology getTechnology() { return technologyRequired; }
+    public Technology getTechnology() {
+        return technologyRequired;
+    }
 }
-
