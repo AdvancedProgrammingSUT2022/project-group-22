@@ -16,6 +16,7 @@ public class Tile {
     private int production;
     private int movementCost;
     private int combatModifier;
+    private UnitType unitType;
 
     private MilitaryUnit garrisonUnit;
     private CivilianUnit workerUnit;

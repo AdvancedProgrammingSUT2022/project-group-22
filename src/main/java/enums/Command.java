@@ -43,7 +43,49 @@ public enum Command {
         INFOMILITARY("info military"),
         INFOECONOMIC("info economic"),
         INFODIPLOMATIC("info diplomacy"),
-        INFODEALS("info deals");
+        INFODEALS("info deals"),
+        SELECTUNITCOMBAT("select unit combat (?<position>\\d+:\\d+)"),
+        SELECTUNITNONCOMBAT("select unit noncombat (?<position>\\d+:\\d+)"),
+        SELECTCITYNAME("select city name (?<name>\\S+)"),
+        SELECTCITYPOSITION("select city position (?<position>\\d+:\\d+)"),
+        MOVETO("unit move to (?<position>\\d+:\\d+)"),
+        SLEEP("unit sleep"),
+        ALERT("unit alert"),
+        FORTIFY("unit fortify"),
+        FORTIFYHEAL("unit fortify heal"),
+        GARRISON("unit garrison"),
+        SETUP("unit setup ranged"),
+        ATTACK("unit attack position (?<position>\\d+:\\d+)"),
+        FOUND("unit found city"),
+        CANCEL("unit cancel mission"),
+        WAKE("unit wake"),
+        DELETE("unit delete"),
+        BUILDROAD("unit build road"),
+        BUILDRAILROAD("unit build rail road"),
+        BUILDFARM("unit build farm"),
+        BUILDMINE("unit build mine"),
+        BUILDTRADINGPOST("unit build trading post"),
+        BUILDLAMBERMILL("unit build lamber miil"),
+        BUILDPASTURE("unit build pasture"),
+        BUILDCAMP("unit build camp"),
+        BUILDPLANTATION("unit build plantation"),
+        BUILDQUARRY("unit build quarry"),
+        REMOVEJUNGLE("unit build jungle"),
+        REMOVEROUTE("unit build route"),
+        REPAIR("unit repair"),
+        MAPSHOWPOS("map show position (?<position>\\d+:\\d+)"),
+        MAPSHOWCITY("map show city (?<city>\\S+)"),
+        MAPMOVER("map move right"),
+        MAPMOVEL("map move left"),
+        MAPMOVEU("map move up"),
+        MAPMOVED("map move down"),
+
+
+
+
+        //cheat sheet
+        INCREASETURN("increase -turn (?<amount>\\d+)"),
+        INCREASEGOLD("increase gold (?<amount>\\d+)");
 
         private String regex;
 

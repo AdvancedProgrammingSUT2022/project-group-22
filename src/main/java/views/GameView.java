@@ -43,8 +43,41 @@ public class GameView {
                 return;
             else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
                 return;
-            else
-                System.out.println("invalid command");
+            else if((matcher = Command.getMatcher(command,Command.SELECTCITYNAME)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.SELECTCITYPOSITION)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.SELECTUNITCOMBAT)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.SELECTUNITNONCOMBAT)) != null)return;
+            else if((matcher = Command.getMatcher(command,Command.MOVETO)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.SLEEP)) != null)return;
+            else if((matcher = Command.getMatcher(command,Command.ALERT)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.FORTIFY)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.FORTIFYHEAL)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.GARRISON)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.SETUP)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.ATTACK)) != null)return;
+            else if((matcher = Command.getMatcher(command,Command.FOUND)) != null)return;
+            else if((matcher = Command.getMatcher(command,Command.CANCEL)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.DELETE)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.WAKE)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDROAD)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDRAILROAD)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDFARM)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDMINE)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDTRADINGPOST)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDLAMBERMILL)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDPASTURE)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDCAMP)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDPLANTATION)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.BUILDQUARRY)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.REMOVEJUNGLE)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.REMOVEROUTE)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.REPAIR)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.MAPSHOWPOS)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.MAPSHOWCITY)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.MAPMOVED)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.MAPMOVEL)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.MAPMOVER)) != null) return;
+            else if((matcher = Command.getMatcher(command,Command.MAPMOVEU)) != null) return;
         }
     }
 
