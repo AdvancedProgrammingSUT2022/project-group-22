@@ -85,14 +85,14 @@ public class Database {
         return null;
     }
 
-    public User getUserByPLayer(Player player) {
-        for (User user : this.users) {
-            if (user.getPlayer().equals(player)) {
-                return user;
-            }
-        }
-        return null;
-    }
+    // public User getUserByPLayer(Player player) {
+    // for (User user : this.users) {
+    // if (user.getPlayer().equals(player)) {
+    // return user;
+    // }
+    // }
+    // return null;
+    // }
 
     public void sortPlayers() {
     }
@@ -116,6 +116,22 @@ public class Database {
             for (CivilianUnit unit : player.getCivilianUnits()) {
                 if (unit.getPositon().equals(tile)) {
                     return unit;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Player getUnitOwner(Unit unit) {
+        for (Player player : this.players) {
+            for (CivilianUnit civUnit : player.getCivilianUnits()) {
+                if (unit.equals(civUnit)) {
+                    return player;
+                }
+            }
+            for (MilitaryUnit milUnit : player.getMilitaryUnits()) {
+                if (unit.equals(milUnit)) {
+                    return player;
                 }
             }
         }

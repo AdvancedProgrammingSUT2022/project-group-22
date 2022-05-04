@@ -67,14 +67,17 @@ public class MapController {
         ArrayList<TileView> tileView = new ArrayList<TileView>();
         for (int i = x1; i < x2; i++) {
             for (int j = y1; j < y2; j++) {
-                tileView.add(new TileView(map[i][j].getPlayer().getColor().getColor(),
-                        map[i][j].getLandType().getColor().getColor(),
-                        database.getUserByPLayer(map[i][j].getPlayer()).getNickname(),
-                        database.getMilitaryUnitByTile(map[i][j]).getUnitType().name(),
-                        database.getCivilianUnitByTile(map[i][j]).getUnitType().name(),
-                        map[i][j].getFeature().name(), getRiverColor(map[i][j].getHasRiver())));
+                Player player = map[i][j].getPlayer();
+                CivilianUnit civUnit = database.getCivilianUnitByTile(map[i][j]);
+                MilitaryUnit milUnit = database.getMilitaryUnitByTile(map[i][j]);
+                String[] colors = { player.getColor().getColor(), database.getUnitOwner(civUnit).getColor().getColor(),
+                        database.getUnitOwner(milUnit).getColor().getColor() };
+
+                tileView.add(new TileView(colors, map[i][j].getLandType().getColor().getColor(), player.getNickname(),
+                        milUnit.getUnitType().name(), civUnit.getUnitType().name(), map[i][j].getFeature().name(), map[i][j].getResource().name(),
+                        getRiverColor(map[i][j].getHasRiver())) , i, j);
             }
         }
-        MapView.getInstance().printMap(tileView);
+        MapView.getInstance().printMap(tileView, y2 - y1, x2 - x1);
     }
 }
