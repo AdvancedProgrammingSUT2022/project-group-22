@@ -3,26 +3,35 @@ package views;
 import java.util.ArrayList;
 
 public class TileView {
-    private String color;
+    // color : player , civilian , military
+    private String[] color = new String[3];
     private String backgroundColor;
     private String nickname;
     private String militaryUnit;
     private String civilianUnit;
     private String feature;
+    private String resource;
+    private String improvement;
     ArrayList<String> hasRiver;
+    private int x;
+    private int y;
 
-    public TileView(String color, String backgroundColor, String nickname, String militaryUnit,
-            String civilianUnit, String feature, ArrayList<String> hasRiver) {
+    public TileView(String[] color, String backgroundColor, String nickname, String militaryUnit,
+            String civilianUnit, String feature, String resource, String improvement, ArrayList<String> hasRiver, int x, int y) {
         this.color = color;
         this.backgroundColor = backgroundColor;
         this.nickname = nickname;
         this.militaryUnit = militaryUnit;
         this.civilianUnit = civilianUnit;
         this.feature = feature;
+        this.resource = resource;
+        this.improvement = improvement;
         this.hasRiver = hasRiver;
+        this.x = x;
+        this.y = y;
     }
 
-    public String getColor() {
+    public String[] getColor() {
         return this.color;
     }
 
@@ -46,7 +55,15 @@ public class TileView {
         return this.feature;
     }
 
+    public String getResourceTileView() { return resource; }
+
+    public String getImprovement() { return improvement; }
+
     public ArrayList<String> getHasRiver() {
         return this.hasRiver;
     }
+
+    public int getX() { return x; }
+
+    public int getY() { return y; }
 }

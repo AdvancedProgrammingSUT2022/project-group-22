@@ -72,9 +72,10 @@ public class MapController {
                 MilitaryUnit milUnit = database.getMilitaryUnitByTile(map[i][j]);
                 String[] colors = { player.getColor().getColor(), database.getUnitOwner(civUnit).getColor().getColor(),
                         database.getUnitOwner(milUnit).getColor().getColor() };
+
                 tileView.add(new TileView(colors, map[i][j].getLandType().getColor().getColor(), player.getNickname(),
-                        milUnit.getUnitType().name(), civUnit.getUnitType().name(), map[i][j].getFeature().name(),
-                        getRiverColor(map[i][j].getHasRiver())));
+                        milUnit.getUnitType().name(), civUnit.getUnitType().name(), map[i][j].getFeature().name(), map[i][j].getResource().name(),
+                        getRiverColor(map[i][j].getHasRiver())) , i, j);
             }
         }
         MapView.getInstance().printMap(tileView, y2 - y1, x2 - x1);

@@ -54,9 +54,7 @@ public class Tile {
         return this.feature;
     }
 
-    public Resource getResource() {
-        return this.resource;
-    }
+    public Resource getResource() { return this.resource; }
 
     public Boolean[] getHasRiver() {
         return this.hasRiver;
