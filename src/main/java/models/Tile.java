@@ -20,6 +20,7 @@ public class Tile {
 
     private MilitaryUnit garrisonUnit;
     private CivilianUnit workerUnit;
+    private Improvement improvement;
     private ArrayList<Building> buildings = new ArrayList<Building>();
     private Boolean[] hasRoad = new Boolean[6];
 
@@ -51,11 +52,25 @@ public class Tile {
         return this.landType;
     }
 
+    public void removeJungle() {
+        // this.food = this.food - this.landType.getFood() + landType.getFood();
+        // this.gold = this.gold - this.landType.getGold() + landType.getGold();
+        // this.production = this.production - this.landType.getProduction() +
+        // landType.getProduction();
+        // this.movementCost = this.movementCost - this.landType.getMovementCost() +
+        // landType.getMovementCost();
+        // this.combatModifier = this.movementCost - this.landType.getMovementCost() +
+        // landType.getCombatModifier() + (feature != null ? feature.getCombatModifier()
+        // : 0);
+    }
+
     public Feature getFeature() {
         return this.feature;
     }
 
-    public Resource getResource() { return this.resource; }
+    public Resource getResource() {
+        return this.resource;
+    }
 
     public Boolean[] getHasRiver() {
         return this.hasRiver;
@@ -99,6 +114,14 @@ public class Tile {
 
     public void setWorkerUnit(CivilianUnit workerUnit) {
         this.workerUnit = workerUnit;
+    }
+
+    public Improvement getImprovement() {
+        return improvement;
+    }
+
+    public void addImprovement(Improvement improvement) {
+        this.improvement = improvement;
     }
 
     public ArrayList<Building> getBuildings() {

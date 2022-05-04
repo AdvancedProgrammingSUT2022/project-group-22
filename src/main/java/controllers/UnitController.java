@@ -12,7 +12,9 @@ public class UnitController {
 
     GameView gameView = GameView.getInstance();
 
-    public void move(Matcher matcher, CivilianUnit civUnit, MilitaryUnit milUnit) {
+    public void move(Matcher matcher) {
+        CivilianUnit civUnit = player.getCurrentCivilian();
+        MilitaryUnit milUnit = player.getCurrentMilitary();
         Unit unit = civUnit != null ? civUnit : milUnit;
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
@@ -77,7 +79,32 @@ public class UnitController {
         // baray faz 1 serfan bayad matcher begirim ama badan bayad unit bgirim
     }
 
-    public void foundCity() {
+    public void foundCity(Matcher matcher) {
+        CivilianUnit civUnit = player.getCurrentCivilian();
+        int i = Integer.parseInt(matcher.group("i"));
+        int j = Integer.parseInt(matcher.group("j"));
+        Tile tile = map[i][j];
+
+        if (civUnit == null) {
+            gameView.noUnitSelected();
+            return;
+        } else if (civUnit.getUnitType() != UnitType.SETTLER) {
+            gameView.unitNotSettler();
+            return;
+        } else if (map.length < i || map[0].length < j) {
+            gameView.incorrectTile();
+            return;
+        } else if (civUnit.getPositon() != tile) {
+            gameView.unitNotOnTile();
+        } else if (tile.getPlayer() != null || tile.getPlayer() != player) {
+            gameView.tileHasOwner();
+            return;
+        } // check distance from other city centers
+        else {
+            player.getCivilianUnits().remove(civUnit);
+            player.setCurrentCivilian(null);
+            player.addCity(new City(tile, player));
+        }
     }
 
     public void build(Matcher matcher) {

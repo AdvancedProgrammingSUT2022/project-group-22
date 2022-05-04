@@ -4,20 +4,57 @@ import java.util.*;
 import enums.*;
 
 public class City {
-    private ArrayList<Tile> tiles = new ArrayList<Tile>();
     private String name;
+    private Tile center;
+    private ArrayList<Tile> tiles = new ArrayList<Tile>();
+
     private int food;
     private int gold;
     private int production;
+    private int population;
+
+    private final int range = 2;
     private int hitPoints;
     private int combatStrength;
     private int rangedCombatStrength;
-    private ArrayList<Resource> resources = new ArrayList<Resource>();
-    private MilitaryUnit garrisonUnit;
 
-    public City(Tile tile) {
+    private MilitaryUnit garrisonUnit;
+    private ArrayList<Resource> resources = new ArrayList<Resource>();
+    private ArrayList<Improvement> improvements = new ArrayList<Improvement>();
+
+    public City(Tile tile, Player player) {
         // TODO: update combat variables
+        this.population = 1;
+
+        this.center = tile;
         this.addTile(tile);
+        tile.setPlayer(player);
+        if (tile.getFeature().equals(Feature.JUNGLE)) {
+            tile.removeJungle();
+        }
+        for (int i = 0; i < 6; i++) {
+            tile.setHasRoad(i, true);
+        }
+
+        for (int i = 0; i < 6; i++) {
+            Tile neighbor = Database.getInstance().getNeighbor(tile, i);
+            if (neighbor.getPlayer() != null) {
+                // check tiles up to 3 tiles away
+            } else {
+                this.addTile(neighbor);
+                neighbor.setPlayer(player);
+            }
+        }
+
+        this.hitPoints = 20;
+    }
+
+    public Tile getCenter() {
+        return center;
+    }
+
+    public void setCenter(Tile center) {
+        this.center = center;
     }
 
     public ArrayList<Tile> getTiles() {
@@ -30,6 +67,14 @@ public class City {
         this.gold += tile.getGold();
         this.production += tile.getProduction();
         // TODO: check if resource is available and add resource
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getFood() {
@@ -54,6 +99,14 @@ public class City {
 
     public void setProduction(int production) {
         this.production = production;
+    }
+
+    public int getPopulation() {
+        return this.population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
     }
 
     public int getHitPoints() {
@@ -91,6 +144,18 @@ public class City {
         this.production += resource.getProduction();
     }
 
+    public ArrayList<Improvement> getImprovements() {
+        return improvements;
+    }
+
+    public void addImprovement(Improvement improvement, Tile tile) {
+        tile.addImprovement(improvement);
+        this.improvements.add(improvement);
+        this.food += improvement.getFood();
+        this.gold += improvement.getGold();
+        this.production += improvement.getProduction();
+    }
+
     public MilitaryUnit getGarrisonUnit() {
         return this.garrisonUnit;
     }
@@ -99,17 +164,18 @@ public class City {
         this.garrisonUnit = garrisonUnit;
     }
 
+    public Boolean hasImprovement(Improvement improvement) {
+        for (Improvement tempImprovement : this.improvements) {
+            if (tempImprovement.equals(improvement)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void produceUnit(UnitType unit) {
     }
 
     public void build(Building building) {
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 }

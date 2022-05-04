@@ -7,7 +7,6 @@ public class Player extends User {
     private Color color;
 
     private int score;
-    private int population;
     private int happiness;
     private City capital;
     private ArrayList<City> cities = new ArrayList<City>();
@@ -17,7 +16,6 @@ public class Player extends User {
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
     private ArrayList<Tile> revealedTiles = new ArrayList<>();
-    private ArrayList<Technology> researches = new ArrayList<>();
 
     private City currentCity;
     private MilitaryUnit currentMilitary;
@@ -73,14 +71,6 @@ public class Player extends User {
 
     public void setHappiness(int happiness) {
         this.happiness = happiness;
-    }
-
-    public int getPopulation() {
-        return this.population;
-    }
-
-    public void setPopulation(int population) {
-        this.population = population;
     }
 
     public int getScore() {
@@ -152,14 +142,6 @@ public class Player extends User {
     public void setHappiness() {
     }
 
-    public ArrayList<Technology> getResearches() {
-        return researches;
-    }
-
-    public void addResearch(Technology technology) {
-        researches.add(technology);
-    }
-
     public int findTile(Tile tile) {
         for (Tile tempTile : this.getTiles()) {
             if (tempTile.equals(tile)) {
@@ -205,4 +187,12 @@ public class Player extends User {
         this.currentMilitary = null;
     }
 
+    public Boolean hasTechnology(Technology technology) {
+        for (Technology tempTechnology : this.technologies) {
+            if (tempTechnology.equals(technology)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
