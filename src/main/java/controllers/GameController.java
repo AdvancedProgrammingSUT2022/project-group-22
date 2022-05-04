@@ -63,11 +63,11 @@ public class GameController {
     }
 
     public void unitCombatPosition(Matcher matcher) {
-
     }
 
-    // private void nextTurn() {
-    // }
+    private void nextTurn() {
+        // restore city + unit in combat
+    }
 
     public String run() {
         return null;
