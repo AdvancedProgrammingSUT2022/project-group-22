@@ -5,16 +5,15 @@ import enums.*;
 import models.*;
 import views.*;
 
-public class UnitController {
-    Database database = Database.getInstance();
-    Player player = database.getCurrentPlayer();
-    Tile[][] map = database.getMap();
+public class UnitController extends GameController {
+    private static UnitController instance = null;
 
-    GameView gameView = GameView.getInstance();
+    public static UnitController getInstance() {
+        instance = instance != null ? instance : new UnitController();
+        return instance;
+    }
 
     public void move(Matcher matcher) {
-        CivilianUnit civUnit = player.getCurrentCivilian();
-        MilitaryUnit milUnit = player.getCurrentMilitary();
         Unit unit = civUnit != null ? civUnit : milUnit;
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
@@ -24,7 +23,7 @@ public class UnitController {
             gameView.noUnitSelected();
             return;
         } else if (map.length < i || map[0].length < j) {
-            gameView.incorrectTile();
+            gameView.invalidTile();
             return;
         } else if (civUnit != null && database.getCivilianUnitByTile(tile) != null
                 || milUnit != null && database.getMilitaryUnitByTile(tile) != null) {
@@ -92,7 +91,7 @@ public class UnitController {
             gameView.unitNotSettler();
             return;
         } else if (map.length < i || map[0].length < j) {
-            gameView.incorrectTile();
+            gameView.invalidTile();
             return;
         } else if (civUnit.getPositon() != tile) {
             gameView.unitNotOnTile();

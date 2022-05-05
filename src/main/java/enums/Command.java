@@ -83,7 +83,7 @@ public enum Command {
         PRINTAREA("print map (?<i1>\\d+) (?<j1>\\d+) (?<i2>\\d+) (?<j2>\\d+)"),
         PRINTCITY("print map (?<name>\\w+)"),
         PRINTTILE("print map (?<i>\\d+) (?<j>\\d+)"),
-        CURRENTUNIT("print map current unit position");
+        PRINTUNITPOSITION("print map current unit position");
 
         private String regex;
 

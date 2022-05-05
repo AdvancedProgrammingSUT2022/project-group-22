@@ -1,6 +1,7 @@
 package models;
 
 import java.util.*;
+import java.util.HashMap;
 import enums.*;
 
 public class Player extends User {
@@ -15,7 +16,7 @@ public class Player extends User {
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
-    private ArrayList<Tile> revealedTiles = new ArrayList<>();
+    private HashMap<Tile, Tile> revealedTiles = new HashMap<Tile, Tile>();
 
     private City currentCity;
     private MilitaryUnit currentMilitary;
@@ -57,12 +58,13 @@ public class Player extends User {
         visibleTiles.add(tile);
     }
 
-    public ArrayList<Tile> getRevealedTiles() {
-        return revealedTiles;
+    public Tile getRevealedTile(Tile tile) {
+        return this.revealedTiles.get(tile);
     }
 
-    public void addRevealedTiles(Tile tile) {
-        revealedTiles.add(tile);
+    public void addRevealedTile(Tile tile) {
+        revealedTiles.put(tile,
+                new Tile(tile.getCoordinates(), tile.getLandType(), tile.getFeature(), tile.getResource()));
     }
 
     public int getHappiness() {
@@ -153,7 +155,7 @@ public class Player extends User {
                 return 1;
             }
         }
-        for (Tile tempTile : this.revealedTiles) {
+        for (Tile tempTile : this.revealedTiles.keySet()) {
             if (tempTile.equals(tile)) {
                 return 0;
             }
