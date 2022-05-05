@@ -156,4 +156,14 @@ public class Database {
         }
         return null;
     }
+
+    public ArrayList<Tile> getCityCenters() {
+        ArrayList<Tile> centers = new ArrayList<Tile>();
+        for (Player player : this.players) {
+            for (City city : player.getCities()) {
+                centers.add(city.getCenter());
+            }
+        }
+        return centers;
+    }
 }

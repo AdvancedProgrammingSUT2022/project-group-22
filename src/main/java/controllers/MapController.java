@@ -13,7 +13,6 @@ public class MapController {
     public void generateTiles(Tile[][] map, int x, int y) {
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-
                 LandType landType = LandType.DESERT;
                 landType = landType.randomLandType();
                 Feature feature = landType.randomFeature();
@@ -72,7 +71,6 @@ public class MapController {
                 MilitaryUnit milUnit = database.getMilitaryUnitByTile(map[i][j]);
                 String[] colors = { player.getColor().getColor(), database.getUnitOwner(civUnit).getColor().getColor(),
                         database.getUnitOwner(milUnit).getColor().getColor() };
-
                 tileView.add(new TileView(colors, map[i][j].getLandType().getColor().getColor(), player.getNickname(),
                         milUnit.getUnitType().name(), civUnit.getUnitType().name(), map[i][j].getFeature().name(),
                         map[i][j].getResource().name(), map[i][j].getImprovement().name(),

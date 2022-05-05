@@ -13,7 +13,8 @@ public class ShortestPath {
         for (int i = 0; i < n; i++) {
             ArrayList<Node> list = new ArrayList<Node>();
             for (int j = 0; j < 6; j++) {
-                Tile neighbor = database.getNeighbor(tiles[i / tiles[0].length][i - i / tiles[0].length], j);
+                Tile neighbor = database
+                        .getNeighbor(tiles[i / tiles[0].length][i - tiles[0].length * (i / tiles[0].length)], j);
                 if (neighbor != null) {
                     if (neighbor.getLandType() != LandType.MOUNTAIN && neighbor.getLandType() != LandType.OCEAN
                             && neighbor.getFeature() != Feature.ICE && neighbor.getHasRiver()[j]) {
