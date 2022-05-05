@@ -11,18 +11,18 @@ public class ProfileMenuView extends Processor {
     public static String run(User user) {
         ProfileMenuController profileMenuController = new ProfileMenuController();
         while (true) {
-            String command = Processor.getInstance().getInput();
+            String command = getInput();
             Matcher matcher;
-            if ((matcher = Command.getMatcher(command, Command.NICKNAMECHANGE)) != null)
+            if ((matcher = getMatcher(command, Command.NICKNAMECHANGE)) != null)
                 profileMenuController.changeNickname(matcher, user);
-            else if ((matcher = Command.getMatcher(command, Command.CHANGEPASSWORD1)) != null
-                    || (matcher = Command.getMatcher(command, Command.CHANGEPASSWORD2)) != null)
+            else if ((matcher = getMatcher(command, Command.CHANGEPASSWORD1)) != null
+                    || (matcher = getMatcher(command, Command.CHANGEPASSWORD2)) != null)
                 profileMenuController.changePassword(matcher, user);
-            else if ((matcher = Command.getMatcher(command, Command.SHOWMENU)) != null)
+            else if ((matcher = getMatcher(command, Command.SHOWMENU)) != null)
                 showMenu();
-            else if ((matcher = Command.getMatcher(command, Command.MENUENTER)) != null)
+            else if ((matcher = getMatcher(command, Command.MENUENTER)) != null)
                 return matcher.group("menuname");
-            else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
+            else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "mainMenu";
             else
                 System.out.println("invalid Command!");

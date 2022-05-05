@@ -5,27 +5,27 @@ import enums.Command;
 
 import java.util.regex.Matcher;
 
-public class RegisterMenuView {
+public class RegisterMenuView extends Processor {
     // TODO: print messages for register menu controller
     public static Matcher run() {
         RegisterMenuController registerMenuController = new RegisterMenuController();
         while (true) {
-            String command = Processor.getInstance().getInput();
+            String command = getInput();
             Matcher matcher;
-            if ((matcher = Command.getMatcher(command, Command.CREATEUSER1)) != null
-                    || (matcher = Command.getMatcher(command, Command.CREATEUSER2)) != null
-                    || (matcher = Command.getMatcher(command, Command.CREATEUSER3)) != null
-                    || (matcher = Command.getMatcher(command, Command.CREATEUSER4)) != null
-                    || (matcher = Command.getMatcher(command, Command.CREATEUSER5)) != null
-                    || (matcher = Command.getMatcher(command, Command.CREATEUSER6)) != null)
+            if ((matcher = getMatcher(command, Command.CREATEUSER1)) != null
+                    || (matcher = getMatcher(command, Command.CREATEUSER2)) != null
+                    || (matcher = getMatcher(command, Command.CREATEUSER3)) != null
+                    || (matcher = getMatcher(command, Command.CREATEUSER4)) != null
+                    || (matcher = getMatcher(command, Command.CREATEUSER5)) != null
+                    || (matcher = getMatcher(command, Command.CREATEUSER6)) != null)
                 registerMenuController.createUser(matcher);
-            else if ((matcher = Command.getMatcher(command, Command.LOGIN1)) != null
-                    || (matcher = Command.getMatcher(command, Command.LOGIN2)) != null) {
+            else if ((matcher = getMatcher(command, Command.LOGIN1)) != null
+                    || (matcher = getMatcher(command, Command.LOGIN2)) != null) {
                 if (registerMenuController.login(matcher)) {
                     loggedIn();
                     return matcher;
                 }
-            } else if ((matcher = Command.getMatcher(command, Command.SHOWMENU)) != null)
+            } else if ((matcher = getMatcher(command, Command.SHOWMENU)) != null)
                 showMenu();
             else
                 System.out.println("invalid command!");

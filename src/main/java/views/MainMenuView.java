@@ -5,21 +5,21 @@ import enums.Command;
 
 import java.util.regex.Matcher;
 
-public class MainMenuView {
+public class MainMenuView extends Processor {
     // TODO: print messages for main menu controller
     public static String run() {
         MainMenuController mainMenuController = new MainMenuController();
         while (true) {
-            String command = Processor.getInstance().getInput();
+            String command = getInput();
             Matcher matcher;
-            if ((matcher = Command.getMatcher(command, Command.MENUENTER)) != null)
+            if ((matcher = getMatcher(command, Command.MENUENTER)) != null)
                 return matcher.group("menuname");
-            else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
+            else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "Exit";
-            else if ((matcher = Command.getMatcher(command, Command.LOGOUT)) != null) {
+            else if ((matcher = getMatcher(command, Command.LOGOUT)) != null) {
                 loggedOut();
                 return "logout";
-            } else if ((matcher = Command.getMatcher(command, Command.SHOWMENU)) != null)
+            } else if ((matcher = getMatcher(command, Command.SHOWMENU)) != null)
                 showMenu();
             else
                 System.out.println("invalid command!");
