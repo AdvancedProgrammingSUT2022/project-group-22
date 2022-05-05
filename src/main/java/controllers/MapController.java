@@ -74,8 +74,9 @@ public class MapController {
                         database.getUnitOwner(milUnit).getColor().getColor() };
 
                 tileView.add(new TileView(colors, map[i][j].getLandType().getColor().getColor(), player.getNickname(),
-                        milUnit.getUnitType().name(), civUnit.getUnitType().name(), map[i][j].getFeature().name(), map[i][j].getResource().name(),
-                        getRiverColor(map[i][j].getHasRiver())) , i, j);
+                        milUnit.getUnitType().name(), civUnit.getUnitType().name(), map[i][j].getFeature().name(),
+                        map[i][j].getResource().name(), map[i][j].getImprovement().name(),
+                        getRiverColor(map[i][j].getHasRiver()), i, j));
             }
         }
         MapView.getInstance().printMap(tileView, y2 - y1, x2 - x1);

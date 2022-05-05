@@ -8,6 +8,8 @@ import java.util.regex.*;;
 
 public class GameView {
     private static GameView instance = null;
+    Matcher matcher;
+    GameController gameController = new GameController();
 
     public static GameView getInstance() {
         instance = instance != null ? instance : new GameView();
@@ -15,8 +17,7 @@ public class GameView {
     }
 
     public void run(Player player) {
-        Matcher matcher;
-        GameController gameController = new GameController();
+
         while (true) {
             String command = Processor.getInstance().getInput();
             if ((matcher = Command.getMatcher(command, Command.INFOCITY)) != null)
@@ -43,10 +44,10 @@ public class GameView {
                 return;
             else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
                 return;
-            else if((matcher = Command.getMatcher(command,Command.SELECTCITYNAME)) != null) return;
-            else if((matcher = Command.getMatcher(command,Command.SELECTCITYPOSITION)) != null) return;
-            else if((matcher = Command.getMatcher(command,Command.SELECTUNITCOMBAT)) != null) return;
-            else if((matcher = Command.getMatcher(command,Command.SELECTUNITNONCOMBAT)) != null)return;
+            else if((matcher = Command.getMatcher(command,Command.SELECTCITYNAME)) != null) selectCityName(player, matcher);
+            else if((matcher = Command.getMatcher(command,Command.SELECTCITYPOSITION)) != null) selectCityPos(player, matcher);
+            else if((matcher = Command.getMatcher(command,Command.SELECTUNITCOMBAT)) != null) selectUnitCombat(player, matcher);
+            else if((matcher = Command.getMatcher(command,Command.SELECTUNITNONCOMBAT)) != null) selectUnitNonCombat(player, matcher);
             else if((matcher = Command.getMatcher(command,Command.MOVETO)) != null) return;
             else if((matcher = Command.getMatcher(command,Command.SLEEP)) != null)return;
             else if((matcher = Command.getMatcher(command,Command.ALERT)) != null) return;
@@ -78,7 +79,12 @@ public class GameView {
             else if((matcher = Command.getMatcher(command,Command.MAPMOVEL)) != null) return;
             else if((matcher = Command.getMatcher(command,Command.MAPMOVER)) != null) return;
             else if((matcher = Command.getMatcher(command,Command.MAPMOVEU)) != null) return;
+            else System.out.println("invalid Command!");
         }
+    }
+
+    private void selectCityPos(Player player, Matcher matcher) {
+        System.out.println(gameController.selectCity(player, matcher, "position"));
     }
 
     private void showCity(Player player) {
@@ -130,6 +136,19 @@ public class GameView {
     }
 
     public static void showCurrentCity(City city) {
+    }
+
+    private void selectUnitCombat(Player player, Matcher matcher){
+        System.out.println(gameController.selectUnitCombat(player, matcher));
+    }
+
+    private void selectCityName(Player player, Matcher matcher){
+        System.out.println(gameController.selectCity(player, matcher, "name"));
+    }
+
+    private void selectUnitNonCombat(Player player, Matcher matcher){
 
     }
+
+
 }
