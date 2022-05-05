@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Command {
+
         CREATEUSER1(
                         "user create (--username|-u) (?<username>\\S+) (--nickname|-n) (?<nickname>\\S+) (--password|-p) (?<password>\\S+)"),
         CREATEUSER2(
@@ -44,10 +45,10 @@ public enum Command {
         INFOECONOMIC("info economic"),
         INFODIPLOMATIC("info diplomacy"),
         INFODEALS("info deals"),
-        SELECTUNITCOMBAT("select unit combat (?<position>\\d+:\\d+)"),
-        SELECTUNITNONCOMBAT("select unit noncombat (?<position>\\d+:\\d+)"),
+        SELECTUNITCOMBAT("select unit combat (?<positionX>\\d+) (?<positionY>\\d+)"),
+        SELECTUNITNONCOMBAT("select unit noncombat (?<positionX>\\d+) (?<positionY>\\d+)"),
         SELECTCITYNAME("select city name (?<name>\\S+)"),
-        SELECTCITYPOSITION("select city position (?<position>\\d+:\\d+)"),
+        SELECTCITYPOSITION("select city position (?<positionX>\\d+) (?<positionY>\\d+)"),
         MOVETO("unit move to (?<position>\\d+:\\d+)"),
         SLEEP("unit sleep"),
         ALERT("unit alert"),
@@ -85,7 +86,10 @@ public enum Command {
 
         //cheat sheet
         INCREASETURN("increase -turn (?<amount>\\d+)"),
-        INCREASEGOLD("increase gold (?<amount>\\d+)");
+        INCREASEGOLD("increase gold (?<amount>\\d+)"),
+
+
+        PRINTMAP("print map");
 
         private String regex;
 

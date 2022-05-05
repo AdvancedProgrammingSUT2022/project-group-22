@@ -1,11 +1,63 @@
 package controllers;
 
+import models.Database;
 import models.Player;
+import models.Tile;
 
 import java.util.regex.*;
 
 public class GameController {
-    public void menuNavigation() {
+    final int MaxMap = 10;
+    Tile[][]  tiles = Database.getInstance().getMap();
+
+    public String selectCity(Player player, Matcher matcher, String howToGet){
+        if(howToGet.equals("name")) return selectCityByName(player, matcher);
+        else return selectCityByCoordinate(player, matcher);
+    }
+
+    private String selectCityByCoordinate(Player player, Matcher matcher){
+        if(!isCoordinateCorrect(matcher)) return "Coordinate is out of map";
+        int[] position = new int[2];
+        position[1] = Integer.parseInt(matcher.group("positionX"));
+        position[2] = Integer.parseInt(matcher.group("positionY"));
+        if (!whoseTile(position, player)) return "you don't have access to this tile";
+        //TODO: how to select city must have some changes
+        return "This city selected as the current city";
+    }
+
+    private String selectCityByName(Player player, Matcher matcher){
+        for(int i = 0 ; i < player.getCities().size() ; i++){
+            if(player.getCities().get(i).getName().equals(matcher.group("name"))){
+                player.setCurrentCity(player.getCities().get(i));
+                return "This city was set as the current city";
+            }
+        }
+        return "This player has no city with this name";
+    }
+
+    private boolean whoseTile(int[] position, Player player){
+        if(tiles[position[1]][position[2]].getPlayer().getNickname().equals(player.getNickname())) return true;
+        return false;
+    }
+
+    public String selectUnitCombat(Player player, Matcher matcher){
+        int[] position = new int[2];
+        if(!isCoordinateCorrect(matcher)) return "Coordinate is out of map";
+        position[1] = Integer.parseInt(matcher.group("positionX"));
+        position[2] = Integer.parseInt(matcher.group("positionY"));
+        if(!whoseTile(position, player))  return "you don't have access to this tile";
+        if(tiles[position[1]][position[2]].getGarrisonUnit() != null){
+            player.setCurrentMilitary(tiles[position[1]][position[2]].getGarrisonUnit());
+            return "This Military Unit selected as the current militaryUnit";
+        }else return "there is no Military Unit here";
+    }
+
+    private boolean isCoordinateCorrect(Matcher matcher){
+        int[] position = new int[2];
+        position[1] = Integer.parseInt(matcher.group("positionX"));
+        position[2] = Integer.parseInt(matcher.group("positionY"));
+        if(!(position[1] < MaxMap && position[2] < MaxMap))return false;
+        return true;
     }
 
     private void researchInfo() {

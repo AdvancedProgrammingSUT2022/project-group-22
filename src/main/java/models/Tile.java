@@ -139,4 +139,8 @@ public class Tile {
     public void setHasRoad(int index, Boolean hasRoad) {
         this.hasRoad[index] = hasRoad;
     }
+
+
+//    public enum  getImprovement() {
+//    }
 }

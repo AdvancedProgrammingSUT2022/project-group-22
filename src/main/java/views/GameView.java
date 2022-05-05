@@ -8,6 +8,8 @@ import java.util.regex.*;;
 
 public class GameView {
     private static GameView instance = null;
+    Matcher matcher;
+    GameController gameController = new GameController();
 
     public static GameView getInstance() {
         instance = instance != null ? instance : new GameView();
@@ -15,8 +17,7 @@ public class GameView {
     }
 
     public void run(Player player) {
-        Matcher matcher;
-        GameController gameController = new GameController();
+
         while (true) {
             String command = Processor.getInstance().getInput();
             if ((matcher = Command.getMatcher(command, Command.INFOCITY)) != null)
@@ -43,77 +44,85 @@ public class GameView {
                 return;
             else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.SELECTCITYNAME)) != null)
+            else if((matcher = Command.getMatcher(command,Command.SELECTCITYNAME)) != null)
+                selectCityName(player, matcher);
+            else if((matcher = Command.getMatcher(command,Command.SELECTCITYPOSITION)) != null)
+                selectCityPos(player, matcher);
+            else if((matcher = Command.getMatcher(command,Command.SELECTUNITCOMBAT)) != null)
+                selectUnitCombat(player, matcher);
+            else if((matcher = Command.getMatcher(command,Command.SELECTUNITNONCOMBAT)) != null)
+                selectUnitNonCombat(player, matcher);
+            else if((matcher = Command.getMatcher(command,Command.MOVETO)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.SELECTCITYPOSITION)) != null)
+            else if((matcher = Command.getMatcher(command,Command.SLEEP)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.SELECTUNITCOMBAT)) != null)
+            else if((matcher = Command.getMatcher(command,Command.ALERT)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.SELECTUNITNONCOMBAT)) != null)
+            else if((matcher = Command.getMatcher(command,Command.FORTIFY)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.MOVETO)) != null)
+            else if((matcher = Command.getMatcher(command,Command.FORTIFYHEAL)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.SLEEP)) != null)
+            else if((matcher = Command.getMatcher(command,Command.GARRISON)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.ALERT)) != null)
+            else if((matcher = Command.getMatcher(command,Command.SETUP)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.FORTIFY)) != null)
+            else if((matcher = Command.getMatcher(command,Command.ATTACK)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.FORTIFYHEAL)) != null)
+            else if((matcher = Command.getMatcher(command,Command.FOUND)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.GARRISON)) != null)
+            else if((matcher = Command.getMatcher(command,Command.CANCEL)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.SETUP)) != null)
+            else if((matcher = Command.getMatcher(command,Command.DELETE)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.ATTACK)) != null)
+            else if((matcher = Command.getMatcher(command,Command.WAKE)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.FOUND)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDROAD)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.CANCEL)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDRAILROAD)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.DELETE)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDFARM)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.WAKE)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDMINE)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDROAD)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDTRADINGPOST)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDRAILROAD)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDLAMBERMILL)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDFARM)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDPASTURE)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDMINE)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDCAMP)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDTRADINGPOST)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDPLANTATION)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDLAMBERMILL)) != null)
+            else if((matcher = Command.getMatcher(command,Command.BUILDQUARRY)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDPASTURE)) != null)
+            else if((matcher = Command.getMatcher(command,Command.REMOVEJUNGLE)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDCAMP)) != null)
+            else if((matcher = Command.getMatcher(command,Command.REMOVEROUTE)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDPLANTATION)) != null)
+            else if((matcher = Command.getMatcher(command,Command.REPAIR)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.BUILDQUARRY)) != null)
+            else if((matcher = Command.getMatcher(command,Command.MAPSHOWPOS)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.REMOVEJUNGLE)) != null)
+            else if((matcher = Command.getMatcher(command,Command.MAPSHOWCITY)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.REMOVEROUTE)) != null)
+            else if((matcher = Command.getMatcher(command,Command.MAPMOVED)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.REPAIR)) != null)
+            else if((matcher = Command.getMatcher(command,Command.MAPMOVEL)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.MAPSHOWPOS)) != null)
+            else if((matcher = Command.getMatcher(command,Command.MAPMOVER)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.MAPSHOWCITY)) != null)
+            else if((matcher = Command.getMatcher(command,Command.MAPMOVEU)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.MAPMOVED)) != null)
+            else if((matcher = Command.getMatcher(command,Command.PRINTMAP)) != null)
                 return;
-            else if ((matcher = Command.getMatcher(command, Command.MAPMOVEL)) != null)
-                return;
-            else if ((matcher = Command.getMatcher(command, Command.MAPMOVER)) != null)
-                return;
-            else if ((matcher = Command.getMatcher(command, Command.MAPMOVEU)) != null)
-                return;
+            else System.out.println("invalid Command!");
+
         }
+    }
+
+    private void selectCityPos(Player player, Matcher matcher) {
+        System.out.println(gameController.selectCity(player, matcher, "position"));
     }
 
     private void showCity(Player player) {
@@ -177,6 +186,19 @@ public class GameView {
     }
 
     public static void showCurrentCity(City city) {
+    }
+
+    private void selectUnitCombat(Player player, Matcher matcher){
+        System.out.println(gameController.selectUnitCombat(player, matcher));
+    }
+
+    private void selectCityName(Player player, Matcher matcher){
+        System.out.println(gameController.selectCity(player, matcher, "name"));
+    }
+
+    private void selectUnitNonCombat(Player player, Matcher matcher){
 
     }
+
+
 }
