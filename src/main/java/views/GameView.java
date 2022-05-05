@@ -44,7 +44,6 @@ public class GameView {
                 return;
             else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
                 return;
-<<<<<<< HEAD
             else if((matcher = Command.getMatcher(command,Command.SELECTCITYNAME)) != null)
                 selectCityName(player, matcher);
             else if((matcher = Command.getMatcher(command,Command.SELECTCITYPOSITION)) != null)
@@ -114,6 +113,8 @@ public class GameView {
             else if((matcher = Command.getMatcher(command,Command.MAPMOVER)) != null)
                 return;
             else if((matcher = Command.getMatcher(command,Command.MAPMOVEU)) != null)
+                return;
+            else if((matcher = Command.getMatcher(command,Command.PRINTMAP)) != null)
                 return;
             else System.out.println("invalid Command!");
 

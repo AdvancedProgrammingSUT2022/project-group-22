@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Command {
+
         CREATEUSER1(
                         "user create (--username|-u) (?<username>\\S+) (--nickname|-n) (?<nickname>\\S+) (--password|-p) (?<password>\\S+)"),
         CREATEUSER2(
@@ -85,7 +86,10 @@ public enum Command {
 
         //cheat sheet
         INCREASETURN("increase -turn (?<amount>\\d+)"),
-        INCREASEGOLD("increase gold (?<amount>\\d+)");
+        INCREASEGOLD("increase gold (?<amount>\\d+)"),
+
+
+        PRINTMAP("print map");
 
         private String regex;
 
