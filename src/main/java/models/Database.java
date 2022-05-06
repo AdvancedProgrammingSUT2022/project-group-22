@@ -185,4 +185,21 @@ public class Database {
         }
         return null;
     }
+
+    public City getCityByTile(Tile tile) {
+        for (User player : this.players) {
+            for (City city : player.getCivilization().getCities()) {
+                for (Tile cityTile : city.getTiles()) {
+                    if (cityTile.equals(tile)) {
+                        return city;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public User getCityOwner(City city) {
+        return city.getCenter().getPlayer();
+    }
 }

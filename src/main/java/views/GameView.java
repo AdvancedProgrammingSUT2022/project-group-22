@@ -3,8 +3,7 @@ package views;
 import controllers.GameController;
 import enums.Color;
 import enums.Command;
-import models.City;
-import models.Civilization;
+import models.User;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -53,17 +52,17 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
-                return null;
+                selectCityName(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
-                return null;
+                selectCityPos(matcher);
             else if((matcher = getMatcher(command,Command.ATTACK)) != null)
                 attack(matcher);
             else if((matcher = getMatcher(command,Command.FOUND)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.SELECTUNITCOMBAT)) != null)
-                return null;
+                selectUnitCombat(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTUNITNONCOMBAT)) != null)
-                return null;
+                selectUnitNonCombat(matcher);
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
@@ -135,39 +134,10 @@ public class GameView extends Processor {
 
         }
     }
-
-    // private void selectCityPos(Civilization civilization, Matcher matcher) {
-    // System.out.println(gameController.selectCity(civilization, matcher, "position"));
-    // }
-
-    // private void showCity(Civilization civilization) {
-    // for (int i = 0; i < civilization.getCities().size(); i++) {
-    // System.out.println(civilization.getCities().get(i).getName());
-    // }
-    // }
-
-    // private void showResearch(Civilization civilization) {
-    // for (int i = 0; i < civilization.getTechnologies().size(); i++) {
-    // System.out.println(civilization.getTechnologies().get(i));
-    // }
-    // }
-
-    // private void showDeals(Civilization civilization) {
-    // }
-
-
-    private void showDemographics(Civilization civilization) {
-//        System.out.println(civilization.getPopulation());
-        //TODO: add get population in civilization class
+    /**********  these are Errors for both printing map and unit action I used most of them  *************/
+    public void notCityOwner() {
+        System.out.println("you don not have access to this city");
     }
-
-    // private void showDemographics(Civilization civilization) {
-    // System.out.println(civilization.getPopulation());
-    // }
-
-
-    // private void showDiplomacy() {
-    // }
 
     public void noUnitSelected() {
         System.out.println("no unit has been selected");
@@ -205,26 +175,60 @@ public class GameView extends Processor {
         System.out.println("no city with this name exists");
     }
 
-    // private void showMessages(Civilization civilization) {
-    // for (int i = 0; i < civilization.getMessages().size(); i++) {
-    // System.out.println(civilization.getMessages().get(i));
-    // }
-    // }
+    public void hasNotChoseAUnit(){
+        System.out.println("Please choose a militaryUnit First");
+    }
 
-    // public static void showCurrentCity(City city) {
-    // }
+    public void noMilitaryUnitHere(){
+        System.out.println("there is no Military Unit here");
+    }
 
-    // private void selectUnitCombat(Civilization civilization, Matcher matcher) {
-    // System.out.println(gameController.selectUnitCombat(civilization, matcher));
-    // }
 
-    // private void selectCityName(Civilization civilization, Matcher matcher) {
-    // System.out.println(gameController.selectCity(civilization, matcher, "name"));
-    // }
+    /************** these functions are not for printing map ********************/
+    public void accessTileError(){
+        System.out.println("you don't have access to this tile");
+    }
 
-    // private void selectUnitNonCombat(Civilization civilization, Matcher matcher) {
+    public void outOfMap(){
+        System.out.println("Coordinate is out of map");
+    }
 
-    // }
+    public void AttackImpossible(){
+        System.out.println("Attack is not Possible");
+    }
+
+    public void successfullySelected(){
+        System.out.println("successfully selected");
+    }
+
+    private void selectCityName(Matcher matcher){
+        GameController.getInstance().selectCityByName(matcher);
+    }
+
+     private void selectCityPos(Matcher matcher) {
+     gameController.selectCityByCoordinate(matcher);
+     }
+
+    private void selectUnitCombat(Matcher matcher) {
+        gameController.selectUnitCombat(matcher);
+    }
+
+    private void attack(Matcher matcher) {
+        gameController.Attack(matcher);
+    }
+
+    private void selectUnitNonCombat(Matcher matcher) {
+        gameController.selectUnitNonCombat(matcher);
+    }
+
+    private void showDemographics(User player) {
+        // System.out.println(player.getPopulation());
+        // TODO: add get population in player class
+    }
+
+
+
+    /************* Please write functions for printing map here **************/
 
     public void printMap(ArrayList<TileView> tiles, int y, int x) {
         int temp = 0;
@@ -317,29 +321,5 @@ public class GameView extends Processor {
             }
         }
     }
-
-    public static void showCurrentCity(City city) {
-    }
-
-    private void selectUnitCombat(Matcher matcher){
-        System.out.println(gameController.selectUnitCombat(matcher));
-    }
-
-    private void selectCityName(Matcher matcher){
-        System.out.println(gameController.selectCity(matcher, "name"));
-    }
-
-    private void selectUnitNonCombat(Matcher matcher){
-        System.out.println(gameController.selectUnitNonCombat(matcher));
-    }
-
-    private void attack(Matcher matcher){
-        System.out.println(gameController.Attack(matcher));
-    }
-
-//    private void sleep(){
-//        System.out.println(gameController.sleep());
-//    }
-
 
 }
