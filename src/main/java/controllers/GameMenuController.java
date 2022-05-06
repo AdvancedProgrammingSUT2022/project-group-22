@@ -1,7 +1,7 @@
 package controllers;
 
+import models.Civilization;
 import models.Database;
-import models.Player;
 import models.User;
 import views.GameMenuView;
 
@@ -11,27 +11,22 @@ public class GameMenuController {
     GameController gameController = new GameController();
 
     public String run() {
-        while (true) {
-            String state = GameMenuView.run();
-            if (state.equals("startGame"))
-                startGame();
-            else
-                return state;
-        }
+        String state = GameMenuView.getInstance().run();
+        return state;
     }
 
     public boolean playGame(Matcher matcher) {
-        if (!doesPlayerExists(matcher.group("username1"))) {
-            GameMenuView.noUserExists(1);
+        if (!doesPlayerExists(matcher.group("username1").trim())) {
+            GameMenuView.getInstance().noUserExists(1);
             return false;
         }
-        if (!doesPlayerExists(matcher.group("username2"))) {
-            GameMenuView.noUserExists(2);
+        if (!doesPlayerExists(matcher.group("username2").trim())) {
+            GameMenuView.getInstance().noUserExists(2);
             return false;
         }
         addPlayer(matcher.group("username1"));
         addPlayer(matcher.group("username2"));
-        GameMenuView.gameStarted();
+        GameMenuView.getInstance().gameStarted();
         return true;
     }
 
@@ -42,7 +37,8 @@ public class GameMenuController {
     private void addPlayer(String username) {
         User user;
         user = Database.getInstance().getUserByUsername(username);
-        Database.getInstance().addPlayer((Player) user);
+        Database.getInstance().addPlayer(user);
+        user.setCivilization(new Civilization());
     }
 
     // return to controller

@@ -1,9 +1,15 @@
 package controllers;
 
-import java.util.*;
+import enums.Color;
+import enums.Feature;
+import enums.LandType;
+import enums.Resource;
 import models.*;
-import views.*;
-import enums.*;
+import views.GameView;
+import views.TileView;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class MapController extends GameController {
     private static MapController instance = null;
@@ -66,11 +72,12 @@ public class MapController extends GameController {
     }
 
     public TileView generateTileView(Tile tile) {
-        Player player = tile.getPlayer();
+        User player = tile.getPlayer();
         CivilianUnit civUnit = database.getCivilianUnitByTile(tile);
         MilitaryUnit milUnit = database.getMilitaryUnitByTile(tile);
-        String[] colors = { player.getColor().getColor(), database.getUnitOwner(civUnit).getColor().getColor(),
-                database.getUnitOwner(milUnit).getColor().getColor() };
+        String[] colors = { player.getCivilization().getColor().getColor(),
+                database.getUnitOwner(civUnit).getCivilization().getColor().getColor(),
+                database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
         return new TileView(colors, tile.getLandType().getColor().getColor(), player.getNickname(),
                 milUnit.getUnitType().name(), civUnit.getUnitType().name(), tile.getFeature().name(),
                 tile.getResource().name(), tile.getImprovement().name(),
@@ -78,10 +85,10 @@ public class MapController extends GameController {
     }
 
     public void addTileView(ArrayList<TileView> tileView, Tile tile) {
-        if (player.findTile(tile) == 1) {
+        if (user.getCivilization().findTile(tile) == 1) {
             tileView.add(generateTileView(tile));
-        } else if (player.findTile(tile) == 0) {
-            tileView.add(generateTileView(player.getRevealedTile(tile)));
+        } else if (user.getCivilization().findTile(tile) == 0) {
+            tileView.add(generateTileView(user.getCivilization().getRevealedTile(tile)));
         } else {
             tileView.add(null);
         }
@@ -94,7 +101,7 @@ public class MapController extends GameController {
                 addTileView(tileView, map[i][j]);
             }
         }
-        gameView.printMap(tileView, y2 - y1, x2 - x1);
+        GameView.getInstance().printMap(tileView, y2 - y1, x2 - x1);
     }
 
     public void printCity(City city) {
@@ -110,7 +117,7 @@ public class MapController extends GameController {
             minY = tile.getCoordinates()[1] < minY ? tile.getCoordinates()[0] : minY;
             maxY = tile.getCoordinates()[1] > maxY ? tile.getCoordinates()[0] : maxY;
         }
-        gameView.printMap(tileView, maxY - minY, maxX - minX);
+        GameView.getInstance().printMap(tileView, maxY - minY, maxX - minX);
     }
 
     public void printTile(Tile tile) {
@@ -127,6 +134,6 @@ public class MapController extends GameController {
             minY = neighbor.getCoordinates()[1] < minY ? neighbor.getCoordinates()[0] : minY;
             maxY = neighbor.getCoordinates()[1] > maxY ? neighbor.getCoordinates()[0] : maxY;
         }
-        gameView.printMap(tileView, maxY - minY, maxX - minX);
+        GameView.getInstance().printMap(tileView, maxY - minY, maxX - minX);
     }
 }

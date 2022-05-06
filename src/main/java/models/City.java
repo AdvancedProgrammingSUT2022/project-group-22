@@ -1,7 +1,8 @@
 package models;
 
-import java.util.*;
 import enums.*;
+
+import java.util.ArrayList;
 
 public class City {
     private String name;
@@ -22,13 +23,13 @@ public class City {
     private ArrayList<Resource> resources = new ArrayList<Resource>();
     private ArrayList<Improvement> improvements = new ArrayList<Improvement>();
 
-    public City(Tile tile, Player player) {
+    public City(Tile tile, User user) {
         // TODO: update combat variables
         this.population = 1;
 
         this.center = tile;
         this.addTile(tile);
-        tile.setPlayer(player);
+        tile.setPlayer(user);
         if (tile.getFeature().equals(Feature.JUNGLE)) {
             tile.removeJungle();
         }
@@ -42,7 +43,7 @@ public class City {
                 // check tiles up to 3 tiles away
             } else {
                 this.addTile(neighbor);
-                neighbor.setPlayer(player);
+                neighbor.setPlayer(user);
             }
         }
 

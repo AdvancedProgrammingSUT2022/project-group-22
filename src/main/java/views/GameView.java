@@ -4,16 +4,17 @@ import controllers.GameController;
 import enums.Color;
 import enums.Command;
 import models.City;
-import models.Player;
+import models.Civilization;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
-;
 
 public class GameView extends Processor {
     private static GameView instance = null;
+
     Matcher matcher;
+
     GameController gameController = GameController.getInstance();
 
     public static GameView getInstance() {
@@ -21,98 +22,98 @@ public class GameView extends Processor {
         return instance;
     }
 
-    public void run() {
+    public String  run() {
         String command;
         while (true) {
             command = getInput();
             if ((matcher = getMatcher(command, Command.INFOCITY)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFORESEARCH)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFODEALS)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFODEMOGRAPHICS)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFODIPLOMACY)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFODIPLOMATIC)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFOECONOMIC)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFOMILITARY)) != null)
-                return;
+                return null;
             else if((matcher =  getMatcher(command,Command.SLEEP)) != null)
-                sleep();
+                return null;
             else if ((matcher = getMatcher(command, Command.INFONOTIFICATIONS)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFOUNIT)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.INFOVICTORY)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
-                return;
+                return null;
             else if((matcher = getMatcher(command,Command.ATTACK)) != null)
                 attack(matcher);
             else if((matcher = getMatcher(command,Command.FOUND)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.SELECTUNITCOMBAT)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.SELECTUNITNONCOMBAT)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.ALERT)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.FORTIFY)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.FORTIFYHEAL)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.GARRISON)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.SETUP)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.ATTACK)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.CANCEL)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.DELETE)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.WAKE)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDROAD)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDFARM)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDMINE)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDTRADINGPOST)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDLAMBERMILL)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDPASTURE)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDCAMP)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDPLANTATION)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.BUILDQUARRY)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.REMOVEJUNGLE)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.REMOVEROUTE)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.REPAIR)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.PRINTAREA)) != null)
                 gameController.printMap(matcher, Command.PRINTAREA);
             else if ((matcher = getMatcher(command, Command.PRINTCITY)) != null)
@@ -122,46 +123,46 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.PRINTUNITPOSITION)) != null)
                 gameController.printMap(matcher, Command.PRINTUNITPOSITION);
             else if ((matcher = getMatcher(command, Command.MAPMOVED)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEL)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVER)) != null)
-                return;
+                return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEU)) != null)
-                return;
+                return null;
             else
                 System.out.println("invalid Command!");
 
         }
     }
 
-    // private void selectCityPos(Player player, Matcher matcher) {
-    // System.out.println(gameController.selectCity(player, matcher, "position"));
+    // private void selectCityPos(Civilization civilization, Matcher matcher) {
+    // System.out.println(gameController.selectCity(civilization, matcher, "position"));
     // }
 
-    // private void showCity(Player player) {
-    // for (int i = 0; i < player.getCities().size(); i++) {
-    // System.out.println(player.getCities().get(i).getName());
-    // }
-    // }
-
-    // private void showResearch(Player player) {
-    // for (int i = 0; i < player.getTechnologies().size(); i++) {
-    // System.out.println(player.getTechnologies().get(i));
+    // private void showCity(Civilization civilization) {
+    // for (int i = 0; i < civilization.getCities().size(); i++) {
+    // System.out.println(civilization.getCities().get(i).getName());
     // }
     // }
 
-    // private void showDeals(Player player) {
+    // private void showResearch(Civilization civilization) {
+    // for (int i = 0; i < civilization.getTechnologies().size(); i++) {
+    // System.out.println(civilization.getTechnologies().get(i));
+    // }
+    // }
+
+    // private void showDeals(Civilization civilization) {
     // }
 
 
-    private void showDemographics(Player player) {
-//        System.out.println(player.getPopulation());
-        //TODO: add get population in player class
+    private void showDemographics(Civilization civilization) {
+//        System.out.println(civilization.getPopulation());
+        //TODO: add get population in civilization class
     }
 
-    // private void showDemographics(Player player) {
-    // System.out.println(player.getPopulation());
+    // private void showDemographics(Civilization civilization) {
+    // System.out.println(civilization.getPopulation());
     // }
 
 
@@ -197,31 +198,31 @@ public class GameView extends Processor {
     }
 
     public void tileHasOwner() {
-        System.out.println("this tile belongs to another player");
+        System.out.println("this tile belongs to another civilization");
     }
 
     public void invalidCity() {
         System.out.println("no city with this name exists");
     }
 
-    // private void showMessages(Player player) {
-    // for (int i = 0; i < player.getMessages().size(); i++) {
-    // System.out.println(player.getMessages().get(i));
+    // private void showMessages(Civilization civilization) {
+    // for (int i = 0; i < civilization.getMessages().size(); i++) {
+    // System.out.println(civilization.getMessages().get(i));
     // }
     // }
 
     // public static void showCurrentCity(City city) {
     // }
 
-    // private void selectUnitCombat(Player player, Matcher matcher) {
-    // System.out.println(gameController.selectUnitCombat(player, matcher));
+    // private void selectUnitCombat(Civilization civilization, Matcher matcher) {
+    // System.out.println(gameController.selectUnitCombat(civilization, matcher));
     // }
 
-    // private void selectCityName(Player player, Matcher matcher) {
-    // System.out.println(gameController.selectCity(player, matcher, "name"));
+    // private void selectCityName(Civilization civilization, Matcher matcher) {
+    // System.out.println(gameController.selectCity(civilization, matcher, "name"));
     // }
 
-    // private void selectUnitNonCombat(Player player, Matcher matcher) {
+    // private void selectUnitNonCombat(Civilization civilization, Matcher matcher) {
 
     // }
 
@@ -336,9 +337,9 @@ public class GameView extends Processor {
         System.out.println(gameController.Attack(matcher));
     }
 
-    private void sleep(){
-        System.out.println(gameController.sleep());
-    }
+//    private void sleep(){
+//        System.out.println(gameController.sleep());
+//    }
 
 
 }

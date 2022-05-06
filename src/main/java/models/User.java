@@ -4,7 +4,7 @@ public class User {
     private String username;
     private String password;
     private String nickname;
-    private Player player;
+    private Civilization civilization;
 
     public User(String username, String password, String nickname) {
         this.username = username;
@@ -36,11 +36,11 @@ public class User {
         this.nickname = nickname;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Civilization getCivilization() {
+        return civilization;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setCivilization(Civilization civilization) {
+        this.civilization = civilization;
     }
 }

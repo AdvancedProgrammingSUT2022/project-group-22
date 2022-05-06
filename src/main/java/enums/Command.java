@@ -21,7 +21,7 @@ public enum Command {
         MENUEXIT("menu exit"),
         SHOWMENU("menu show-current"),
 
-        PLAYGAME("play game --player1 (?<username1>\\S+) --player2(?<username2>\\S+)"),
+        PLAYGAME("play game --player1 (?<username1>\\S+) --player2 (?<username2>\\S+)"),
 
         NICKNAMECHANGE("profile change --nickname (?<newnickname>\\S+)"),
         CHANGEPASSWORD1(
@@ -94,4 +94,5 @@ public enum Command {
         public String getRegex() {
                 return this.regex;
         }
+
 }

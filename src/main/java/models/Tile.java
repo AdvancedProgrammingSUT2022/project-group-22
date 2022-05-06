@@ -1,10 +1,11 @@
 package models;
 
-import java.util.*;
 import enums.*;
 
+import java.util.ArrayList;
+
 public class Tile {
-    private Player player;
+    private User player;
     private int[] coordinates;
     private LandType landType;
     private Feature feature;
@@ -36,11 +37,11 @@ public class Tile {
         this.combatModifier = landType.getCombatModifier() + (feature != null ? feature.getCombatModifier() : 0);
     }
 
-    public Player getPlayer() {
+    public User getPlayer() {
         return this.player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(User player) {
         this.player = player;
     }
 
