@@ -42,13 +42,14 @@ public class GameMenuController {
     }
 
     // return to controller
-    private void startGame() {
-        while (true) {
-            for (int i = 0; i < Database.getInstance().getPlayers().size(); i++) {
-                Database.getInstance().setCurrentPlayer(Database.getInstance().getPlayers().get(i));
-            }
-        }
-    }
+//    private void startGame() {
+//        while (true) {
+//            for (int i = 0; i < Database.getInstance().getPlayers().size(); i++) {
+//                Database.getInstance().setCurrentPlayer(Database.getInstance().getPlayers().get(i));
+//                GameController.getInstance().run();
+//            }
+//        }
+//    }
     // if(!isPlayerExists(matcher.group("username1"))) {
     // GameMenuView.noUserExists(1);
     // return false;
