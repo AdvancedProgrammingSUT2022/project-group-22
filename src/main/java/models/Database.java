@@ -179,4 +179,28 @@ public class Database {
         }
         return null;
     }
+
+    public City getCityByTile(Tile tile) {
+        for (Player player : this.players) {
+            for (City city : player.getCities()) {
+                for (Tile cityTile : city.getTiles()) {
+                    if (cityTile.equals(tile)) {
+                        return city;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public Player getCityOwner(City city) {
+        for (Player player : this.players) {
+            for (City playerCity : player.getCities()) {
+                if (playerCity.equals(city)) {
+                    return player;
+                }
+            }
+        }
+        return null;
+    }
 }

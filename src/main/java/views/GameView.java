@@ -41,7 +41,7 @@ public class GameView extends Processor {
                 return;
             else if ((matcher = getMatcher(command, Command.INFOMILITARY)) != null)
                 return;
-            else if((matcher =  getMatcher(command,Command.SLEEP)) != null)
+            else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
                 sleep();
             else if ((matcher = getMatcher(command, Command.INFONOTIFICATIONS)) != null)
                 return;
@@ -52,12 +52,12 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return;
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
-                return;
+                gameController.selectCity(matcher, Command.SELECTCITYNAME);
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
-                return;
-            else if((matcher = getMatcher(command,Command.ATTACK)) != null)
+                gameController.selectCity(matcher, Command.SELECTCITYPOSITION);
+            else if ((matcher = getMatcher(command, Command.ATTACK)) != null)
                 attack(matcher);
-            else if((matcher = getMatcher(command,Command.FOUND)) != null)
+            else if ((matcher = getMatcher(command, Command.FOUND)) != null)
                 return;
             else if ((matcher = getMatcher(command, Command.SELECTUNITCOMBAT)) != null)
                 return;
@@ -154,19 +154,21 @@ public class GameView extends Processor {
     // private void showDeals(Player player) {
     // }
 
-
     private void showDemographics(Player player) {
-//        System.out.println(player.getPopulation());
-        //TODO: add get population in player class
+        // System.out.println(player.getPopulation());
+        // TODO: add get population in player class
     }
 
     // private void showDemographics(Player player) {
     // System.out.println(player.getPopulation());
     // }
 
-
     // private void showDiplomacy() {
     // }
+
+    public void notCityOwner() {
+        System.out.println("you don not have access to this city");
+    }
 
     public void noUnitSelected() {
         System.out.println("no unit has been selected");
@@ -320,25 +322,24 @@ public class GameView extends Processor {
     public static void showCurrentCity(City city) {
     }
 
-    private void selectUnitCombat(Matcher matcher){
+    private void selectUnitCombat(Matcher matcher) {
         System.out.println(gameController.selectUnitCombat(matcher));
     }
 
-    private void selectCityName(Matcher matcher){
-        System.out.println(gameController.selectCity(matcher, "name"));
-    }
+    // private void selectCityName(Matcher matcher) {
+    // System.out.println(gameController.selectCity(matcher, "name"));
+    // }
 
-    private void selectUnitNonCombat(Matcher matcher){
+    private void selectUnitNonCombat(Matcher matcher) {
         System.out.println(gameController.selectUnitNonCombat(matcher));
     }
 
-    private void attack(Matcher matcher){
+    private void attack(Matcher matcher) {
         System.out.println(gameController.Attack(matcher));
     }
 
-    private void sleep(){
+    private void sleep() {
         System.out.println(gameController.sleep());
     }
-
 
 }
