@@ -1,9 +1,15 @@
 package views;
 
-import enums.*;
-import controllers.*;
-import java.util.*;
-import java.util.regex.*;;
+import controllers.GameController;
+import enums.Color;
+import enums.Command;
+import models.City;
+import models.Player;
+
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+
+;
 
 public class GameView extends Processor {
     private static GameView instance = null;
@@ -35,6 +41,8 @@ public class GameView extends Processor {
                 return;
             else if ((matcher = getMatcher(command, Command.INFOMILITARY)) != null)
                 return;
+            else if((matcher =  getMatcher(command,Command.SLEEP)) != null)
+                sleep();
             else if ((matcher = getMatcher(command, Command.INFONOTIFICATIONS)) != null)
                 return;
             else if ((matcher = getMatcher(command, Command.INFOUNIT)) != null)
@@ -46,6 +54,10 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
                 return;
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
+                return;
+            else if((matcher = getMatcher(command,Command.ATTACK)) != null)
+                attack(matcher);
+            else if((matcher = getMatcher(command,Command.FOUND)) != null)
                 return;
             else if ((matcher = getMatcher(command, Command.SELECTUNITCOMBAT)) != null)
                 return;
@@ -142,9 +154,16 @@ public class GameView extends Processor {
     // private void showDeals(Player player) {
     // }
 
+
+    private void showDemographics(Player player) {
+//        System.out.println(player.getPopulation());
+        //TODO: add get population in player class
+    }
+
     // private void showDemographics(Player player) {
     // System.out.println(player.getPopulation());
     // }
+
 
     // private void showDiplomacy() {
     // }
@@ -297,4 +316,29 @@ public class GameView extends Processor {
             }
         }
     }
+
+    public static void showCurrentCity(City city) {
+    }
+
+    private void selectUnitCombat(Matcher matcher){
+        System.out.println(gameController.selectUnitCombat(matcher));
+    }
+
+    private void selectCityName(Matcher matcher){
+        System.out.println(gameController.selectCity(matcher, "name"));
+    }
+
+    private void selectUnitNonCombat(Matcher matcher){
+        System.out.println(gameController.selectUnitNonCombat(matcher));
+    }
+
+    private void attack(Matcher matcher){
+        System.out.println(gameController.Attack(matcher));
+    }
+
+    private void sleep(){
+        System.out.println(gameController.sleep());
+    }
+
+
 }

@@ -1,7 +1,9 @@
 package models;
 
-import java.util.*;
-import controllers.*;
+import controllers.GameController;
+import controllers.MapController;
+
+import java.util.ArrayList;
 
 public class Database {
     private static Database instance = null;

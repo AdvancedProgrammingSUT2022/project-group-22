@@ -52,7 +52,7 @@ public enum Command {
         FORTIFYHEAL("unit fortify heal"),
         GARRISON("unit garrison"),
         SETUP("unit setup ranged"),
-        ATTACK("unit attack position (?<position>\\d+:\\d+)"),
+        ATTACK("unit attack position (?<positionX>\\d+) (?<positionY>\\d+)"),
         FOUND("unit found city"),
         CANCEL("unit cancel mission"),
         WAKE("unit wake"),

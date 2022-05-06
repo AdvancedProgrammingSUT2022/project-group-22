@@ -5,6 +5,7 @@ import enums.*;
 public class CivilianUnit extends Unit {
     private boolean isWorker;
     private boolean isLocked;
+    private boolean isSleep = false;
 
     public CivilianUnit(UnitType unitType, Tile position) {
         this.unitType = unitType;
@@ -20,10 +21,18 @@ public class CivilianUnit extends Unit {
     }
 
     public void switchLocked() {
-        this.isLocked = isLocked == true ? false : true;
+        this.isLocked = !isLocked;
     }
 
     public boolean isWorker() {
         return isWorker;
+    }
+
+    public void setSleep(){
+        isSleep = !isSleep;
+    }
+
+    public boolean getStatus(){
+        return isSleep;
     }
 }

@@ -11,6 +11,7 @@ public class MilitaryUnit extends Unit {
     private int rangedCombatStrength;
     private boolean needsSetUp;
     private int setUp;
+    private boolean isSleep = false;
 
     public MilitaryUnit(UnitType unitType, Tile position, boolean needsSetUp) {
         this.unitType = unitType;
@@ -25,7 +26,9 @@ public class MilitaryUnit extends Unit {
         this.needsSetUp = needsSetUp;
         this.setUp = 0;
     }
-
+    public UnitType getUnitType(){
+        return unitType;
+    }
     public int getExperiencePoints() {
         return this.experiencePoints;
     }
@@ -70,5 +73,13 @@ public class MilitaryUnit extends Unit {
     }
 
     public void fortify() {
+    }
+
+    public void setSleep(){
+        isSleep = !isSleep;
+    }
+
+    public boolean getStatus(){
+        return isSleep;
     }
 }

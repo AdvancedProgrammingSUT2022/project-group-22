@@ -5,8 +5,21 @@ import enums.*;
 import models.*;
 import views.*;
 
+//<<<<<<< HEAD
+//public class UnitController {
+//    private static UnitController instance = null;
+//    Database database = Database.getInstance();
+//    Player player = database.getCurrentPlayer();
+//    Tile[][] map = database.getMap();
+//=======
 public class UnitController extends GameController {
     private static UnitController instance = null;
+
+
+//    public static UnitController getInstance() {
+//        instance = instance != null ? instance : new UnitController();
+//        return instance;
+//    }
 
     public static UnitController getInstance() {
         instance = instance != null ? instance : new UnitController();
@@ -55,7 +68,16 @@ public class UnitController extends GameController {
         }
     }
 
-    public void sleep() {
+    public boolean sleep(Player player) {
+        if(player.getCurrentMilitary().getStatus()) {
+            player.getCurrentMilitary().setSleep();
+            return true;
+        }
+        else if(player.getCurrentCivilian().getStatus()) {
+            player.getCurrentCivilian().setSleep();
+            return true;
+        }
+        return false;
     }
 
     public void wake() {
@@ -74,9 +96,9 @@ public class UnitController extends GameController {
     public void setup() {
     }
 
-    public void attack(Matcher matcher) {
-        // baray faz 1 serfan bayad matcher begirim ama badan bayad unit bgirim
-    }
+//    public void attack(Uni) {
+//
+//    }
 
     public void foundCity(Matcher matcher) {
         CivilianUnit civUnit = player.getCurrentCivilian();
