@@ -1,8 +1,8 @@
 package controllers;
 
-import enums.*;
+import enums.Command;
 import models.*;
-import views.*;
+import views.GameView;
 
 import java.util.regex.Matcher;
 
@@ -11,9 +11,9 @@ import java.util.regex.Matcher;
 public class GameController {
     /********** these variables have some problem, believe me *********/
     private static GameController instance = null;
-    protected Database database = Database.getInstance();
-    protected User user = Database.getInstance().getCurrentPlayer();
-    Tile[][] map = database.getMap();
+    protected Database database ;
+    protected User user;
+    Tile[][] map;
 
 
     /******** I swear these two will face NullPointerException, I moved them in print map line 123 *******/
@@ -23,6 +23,12 @@ public class GameController {
     CivilianUnit civUnit;
     MilitaryUnit milUnit;
     private final int MaxMap = 10;
+
+    public GameController(){
+        this.user = Database.getInstance().getCurrentPlayer();
+        this.database = Database.getInstance();
+        this.map = database.getMap();
+    }
 
     public static GameController getInstance() {
         instance = instance != null ? instance : new GameController();
@@ -176,10 +182,17 @@ public class GameController {
     private void nextTurn() {
         // restore city + unit in combat
     }
-
+    /******** run method **********/
     public String run() {
-        String state = GameView.getInstance().run();
-        return state;
+        while (true){
+            Database.getInstance().setCurrentPlayer(Database.getInstance().getPlayers().get(0));
+            this.user = Database.getInstance().getCurrentPlayer();
+            String state = GameView.getInstance().run();
+            for(int i = 0 ; i < Database.getInstance().getPlayers().size() ; i++){
+                this.user = Database.getInstance().getCurrentPlayer();
+            }
+            if(state.equals("exit")) return "gameMenu";
+        }
     }
 
     /*******  these functions are for info  ********/
