@@ -1,10 +1,12 @@
 package models;
 
-import java.util.*;
-import java.util.HashMap;
-import enums.*;
+import enums.Color;
+import enums.Technology;
 
-public class Player extends User {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Civilization{
     private Color color;
 
     private int score;
@@ -22,9 +24,7 @@ public class Player extends User {
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
 
-    public Player(String username, String password, String nickname) {
-        super(username, password, nickname);
-    }
+
 
     public Color getColor() {
         return color;

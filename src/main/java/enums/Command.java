@@ -19,6 +19,7 @@ public enum Command {
         LOGIN2("user login (--password|-p) (?<password>\\S+) (--username|-u) (?<username>\\S+)"),
         LOGOUT("user logout"),
 
+
         NICKNAMECHANGE("profile change --nickname (?<newnickname>\\S+)"),
         CHANGEPASSWORD1(
                         "profile change --password --current (?<currentpassword>\\S+) --new (?<newpassword>\\S+)"),
@@ -29,7 +30,7 @@ public enum Command {
         MENUENTER("menu enter (?<menuname>\\S+)"),
         MENUEXIT("menu exit"),
         SHOWMENU("menu show-current"),
-        PLAYGAME("play game --player1 (?<username1>\\S+) --player2(?<username2>\\S+)"),
+        PLAYGAME("play game --player1 (?<username1>\\S+) --player2 (?<username2>\\S+)"),
 
         // game enums
         // info
@@ -101,4 +102,5 @@ public enum Command {
         public String getRegex() {
                 return this.regex;
         }
+
 }
