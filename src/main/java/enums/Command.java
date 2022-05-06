@@ -1,10 +1,6 @@
 package enums;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public enum Command {
-
         CREATEUSER1(
                         "user create (--username|-u) (?<username>\\S+) (--nickname|-n) (?<nickname>\\S+) (--password|-p) (?<password>\\S+)"),
         CREATEUSER2(
@@ -20,9 +16,9 @@ public enum Command {
         LOGIN1("user login (--username|-u) (?<username>\\S+) (--password|-p) (?<password>\\S+)"),
         LOGIN2("user login (--password|-p) (?<password>\\S+) (--username|-u) (?<username>\\S+)"),
 
+        LOGOUT("user logout"),
         MENUENTER("menu enter (?<menuname>\\S+)"),
         MENUEXIT("menu exit"),
-        LOGOUT("user logout"),
         SHOWMENU("menu show-current"),
 
         PLAYGAME("play game --player1 (?<username1>\\S+) --player2(?<username2>\\S+)"),
@@ -74,22 +70,20 @@ public enum Command {
         REMOVEJUNGLE("unit build jungle"),
         REMOVEROUTE("unit build route"),
         REPAIR("unit repair"),
-        MAPSHOWPOS("map show position (?<position>\\d+:\\d+)"),
-        MAPSHOWCITY("map show city (?<city>\\S+)"),
         MAPMOVER("map move right"),
         MAPMOVEL("map move left"),
         MAPMOVEU("map move up"),
         MAPMOVED("map move down"),
 
-
-
-
-        //cheat sheet
+        // cheat sheet
         INCREASETURN("increase -turn (?<amount>\\d+)"),
         INCREASEGOLD("increase gold (?<amount>\\d+)"),
 
-
-        PRINTMAP("print map");
+        // print map
+        PRINTAREA("print map (?<i1>\\d+) (?<j1>\\d+) (?<i2>\\d+) (?<j2>\\d+)"),
+        PRINTCITY("print map (?<name>\\w+)"),
+        PRINTTILE("print map (?<i>\\d+) (?<j>\\d+)"),
+        PRINTUNITPOSITION("print map current unit position");
 
         private String regex;
 
@@ -97,9 +91,7 @@ public enum Command {
                 this.regex = regex;
         }
 
-        public static Matcher getMatcher(String input, Command command) {
-                String regex = "\\s*" + command.regex.replace(" ", "\\s+") + "\\s*";
-                Matcher matcher = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(input);
-                return matcher.matches() ? matcher : null;
+        public String getRegex() {
+                return this.regex;
         }
 }

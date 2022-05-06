@@ -1,7 +1,9 @@
 package models;
 
-import java.util.*;
-import controllers.*;
+import controllers.GameController;
+import controllers.MapController;
+
+import java.util.ArrayList;
 
 public class Database {
     private static Database instance = null;
@@ -44,7 +46,7 @@ public class Database {
         currentPlayer = this.players.get(0);
         gameController = new GameController();
         mapController = new MapController();
-        map = mapController.generateMap(20, 42);
+        mapController.generateMap(20, 42);
     }
 
     public ArrayList<Player> getPlayers() {
@@ -165,5 +167,16 @@ public class Database {
             }
         }
         return centers;
+    }
+
+    public City getCityByName(String name) {
+        for (Player player : this.players) {
+            for (City city : player.getCities()) {
+                if (city.getName().equals(name)) {
+                    return city;
+                }
+            }
+        }
+        return null;
     }
 }

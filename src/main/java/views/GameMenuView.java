@@ -1,11 +1,10 @@
 package views;
 
-import controllers.GameMenuController;
-import enums.Command;
+import controllers.*;
+import enums.*;
+import java.util.regex.*;
 
-import java.util.regex.Matcher;
-
-public class GameMenuView {
+public class GameMenuView extends Processor {
     private static GameMenuView instance = null;
 
     public static GameMenuView getInstance() {
@@ -16,14 +15,14 @@ public class GameMenuView {
     public static String run() {
         GameMenuController gameMenuController = new GameMenuController();
         while (true) {
-            String command = Processor.getInstance().getInput();
+            String command = getInput();
             Matcher matcher;
-            if ((matcher = Command.getMatcher(command, Command.PLAYGAME)) != null) {
+            if ((matcher = getMatcher(command, Command.PLAYGAME)) != null) {
                 if (gameMenuController.playGame(matcher))
                     return "startGame";
-            } else if ((matcher = Command.getMatcher(command, Command.MENUEXIT)) != null)
+            } else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "mainMenu";
-            else if ((matcher = Command.getMatcher(command, Command.SHOWMENU)) != null)
+            else if ((matcher = getMatcher(command, Command.SHOWMENU)) != null)
                 System.out.println("game Menu");
             else
                 System.out.println("invalid Command!");

@@ -1,6 +1,8 @@
 package views;
 
+import enums.*;
 import java.util.*;
+import java.util.regex.*;
 
 public class Processor {
     private static final Processor instance = new Processor();
@@ -10,7 +12,13 @@ public class Processor {
         return instance;
     }
 
-    public String getInput() {
+    public static Matcher getMatcher(String input, Command command) {
+        String regex = "\\s*" + command.getRegex().replace(" ", "\\s+") + "\\s*";
+        Matcher matcher = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(input);
+        return matcher.matches() ? matcher : null;
+    }
+
+    public static String getInput() {
         return scanner.nextLine();
     }
 

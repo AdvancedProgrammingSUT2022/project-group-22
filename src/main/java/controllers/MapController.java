@@ -5,10 +5,14 @@ import models.*;
 import views.*;
 import enums.*;
 
-public class MapController {
+public class MapController extends GameController {
+    private static MapController instance = null;
     private final Random random = new Random();
-    Database database = Database.getInstance();
-    Player player = database.getCurrentPlayer();
+
+    public static MapController getInstance() {
+        instance = instance != null ? instance : new MapController();
+        return instance;
+    }
 
     public void generateTiles(Tile[][] map, int x, int y) {
         for (int i = 0; i < x; i++) {
@@ -47,11 +51,10 @@ public class MapController {
         }
     }
 
-    public Tile[][] generateMap(int x, int y) {
-        Tile[][] map = new Tile[x][y];
+    public void generateMap(int x, int y) {
+        map = new Tile[x][y];
         generateTiles(map, x, y);
         generateRivers(map, x, y);
-        return map;
     }
 
     public ArrayList<String> getRiverColor(Boolean[] hasRiver) {
@@ -62,21 +65,68 @@ public class MapController {
         return riverColor;
     }
 
-    public void printMap(Tile[][] map, int x1, int y1, int x2, int y2) {
+    public TileView generateTileView(Tile tile) {
+        Player player = tile.getPlayer();
+        CivilianUnit civUnit = database.getCivilianUnitByTile(tile);
+        MilitaryUnit milUnit = database.getMilitaryUnitByTile(tile);
+        String[] colors = { player.getColor().getColor(), database.getUnitOwner(civUnit).getColor().getColor(),
+                database.getUnitOwner(milUnit).getColor().getColor() };
+        return new TileView(colors, tile.getLandType().getColor().getColor(), player.getNickname(),
+                milUnit.getUnitType().name(), civUnit.getUnitType().name(), tile.getFeature().name(),
+                tile.getResource().name(), tile.getImprovement().name(),
+                getRiverColor(tile.getHasRiver()), tile.getCoordinates()[0], tile.getCoordinates()[1]);
+    }
+
+    public void addTileView(ArrayList<TileView> tileView, Tile tile) {
+        if (player.findTile(tile) == 1) {
+            tileView.add(generateTileView(tile));
+        } else if (player.findTile(tile) == 0) {
+            tileView.add(generateTileView(player.getRevealedTile(tile)));
+        } else {
+            tileView.add(null);
+        }
+    }
+
+    public void printArea(Tile[][] map, int x1, int y1, int x2, int y2) {
         ArrayList<TileView> tileView = new ArrayList<TileView>();
         for (int i = x1; i < x2; i++) {
             for (int j = y1; j < y2; j++) {
-                Player player = map[i][j].getPlayer();
-                CivilianUnit civUnit = database.getCivilianUnitByTile(map[i][j]);
-                MilitaryUnit milUnit = database.getMilitaryUnitByTile(map[i][j]);
-                String[] colors = { player.getColor().getColor(), database.getUnitOwner(civUnit).getColor().getColor(),
-                        database.getUnitOwner(milUnit).getColor().getColor() };
-                tileView.add(new TileView(colors, map[i][j].getLandType().getColor().getColor(), player.getNickname(),
-                        milUnit.getUnitType().name(), civUnit.getUnitType().name(), map[i][j].getFeature().name(),
-                        map[i][j].getResource().name(), map[i][j].getImprovement().name(),
-                        getRiverColor(map[i][j].getHasRiver()), i, j));
+                addTileView(tileView, map[i][j]);
             }
         }
-        MapView.getInstance().printMap(tileView, y2 - y1, x2 - x1);
+        gameView.printMap(tileView, y2 - y1, x2 - x1);
+    }
+
+    public void printCity(City city) {
+        // prints city tiles only
+        ArrayList<TileView> tileView = new ArrayList<TileView>();
+        int minX, minY, maxX, maxY;
+        minX = maxX = city.getCenter().getCoordinates()[0];
+        minY = maxY = city.getCenter().getCoordinates()[1];
+        for (Tile tile : city.getTiles()) {
+            addTileView(tileView, tile);
+            minX = tile.getCoordinates()[0] < minX ? tile.getCoordinates()[0] : minX;
+            maxX = tile.getCoordinates()[0] > maxX ? tile.getCoordinates()[0] : maxX;
+            minY = tile.getCoordinates()[1] < minY ? tile.getCoordinates()[0] : minY;
+            maxY = tile.getCoordinates()[1] > maxY ? tile.getCoordinates()[0] : maxY;
+        }
+        gameView.printMap(tileView, maxY - minY, maxX - minX);
+    }
+
+    public void printTile(Tile tile) {
+        ArrayList<TileView> tileView = new ArrayList<TileView>();
+        addTileView(tileView, tile);
+        int minX, minY, maxX, maxY;
+        minX = maxX = tile.getCoordinates()[0];
+        minY = maxY = tile.getCoordinates()[1];
+        for (int i = 0; i < 6; i++) {
+            Tile neighbor = database.getNeighbor(tile, i);
+            addTileView(tileView, neighbor);
+            minX = neighbor.getCoordinates()[0] < minX ? neighbor.getCoordinates()[0] : minX;
+            maxX = neighbor.getCoordinates()[0] > maxX ? neighbor.getCoordinates()[0] : maxX;
+            minY = neighbor.getCoordinates()[1] < minY ? neighbor.getCoordinates()[0] : minY;
+            maxY = neighbor.getCoordinates()[1] > maxY ? neighbor.getCoordinates()[0] : maxY;
+        }
+        gameView.printMap(tileView, maxY - minY, maxX - minX);
     }
 }
