@@ -55,7 +55,7 @@ public class GameView {
             else if((matcher = Command.getMatcher(command,Command.MOVETO)) != null)
                 return;
             else if((matcher = Command.getMatcher(command,Command.SLEEP)) != null)
-                return;
+                sleep(player);
             else if((matcher = Command.getMatcher(command,Command.ALERT)) != null)
                 return;
             else if((matcher = Command.getMatcher(command,Command.FORTIFY)) != null)
@@ -67,7 +67,7 @@ public class GameView {
             else if((matcher = Command.getMatcher(command,Command.SETUP)) != null)
                 return;
             else if((matcher = Command.getMatcher(command,Command.ATTACK)) != null)
-                return;
+                attack(player, matcher);
             else if((matcher = Command.getMatcher(command,Command.FOUND)) != null)
                 return;
             else if((matcher = Command.getMatcher(command,Command.CANCEL)) != null)
@@ -141,7 +141,8 @@ public class GameView {
     }
 
     private void showDemographics(Player player) {
-        System.out.println(player.getPopulation());
+//        System.out.println(player.getPopulation());
+        //TODO: add get population in player class
     }
 
     private void showDiplomacy() {
@@ -197,7 +198,15 @@ public class GameView {
     }
 
     private void selectUnitNonCombat(Player player, Matcher matcher){
+        System.out.println(gameController.selectUnitNonCombat(player, matcher));
+    }
 
+    private void attack(Player player, Matcher matcher){
+        System.out.println(gameController.Attack(player, matcher));
+    }
+
+    private void sleep(Player player){
+        System.out.println(gameController.sleep(player));
     }
 
 

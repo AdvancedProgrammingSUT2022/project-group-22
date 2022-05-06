@@ -1,5 +1,6 @@
 package controllers;
 
+import enums.UnitType;
 import models.Database;
 import models.Player;
 import models.Tile;
@@ -10,6 +11,25 @@ public class GameController {
     final int MaxMap = 10;
     Tile[][]  tiles = Database.getInstance().getMap();
 
+    private boolean hasChosenUnit(Player player){
+        return player.getCurrentMilitary() != null;
+    }
+
+    private boolean isAttackPossible(Matcher matcher, Player player){
+        int[] position = new int[2];
+        position[0] = Integer.parseInt(matcher.group("positionX"));
+        position[1] = Integer.parseInt(matcher.group("positionY"));
+        //TODO:Attack for Archer
+//        if(player.getCurrentMilitary().getUnitType().name().equals(UnitType.ARCHER.name())) UnitController.getInstance().
+    }
+
+
+
+    public String Attack(Player player, Matcher matcher){
+        if(!hasChosenUnit(player)) return "Please choose a militaryUnit First";
+        if(isAttackPossible(matcher, player)) return "Attack is not Possible";
+    }
+
     public String selectCity(Player player, Matcher matcher, String howToGet){
         if(howToGet.equals("name")) return selectCityByName(player, matcher);
         else return selectCityByCoordinate(player, matcher);
@@ -18,8 +38,8 @@ public class GameController {
     private String selectCityByCoordinate(Player player, Matcher matcher){
         if(!isCoordinateCorrect(matcher)) return "Coordinate is out of map";
         int[] position = new int[2];
-        position[1] = Integer.parseInt(matcher.group("positionX"));
-        position[2] = Integer.parseInt(matcher.group("positionY"));
+        position[0] = Integer.parseInt(matcher.group("positionX"));
+        position[1] = Integer.parseInt(matcher.group("positionY"));
         if (!whoseTile(position, player)) return "you don't have access to this tile";
         //TODO: how to select city must have some changes
         return "This city selected as the current city";
@@ -36,20 +56,31 @@ public class GameController {
     }
 
     private boolean whoseTile(int[] position, Player player){
-        if(tiles[position[1]][position[2]].getPlayer().getNickname().equals(player.getNickname())) return true;
-        return false;
+        return tiles[position[0]][position[1]].getPlayer().getNickname().equals(player.getNickname());
     }
 
     public String selectUnitCombat(Player player, Matcher matcher){
         int[] position = new int[2];
         if(!isCoordinateCorrect(matcher)) return "Coordinate is out of map";
-        position[1] = Integer.parseInt(matcher.group("positionX"));
-        position[2] = Integer.parseInt(matcher.group("positionY"));
+        position[0] = Integer.parseInt(matcher.group("positionX"));
+        position[1] = Integer.parseInt(matcher.group("positionY"));
         if(!whoseTile(position, player))  return "you don't have access to this tile";
-        if(tiles[position[1]][position[2]].getGarrisonUnit() != null){
-            player.setCurrentMilitary(tiles[position[1]][position[2]].getGarrisonUnit());
+        if(tiles[position[0]][position[1]].getGarrisonUnit() != null){
+            player.setCurrentMilitary(tiles[position[1]][position[1]].getGarrisonUnit());
             return "This Military Unit selected as the current militaryUnit";
         }else return "there is no Military Unit here";
+    }
+
+    public String selectUnitNonCombat(Player player, Matcher matcher){
+        int[] position = new int[2];
+        if(!isCoordinateCorrect(matcher)) return "Coordinate is out of map";
+        position[0] = Integer.parseInt(matcher.group("positionX"));
+        position[1] = Integer.parseInt(matcher.group("positionY"));
+        if(!whoseTile(position, player))  return "you don't have access to this tile";
+        if(tiles[position[0]][position[1]].getWorkerUnit() != null){
+            player.setCurrentCivilian(tiles[position[0]][position[1]].getWorkerUnit());
+        }
+        return "This nonCombat unit was set as the current civilian unit";
     }
 
     private boolean isCoordinateCorrect(Matcher matcher){
@@ -58,6 +89,12 @@ public class GameController {
         position[2] = Integer.parseInt(matcher.group("positionY"));
         if(!(position[1] < MaxMap && position[2] < MaxMap))return false;
         return true;
+    }
+
+    public String sleep(Player player){
+        if (UnitController.getInstance().sleep(player))
+            return "selected unit successfully sleep";
+        else return "Please select a unit first";
     }
 
     private void researchInfo() {

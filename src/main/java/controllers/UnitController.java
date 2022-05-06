@@ -6,11 +6,17 @@ import models.*;
 import views.*;
 
 public class UnitController {
+    private static UnitController instance = null;
     Database database = Database.getInstance();
     Player player = database.getCurrentPlayer();
     Tile[][] map = database.getMap();
 
     GameView gameView = GameView.getInstance();
+
+    public static UnitController getInstance() {
+        instance = instance != null ? instance : new UnitController();
+        return instance;
+    }
 
     public void move(Matcher matcher) {
         CivilianUnit civUnit = player.getCurrentCivilian();
@@ -56,7 +62,16 @@ public class UnitController {
         }
     }
 
-    public void sleep() {
+    public boolean sleep(Player player) {
+        if(player.getCurrentMilitary().getStatus()) {
+            player.getCurrentMilitary().setSleep();
+            return true;
+        }
+        else if(player.getCurrentCivilian().getStatus()) {
+            player.getCurrentCivilian().setSleep();
+            return true;
+        }
+        return false;
     }
 
     public void wake() {
@@ -75,9 +90,9 @@ public class UnitController {
     public void setup() {
     }
 
-    public void attack(Matcher matcher) {
-        // baray faz 1 serfan bayad matcher begirim ama badan bayad unit bgirim
-    }
+//    public void attack(Uni) {
+//
+//    }
 
     public void foundCity(Matcher matcher) {
         CivilianUnit civUnit = player.getCurrentCivilian();
