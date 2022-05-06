@@ -194,13 +194,6 @@ public class Database {
     }
 
     public Player getCityOwner(City city) {
-        for (Player player : this.players) {
-            for (City playerCity : player.getCities()) {
-                if (playerCity.equals(city)) {
-                    return player;
-                }
-            }
-        }
-        return null;
+        return city.getCenter().getPlayer();
     }
 }
