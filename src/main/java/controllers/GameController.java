@@ -9,7 +9,6 @@ public class GameController {
     private static GameController instance = null;
     protected GameView gameView = GameView.getInstance();
     private MapController mapController = MapController.getInstance();
-    private UnitController unitController = UnitController.getInstance();
 
     protected Database database = Database.getInstance();
     protected Player player = database.getCurrentPlayer();
@@ -197,7 +196,8 @@ public class GameController {
             int j1 = Integer.parseInt(matcher.group("j1"));
             int i2 = Integer.parseInt(matcher.group("i2"));
             int j2 = Integer.parseInt(matcher.group("j2"));
-            if (map.length < i1 || map.length < i2 || map[0].length < j1 || map[0].length < j2) {
+            if (i1 < 0 || j1 < 0 || i2 < 0 || j2 < 0 || map.length < i1 || map.length < i2 || map[0].length < j1
+                    || map[0].length < j2) {
                 gameView.invalidTile();
                 return;
             } else {
@@ -214,7 +214,7 @@ public class GameController {
         } else if (command.equals(Command.PRINTTILE)) {
             int i = Integer.parseInt(matcher.group("i"));
             int j = Integer.parseInt(matcher.group("j"));
-            if (map.length < i || map[0].length < j) {
+            if (i < 0 || j < 0 || map.length < i || map[0].length < j) {
                 gameView.invalidTile();
                 return;
             } else {
