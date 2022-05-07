@@ -1,14 +1,13 @@
 package controllers;
 
-import java.util.regex.*;
-
-import models.*;
-import views.*;
+import models.Database;
+import models.User;
+import views.Processor;
 
 public class Controller {
     // private static Controller instance = new Controller();
-    protected Database database = Database.getInstance();
-    protected Processor processor = Processor.getInstance();
+//    protected Database database = Database.getInstance();
+//    protected Processor processor = Processor.getInstance();
     private final RegisterMenuController registerMenuController = new RegisterMenuController();
     private final MainMenuController mainMenuController = new MainMenuController();
     private final ProfileMenuController profileMenuController = new ProfileMenuController();
@@ -29,20 +28,20 @@ public class Controller {
         while (true) {
             if (input.equals("Exit"))
                 break;
-            if (input.equals("mainMenu"))
+            else if (input.equals("mainMenu"))
                 input = mainMenuController.run(user);
-            if (input.equals("gameMenu"))
+            else if (input.equals("gameMenu"))
                 input = gameMenuController.run();
-            // if (input.equals("createGame")) input = gameMenuController.run();
-            if (input.equals("registerMenu")) {
+            else if (input.equals("startGame")) input = gameController.run();
+            else if (input.equals("registerMenu")) {
                 input = registerMenuController.run();
                 user = Database.getInstance().getUserByUsername(input);
                 input = mainMenuController.run(user);
             }
-            if (input.equals("profileMenu"))
+            else if (input.equals("profileMenu"))
                 input = profileMenuController.run(user);
         }
-        processor.closeScanner();
+        Processor.getInstance().closeScanner();
         return null;
     }
 }

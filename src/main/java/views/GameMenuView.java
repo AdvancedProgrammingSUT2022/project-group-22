@@ -12,7 +12,7 @@ public class GameMenuView extends Processor {
         return instance;
     }
 
-    public static String run() {
+    public String run() {
         GameMenuController gameMenuController = new GameMenuController();
         while (true) {
             String command = getInput();
@@ -29,11 +29,11 @@ public class GameMenuView extends Processor {
         }
     }
 
-    public static void noUserExists(int i) {
-        System.out.format("player %d does not exists\n", i);
+    public  void noUserExists(int i) {
+        System.out.format("civilization %d does not exists\n", i);
     }
 
-    public static void gameStarted() {
+    public  void gameStarted() {
         System.out.println("game started successfully!");
     }
     // TODO: print messages for game menu controller

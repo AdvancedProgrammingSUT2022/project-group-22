@@ -1,25 +1,17 @@
 package controllers;
 
-import java.util.regex.*;
-import enums.*;
+import enums.Feature;
+import enums.LandType;
+import enums.UnitType;
 import models.*;
-import views.*;
+import views.GameView;
 
-//<<<<<<< HEAD
-//public class UnitController {
-//    private static UnitController instance = null;
-//    Database database = Database.getInstance();
-//    Player player = database.getCurrentPlayer();
-//    Tile[][] map = database.getMap();
-//=======
+import java.util.regex.Matcher;
+
+
 public class UnitController extends GameController {
+
     private static UnitController instance = null;
-
-
-//    public static UnitController getInstance() {
-//        instance = instance != null ? instance : new UnitController();
-//        return instance;
-//    }
 
     public static UnitController getInstance() {
         instance = instance != null ? instance : new UnitController();
@@ -33,18 +25,18 @@ public class UnitController extends GameController {
         Tile tile = map[i][j];
 
         if (unit == null) {
-            gameView.noUnitSelected();
+            GameView.getInstance().noUnitSelected();
             return;
         } else if (map.length < i || map[0].length < j) {
-            gameView.invalidTile();
+            GameView.getInstance().invalidTile();
             return;
         } else if (civUnit != null && database.getCivilianUnitByTile(tile) != null
                 || milUnit != null && database.getMilitaryUnitByTile(tile) != null) {
-            gameView.tileOccupied();
+            GameView.getInstance().tileOccupied();
             return;
         } else if (tile.getLandType().equals(LandType.MOUNTAIN) || tile.getLandType().equals(LandType.OCEAN)
                 || tile.getLandType().equals(LandType.SNOW) || tile.getFeature().equals(Feature.ICE)) {
-            gameView.tileInaccessible();
+            GameView.getInstance().tileInaccessible();
             return;
         } else {
             ShortestPath shortestPath = new ShortestPath();
@@ -63,22 +55,22 @@ public class UnitController extends GameController {
                         return;
                     }
                 }
-                gameView.mpLow();
+                GameView.getInstance().mpLow();
             }
         }
     }
 
-    public boolean sleep(Player player) {
-        if(player.getCurrentMilitary().getStatus()) {
-            player.getCurrentMilitary().setSleep();
-            return true;
-        }
-        else if(player.getCurrentCivilian().getStatus()) {
-            player.getCurrentCivilian().setSleep();
-            return true;
-        }
-        return false;
-    }
+//    public boolean sleep(Civilization civilization) {
+//        if(civilization.getCurrentMilitary().getStatus()) {
+//            civilization.getCurrentMilitary().setSleep();
+//            return true;
+//        }
+//        else if(civilization.getCurrentCivilian().getStatus()) {
+//            civilization.getCurrentCivilian().setSleep();
+//            return true;
+//        }
+//        return false;
+//    }
 
     public void wake() {
     }
@@ -101,30 +93,31 @@ public class UnitController extends GameController {
 //    }
 
     public void foundCity(Matcher matcher) {
-        CivilianUnit civUnit = player.getCurrentCivilian();
+        CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
         Tile tile = map[i][j];
 
         if (civUnit == null) {
-            gameView.noUnitSelected();
+            GameView.getInstance().noUnitSelected();
             return;
         } else if (civUnit.getUnitType() != UnitType.SETTLER) {
-            gameView.unitNotSettler();
+            GameView.getInstance().unitNotSettler();
             return;
         } else if (map.length < i || map[0].length < j) {
-            gameView.invalidTile();
+            GameView.getInstance().invalidTile();
             return;
         } else if (civUnit.getPositon() != tile) {
-            gameView.unitNotOnTile();
-        } else if (tile.getPlayer() != null || tile.getPlayer() != player) {
-            gameView.tileHasOwner();
+            GameView.getInstance().unitNotOnTile();
+//            tile.getPlayer() != user ,We cannot compare two objects with !=
+        } else if (tile.getPlayer() != null || !tile.getPlayer().getNickname().equals(user.getNickname()) ) {
+            GameView.getInstance().tileHasOwner();
             return;
         } // check distance from other city centers
         else {
-            player.getCivilianUnits().remove(civUnit);
-            player.setCurrentCivilian(null);
-            player.addCity(new City(tile, player));
+            user.getCivilization().getCivilianUnits().remove(civUnit);
+            user.getCivilization().setCurrentCivilian(null);
+            user.getCivilization().addCity(new City(tile, user));
         }
     }
 
@@ -143,8 +136,8 @@ public class UnitController extends GameController {
     public String run() {
         // while (true){
         // if (command.equals(Commands.MOVE)) {
-        // move(Matcher matcher, player.getCurrentCivilian(),
-        // player.getCurrentMilitary());
+        // move(Matcher matcher, civilization.getCurrentCivilian(),
+        // civilization.getCurrentMilitary());
         // }
         // }
         return null;

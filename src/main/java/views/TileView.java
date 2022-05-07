@@ -3,7 +3,7 @@ package views;
 import java.util.ArrayList;
 
 public class TileView {
-    // color : player , civilian , military
+    // color : civilization , civilian , military
     private String[] color = new String[3];
     private String backgroundColor;
     private String nickname;
