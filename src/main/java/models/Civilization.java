@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 public class Civilization{
     private Color color;
-
     private int score;
-    private int happiness;
+    private int happiness = 10;
+    private int unhappiness;
     private City capital;
     private ArrayList<City> cities = new ArrayList<City>();
     private ArrayList<MilitaryUnit> militaryUnits = new ArrayList<MilitaryUnit>();
@@ -74,6 +74,14 @@ public class Civilization{
     public void setHappiness(int happiness) {
         this.happiness = happiness;
     }
+
+    public int getUnhappiness() { return this.unhappiness; }
+
+    public void setUnhappiness(int unhappiness) {
+        this.unhappiness = unhappiness;
+    }
+
+    public int getTotalHappiness(){ return this.happiness - this.unhappiness; }
 
     public int getScore() {
         return this.score;

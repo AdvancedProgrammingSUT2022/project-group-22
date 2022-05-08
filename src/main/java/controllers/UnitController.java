@@ -118,6 +118,7 @@ public class UnitController extends GameController {
             user.getCivilization().getCivilianUnits().remove(civUnit);
             user.getCivilization().setCurrentCivilian(null);
             user.getCivilization().addCity(new City(tile, user));
+            user.getCivilization().setUnhappiness(user.getCivilization().getUnhappiness()+1);
         }
     }
 
