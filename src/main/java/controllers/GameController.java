@@ -11,12 +11,11 @@ import java.util.regex.Matcher;
 public class GameController {
     /********** these variables have some problem *********/
     private static GameController instance = null;
-    protected GameView gameView = GameView.getInstance();
+
 //    private MapController mapController = MapController.getInstance();
     protected Database database ;
     protected User user;
     Tile[][] map;
-
 
     /******** these two will face NullPointerException, I moved them in print map line 123 *******/
 
@@ -166,6 +165,26 @@ public class GameController {
         }else GameView.getInstance().noUnitSelected();
     }
 
+    public void garrison() {
+        if(hasChosenCombatUnit()){
+            user.getCivilization().getCurrentMilitary().getPositon().setGarrisonUnit(user.getCivilization().getCurrentMilitary());
+            GameView.getInstance().garrisonMessage();
+        }else GameView.getInstance().noUnitSelected();
+    }
+    /****** This function will build a road in a tile, Check if worker is selected or not ************/
+    public void buildRoad() {
+//        if(user.getCivilization().)
+//        else GameView.getInstance().noUnitSelected();
+    }
+
+    private void buildRoadIn0(int i){
+        Boolean[] hasRoad = user.getCivilization().getCurrentMilitary().getPositon().getHasRoad();
+        if (hasRoad[0]) {
+            user.getCivilization().getCurrentMilitary().getPositon().setHasRoad(0, true);
+            GameView.getInstance().buildRoadSuccessful();
+        }
+    }
+
     /********  Please write functions that are related to printing map here  **************/
     public void printMap(Matcher matcher, Command command) {
         civUnit = user.getCivilization().getCurrentCivilian();
@@ -182,7 +201,7 @@ public class GameController {
             }
             if (i1 < 0 || j1 < 0 || i2 < 0 || j2 < 0 || map.length < i1 || map.length < i2 || map[0].length < j1
                     || map[0].length < j2) {
-                gameView.invalidTile();
+                GameView.getInstance().invalidTile();
                 return;
             } else {
                 MapController.getInstance().printArea(map, i1, j1, i2, j2);
@@ -199,7 +218,7 @@ public class GameController {
             int i = Integer.parseInt(matcher.group("i"));
             int j = Integer.parseInt(matcher.group("j"));
             if (i < 0 || j < 0 || map.length < i || map[0].length < j) {
-                gameView.invalidTile();
+                GameView.getInstance().invalidTile();
                 return;
             } else {
                 MapController.getInstance().printTile(map[i][j]);
@@ -233,8 +252,9 @@ public class GameController {
         return state;
     }
 
+    public void buildRailRoad() {
 
-
+    }
 
     /*******  these functions are for info  ********/
 

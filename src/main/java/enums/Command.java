@@ -80,6 +80,11 @@ public enum Command {
         REPAIR("unit repair"),
         NEXT("next"),
 
+        //city
+        SETCITIZEN("lock citizen"),
+        BUYTILE("buy tile (?<positionX>\\d+) (?<positionY>\\d+)"),
+        REMOVECITIZEN("remove citizen (?<nmber>\\d+)"),
+
         // print map
         PRINTAREA("print map (?<i1>\\d+) (?<j1>\\d+) (?<i2>\\d+) (?<j2>\\d+)"),
         PRINTCITY("print map (?<name>\\w+)"),

@@ -48,7 +48,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.INFOVICTORY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
-                return null;
+                return "exit";
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
                 selectCityName(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
@@ -63,17 +63,16 @@ public class GameView extends Processor {
                 selectUnitNonCombat(matcher);
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
                 return null;
-            else if ((matcher = getMatcher(command, Command.SLEEP)) != null) {
+            else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
                 sleep();
-            }
             else if ((matcher = getMatcher(command, Command.ALERT)) != null)
                 alert();
             else if ((matcher = getMatcher(command, Command.FORTIFY)) != null)
-                fority();
+                fortify();
             else if ((matcher = getMatcher(command, Command.FORTIFYHEAL)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.GARRISON)) != null)
-                return null;
+                garrison();
             else if ((matcher = getMatcher(command, Command.SETUP)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
@@ -85,9 +84,9 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.WAKE)) != null)
                 wake();
             else if ((matcher = getMatcher(command, Command.BUILDROAD)) != null)
-                return null;
+                buildRoad();
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
-                return null;
+                buildRailRoad();
             else if ((matcher = getMatcher(command, Command.BUILDFARM)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.BUILDMINE)) != null)
@@ -134,12 +133,8 @@ public class GameView extends Processor {
         }
     }
 
-    private void wake() {
-        GameController.getInstance().wake();
-    }
-
-    private void fority() {
-        GameController.getInstance().fortify();
+    private void buildRailRoad() {
+        GameController.getInstance().buildRailRoad();
     }
 
 
@@ -208,8 +203,19 @@ public class GameView extends Processor {
         System.out.println("You can use the selected unit from now on");
     }
 
+    public void garrisonMessage(){
+        System.out.println("Selected unit attached to the tile");
+    }
+
+    public void buildRoadSuccessful(){
+        System.out.println("Road built successfully!");
+    }
 
     /************** these functions are not for printing map ********************/
+    private void buildRoad() {
+        GameController.getInstance().buildRoad();
+    }
+
     public void accessTileError(){
         System.out.println("you don't have access to this tile");
     }
@@ -230,7 +236,7 @@ public class GameView extends Processor {
         GameController.getInstance().selectCityByName(matcher);
     }
 
-     private void selectCityPos(Matcher matcher) {
+    private void selectCityPos(Matcher matcher) {
          GameController.getInstance().selectCityByCoordinate(matcher);
      }
 
@@ -259,6 +265,17 @@ public class GameView extends Processor {
         GameController.getInstance().alert();
     }
 
+    private void wake() {
+        GameController.getInstance().wake();
+    }
+
+    private void fortify() {
+        GameController.getInstance().fortify();
+    }
+
+    private void garrison() {
+        GameController.getInstance().garrison();
+    }
 
 
     /************* Please write functions for printing map here **************/

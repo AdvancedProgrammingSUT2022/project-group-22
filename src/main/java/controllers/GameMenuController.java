@@ -8,7 +8,6 @@ import views.GameMenuView;
 import java.util.regex.Matcher;
 
 public class GameMenuController {
-    GameController gameController = new GameController();
 
     public String run() {
         String state = GameMenuView.getInstance().run();
@@ -42,7 +41,6 @@ public class GameMenuController {
         user.setCivilization(new Civilization());
     }
 
-    // return to controller
     private String startGame() {
         while (true) {
             for (int i = 0; i < Database.getInstance().getPlayers().size(); i++) {
@@ -52,15 +50,5 @@ public class GameMenuController {
             }
         }
     }
-    // if(!isPlayerExists(matcher.group("username1"))) {
-    // GameMenuView.noUserExists(1);
-    // return false;
-    // }
-    // if(!isPlayerExists(matcher.group("username2"))){
-    // GameMenuView.noUserExists(2);
-    // return false;
-    // }
-    // addPlayer(matcher.group("username1"));
-    // addPlayer(matcher.group("username2"));
 
 }
