@@ -101,7 +101,7 @@ public class MapController extends GameController {
                 addTileView(tileView, map[i][j]);
             }
         }
-        GameView.getInstance().printMap(tileView, y2 - y1, x2 - x1);
+        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView, y2 - y1, x2 - x1);
     }
 
     public void printCity(City city) {
@@ -117,7 +117,7 @@ public class MapController extends GameController {
             minY = tile.getCoordinates()[1] < minY ? tile.getCoordinates()[0] : minY;
             maxY = tile.getCoordinates()[1] > maxY ? tile.getCoordinates()[0] : maxY;
         }
-        GameView.getInstance().printMap(tileView, maxY - minY, maxX - minX);
+        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView, maxY - minY, maxX - minX);
     }
 
     public void printTile(Tile tile) {
@@ -134,6 +134,6 @@ public class MapController extends GameController {
             minY = neighbor.getCoordinates()[1] < minY ? neighbor.getCoordinates()[0] : minY;
             maxY = neighbor.getCoordinates()[1] > maxY ? neighbor.getCoordinates()[0] : maxY;
         }
-        GameView.getInstance().printMap(tileView, maxY - minY, maxX - minX);
+        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView, maxY - minY, maxX - minX);
     }
 }
