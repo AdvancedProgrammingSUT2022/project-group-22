@@ -14,7 +14,7 @@ public class GameView extends Processor {
 
     Matcher matcher;
 
-    GameController gameController = GameController.getInstance();
+//    GameController gameController = GameController.getInstance();
 
     public static GameView getInstance() {
         instance = instance != null ? instance : new GameView();
@@ -114,13 +114,13 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.REPAIR)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.PRINTAREA)) != null)
-                gameController.printMap(matcher, Command.PRINTAREA);
+                GameController.getInstance().printMap(matcher, Command.PRINTAREA);
             else if ((matcher = getMatcher(command, Command.PRINTCITY)) != null)
-                gameController.printMap(matcher, Command.PRINTCITY);
+                GameController.getInstance().printMap(matcher, Command.PRINTCITY);
             else if ((matcher = getMatcher(command, Command.PRINTTILE)) != null)
-                gameController.printMap(matcher, Command.PRINTTILE);
+                GameController.getInstance().printMap(matcher, Command.PRINTTILE);
             else if ((matcher = getMatcher(command, Command.PRINTUNITPOSITION)) != null)
-                gameController.printMap(matcher, Command.PRINTUNITPOSITION);
+                GameController.getInstance().printMap(matcher, Command.PRINTUNITPOSITION);
             else if ((matcher = getMatcher(command, Command.MAPMOVED)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEL)) != null)
@@ -206,19 +206,19 @@ public class GameView extends Processor {
     }
 
      private void selectCityPos(Matcher matcher) {
-     gameController.selectCityByCoordinate(matcher);
+         GameController.getInstance().selectCityByCoordinate(matcher);
      }
 
     private void selectUnitCombat(Matcher matcher) {
-        gameController.selectUnitCombat(matcher);
+        GameController.getInstance().selectUnitCombat(matcher);
     }
 
     private void attack(Matcher matcher) {
-        gameController.Attack(matcher);
+        GameController.getInstance().Attack(matcher);
     }
 
     private void selectUnitNonCombat(Matcher matcher) {
-        gameController.selectUnitNonCombat(matcher);
+        GameController.getInstance().selectUnitNonCombat(matcher);
     }
 
     private void showDemographics(User player) {

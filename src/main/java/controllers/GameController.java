@@ -12,7 +12,7 @@ public class GameController {
     /********** these variables have some problem, believe me *********/
     private static GameController instance = null;
     protected GameView gameView = GameView.getInstance();
-    private MapController mapController = MapController.getInstance();
+//    private MapController mapController = MapController.getInstance();
     protected Database database ;
     protected User user;
     Tile[][] map;
