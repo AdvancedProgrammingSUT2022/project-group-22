@@ -32,7 +32,6 @@ public class Controller {
                 input = mainMenuController.run(user);
             else if (input.equals("gameMenu"))
                 input = gameMenuController.run();
-            else if (input.equals("startGame")) input = gameController.run();
             else if (input.equals("registerMenu")) {
                 input = registerMenuController.run();
                 user = Database.getInstance().getUserByUsername(input);

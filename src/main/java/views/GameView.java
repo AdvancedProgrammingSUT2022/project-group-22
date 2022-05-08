@@ -41,8 +41,6 @@ public class GameView extends Processor {
                 return null;
             else if ((matcher = getMatcher(command, Command.INFOMILITARY)) != null)
                 return null;
-            else if((matcher =  getMatcher(command,Command.SLEEP)) != null)
-                return null;
             else if ((matcher = getMatcher(command, Command.INFONOTIFICATIONS)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFOUNIT)) != null)
@@ -65,19 +63,18 @@ public class GameView extends Processor {
                 selectUnitNonCombat(matcher);
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
                 return null;
-            else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
-                return null;
+            else if ((matcher = getMatcher(command, Command.SLEEP)) != null) {
+                sleep();
+            }
             else if ((matcher = getMatcher(command, Command.ALERT)) != null)
-                return null;
+                alert();
             else if ((matcher = getMatcher(command, Command.FORTIFY)) != null)
-                return null;
+                fority();
             else if ((matcher = getMatcher(command, Command.FORTIFYHEAL)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.GARRISON)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.SETUP)) != null)
-                return null;
-            else if ((matcher = getMatcher(command, Command.ATTACK)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
                 return null;
@@ -86,7 +83,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.DELETE)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.WAKE)) != null)
-                return null;
+                wake();
             else if ((matcher = getMatcher(command, Command.BUILDROAD)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
@@ -129,11 +126,23 @@ public class GameView extends Processor {
                 return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEU)) != null)
                 return null;
+            else if((matcher = getMatcher(command, Command.NEXT)) != null)
+                return "next";
             else
                 System.out.println("invalid Command!");
 
         }
     }
+
+    private void wake() {
+        GameController.getInstance().wake();
+    }
+
+    private void fority() {
+        GameController.getInstance().fortify();
+    }
+
+
     /**********  these are Errors for both printing map and unit action I used most of them  *************/
     public void notCityOwner() {
         System.out.println("you don not have access to this city");
@@ -183,6 +192,22 @@ public class GameView extends Processor {
         System.out.println("there is no Military Unit here");
     }
 
+    public void sleepSuccessful(){
+        System.out.println("This unit put to sleep");
+    }
+
+    public void alertMessage(){
+        System.out.println("successfully change status of the selected unit");
+    }
+
+    public void successfulFortify(){
+        System.out.println("Selected unit successfully fortified");
+    }
+
+    public void wakeMessage(){
+        System.out.println("You can use the selected unit from now on");
+    }
+
 
     /************** these functions are not for printing map ********************/
     public void accessTileError(){
@@ -224,6 +249,14 @@ public class GameView extends Processor {
     private void showDemographics(User player) {
         // System.out.println(player.getPopulation());
         // TODO: add get population in player class
+    }
+
+    private void sleep() {
+        GameController.getInstance().sleep();
+    }
+
+    private void alert() {
+        GameController.getInstance().alert();
     }
 
 

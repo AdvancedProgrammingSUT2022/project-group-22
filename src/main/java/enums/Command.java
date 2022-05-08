@@ -78,6 +78,7 @@ public enum Command {
         REMOVEJUNGLE("unit build jungle"),
         REMOVEROUTE("unit build route"),
         REPAIR("unit repair"),
+        NEXT("next"),
 
         // print map
         PRINTAREA("print map (?<i1>\\d+) (?<j1>\\d+) (?<i2>\\d+) (?<j2>\\d+)"),

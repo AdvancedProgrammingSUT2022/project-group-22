@@ -72,16 +72,6 @@ public class UnitController extends GameController {
 //        return false;
 //    }
 
-    public void wake() {
-    }
-
-    public void alert() {
-    }
-
-    public void fortify() {
-        // check if this unit is settler or not
-    }
-
     public void garrison() {
     }
 

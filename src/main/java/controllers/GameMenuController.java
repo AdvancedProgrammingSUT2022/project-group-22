@@ -12,6 +12,7 @@ public class GameMenuController {
 
     public String run() {
         String state = GameMenuView.getInstance().run();
+        if(state.equals("startGame")) state = startGame();
         return state;
     }
 
@@ -42,14 +43,15 @@ public class GameMenuController {
     }
 
     // return to controller
-//    private void startGame() {
-//        while (true) {
-//            for (int i = 0; i < Database.getInstance().getPlayers().size(); i++) {
-//                Database.getInstance().setCurrentPlayer(Database.getInstance().getPlayers().get(i));
-//                GameController.getInstance().run();
-//            }
-//        }
-//    }
+    private String startGame() {
+        while (true) {
+            for (int i = 0; i < Database.getInstance().getPlayers().size(); i++) {
+                Database.getInstance().setCurrentPlayer(Database.getInstance().getPlayers().get(i));
+                String state = GameController.getInstance().run(Database.getInstance().getCurrentPlayer());
+                if(state.equals("exit")) return state;
+            }
+        }
+    }
     // if(!isPlayerExists(matcher.group("username1"))) {
     // GameMenuView.noUserExists(1);
     // return false;

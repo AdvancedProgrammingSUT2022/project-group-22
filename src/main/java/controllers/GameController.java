@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 /*********** Please read comments Before any changes ******/
 
 public class GameController {
-    /********** these variables have some problem, believe me *********/
+    /********** these variables have some problem *********/
     private static GameController instance = null;
     protected GameView gameView = GameView.getInstance();
 //    private MapController mapController = MapController.getInstance();
@@ -18,7 +18,7 @@ public class GameController {
     Tile[][] map;
 
 
-    /******** I swear these two will face NullPointerException, I moved them in print map line 123 *******/
+    /******** these two will face NullPointerException, I moved them in print map line 123 *******/
 
 //    CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
 //    MilitaryUnit milUnit = user.getCivilization().getCurrentMilitary();
@@ -37,10 +37,14 @@ public class GameController {
         return instance;
     }
 
-    /***********these are not for printing map***************/
+    /***********   these are not for printing map   ***************/
 
-    private boolean hasChosenUnit(User player){
-        return player.getCivilization().getCurrentMilitary() != null;
+    private boolean hasChosenCombatUnit(){
+        return user.getCivilization().getCurrentMilitary() != null;
+    }
+
+    private boolean hasChosenNonCombatUnit(){
+        return user.getCivilization().getCurrentCivilian() != null;
     }
 
     private boolean isAttackPossible(Matcher matcher){
@@ -52,7 +56,7 @@ public class GameController {
     }
 
     public void Attack(Matcher matcher){
-        if(!hasChosenUnit(user)) GameView.getInstance().hasNotChoseAUnit();
+        if(!hasChosenCombatUnit()) GameView.getInstance().hasNotChoseAUnit();
         if(isAttackPossible(matcher)) GameView.getInstance().AttackImpossible();
     }
 
@@ -125,10 +129,42 @@ public class GameController {
         return true;
     }
 
-        // if(player.getCurrentMilitary().getUnitType().name().equals(UnitType.ARCHER.name()))
-        // UnitController.getInstance().
-//    }
+    public void sleep() {
+        if(hasChosenCombatUnit()){
+            user.getCivilization().getCurrentMilitary().setSleep();
+            GameView.getInstance().sleepSuccessful();
+        }else if(hasChosenNonCombatUnit()){
+            user.getCivilization().getCurrentCivilian().setSleep();
+            GameView.getInstance().sleepSuccessful();
+        }GameView.getInstance().noUnitSelected();
+    }
 
+    public void alert() {
+        if(hasChosenCombatUnit()){
+            user.getCivilization().getCurrentMilitary().switchAlert();
+            GameView.getInstance().alertMessage();
+        }else if(hasChosenNonCombatUnit()){
+            user.getCivilization().getCurrentCivilian().switchSleeping();
+            GameView.getInstance().alertMessage();
+        } else GameView.getInstance().noUnitSelected();
+    }
+
+    public void fortify(){
+        if(hasChosenCombatUnit()){
+            user.getCivilization().getCurrentMilitary().fortify();
+            GameView.getInstance().successfulFortify();
+        }else GameView.getInstance().noUnitSelected();
+    }
+
+    public void wake() {
+        if(hasChosenNonCombatUnit()){
+            user.getCivilization().getCurrentCivilian().switchSleeping();
+            GameView.getInstance().wakeMessage();
+        }else if(hasChosenCombatUnit()){
+            user.getCivilization().getCurrentMilitary().setSleep();
+            GameView.getInstance().wakeMessage();
+        }else GameView.getInstance().noUnitSelected();
+    }
 
     /********  Please write functions that are related to printing map here  **************/
     public void printMap(Matcher matcher, Command command) {
@@ -140,6 +176,10 @@ public class GameController {
             int j1 = Integer.parseInt(matcher.group("j1"));
             int i2 = Integer.parseInt(matcher.group("i2"));
             int j2 = Integer.parseInt(matcher.group("j2"));
+            if(map == null) {
+                System.out.println("map is null");
+                return;
+            }
             if (i1 < 0 || j1 < 0 || i2 < 0 || j2 < 0 || map.length < i1 || map.length < i2 || map[0].length < j1
                     || map[0].length < j2) {
                 gameView.invalidTile();
@@ -186,17 +226,15 @@ public class GameController {
         // restore city + unit in combat
     }
     /******** run method **********/
-    public String run() {
-        while (true){
-            Database.getInstance().setCurrentPlayer(Database.getInstance().getPlayers().get(0));
-            this.user = Database.getInstance().getCurrentPlayer();
-            String state = GameView.getInstance().run();
-            for(int i = 0 ; i < Database.getInstance().getPlayers().size() ; i++){
-                this.user = Database.getInstance().getCurrentPlayer();
-            }
-            if(state.equals("exit")) return "gameMenu";
-        }
+    public String run(User player) {
+        this.user = player;
+        System.out.println(user.getUsername());
+        String state = GameView.getInstance().run();
+        return state;
     }
+
+
+
 
     /*******  these functions are for info  ********/
 
