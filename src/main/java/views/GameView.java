@@ -4,9 +4,11 @@ import controllers.GameController;
 import controllers.UnitController;
 import enums.Color;
 import enums.Command;
+import enums.Technology;
 import models.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class GameView extends Processor {
@@ -346,4 +348,23 @@ public class GameView extends Processor {
             }
         }
     }
+
+    // print researchMenu
+    public void PrintResearchInfo(HashMap<Integer, Technology> currentResearch, ArrayList<Technology> possibles, ArrayList<Technology> done){
+        System.out.println("Current researches:");
+        for (Integer number: currentResearch.keySet()) {
+            int key = number;
+            String value = currentResearch.get(number).name();
+            System.out.println(key + " " + value);
+        }
+        System.out.println("Possible technologies to research:");
+        for (int i = 0; i < possibles.size(); i++) {
+            System.out.println(possibles.get(i).name());
+        }
+        System.out.println("Your own technologies:");
+        for (int i = 0; i < done.size(); i++) {
+            System.out.println(done.get(i).name());
+        }
+    }
 }
+

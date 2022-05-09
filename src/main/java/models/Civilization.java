@@ -19,6 +19,7 @@ public class Civilization {
     private ArrayList<MilitaryUnit> militaryUnits = new ArrayList<MilitaryUnit>();
     private ArrayList<CivilianUnit> civilianUnits = new ArrayList<CivilianUnit>();
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
+    private ArrayList<Technology> possibleTechnologies = new ArrayList<Technology>();
     HashMap<Integer, Technology> research = new HashMap<Integer, Technology>();
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
@@ -221,6 +222,8 @@ public class Civilization {
         }
     }
 
+    public HashMap<Integer, Technology> getResearch() { return research;}
+
     public ArrayList<Technology> getTechnologies() {
         return technologies;
     }
@@ -231,6 +234,23 @@ public class Civilization {
 
     public Boolean hasTechnology(Technology technology) {
         for (Technology tempTechnology : this.technologies) {
+            if (tempTechnology.equals(technology)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<Technology> getPossibleTechnologies() {
+        return possibleTechnologies;
+    }
+
+    public void addPossibleTechnologies(Technology technology) {
+        this.possibleTechnologies.add(technology);
+    }
+
+    public Boolean isPossibleTechnologies(Technology technology) {
+        for (Technology tempTechnology : this.possibleTechnologies) {
             if (tempTechnology.equals(technology)) {
                 return true;
             }
