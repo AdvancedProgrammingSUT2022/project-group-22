@@ -3,10 +3,9 @@ package models;
 import enums.Color;
 import enums.Technology;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
-public class Civilization{
+public class Civilization {
     private Color color;
     private int score;
     private int happiness = 10;
@@ -23,8 +22,6 @@ public class Civilization{
     private City currentCity;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
-
-
 
     public Color getColor() {
         return color;
@@ -75,13 +72,17 @@ public class Civilization{
         this.happiness = happiness;
     }
 
-    public int getUnhappiness() { return this.unhappiness; }
+    public int getUnhappiness() {
+        return this.unhappiness;
+    }
 
     public void setUnhappiness(int unhappiness) {
         this.unhappiness = unhappiness;
     }
 
-    public int getTotalHappiness(){ return this.happiness - this.unhappiness; }
+    public int getTotalHappiness() {
+        return this.happiness - this.unhappiness;
+    }
 
     public int getScore() {
         return this.score;

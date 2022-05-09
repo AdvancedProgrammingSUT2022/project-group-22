@@ -1,54 +1,38 @@
 package controllers;
 
-import models.Civilization;
-import models.Database;
-import models.User;
+import models.*;
 import views.GameMenuView;
 
-import java.util.regex.Matcher;
+import java.util.ArrayList;
+import java.util.regex.*;
 
 public class GameMenuController {
+    private static GameMenuController instance = null;
 
-    public String run() {
-        String state = GameMenuView.getInstance().run();
-        if(state.equals("startGame")) state = startGame();
-        return state;
+    public static GameMenuController getInstance() {
+        instance = instance != null ? instance : new GameMenuController();
+        return instance;
     }
 
-    public boolean playGame(Matcher matcher) {
-        if (!doesPlayerExists(matcher.group("username1").trim())) {
+    public Boolean playGame(Matcher matcher) {
+        User player1, player2;
+        if ((player1 = Database.getInstance().getUserByUsername(matcher.group("username1").trim())) != null) {
             GameMenuView.getInstance().noUserExists(1);
             return false;
-        }
-        if (!doesPlayerExists(matcher.group("username2").trim())) {
+        } else if ((player2 = Database.getInstance().getUserByUsername(matcher.group("username2").trim())) != null) {
             GameMenuView.getInstance().noUserExists(2);
             return false;
-        }
-        addPlayer(matcher.group("username1"));
-        addPlayer(matcher.group("username2"));
-        GameMenuView.getInstance().gameStarted();
-        return true;
-    }
-
-    private boolean doesPlayerExists(String username) {
-        return Database.getInstance().getUserByUsername(username) != null;
-    }
-
-    private void addPlayer(String username) {
-        User user;
-        user = Database.getInstance().getUserByUsername(username);
-        Database.getInstance().addPlayer(user);
-        user.setCivilization(new Civilization());
-    }
-
-    private String startGame() {
-        while (true) {
-            for (int i = 0; i < Database.getInstance().getPlayers().size(); i++) {
-                Database.getInstance().setCurrentPlayer(Database.getInstance().getPlayers().get(i));
-                String state = GameController.getInstance().run(Database.getInstance().getCurrentPlayer());
-                if(state.equals("exit")) return state;
-            }
+        } else {
+            ArrayList<User> players = new ArrayList<User>();
+            players.add(player1);
+            players.add(player2);
+            Database.getInstance().createGame(players, 24, 40);
+            GameMenuView.getInstance().gameStarted();
+            return true;
         }
     }
 
+    public String run() {
+        return GameMenuView.getInstance().run();
+    }
 }
