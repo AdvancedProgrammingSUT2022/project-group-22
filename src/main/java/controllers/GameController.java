@@ -110,9 +110,29 @@ public class GameController {
         }
     }
 
-    /******
-     * This function will build a road in a tile, Check if worker is selected or not
-     ************/
+    // city methods
+    public void buyTile(Matcher matcher) {
+        City city;
+        int i = Integer.parseInt(matcher.group("i"));
+        int j = Integer.parseInt(matcher.group("j"));
+        if (!isValidCoordinates(i, j)) {
+            GameView.getInstance().invalidTile();
+        } else if (!map[i][j].getPlayer().equals(user)) {
+            GameView.getInstance().tileHasOwner();
+        } else if (map[i][j].getPlayer().equals(user)) {
+            GameView.getInstance().tileOwned();
+        } else if ((city = Database.getInstance().getNearbyCity(map[i][j], user)) == null) {
+            GameView.getInstance().noCityNearby();
+        } else if (user.getCivilization().getGold() < 100) {
+            GameView.getInstance().goldLow();
+        } else {
+            user.getCivilization().setGold(user.getCivilization().getGold() - 100);
+            city.addTile(map[i][j]);
+            user.getCivilization().updateTileStates(null, map[i][j]);
+        }
+    }
+
+    // build methods
     public void buildRoad(Matcher matcher) {
         CivilianUnit civUnit;
         int i = Integer.parseInt(matcher.group("i"));
@@ -131,7 +151,10 @@ public class GameController {
         }
     }
 
-    // map printing
+    public void buildRailRoad() {
+    }
+
+    // map methods
     public void printArea(Matcher matcher) {
         int i1 = Integer.parseInt(matcher.group("i1"));
         int j1 = Integer.parseInt(matcher.group("j1"));
@@ -199,9 +222,6 @@ public class GameController {
             Database.getInstance().nextTurn();
             // restore city + unit in combat
         }
-    }
-
-    public void buildRailRoad() {
     }
 
     /******** run method **********/

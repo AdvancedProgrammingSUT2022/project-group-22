@@ -186,6 +186,14 @@ public class GameView extends Processor {
         System.out.println("this tile belongs to another civilization");
     }
 
+    public void tileOwned() {
+        System.out.println("you already own this tile");
+    }
+
+    public void noCityNearby() {
+        System.out.println("this tile isn't neighboring your current civilization");
+    }
+
     public void invalidCity() {
         System.out.println("no city with this name exists");
     }
@@ -232,6 +240,10 @@ public class GameView extends Processor {
 
     public void turnNotOver() {
         System.out.println("you have units with unassigned tasks");
+    }
+
+    public void goldLow() {
+        System.out.println("insufficient gold");
     }
 
     private void showDemographics(User player) {

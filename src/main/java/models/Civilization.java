@@ -64,12 +64,45 @@ public class Civilization {
         this.cities.add(city);
     }
 
-    public ArrayList<Tile> getVisibleTiles() {
-        return visibleTiles;
+    public ArrayList<Tile> getTiles() {
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        for (City city : this.cities) {
+            for (Tile tile : city.getTiles()) {
+                tiles.add(tile);
+            }
+        }
+        return tiles;
     }
 
-    public void addVisibleTiles(Tile tile) {
-        visibleTiles.add(tile);
+    public ArrayList<Tile> getCityTiles(City city) {
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        for (Tile tile : city.getTiles()) {
+            tiles.add(tile);
+        }
+        return tiles;
+    }
+
+    public int findTile(Tile tile) {
+        for (Tile tempTile : this.getTiles()) {
+            if (tempTile.equals(tile)) {
+                return 1;
+            }
+        }
+        for (Tile tempTile : this.visibleTiles) {
+            if (tempTile.equals(tile)) {
+                return 1;
+            }
+        }
+        for (Tile tempTile : this.revealedTiles.keySet()) {
+            if (tempTile.equals(tile)) {
+                return 0;
+            }
+        }
+        return -1;
+    }
+
+    public ArrayList<Tile> getVisibleTiles() {
+        return visibleTiles;
     }
 
     public Tile getRevealedTile(Tile tile) {
@@ -79,6 +112,29 @@ public class Civilization {
     public void addRevealedTile(Tile tile) {
         revealedTiles.put(tile,
                 new Tile(tile.getCoordinates(), tile.getLandType(), tile.getFeature(), tile.getResource()));
+    }
+
+    public void updateTileStates(Tile oldPos, Tile newPos) {
+        // view range = 1
+        Tile neighbor;
+        if (findTile(newPos) == 0) {
+            revealedTiles.remove(oldPos);
+        }
+        this.visibleTiles.add(newPos);
+        for (int i = 0; i < 6; i++) {
+            if (findTile((neighbor = Database.getInstance().getNeighbor(newPos, i))) == 0) {
+                revealedTiles.remove(neighbor);
+            }
+            this.visibleTiles.add(neighbor);
+        }
+        if (oldPos != null) {
+            this.visibleTiles.remove(oldPos);
+            addRevealedTile(oldPos);
+            for (int i = 0; i < 6; i++) {
+                this.visibleTiles.remove((neighbor = Database.getInstance().getNeighbor(oldPos, i)));
+                addRevealedTile(neighbor);
+            }
+        }
     }
 
     public int getHappiness() {
@@ -180,46 +236,6 @@ public class Civilization {
             }
         }
         return false;
-    }
-
-    public ArrayList<Tile> getTiles() {
-        ArrayList<Tile> tiles = new ArrayList<Tile>();
-        for (City city : this.cities) {
-            for (Tile tile : city.getTiles()) {
-                tiles.add(tile);
-            }
-        }
-        return tiles;
-    }
-
-    public ArrayList<Tile> getCityTiles(City city) {
-        ArrayList<Tile> tiles = new ArrayList<Tile>();
-        for (Tile tile : city.getTiles()) {
-            tiles.add(tile);
-        }
-        return tiles;
-    }
-
-    public void setHappiness() {
-    }
-
-    public int findTile(Tile tile) {
-        for (Tile tempTile : this.getTiles()) {
-            if (tempTile.equals(tile)) {
-                return 1;
-            }
-        }
-        for (Tile tempTile : this.visibleTiles) {
-            if (tempTile.equals(tile)) {
-                return 1;
-            }
-        }
-        for (Tile tempTile : this.revealedTiles.keySet()) {
-            if (tempTile.equals(tile)) {
-                return 0;
-            }
-        }
-        return -1;
     }
 
     public City getCurrentCity() {

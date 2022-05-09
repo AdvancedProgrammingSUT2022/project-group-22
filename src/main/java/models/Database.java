@@ -172,4 +172,14 @@ public class Database {
     public User getCityOwner(City city) {
         return city.getCenter().getPlayer();
     }
+
+    public City getNearbyCity(Tile tile, User player) {
+        City city;
+        for (int i = 0; i < 6; i++) {
+            if ((city = getCityByTile(getNeighbor(tile, i))) != null && getCityOwner(city).equals(player)) {
+                return city;
+            }
+        }
+        return null;
+    }
 }

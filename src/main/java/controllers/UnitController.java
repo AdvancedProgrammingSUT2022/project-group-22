@@ -45,15 +45,17 @@ public class UnitController extends GameController {
                     unit.getPositon().getCoordinates()[0],
                     unit.getPositon().getCoordinates()[1]);
             if (dist[i][j] <= unit.getMovementPoints()) {
+                user.getCivilization().updateTileStates(unit.getPositon(), tile);
                 unit.setPositon(tile);
-                return;
+                // MapController.getInstance().printArea(map, 0, 0, 24, 40);
             } else {
                 for (int k = 0; k < 6; k++) {
                     int i2 = database.getNeighbor(tile, k).getCoordinates()[0];
                     int j2 = database.getNeighbor(tile, k).getCoordinates()[1];
                     if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
+                        user.getCivilization().updateTileStates(unit.getPositon(), tile);
                         unit.setPositon(tile);
-                        return;
+                        // MapController.getInstance().printArea(map, 0, 0, 24, 40);
                     }
                 }
                 GameView.getInstance().mpLow();
