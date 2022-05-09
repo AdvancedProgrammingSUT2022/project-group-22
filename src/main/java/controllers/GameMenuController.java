@@ -11,6 +11,7 @@ public class GameMenuController {
 
     public String run() {
         String state = GameMenuView.getInstance().run();
+        Database.getInstance().createGame(Database.getInstance().getPlayers(),0 , 10);
         if(state.equals("startGame")) state = startGame();
         return state;
     }
