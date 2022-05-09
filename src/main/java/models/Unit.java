@@ -39,7 +39,15 @@ public class Unit {
     }
 
     public void switchSleeping() {
-        isSleeping = isSleeping == true ? false : true;
+        isSleeping = (isSleeping == true ? false : true);
+    }
+
+    public Boolean isSleeping() {
+        return this.isSleeping;
+    }
+
+    public Boolean hasTask() {
+        return this.taskTurns == 0 ? false : true;
     }
 
     public int getTaskTurns() {

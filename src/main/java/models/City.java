@@ -10,7 +10,6 @@ public class City {
     private ArrayList<Tile> tiles = new ArrayList<Tile>();
 
     private int food;
-    private int gold;
     private int production;
     private int population;
 
@@ -33,9 +32,7 @@ public class City {
         if (tile.getFeature().equals(Feature.JUNGLE)) {
             tile.removeJungle();
         }
-        for (int i = 0; i < 6; i++) {
-            tile.setHasRoad(i, true);
-        }
+        tile.setHasRoad(true);
 
         for (int i = 0; i < 6; i++) {
             Tile neighbor = Database.getInstance().getNeighbor(tile, i);
@@ -65,7 +62,6 @@ public class City {
     public void addTile(Tile tile) {
         this.tiles.add(tile);
         this.food += tile.getFood();
-        this.gold += tile.getGold();
         this.production += tile.getProduction();
         // TODO: check if resource is available and add resource
     }
@@ -78,20 +74,15 @@ public class City {
         this.name = name;
     }
 
+    public void addValues() {
+    }
+
     public int getFood() {
         return this.food;
     }
 
     public void setFood(int food) {
         this.food = food;
-    }
-
-    public int getGold() {
-        return this.gold;
-    }
-
-    public void setGold(int gold) {
-        this.gold = gold;
     }
 
     public int getProduction() {
@@ -141,7 +132,7 @@ public class City {
     public void addResource(Resource resource) {
         this.resources.add(resource);
         this.food += resource.getFood();
-        this.gold += resource.getGold();
+        // this.gold += resource.getGold();
         this.production += resource.getProduction();
     }
 
@@ -153,7 +144,7 @@ public class City {
         tile.addImprovement(improvement);
         this.improvements.add(improvement);
         this.food += improvement.getFood();
-        this.gold += improvement.getGold();
+        // this.gold += improvement.getGold();
         this.production += improvement.getProduction();
     }
 

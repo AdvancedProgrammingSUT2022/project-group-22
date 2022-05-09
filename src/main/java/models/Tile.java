@@ -22,7 +22,7 @@ public class Tile {
     private CivilianUnit workerUnit;
     private Improvement improvement;
     private ArrayList<Building> buildings = new ArrayList<Building>();
-    private Boolean[] hasRoad = new Boolean[6];
+    private Boolean hasRoad;
 
     public Tile(int[] coordinates, LandType landType, Feature feature, Resource resource) {
         this.player = null;
@@ -72,6 +72,9 @@ public class Tile {
 
     public Resource getResource() {
         return this.resource;
+    }
+
+    public void activateResource() {
     }
 
     public Boolean[] getHasRiver() {
@@ -134,11 +137,11 @@ public class Tile {
         this.buildings.add(building);
     }
 
-    public Boolean[] getHasRoad() {
+    public Boolean getHasRoad() {
         return this.hasRoad;
     }
 
-    public void setHasRoad(int index, Boolean hasRoad) {
-        this.hasRoad[index] = hasRoad;
+    public void setHasRoad(Boolean hasRoad) {
+        this.hasRoad = hasRoad;
     }
 }

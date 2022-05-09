@@ -127,17 +127,8 @@ public class GameController {
             GameView.getInstance().unitNotOnTile();
         } else {
             civUnit.setTaskTurns(3);
+            user.getCivilization().addRoadWorker(civUnit, map[i][j]);
         }
-    }
-
-    // TODO: adjust to change in buildRoad
-    private void buildRoadIn0(int i) {
-        // Boolean[] hasRoad =
-        // user.getCivilization().getCurrentMilitary().getPositon().getHasRoad();
-        // if (hasRoad[0]) {
-        // user.getCivilization().getCurrentMilitary().getPositon().setHasRoad(0, true);
-        // GameView.getInstance().buildRoadSuccessful();
-        // }
     }
 
     // map printing
@@ -219,7 +210,7 @@ public class GameController {
         while (true) {
             state = GameView.getInstance().run();
             if (state.equals("exit")) {
-                return state;
+                return "game menu";
             }
         }
     }

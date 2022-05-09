@@ -24,6 +24,10 @@ public class Civilization {
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
     private HashMap<Tile, Tile> revealedTiles = new HashMap<Tile, Tile>();
 
+    private HashMap<CivilianUnit, Tile> roadWorkers = new HashMap<CivilianUnit, Tile>();
+    private HashMap<CivilianUnit, Improvement> improvementWorkers = new HashMap<CivilianUnit, Improvement>();
+    private HashMap<CivilianUnit, Building> buildingWorkers = new HashMap<CivilianUnit, Building>();
+
     private City currentCity;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
@@ -129,6 +133,20 @@ public class Civilization {
         civilianUnits.remove(civilianUnit);
     }
 
+    public Boolean checkUnitTasks() {
+        for (MilitaryUnit milUnit : this.militaryUnits) {
+            if (!milUnit.hasTask() && !milUnit.isSleeping()) {
+                return false;
+            }
+        }
+        for (CivilianUnit civUnit : this.civilianUnits) {
+            if (!civUnit.hasTask() && !civUnit.isSleeping()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public ArrayList<String> getMessages() {
         return this.messages;
     }
@@ -228,5 +246,50 @@ public class Civilization {
     public void setCurrentCivilian(CivilianUnit currentCivilian) {
         this.currentCivilian = currentCivilian;
         this.currentMilitary = null;
+    }
+
+    public void addValues() {
+        // for (Tile tile : this.getTiles()) {
+        // this.gold += tile.getGold();
+        // }
+        // for (City city : this.cities) {
+        // city.setFood(city.getFood());
+        // }
+    }
+
+    public void addRoadWorker(CivilianUnit civilianUnit, Tile tile) {
+        this.roadWorkers.put(civilianUnit, tile);
+    }
+
+    public void addImprovementWorker(CivilianUnit civilianUnit, Improvement improvement) {
+        this.improvementWorkers.put(civilianUnit, improvement);
+    }
+
+    public void addBuildingWorker(CivilianUnit civilianUnit, Building building) {
+        this.buildingWorkers.put(civilianUnit, building);
+    }
+
+    public void completeBuild(CivilianUnit civilianUnit) {
+        for (CivilianUnit civUnit : this.roadWorkers.keySet()) {
+            if (civUnit.equals(civilianUnit)) {
+                roadWorkers.get(civilianUnit).setHasRoad(true);
+                roadWorkers.remove(civilianUnit);
+            }
+        }
+        for (CivilianUnit civUnit : this.improvementWorkers.keySet()) {
+            if (civUnit.equals(civilianUnit)) {
+                civilianUnit.getPositon().addImprovement(improvementWorkers.get(civilianUnit));
+                improvementWorkers.remove(civilianUnit);
+            }
+        }
+        for (CivilianUnit civUnit : this.buildingWorkers.keySet()) {
+            if (civUnit.equals(civilianUnit)) {
+                civilianUnit.getPositon().addBuilding(buildingWorkers.get(civilianUnit));
+                buildingWorkers.remove(civilianUnit);
+            }
+        }
+    }
+
+    public void processTasks() {
     }
 }
