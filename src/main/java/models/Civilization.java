@@ -1,6 +1,8 @@
 package models;
 
+import enums.Building;
 import enums.Color;
+import enums.Improvement;
 import enums.Technology;
 
 import java.util.*;
@@ -10,11 +12,14 @@ public class Civilization {
     private int score;
     private int happiness = 10;
     private int unhappiness;
+    private int gold;
+    private int beakers;
     private City capital;
     private ArrayList<City> cities = new ArrayList<City>();
     private ArrayList<MilitaryUnit> militaryUnits = new ArrayList<MilitaryUnit>();
     private ArrayList<CivilianUnit> civilianUnits = new ArrayList<CivilianUnit>();
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
+    HashMap<Integer, Technology> research = new HashMap<Integer, Technology>();
     private ArrayList<String> messages = new ArrayList<>();
     private ArrayList<Tile> visibleTiles = new ArrayList<>();
     private HashMap<Tile, Tile> revealedTiles = new HashMap<Tile, Tile>();
@@ -29,6 +34,14 @@ public class Civilization {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
     public City getCapital() {
@@ -124,12 +137,31 @@ public class Civilization {
         this.messages.add(message);
     }
 
+    public void addResearch(Technology technology) {
+        if (technology.getCost() > beakers) {
+            research.put(technology.getCost() - beakers, technology);
+            this.beakers = 0;
+        } else {
+            this.beakers = this.beakers - technology.getCost();
+            addTechnology(technology);
+        }
+    }
+
     public ArrayList<Technology> getTechnologies() {
         return technologies;
     }
 
     public void addTechnology(Technology technology) {
         this.technologies.add(technology);
+    }
+
+    public Boolean hasTechnology(Technology technology) {
+        for (Technology tempTechnology : this.technologies) {
+            if (tempTechnology.equals(technology)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Tile> getTiles() {
@@ -196,14 +228,5 @@ public class Civilization {
     public void setCurrentCivilian(CivilianUnit currentCivilian) {
         this.currentCivilian = currentCivilian;
         this.currentMilitary = null;
-    }
-
-    public Boolean hasTechnology(Technology technology) {
-        for (Technology tempTechnology : this.technologies) {
-            if (tempTechnology.equals(technology)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
