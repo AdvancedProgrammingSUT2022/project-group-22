@@ -61,6 +61,63 @@ public class UnitController extends GameController {
         }
     }
 
+    public void attack(Matcher matcher) {
+        if (!hasCombatUnit())
+            GameView.getInstance().noUnitSelected();
+        if (isAttackPossible(matcher))
+            GameView.getInstance().AttackImpossible();
+    }
+
+    public void sleep() {
+        if (hasCombatUnit()) {
+            user.getCivilization().getCurrentMilitary().setSleep();
+            GameView.getInstance().sleepSuccessful();
+        } else if (hasNonCombatUnit()) {
+            user.getCivilization().getCurrentCivilian().setSleep();
+            GameView.getInstance().sleepSuccessful();
+        }
+        GameView.getInstance().noUnitSelected();
+    }
+
+    public void alert() {
+        if (hasCombatUnit()) {
+            user.getCivilization().getCurrentMilitary().switchAlert();
+            GameView.getInstance().alertMessage();
+        } else if (hasNonCombatUnit()) {
+            user.getCivilization().getCurrentCivilian().switchSleeping();
+            GameView.getInstance().alertMessage();
+        } else
+            GameView.getInstance().noUnitSelected();
+    }
+
+    public void fortify() {
+        if (hasCombatUnit()) {
+            user.getCivilization().getCurrentMilitary().fortify();
+            GameView.getInstance().successfulFortify();
+        } else
+            GameView.getInstance().noUnitSelected();
+    }
+
+    public void wake() {
+        if (hasNonCombatUnit()) {
+            user.getCivilization().getCurrentCivilian().switchSleeping();
+            GameView.getInstance().wakeMessage();
+        } else if (hasCombatUnit()) {
+            user.getCivilization().getCurrentMilitary().setSleep();
+            GameView.getInstance().wakeMessage();
+        } else
+            GameView.getInstance().noUnitSelected();
+    }
+
+    public void garrison() {
+        if (hasCombatUnit()) {
+            user.getCivilization().getCurrentMilitary().getPositon()
+                    .setGarrisonUnit(user.getCivilization().getCurrentMilitary());
+            GameView.getInstance().garrisonMessage();
+        } else
+            GameView.getInstance().noUnitSelected();
+    }
+
     // public boolean sleep(Civilization civilization) {
     // if(civilization.getCurrentMilitary().getStatus()) {
     // civilization.getCurrentMilitary().setSleep();
@@ -72,9 +129,6 @@ public class UnitController extends GameController {
     // }
     // return false;
     // }
-
-    public void garrison() {
-    }
 
     public void setup() {
     }

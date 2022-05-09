@@ -1,6 +1,7 @@
 package views;
 
 import controllers.GameController;
+import controllers.UnitController;
 import enums.Color;
 import enums.Command;
 import models.User;
@@ -49,31 +50,31 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "exit";
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
-                GameController.getInstance().selectCity(matcher, Command.SELECTCITYNAME);
+                GameController.getInstance().selectCityByName(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
-                GameController.getInstance().selectCity(matcher, Command.SELECTCITYPOSITION);
+                GameController.getInstance().selectCityByPosition(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTUNITCOMBAT)) != null)
-                GameController.getInstance().selectUnit(matcher, Command.SELECTUNITCOMBAT);
+                GameController.getInstance().selectCombatUnit(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTUNITNONCOMBAT)) != null)
-                GameController.getInstance().selectUnit(matcher, Command.SELECTUNITNONCOMBAT);
+                GameController.getInstance().selectNonCombatUnit(matcher);
             else if ((matcher = getMatcher(command, Command.ATTACK)) != null)
-                GameController.getInstance().Attack(matcher);
+                UnitController.getInstance().attack(matcher);
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
-                GameController.getInstance().sleep();
+                UnitController.getInstance().sleep();
             else if ((matcher = getMatcher(command, Command.WAKE)) != null)
-                GameController.getInstance().wake();
+                UnitController.getInstance().wake();
             else if ((matcher = getMatcher(command, Command.ALERT)) != null)
-                GameController.getInstance().alert();
+                UnitController.getInstance().alert();
             else if ((matcher = getMatcher(command, Command.FORTIFY)) != null)
-                GameController.getInstance().fortify();
+                UnitController.getInstance().fortify();
             else if ((matcher = getMatcher(command, Command.FORTIFYHEAL)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.GARRISON)) != null)
-                GameController.getInstance().garrison();
+                UnitController.getInstance().garrison();
             else if ((matcher = getMatcher(command, Command.SETUP)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
@@ -83,7 +84,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.DELETE)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.BUILDROAD)) != null)
-                GameController.getInstance().buildRoad();
+                GameController.getInstance().buildRoad(matcher);
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
                 GameController.getInstance().buildRailRoad();
             else if ((matcher = getMatcher(command, Command.BUILDFARM)) != null)
@@ -109,13 +110,13 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.REPAIR)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.PRINTAREA)) != null)
-                GameController.getInstance().printMap(matcher, Command.PRINTAREA);
+                GameController.getInstance().printArea(matcher);
             else if ((matcher = getMatcher(command, Command.PRINTCITY)) != null)
-                GameController.getInstance().printMap(matcher, Command.PRINTCITY);
+                GameController.getInstance().printCity(matcher);
             else if ((matcher = getMatcher(command, Command.PRINTTILE)) != null)
-                GameController.getInstance().printMap(matcher, Command.PRINTTILE);
+                GameController.getInstance().printTile(matcher, Command.PRINTTILE);
             else if ((matcher = getMatcher(command, Command.PRINTUNITPOSITION)) != null)
-                GameController.getInstance().printMap(matcher, Command.PRINTUNITPOSITION);
+                GameController.getInstance().printTile(matcher, Command.PRINTUNITPOSITION);
             else if ((matcher = getMatcher(command, Command.MAPMOVED)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEL)) != null)
@@ -159,6 +160,10 @@ public class GameView extends Processor {
 
     public void unitNotSettler() {
         System.out.println("the selected unit is not a settler unit");
+    }
+
+    public void unitNotWorker() {
+        System.out.println("the selected unit is not a worker unit");
     }
 
     public void unitNotOnTile() {
@@ -223,6 +228,10 @@ public class GameView extends Processor {
 
     public void successfullySelected() {
         System.out.println("successfully selected");
+    }
+
+    public void turnNotOver() {
+        System.out.println("you have units with unassigned tasks");
     }
 
     private void showDemographics(User player) {
