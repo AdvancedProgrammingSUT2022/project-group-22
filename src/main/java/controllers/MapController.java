@@ -75,16 +75,24 @@ public class MapController extends GameController {
         User player = tile.getPlayer();
         CivilianUnit civUnit = database.getCivilianUnitByTile(tile);
         MilitaryUnit milUnit = database.getMilitaryUnitByTile(tile);
-        String[] colors = { player.getCivilization().getColor().getColor(),
-                database.getUnitOwner(civUnit).getCivilization().getColor().getColor(),
-                database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
-        return new TileView(colors, tile.getLandType().getColor().getColor(), player.getNickname(),
-                milUnit.getUnitType().name(), civUnit.getUnitType().name(), tile.getFeature().name(),
-                tile.getResource().name(), tile.getImprovement().name(),
+        String[] colors = {
+                player.getCivilization().equals(null) ? Color.RESET.getColor()
+                        : player.getCivilization().getColor().getColor(),
+                civUnit.equals(null) ? Color.RESET.getColor()
+                        : database.getUnitOwner(civUnit).getCivilization().getColor().getColor(),
+                milUnit.equals(null) ? Color.RESET.getColor()
+                        : database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
+        return new TileView(colors, tile.getLandType().getColor().getColor(),
+                player.equals(null) ? "" : player.getNickname(),
+                milUnit.equals(null) ? "" : milUnit.getUnitType().name(),
+                civUnit.equals(null) ? "" : civUnit.getUnitType().name(),
+                tile.getFeature().name(),
+                tile.getResource().getType().equals("STRATEGIC") ? "" : tile.getResource().name(),
+                tile.getImprovement().equals(null) ? "" : tile.getImprovement().name(),
                 getRiverColor(tile.getHasRiver()), tile.getCoordinates()[0], tile.getCoordinates()[1]);
     }
 
-    public void addTileView(ArrayList<TileView> tileView, Tile tile) {
+    public void addToTileView(ArrayList<TileView> tileView, Tile tile) {
         if (user.getCivilization().findTile(tile) == 1) {
             tileView.add(generateTileView(tile));
         } else if (user.getCivilization().findTile(tile) == 0) {
@@ -98,10 +106,11 @@ public class MapController extends GameController {
         ArrayList<TileView> tileView = new ArrayList<TileView>();
         for (int i = x1; i < x2; i++) {
             for (int j = y1; j < y2; j++) {
-                addTileView(tileView, map[i][j]);
+                addToTileView(tileView, map[i][j]);
             }
         }
-        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView, y2 - y1, x2 - x1);
+        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView,
+                y2 - y1, x2 - x1);
     }
 
     public void printCity(City city) {
@@ -111,29 +120,31 @@ public class MapController extends GameController {
         minX = maxX = city.getCenter().getCoordinates()[0];
         minY = maxY = city.getCenter().getCoordinates()[1];
         for (Tile tile : city.getTiles()) {
-            addTileView(tileView, tile);
+            addToTileView(tileView, tile);
             minX = tile.getCoordinates()[0] < minX ? tile.getCoordinates()[0] : minX;
             maxX = tile.getCoordinates()[0] > maxX ? tile.getCoordinates()[0] : maxX;
             minY = tile.getCoordinates()[1] < minY ? tile.getCoordinates()[0] : minY;
             maxY = tile.getCoordinates()[1] > maxY ? tile.getCoordinates()[0] : maxY;
         }
-        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView, maxY - minY, maxX - minX);
+        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView,
+                maxY - minY, maxX - minX);
     }
 
     public void printTile(Tile tile) {
         ArrayList<TileView> tileView = new ArrayList<TileView>();
-        addTileView(tileView, tile);
+        addToTileView(tileView, tile);
         int minX, minY, maxX, maxY;
         minX = maxX = tile.getCoordinates()[0];
         minY = maxY = tile.getCoordinates()[1];
         for (int i = 0; i < 6; i++) {
             Tile neighbor = database.getNeighbor(tile, i);
-            addTileView(tileView, neighbor);
+            addToTileView(tileView, neighbor);
             minX = neighbor.getCoordinates()[0] < minX ? neighbor.getCoordinates()[0] : minX;
             maxX = neighbor.getCoordinates()[0] > maxX ? neighbor.getCoordinates()[0] : maxX;
             minY = neighbor.getCoordinates()[1] < minY ? neighbor.getCoordinates()[0] : minY;
             maxY = neighbor.getCoordinates()[1] > maxY ? neighbor.getCoordinates()[0] : maxY;
         }
-        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView, maxY - minY, maxX - minX);
+        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(), tileView,
+                maxY - minY, maxX - minX);
     }
 }

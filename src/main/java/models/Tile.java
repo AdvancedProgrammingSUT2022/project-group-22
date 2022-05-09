@@ -26,10 +26,12 @@ public class Tile {
     private Boolean[] hasRoad = new Boolean[6];
 
     public Tile(int[] coordinates, LandType landType, Feature feature, Resource resource) {
+        this.player = null;
         this.coordinates = coordinates;
         this.landType = landType;
         this.feature = feature;
         this.resource = resource;
+        this.improvement = null;
         this.food = landType.getFood() + (feature != null ? feature.getFood() : 0);
         this.gold = landType.getGold() + (feature != null ? feature.getGold() : 0);
         this.production = landType.getProduction() + (feature != null ? feature.getProduction() : 0);
@@ -140,8 +142,4 @@ public class Tile {
     public void setHasRoad(int index, Boolean hasRoad) {
         this.hasRoad[index] = hasRoad;
     }
-
-
-//    public enum  getImprovement() {
-//    }
 }
