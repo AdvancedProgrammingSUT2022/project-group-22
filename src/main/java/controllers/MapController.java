@@ -20,20 +20,20 @@ public class MapController extends GameController {
     }
 
     // generation
-    // returns empty map in which all tiles are null
-    public Tile[][] generateMap(int x, int y) {
-        Tile[][] map = new Tile[x + 2][y + 2];
-        for (int i = 1; i < x; i++) {
-            for (int j = 1; j < y; j++) {
-                map[i][j] = null;
-            }
-        }
-        return map;
-    }
+    // // returns empty map in which all tiles are null
+    // public Tile[][] generateMap(int x, int y) {
+    // Tile[][] map = new Tile[x + 2][y + 2];
+    // for (int i = 1; i < x; i++) {
+    // for (int j = 1; j < y; j++) {
+    // map[i][j] = null;
+    // }
+    // }
+    // return map;
+    // }
 
     public void generateTiles(Tile[][] map, int x, int y) {
-        for (int i = 1; i < x; i++) {
-            for (int j = 1; j < y; j++) {
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
                 LandType landType = LandType.DESERT;
                 landType = landType.randomLandType();
                 Feature feature = landType.randomFeature();
@@ -58,8 +58,8 @@ public class MapController extends GameController {
     }
 
     public void generateRivers(Tile[][] map, int x, int y) {
-        for (int i = 1; i < x; i++) {
-            for (int j = 1; j < y; j++) {
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
                 Tile tile = map[i][j];
                 if (tile.getFeature() != null && tile.getFeature().equals(Feature.FLOODPLAIN)) {
                     addRivers(tile);
@@ -88,14 +88,14 @@ public class MapController extends GameController {
         String[] colors = {
                 player == null ? Color.RESET.getColor()
                         : player.getCivilization().getColor().getColor(),
-                civUnit == null? Color.RESET.getColor()
+                civUnit == null ? Color.RESET.getColor()
                         : database.getUnitOwner(civUnit).getCivilization().getColor().getColor(),
                 milUnit == null ? Color.RESET.getColor()
                         : database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
 
         return new TileView(colors, tile.getLandType().getColor().getColor(),
                 player == null ? "" : user.getNickname(),
-                milUnit == null? "" : milUnit.getUnitType().name(),
+                milUnit == null ? "" : milUnit.getUnitType().name(),
                 civUnit == null ? "" : civUnit.getUnitType().name(),
                 tile.getFeature().name(),
                 tile.getResource().getType().equals("STRATEGIC") ? "" : tile.getResource().name(),
