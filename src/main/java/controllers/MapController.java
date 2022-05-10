@@ -8,10 +8,6 @@ import java.util.regex.*;
 
 public class MapController extends GameController {
     private static MapController instance = null;
-    protected static GameView gameView = GameView.getInstance();
-    protected Database database = Database.getInstance();
-    protected User user = database.getCurrentPlayer();
-    protected Tile[][] map = database.getMap();
     private final Random random = new Random();
 
     public static MapController getInstance() {
@@ -102,6 +98,16 @@ public class MapController extends GameController {
         return riverColor;
     }
 
+    public Boolean canShowResource(Resource resource) {
+        if (resource == null) {
+            return false;
+        } else if (resource.getType().equals("STRATEGIC")) {
+            return database.getCurrentPlayer().getCivilization().hasTechnology(resource.getTechnology());
+        } else {
+            return true;
+        }
+    }
+
     public TileView generateTileView(Tile tile) {
         User player = tile.getPlayer();
         CivilianUnit civUnit = database.getCivilianUnitByTile(tile);
@@ -119,7 +125,7 @@ public class MapController extends GameController {
                 milUnit == null ? "" : milUnit.getUnitType().name(),
                 civUnit == null ? "" : civUnit.getUnitType().name(),
                 tile.getFeature() == null ? "" : tile.getFeature().name(),
-                tile.getResource() == null ? "" : tile.getResource().name(), // TODO : strategic resources
+                canShowResource(tile.getResource()) ? tile.getResource().name() : "",
                 tile.getImprovement() == null ? "" : tile.getImprovement().name(),
                 getRiverColor(tile.getHasRiver()), tile.getCoordinates()[0], tile.getCoordinates()[1]);
     }
