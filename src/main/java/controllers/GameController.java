@@ -237,7 +237,7 @@ public class GameController {
 
     /******* these functions are for info ********/
 
-     private void researchInfo() {
+     public void researchInfo() {
          GameView.getInstance().PrintResearchInfo(user.getCivilization().getResearch(),
                  user.getCivilization().getPossibleTechnologies(), user.getCivilization().getTechnologies());
 

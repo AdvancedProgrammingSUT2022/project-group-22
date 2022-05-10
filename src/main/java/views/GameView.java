@@ -30,7 +30,7 @@ public class GameView extends Processor {
             if ((matcher = getMatcher(command, Command.INFOCITY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFORESEARCH)) != null)
-                return null;
+                GameController.getInstance().researchInfo();
             else if ((matcher = getMatcher(command, Command.INFODEALS)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFODEMOGRAPHICS)) != null)
