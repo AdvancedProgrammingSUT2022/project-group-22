@@ -172,6 +172,12 @@ public class GameController {
         }
     }
 
+    public void addGold(Matcher matcher) {
+        int amount = Integer.parseInt(matcher.group("amount"));
+        Civilization civilization = database.getCurrentPlayer().getCivilization();
+        civilization.setGold(civilization.getGold() + amount);
+    }
+
     // run
     public String run() {
         String state;

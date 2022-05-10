@@ -12,6 +12,7 @@ public class Civilization {
     private int unhappiness;
     private int gold;
     private int beakers;
+
     private City capital;
     private ArrayList<City> cities = new ArrayList<City>();
     private ArrayList<MilitaryUnit> militaryUnits = new ArrayList<MilitaryUnit>();
@@ -140,6 +141,14 @@ public class Civilization {
         }
     }
 
+    public int getPopulation() {
+        int population = 0;
+        for (City city : this.cities) {
+            population += city.getPopulation();
+        }
+        return population;
+    }
+
     public int getHappiness() {
         return this.happiness;
     }
@@ -216,6 +225,10 @@ public class Civilization {
         this.messages.add(message);
     }
 
+    public HashMap<Integer, Technology> getResearch() {
+        return research;
+    }
+
     public void addResearch(Technology technology) {
         if (technology.getCost() > beakers) {
             research.put(technology.getCost() - beakers, technology);
@@ -226,8 +239,7 @@ public class Civilization {
         }
     }
 
-    public HashMap<Integer, Technology> getResearch() {
-        return research;
+    public void researchProgress() {
     }
 
     public ArrayList<Technology> getTechnologies() {
@@ -298,6 +310,7 @@ public class Civilization {
                 city.setProduction(city.getProduction() + tile.getProduction());
             }
         }
+        this.beakers += 3 + getPopulation() * 1;
     }
 
     public HashMap<CivilianUnit, Tile> getRoadWorkers() {

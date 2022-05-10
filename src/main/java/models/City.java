@@ -74,9 +74,6 @@ public class City {
         this.name = name;
     }
 
-    public void addValues() {
-    }
-
     public int getFood() {
         return this.food;
     }

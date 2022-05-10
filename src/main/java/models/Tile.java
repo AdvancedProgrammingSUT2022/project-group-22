@@ -1,8 +1,8 @@
 package models;
 
 import enums.*;
+import java.util.*;
 
-import java.util.ArrayList;
 
 public class Tile {
     private User player;
@@ -131,6 +131,7 @@ public class Tile {
 
     public void addImprovement(Improvement improvement) {
         this.improvement = improvement;
+        Database.getInstance().getCityByTile(this).activateResources(improvement);
     }
 
     public ArrayList<Building> getBuildings() {

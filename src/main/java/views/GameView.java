@@ -124,6 +124,12 @@ public class GameView extends Processor {
                 return null;
             else if ((matcher = getMatcher(command, Command.NEXT)) != null)
                 UnitController.getInstance().nextTurn();
+            else if ((matcher = getMatcher(command, Command.INCREASETURN)) != null)
+                UnitController.getInstance().skipTurns(matcher);
+            else if ((matcher = getMatcher(command, Command.INCREASEGOLD)) != null)
+                GameController.getInstance().addGold(matcher);
+            else if ((matcher = getMatcher(command, Command.INSTANTBUILD)) != null)
+                UnitController.getInstance().instantBuild(matcher);
             else
                 System.out.println("invalid Command!");
 

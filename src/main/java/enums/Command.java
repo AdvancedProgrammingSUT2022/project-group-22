@@ -85,7 +85,7 @@ public enum Command {
 
         // city
         SETCITIZEN("lock citizen"),
-        BUYTILE("buy tile (?<positionX>\\d+) (?<positionY>\\d+)"),
+        BUYTILE("buy tile (?<i>\\d+) (?<j>\\d+)"),
         REMOVECITIZEN("remove citizen (?<nmber>\\d+)"),
 
         // print map
@@ -100,7 +100,8 @@ public enum Command {
 
         // cheat sheet
         INCREASETURN("increase -turn (?<amount>\\d+)"),
-        INCREASEGOLD("increase gold (?<amount>\\d+)");
+        INCREASEGOLD("increase gold (?<amount>\\d+)"),
+        INSTANTBUILD("instant build (?<building>\\w+) (?<i>\\d+):(?<j>\\d+)");
 
         private String regex;
 

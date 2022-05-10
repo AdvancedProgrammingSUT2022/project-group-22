@@ -9,8 +9,6 @@ public class UnitController extends GameController {
     private static UnitController instance = null;
     protected static GameView gameView = GameView.getInstance();
     protected Database database = Database.getInstance();
-    protected User user = database.getCurrentPlayer();
-    protected Tile[][] map = database.getMap();
 
     public static UnitController getInstance() {
         instance = instance != null ? instance : new UnitController();
@@ -65,7 +63,8 @@ public class UnitController extends GameController {
     }
 
     public void processTasks() {
-        for (CivilianUnit unit : user.getCivilization().getCivilianUnits()) {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        for (CivilianUnit unit : player.getCivilianUnits()) {
             unit.setTaskTurns(unit.getTaskTurns() - 1);
             if (unit.getTaskTurns() == 0) {
                 completeTask(unit);
@@ -74,12 +73,13 @@ public class UnitController extends GameController {
                 checkMovement(unit);
             }
         }
-        for (MilitaryUnit unit : user.getCivilization().getMilitaryUnits()) {
+        for (MilitaryUnit unit : player.getMilitaryUnits()) {
             unit.setTaskTurns(unit.getTaskTurns() - 1);
             if (unit.getTarget() != null) {
                 checkMovement(unit);
             }
         }
+        player.researchProgress();
     }
 
     public void nextTurn() {
@@ -90,6 +90,13 @@ public class UnitController extends GameController {
             database.getCurrentPlayer().getCivilization().addValues();
             processTasks();
             // restore city + unit in combat
+        }
+    }
+
+    public void skipTurns(Matcher matcher) {
+        int num = Integer.parseInt(matcher.group("amount"));
+        for (int i = 0; i < num; i++) {
+            nextTurn();
         }
     }
 
@@ -332,6 +339,9 @@ public class UnitController extends GameController {
     }
 
     public void buildRailRoad() {
+    }
+
+    public void instantBuild(Matcher matcher) {
     }
 
     public void repair() {
