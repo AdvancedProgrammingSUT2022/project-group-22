@@ -148,7 +148,7 @@ public class UnitController extends GameController {
             GameView.getInstance().noUnitSelected();
     }
 
-    // public boolean sleep(Civilization civilization) {
+    // public Boolean sleep(Civilization civilization) {
     // if(civilization.getCurrentMilitary().getStatus()) {
     // civilization.getCurrentMilitary().setSleep();
     // return true;

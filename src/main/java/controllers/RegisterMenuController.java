@@ -21,14 +21,13 @@ public class RegisterMenuController {
 
     }
 
-    public boolean login(Matcher matcher) {
-        if (Database.getInstance().getUserByUsername(matcher.group("username").trim()) == null) {
+    public Boolean canLogin(Matcher matcher) {
+        User user;
+        if ((user = Database.getInstance().getUserByUsername(matcher.group("username").trim())) == null) {
             RegisterMenuView.accountDoesNotExists();
             return false;
-        }
-        User user = Database.getInstance().getUserByUsername(matcher.group("username").trim());
-        if (!user.getPassword().equals(matcher.group("password").trim())) {
-            RegisterMenuView.accountDoesNotExists();
+        } else if (!user.getPassword().equals(matcher.group("password").trim())) {
+            RegisterMenuView.incorrectPassword();
             return false;
         }
         return true;

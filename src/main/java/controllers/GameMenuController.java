@@ -8,6 +8,7 @@ import java.util.regex.*;
 
 public class GameMenuController {
     private static GameMenuController instance = null;
+    private static Database database = Database.getInstance();
 
     public static GameMenuController getInstance() {
         instance = instance != null ? instance : new GameMenuController();
@@ -16,17 +17,20 @@ public class GameMenuController {
 
     public Boolean playGame(Matcher matcher) {
         User player1, player2;
-        if ((player1 = Database.getInstance().getUserByUsername(matcher.group("username1").trim())) != null) {
+        if ((player1 = database.getUserByUsername(matcher.group("username1").trim())) != null) {
+            for (User user : database.getUsers()) {
+                System.out.println(user.getUsername());
+            }
             GameMenuView.getInstance().noUserExists(1);
             return false;
-        } else if ((player2 = Database.getInstance().getUserByUsername(matcher.group("username2").trim())) != null) {
+        } else if ((player2 = database.getUserByUsername(matcher.group("username2").trim())) != null) {
             GameMenuView.getInstance().noUserExists(2);
             return false;
         } else {
             ArrayList<User> players = new ArrayList<User>();
             players.add(player1);
             players.add(player2);
-            Database.getInstance().createGame(players, 24, 40);
+            database.createGame(players, 24, 40);
             GameMenuView.getInstance().gameStarted();
             return true;
         }

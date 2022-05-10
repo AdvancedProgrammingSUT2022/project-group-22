@@ -3,9 +3,9 @@ package models;
 import enums.*;
 
 public class CivilianUnit extends Unit {
-    private boolean isWorker;
-    private boolean isLocked;
-    private boolean isSleep = false;
+    private Boolean isWorker;
+    private Boolean isLocked;
+    private Boolean isSleep = false;
 
     public CivilianUnit(UnitType unitType, Tile position) {
         this.unitType = unitType;
@@ -16,7 +16,7 @@ public class CivilianUnit extends Unit {
         this.isSleeping = false;
     }
 
-    public boolean isLocked() {
+    public Boolean isLocked() {
         return isLocked;
     }
 
@@ -24,15 +24,15 @@ public class CivilianUnit extends Unit {
         this.isLocked = !isLocked;
     }
 
-    public boolean isWorker() {
+    public Boolean isWorker() {
         return isWorker;
     }
 
-    public void setSleep(){
+    public void setSleep() {
         isSleep = !isSleep;
     }
 
-    public boolean getStatus(){
+    public Boolean getStatus() {
         return isSleep;
     }
 }

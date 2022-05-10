@@ -7,7 +7,7 @@ public class Unit {
     protected int movementPoints;
     protected int combatStrength;
     protected Tile positon;
-    protected boolean isSleeping;
+    protected Boolean isSleeping;
     protected int taskTurns;
     protected Tile target;
 
