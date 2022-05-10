@@ -19,17 +19,37 @@ public class MapController extends GameController {
         return instance;
     }
 
+    // sample map
+    private LandType[][] landTypes1 = {
+            { LandType.MOUNTAIN, LandType.MOUNTAIN, LandType.DESERT, LandType.HIILS, LandType.PLAIN, LandType.PLAIN,
+                    LandType.SNOW, LandType.SNOW },
+            { LandType.MOUNTAIN, LandType.PLAIN, LandType.DESERT, LandType.HIILS, LandType.PLAIN, LandType.GRASSLAND,
+                    LandType.TUNDRA, LandType.TUNDRA },
+            { LandType.PLAIN, LandType.PLAIN, LandType.HIILS, LandType.HIILS, LandType.PLAIN, LandType.PLAIN,
+                    LandType.PLAIN, LandType.GRASSLAND },
+            { LandType.OCEAN, LandType.OCEAN, LandType.GRASSLAND, LandType.GRASSLAND, LandType.MOUNTAIN,
+                    LandType.MOUNTAIN, LandType.GRASSLAND, LandType.DESERT },
+            { LandType.OCEAN, LandType.OCEAN, LandType.GRASSLAND, LandType.OCEAN, LandType.GRASSLAND,
+                    LandType.GRASSLAND, LandType.DESERT, LandType.DESERT }
+    };
+
+    private Feature[][] features1 = {
+            { null, null, Feature.FLOODPLAIN, null, Feature.JUNGLE, Feature.JUNGLE, null, null },
+            { null, null, Feature.FLOODPLAIN, null, Feature.FOREST, Feature.JUNGLE, null, null },
+            { null, null, null, Feature.FOREST, Feature.FOREST, null, null, null },
+            { null, null, Feature.SWAMP, null, null, null, null, null },
+            { null, null, null, null, null, Feature.SWAMP, null, null }
+    };
+
     // generation
-    // // returns empty map in which all tiles are null
-    // public Tile[][] generateMap(int x, int y) {
-    // Tile[][] map = new Tile[x + 2][y + 2];
-    // for (int i = 1; i < x; i++) {
-    // for (int j = 1; j < y; j++) {
-    // map[i][j] = null;
-    // }
-    // }
-    // return map;
-    // }
+    public void setMap(Tile[][] map, int x, int y) {
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                int[] coordinates = { i, j };
+                map[i][j] = new Tile(coordinates, landTypes1[i][j], features1[i][j], null);
+            }
+        }
+    }
 
     public void generateTiles(Tile[][] map, int x, int y) {
         for (int i = 0; i < x; i++) {
@@ -47,9 +67,10 @@ public class MapController extends GameController {
         }
     }
 
-    public void addRivers(Tile tile) {
+    public void addRivers(Tile tile, Boolean addRivers) {
+        Boolean hasRiver;
         for (int i = 0; i < 6; i++) {
-            Boolean hasRiver = random.nextBoolean();
+            hasRiver = addRivers ? random.nextBoolean() : false;
             tile.setHasRiver(i, hasRiver);
             if (database.getNeighbor(tile, i) != null) {
                 database.getNeighbor(tile, i).setHasRiver((i + 3) % 6, hasRiver);
@@ -62,12 +83,12 @@ public class MapController extends GameController {
             for (int j = 0; j < y; j++) {
                 Tile tile = map[i][j];
                 if (tile.getFeature() != null && tile.getFeature().equals(Feature.FLOODPLAIN)) {
-                    addRivers(tile);
+                    addRivers(tile, true);
                 } else if (!tile.getLandType().equals(LandType.DESERT) && !tile.getLandType().equals(LandType.SNOW)
                         && tile.getResource() != null) {
-                    if (random.nextInt(6) == 5) {
-                        addRivers(tile);
-                    }
+                    addRivers(tile, random.nextInt(6) == 5 ? true : false);
+                } else {
+                    addRivers(tile, false);
                 }
             }
         }
@@ -94,22 +115,23 @@ public class MapController extends GameController {
                         : database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
 
         return new TileView(colors, tile.getLandType().getColor().getColor(),
-                player == null ? "" : user.getNickname(),
+                player == null ? "" : database.getCurrentPlayer().getNickname(),
                 milUnit == null ? "" : milUnit.getUnitType().name(),
                 civUnit == null ? "" : civUnit.getUnitType().name(),
-                tile.getFeature().name(),
-                tile.getResource().getType().equals("STRATEGIC") ? "" : tile.getResource().name(),
+                tile.getFeature() == null ? "" : tile.getFeature().name(),
+                tile.getResource() == null ? "" : tile.getResource().name(), // TODO : strategic resources
                 tile.getImprovement() == null ? "" : tile.getImprovement().name(),
                 getRiverColor(tile.getHasRiver()), tile.getCoordinates()[0], tile.getCoordinates()[1]);
     }
 
     public void addToTileView(ArrayList<TileView> tileView, Tile tile) {
-        if (user.getCivilization().findTile(tile) == 1) {
+        if (database.getCurrentPlayer().getCivilization().findTile(tile) == 1) {
             tileView.add(generateTileView(tile));
-        } else if (user.getCivilization().findTile(tile) == 0) {
-            tileView.add(generateTileView(user.getCivilization().getRevealedTile(tile)));
+        } else if (database.getCurrentPlayer().getCivilization().findTile(tile) == 0) {
+            tileView.add(generateTileView(database.getCurrentPlayer().getCivilization().getRevealedTile(tile)));
         } else {
-            tileView.add(null);
+            // tileView.add(null);
+            tileView.add(generateTileView(tile));
         }
     }
 
@@ -121,8 +143,8 @@ public class MapController extends GameController {
                 addToTileView(tileView, map[i][j]);
             }
         }
-        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(),
-                tileView, y2 - y1, x2 - x1);
+        GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
+                database.getCurrentPlayer().getCivilization().getTotalHappiness(), tileView, y2 - y1, x2 - x1);
     }
 
     public void printCity(City city) {
@@ -138,7 +160,8 @@ public class MapController extends GameController {
             minY = tile.getCoordinates()[1] < minY ? tile.getCoordinates()[0] : minY;
             maxY = tile.getCoordinates()[1] > maxY ? tile.getCoordinates()[0] : maxY;
         }
-        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(),
+        GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
+                database.getCurrentPlayer().getCivilization().getTotalHappiness(),
                 tileView, maxY - minY, maxX - minX);
     }
 
@@ -156,7 +179,8 @@ public class MapController extends GameController {
             minY = neighbor.getCoordinates()[1] < minY ? neighbor.getCoordinates()[0] : minY;
             maxY = neighbor.getCoordinates()[1] > maxY ? neighbor.getCoordinates()[0] : maxY;
         }
-        GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(),
+        GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
+                database.getCurrentPlayer().getCivilization().getTotalHappiness(),
                 tileView, maxY - minY, maxX - minX);
     }
 
@@ -169,7 +193,7 @@ public class MapController extends GameController {
             GameView.getInstance().invalidTile();
             return;
         } else {
-            MapController.getInstance().printArea(map, i1, j1, i2, j2);
+            MapController.getInstance().printArea(database.getMap(), i1, j1, i2, j2);
         }
     }
 
@@ -184,8 +208,8 @@ public class MapController extends GameController {
     }
 
     public void printTileCheck(Matcher matcher, Command command) {
-        CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
-        MilitaryUnit milUnit = user.getCivilization().getCurrentMilitary();
+        CivilianUnit civUnit = database.getCurrentPlayer().getCivilization().getCurrentCivilian();
+        MilitaryUnit milUnit = database.getCurrentPlayer().getCivilization().getCurrentMilitary();
         if (command.equals(Command.PRINTTILE)) {
             int i = Integer.parseInt(matcher.group("i"));
             int j = Integer.parseInt(matcher.group("j"));

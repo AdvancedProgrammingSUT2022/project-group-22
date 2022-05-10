@@ -31,7 +31,7 @@ public class GameController {
 
     // check methods
     protected Boolean isValidCoordinates(int i, int j) {
-        return i >= 0 && j >= 0 && map.length >= i && map[0].length >= j;
+        return i >= 0 && j >= 0 && database.getMap().length >= i && database.getMap()[0].length >= j;
     }
 
     protected Boolean hasCombatUnit() {
