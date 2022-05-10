@@ -50,6 +50,42 @@ public class GameController {
         return false;
     }
 
+    public Boolean hasImprovementTech(Improvement improvement, Feature feature) {
+        Civilization player = user.getCivilization();
+        if (improvement.equals(Improvement.FARM)) {
+            if (feature.equals(Feature.FOREST)) {
+                return player.hasTechnology(Technology.MINING);
+            } else if (feature.equals(Feature.JUNGLE)) {
+                return player.hasTechnology(Technology.BRONZEWORKING);
+            } else if (feature.equals(Feature.SWAMP)) {
+                return player.hasTechnology(Technology.MASONRY);
+            }
+        }
+        if (improvement.equals(Improvement.MINE)) {
+            if (feature.equals(Feature.JUNGLE)) {
+                return player.hasTechnology(Technology.BRONZEWORKING);
+            } else if (feature.equals(Feature.SWAMP)) {
+                return player.hasTechnology(Technology.MASONRY);
+            }
+        }
+        return player.hasTechnology(improvement.getTechnology());
+    }
+
+    public Boolean canBuildImprovement(Improvement improvement, Tile tile) {
+        for (Improvement temp : tile.getLandType().getImprovements()) {
+            if (temp.equals(improvement)) {
+                return true;
+            }
+        }
+        for (Improvement temp : tile.getFeature().getImprovements()) {
+
+            if (temp.equals(improvement)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // select methods
     public void selectCombatUnit(Matcher matcher) {
         int i = Integer.parseInt(matcher.group("i"));
@@ -134,46 +170,6 @@ public class GameController {
             user.getCivilization().updateTileStates(null, map[i][j]);
             user.getCivilization().setTilePrice(price * 8);
         }
-    }
-
-    // build methods
-    public void buildRoad(Matcher matcher) {
-        CivilianUnit civUnit;
-        int i = Integer.parseInt(matcher.group("i"));
-        int j = Integer.parseInt(matcher.group("j"));
-        if (!isValidCoordinates(i, j)) {
-            GameView.getInstance().invalidTile();
-        } else if (!hasNonCombatUnit() && !hasCombatUnit()) {
-            GameView.getInstance().noUnitSelected();
-        } else if (!hasNonCombatUnit() || !(civUnit = user.getCivilization().getCurrentCivilian()).isWorker()) {
-            GameView.getInstance().unitNotWorker();
-        } else if (!civUnit.getPositon().equals(map[i][j])) {
-            GameView.getInstance().unitNotOnTile();
-        } else {
-            civUnit.setTaskTurns(3);
-            user.getCivilization().addRoadWorker(civUnit, map[i][j]);
-        }
-    }
-
-    public void buildImprovements(Improvement improvement) {
-        CivilianUnit unit;
-        if ((unit = user.getCivilization().getCurrentCivilian()).equals(null)) {
-            gameView.noUnitSelected();
-        } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
-            gameView.unitNotWorker();
-        } else if (!unit.getPositon().getPlayer().equals(user)) {
-            gameView.tileNotYours();
-        } else if (!unit.getPositon().getImprovement().equals(null)) {
-            gameView.tileHasImprovement();
-        } else if (!user.getCivilization().hasTechnology(improvement.getTechnology())) {
-            gameView.insufficientTechnologies();
-        } else {
-            unit.setTaskTurns(6);
-            user.getCivilization().addImprovementWorker(unit, improvement);
-        }
-    }
-
-    public void buildRailRoad() {
     }
 
     public void unitCombatPosition(Matcher matcher) {

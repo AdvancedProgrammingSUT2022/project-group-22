@@ -200,10 +200,79 @@ public class UnitController extends GameController {
         }
     }
 
-    public void build(Matcher matcher) {
+    // build methods
+    public void buildRoad(Matcher matcher) {
+        CivilianUnit civUnit;
+        int i = Integer.parseInt(matcher.group("i"));
+        int j = Integer.parseInt(matcher.group("j"));
+        if (!isValidCoordinates(i, j)) {
+            GameView.getInstance().invalidTile();
+        } else if (!hasNonCombatUnit() && !hasCombatUnit()) {
+            GameView.getInstance().noUnitSelected();
+        } else if (!hasNonCombatUnit() || !(civUnit = user.getCivilization().getCurrentCivilian()).isWorker()) {
+            GameView.getInstance().unitNotWorker();
+        } else if (!civUnit.getPositon().equals(map[i][j])) {
+            GameView.getInstance().unitNotOnTile();
+        } else {
+            civUnit.setTaskTurns(3);
+            user.getCivilization().addRoadWorker(civUnit, map[i][j]);
+        }
+    }
+
+    public void setImprovementTask(CivilianUnit unit, Improvement improvement) {
+        Feature feature = unit.getPositon().getFeature();
+        Civilization player = user.getCivilization();
+        if (improvement.equals(Improvement.FARM) || improvement.equals(Improvement.MINE)) {
+            if (feature.equals(Feature.FOREST) || feature.equals(Feature.JUNGLE) || feature.equals(Feature.SWAMP)) {
+                player.addRemovalWorker(unit, null);
+                player.addImprovementWorker(unit, improvement);
+                unit.setTaskTurns(feature.equals(Feature.FOREST) ? 10 : feature.equals(Feature.JUNGLE) ? 13 : 12);
+                return;
+            }
+        }
+        player.addImprovementWorker(unit, improvement);
+        unit.setTaskTurns(6);
+    }
+
+    public void buildImprovements(Improvement improvement) {
+        CivilianUnit unit;
+        if ((unit = user.getCivilization().getCurrentCivilian()).equals(null)) {
+            gameView.noUnitSelected();
+        } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
+            gameView.unitNotWorker();
+        } else if (!unit.getPositon().getPlayer().equals(user)) {
+            gameView.tileNotYours();
+        } else if (!canBuildImprovement(improvement, unit.getPositon())) {
+            gameView.invalidLocation();
+        } else if (!unit.getPositon().getImprovement().equals(null)) {
+            gameView.tileHasImprovement();
+        } else if (!hasImprovementTech(improvement, unit.getPositon().getFeature())) {
+            gameView.insufficientTechnologies();
+        } else {
+            setImprovementTask(unit, improvement);
+        }
+    }
+
+    public void buildRailRoad() {
     }
 
     public void repair() {
+    }
+
+    public void remove(Feature feature) {
+        CivilianUnit unit;
+        if ((unit = user.getCivilization().getCurrentCivilian()).equals(null)) {
+            gameView.noUnitSelected();
+        } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
+            gameView.unitNotWorker();
+        } else if (!unit.getPositon().getPlayer().equals(user)) {
+            gameView.tileNotYours();
+        } else if (!unit.getPositon().getFeature().equals(feature)) {
+            gameView.noFeature(feature);
+        } else {
+            user.getCivilization().addRemovalWorker(unit, null);
+            unit.setTaskTurns(feature.equals(Feature.FOREST) ? 10 : feature.equals(Feature.JUNGLE) ? 13 : 12);
+        }
     }
 
     public void delete() {

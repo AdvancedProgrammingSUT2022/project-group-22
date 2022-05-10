@@ -9,6 +9,8 @@ import java.util.regex.*;
 public class GameView extends Processor {
     private static GameView instance = null;
     GameController gameController = GameController.getInstance();
+    UnitController unitController = UnitController.getInstance();
+    MapController mapController = MapController.getInstance();
     Matcher matcher;
 
     public static GameView getInstance() {
@@ -79,25 +81,25 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.DELETE)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.BUILDROAD)) != null)
-                GameController.getInstance().buildRoad(matcher);
+                UnitController.getInstance().buildRoad(matcher);
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
-                GameController.getInstance().buildRailRoad();
+                UnitController.getInstance().buildRailRoad();
             else if ((matcher = getMatcher(command, Command.BUILDFARM)) != null)
-                gameController.buildImprovements(Improvement.FARM);
+                unitController.buildImprovements(Improvement.FARM);
             else if ((matcher = getMatcher(command, Command.BUILDMINE)) != null)
-                gameController.buildImprovements(Improvement.MINE);
+                unitController.buildImprovements(Improvement.MINE);
             else if ((matcher = getMatcher(command, Command.BUILDTRADINGPOST)) != null)
-                gameController.buildImprovements(Improvement.TRADINGPOST);
+                unitController.buildImprovements(Improvement.TRADINGPOST);
             else if ((matcher = getMatcher(command, Command.BUILDLUMBERMILL)) != null)
-                gameController.buildImprovements(Improvement.LUMBERMILL);
+                unitController.buildImprovements(Improvement.LUMBERMILL);
             else if ((matcher = getMatcher(command, Command.BUILDPASTURE)) != null)
-                gameController.buildImprovements(Improvement.PASTURE);
+                unitController.buildImprovements(Improvement.PASTURE);
             else if ((matcher = getMatcher(command, Command.BUILDCAMP)) != null)
-                gameController.buildImprovements(Improvement.CAMP);
+                unitController.buildImprovements(Improvement.CAMP);
             else if ((matcher = getMatcher(command, Command.BUILDPLANTATION)) != null)
-                gameController.buildImprovements(Improvement.PLANTATION);
+                unitController.buildImprovements(Improvement.PLANTATION);
             else if ((matcher = getMatcher(command, Command.BUILDQUARRY)) != null)
-                gameController.buildImprovements(Improvement.QUARRY);
+                unitController.buildImprovements(Improvement.QUARRY);
             else if ((matcher = getMatcher(command, Command.REMOVEJUNGLE)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.REMOVEROUTE)) != null)
@@ -247,6 +249,14 @@ public class GameView extends Processor {
 
     public void tileHasImprovement() {
         System.out.println("this tile already has an improvement");
+    }
+
+    public void noFeature(Feature feature) {
+        System.out.println("this tile does not have the " + feature.name().toLowerCase() + "feature");
+    }
+
+    public void invalidLocation() {
+        System.out.println("you can't build this improvement here");
     }
 
     public void insufficientTechnologies() {

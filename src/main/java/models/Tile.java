@@ -54,16 +54,17 @@ public class Tile {
         return this.landType;
     }
 
-    public void removeJungle() {
-        // this.food = this.food - this.landType.getFood() + landType.getFood();
-        // this.gold = this.gold - this.landType.getGold() + landType.getGold();
-        // this.production = this.production - this.landType.getProduction() +
-        // landType.getProduction();
-        // this.movementCost = this.movementCost - this.landType.getMovementCost() +
-        // landType.getMovementCost();
-        // this.combatModifier = this.movementCost - this.landType.getMovementCost() +
-        // landType.getCombatModifier() + (feature != null ? feature.getCombatModifier()
-        // : 0);
+    public void removeFeature(Feature feature) {
+        this.food = this.food - this.feature.getFood() + (feature != null ? feature.getFood() : 0);
+        this.gold = this.gold - this.feature.getGold() + (feature != null ? feature.getGold() : 0);
+        this.production = this.production - this.feature.getProduction()
+                + (feature != null ? feature.getProduction() : 0);
+        this.movementCost = this.movementCost - this.feature.getMovementCost() +
+                (feature != null ? feature.getMovementCost() : 0);
+        this.combatModifier = this.combatModifier - this.feature.getMovementCost() +
+                (feature != null ? feature.getCombatModifier() : 0);
+        // remove related resources and improvemnents
+        this.feature = feature != null ? feature : null;
     }
 
     public Feature getFeature() {

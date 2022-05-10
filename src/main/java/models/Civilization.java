@@ -2,6 +2,7 @@ package models;
 
 import enums.Building;
 import enums.Color;
+import enums.Feature;
 import enums.Improvement;
 import enums.Technology;
 
@@ -30,6 +31,7 @@ public class Civilization {
     private HashMap<CivilianUnit, Tile> roadWorkers = new HashMap<CivilianUnit, Tile>();
     private HashMap<CivilianUnit, Improvement> improvementWorkers = new HashMap<CivilianUnit, Improvement>();
     private HashMap<CivilianUnit, Building> buildingWorkers = new HashMap<CivilianUnit, Building>();
+    private HashMap<CivilianUnit, Feature> removalWorkers = new HashMap<CivilianUnit, Feature>();
 
     private City currentCity;
     private MilitaryUnit currentMilitary;
@@ -314,6 +316,10 @@ public class Civilization {
 
     public void addBuildingWorker(CivilianUnit civilianUnit, Building building) {
         this.buildingWorkers.put(civilianUnit, building);
+    }
+
+    public void addRemovalWorker(CivilianUnit civilianUnit, Feature feature) {
+        this.removalWorkers.put(civilianUnit, feature);
     }
 
     public void completeBuild(CivilianUnit civilianUnit) {
