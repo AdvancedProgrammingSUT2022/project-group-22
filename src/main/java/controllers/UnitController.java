@@ -7,6 +7,10 @@ import java.util.regex.*;
 
 public class UnitController extends GameController {
     private static UnitController instance = null;
+    protected static GameView gameView = GameView.getInstance();
+    protected Database database = Database.getInstance();
+    protected User user = database.getCurrentPlayer();
+    protected Tile[][] map = database.getMap();
 
     public static UnitController getInstance() {
         instance = instance != null ? instance : new UnitController();
@@ -185,7 +189,7 @@ public class UnitController extends GameController {
         } else if (civUnit.getPositon() != tile) {
             GameView.getInstance().unitNotOnTile();
         } else if (tile.getPlayer() != null || !tile.getPlayer().getNickname().equals(user.getNickname())) {
-            GameView.getInstance().tileHasOwner();
+            GameView.getInstance().tileNotYours();
             return;
         } // check distance from other city centers
         else {

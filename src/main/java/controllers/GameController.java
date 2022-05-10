@@ -8,19 +8,21 @@ import java.util.regex.*;
 /*********** Please read comments Before any changes ******/
 
 public class GameController {
-    /********** these variables have some problem *********/
+    // the problem with these seems to have been solveds
     private static GameController instance = null;
+    protected static GameView gameView = GameView.getInstance();
+    protected Database database = Database.getInstance();
+    protected User user = database.getCurrentPlayer();
+    protected Tile[][] map = database.getMap();
 
-    // private MapController mapController = MapController.getInstance();
-    protected Database database;
-    protected User user;
-    Tile[][] map;
-
-    public GameController() {
-        this.database = Database.getInstance();
-        this.user = database.getCurrentPlayer();
-        this.map = database.getMap();
-    }
+    // protected Database database;
+    // protected User user;
+    // Tile[][] map;
+    // public GameController() {
+    // this.database = Database.getInstance();
+    // this.user = database.getCurrentPlayer();
+    // this.map = database.getMap();
+    // }
 
     public static GameController getInstance() {
         instance = instance != null ? instance : new GameController();
@@ -119,7 +121,7 @@ public class GameController {
         if (!isValidCoordinates(i, j)) {
             GameView.getInstance().invalidTile();
         } else if (!map[i][j].getPlayer().equals(user)) {
-            GameView.getInstance().tileHasOwner();
+            GameView.getInstance().tileNotYours();
         } else if (map[i][j].getPlayer().equals(user)) {
             GameView.getInstance().tileOwned();
         } else if ((city = Database.getInstance().getNearbyCity(map[i][j], user)) == null) {
@@ -153,64 +155,25 @@ public class GameController {
         }
     }
 
+    public void buildImprovements(Improvement improvement) {
+        CivilianUnit unit;
+        if ((unit = user.getCivilization().getCurrentCivilian()).equals(null)) {
+            gameView.noUnitSelected();
+        } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
+            gameView.unitNotWorker();
+        } else if (!unit.getPositon().getPlayer().equals(user)) {
+            gameView.tileNotYours();
+        } else if (!unit.getPositon().getImprovement().equals(null)) {
+            gameView.tileHasImprovement();
+        } else if (!user.getCivilization().hasTechnology(improvement.getTechnology())) {
+            gameView.insufficientTechnologies();
+        } else {
+            unit.setTaskTurns(6);
+            user.getCivilization().addImprovementWorker(unit, improvement);
+        }
+    }
+
     public void buildRailRoad() {
-    }
-
-    // map methods
-    public void printArea(Matcher matcher) {
-        int i1 = Integer.parseInt(matcher.group("i1"));
-        int j1 = Integer.parseInt(matcher.group("j1"));
-        int i2 = Integer.parseInt(matcher.group("i2"));
-        int j2 = Integer.parseInt(matcher.group("j2"));
-        // test
-        if (map == null) {
-            System.out.println("map is null");
-            return;
-        }
-        //
-        if (!isValidCoordinates(i1, j1) || !isValidCoordinates(i2, j2)) {
-            GameView.getInstance().invalidTile();
-            return;
-        } else {
-            MapController.getInstance().printArea(map, i1, j1, i2, j2);
-        }
-    }
-
-    public void printCity(Matcher matcher) {
-        String name = matcher.group("name");
-        City city;
-        if ((city = database.getCityByName(name)) == null) {
-            GameView.getInstance().invalidCity();
-        } else {
-            MapController.getInstance().printCity(city);
-        }
-    }
-
-    public void printTile(Matcher matcher, Command command) {
-        CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
-        MilitaryUnit milUnit = user.getCivilization().getCurrentMilitary();
-        if (command.equals(Command.PRINTTILE)) {
-            int i = Integer.parseInt(matcher.group("i"));
-            int j = Integer.parseInt(matcher.group("j"));
-            if (!isValidCoordinates(i, j)) {
-                GameView.getInstance().invalidTile();
-                return;
-            } else {
-                MapController.getInstance().printTile(map[i][j]);
-            }
-
-        } else {
-            Unit unit = civUnit != null ? civUnit : milUnit;
-            if (unit == null) {
-                GameView.getInstance().noUnitSelected();
-                return;
-            } else {
-                MapController.getInstance().printTile(unit.getPositon());
-            }
-        }
-    }
-
-    private void moveMap(Matcher matcher) {
     }
 
     public void unitCombatPosition(Matcher matcher) {

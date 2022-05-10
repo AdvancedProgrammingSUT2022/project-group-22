@@ -1,7 +1,7 @@
 package models;
 
 import controllers.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Collection;
 
 public class Database {

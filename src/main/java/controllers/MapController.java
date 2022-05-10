@@ -4,9 +4,14 @@ import enums.*;
 import models.*;
 import views.*;
 import java.util.*;
+import java.util.regex.*;
 
 public class MapController extends GameController {
     private static MapController instance = null;
+    protected static GameView gameView = GameView.getInstance();
+    protected Database database = Database.getInstance();
+    protected User user = database.getCurrentPlayer();
+    protected Tile[][] map = database.getMap();
     private final Random random = new Random();
 
     public static MapController getInstance() {
@@ -14,6 +19,7 @@ public class MapController extends GameController {
         return instance;
     }
 
+    // generation
     // returns empty map in which all tiles are null
     public Tile[][] generateMap(int x, int y) {
         Tile[][] map = new Tile[x + 2][y + 2];
@@ -107,6 +113,7 @@ public class MapController extends GameController {
         }
     }
 
+    // printing
     public void printArea(Tile[][] map, int x1, int y1, int x2, int y2) {
         ArrayList<TileView> tileView = new ArrayList<TileView>();
         for (int i = x1; i <= x2; i++) {
@@ -151,5 +158,52 @@ public class MapController extends GameController {
         }
         GameView.getInstance().printMap(user.getUsername(), user.getCivilization().getTotalHappiness(),
                 tileView, maxY - minY, maxX - minX);
+    }
+
+    public void printAreaCheck(Matcher matcher) {
+        int i1 = Integer.parseInt(matcher.group("i1"));
+        int j1 = Integer.parseInt(matcher.group("j1"));
+        int i2 = Integer.parseInt(matcher.group("i2"));
+        int j2 = Integer.parseInt(matcher.group("j2"));
+        if (!isValidCoordinates(i1, j1) || !isValidCoordinates(i2, j2)) {
+            GameView.getInstance().invalidTile();
+            return;
+        } else {
+            MapController.getInstance().printArea(map, i1, j1, i2, j2);
+        }
+    }
+
+    public void printCityCheck(Matcher matcher) {
+        String name = matcher.group("name");
+        City city;
+        if ((city = database.getCityByName(name)) == null) {
+            GameView.getInstance().invalidCity();
+        } else {
+            MapController.getInstance().printCity(city);
+        }
+    }
+
+    public void printTileCheck(Matcher matcher, Command command) {
+        CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
+        MilitaryUnit milUnit = user.getCivilization().getCurrentMilitary();
+        if (command.equals(Command.PRINTTILE)) {
+            int i = Integer.parseInt(matcher.group("i"));
+            int j = Integer.parseInt(matcher.group("j"));
+            if (!isValidCoordinates(i, j)) {
+                GameView.getInstance().invalidTile();
+                return;
+            } else {
+                MapController.getInstance().printTile(map[i][j]);
+            }
+
+        } else {
+            Unit unit = civUnit != null ? civUnit : milUnit;
+            if (unit == null) {
+                GameView.getInstance().noUnitSelected();
+                return;
+            } else {
+                MapController.getInstance().printTile(unit.getPositon());
+            }
+        }
     }
 }

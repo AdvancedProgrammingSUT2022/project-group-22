@@ -1,22 +1,15 @@
 package views;
 
-import controllers.GameController;
-import controllers.UnitController;
-import enums.Color;
-import enums.Command;
-import enums.Technology;
-import models.User;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.regex.Matcher;
+import controllers.*;
+import enums.*;
+import models.*;
+import java.util.*;
+import java.util.regex.*;
 
 public class GameView extends Processor {
     private static GameView instance = null;
-
+    GameController gameController = GameController.getInstance();
     Matcher matcher;
-
-    // GameController gameController = GameController.getInstance();
 
     public static GameView getInstance() {
         instance = instance != null ? instance : new GameView();
@@ -27,7 +20,9 @@ public class GameView extends Processor {
         String command;
         while (true) {
             command = getInput();
-            if ((matcher = getMatcher(command, Command.INFOCITY)) != null)
+            if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
+                return "exit";
+            else if ((matcher = getMatcher(command, Command.INFOCITY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFORESEARCH)) != null)
                 GameController.getInstance().researchInfo();
@@ -49,8 +44,6 @@ public class GameView extends Processor {
                 return null;
             else if ((matcher = getMatcher(command, Command.INFOVICTORY)) != null)
                 return null;
-            else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
-                return "exit";
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
                 GameController.getInstance().selectCityByName(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
@@ -90,21 +83,21 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
                 GameController.getInstance().buildRailRoad();
             else if ((matcher = getMatcher(command, Command.BUILDFARM)) != null)
-                return null;
+                gameController.buildImprovements(Improvement.FARM);
             else if ((matcher = getMatcher(command, Command.BUILDMINE)) != null)
-                return null;
+                gameController.buildImprovements(Improvement.MINE);
             else if ((matcher = getMatcher(command, Command.BUILDTRADINGPOST)) != null)
-                return null;
-            else if ((matcher = getMatcher(command, Command.BUILDLAMBERMILL)) != null)
-                return null;
+                gameController.buildImprovements(Improvement.TRADINGPOST);
+            else if ((matcher = getMatcher(command, Command.BUILDLUMBERMILL)) != null)
+                gameController.buildImprovements(Improvement.LUMBERMILL);
             else if ((matcher = getMatcher(command, Command.BUILDPASTURE)) != null)
-                return null;
+                gameController.buildImprovements(Improvement.PASTURE);
             else if ((matcher = getMatcher(command, Command.BUILDCAMP)) != null)
-                return null;
+                gameController.buildImprovements(Improvement.CAMP);
             else if ((matcher = getMatcher(command, Command.BUILDPLANTATION)) != null)
-                return null;
+                gameController.buildImprovements(Improvement.PLANTATION);
             else if ((matcher = getMatcher(command, Command.BUILDQUARRY)) != null)
-                return null;
+                gameController.buildImprovements(Improvement.QUARRY);
             else if ((matcher = getMatcher(command, Command.REMOVEJUNGLE)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.REMOVEROUTE)) != null)
@@ -112,13 +105,13 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.REPAIR)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.PRINTAREA)) != null)
-                GameController.getInstance().printArea(matcher);
+                MapController.getInstance().printAreaCheck(matcher);
             else if ((matcher = getMatcher(command, Command.PRINTCITY)) != null)
-                GameController.getInstance().printCity(matcher);
+                MapController.getInstance().printCityCheck(matcher);
             else if ((matcher = getMatcher(command, Command.PRINTTILE)) != null)
-                GameController.getInstance().printTile(matcher, Command.PRINTTILE);
+                MapController.getInstance().printTileCheck(matcher, Command.PRINTTILE);
             else if ((matcher = getMatcher(command, Command.PRINTUNITPOSITION)) != null)
-                GameController.getInstance().printTile(matcher, Command.PRINTUNITPOSITION);
+                MapController.getInstance().printTileCheck(matcher, Command.PRINTUNITPOSITION);
             else if ((matcher = getMatcher(command, Command.MAPMOVED)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEL)) != null)
@@ -188,7 +181,7 @@ public class GameView extends Processor {
         System.out.println("this unit belongs to another civilization");
     }
 
-    public void tileHasOwner() {
+    public void tileNotYours() {
         System.out.println("this tile belongs to another civilization");
     }
 
@@ -250,6 +243,14 @@ public class GameView extends Processor {
 
     public void goldLow() {
         System.out.println("insufficient gold");
+    }
+
+    public void tileHasImprovement() {
+        System.out.println("this tile already has an improvement");
+    }
+
+    public void insufficientTechnologies() {
+        System.out.println("you do not have the prerequired technologies");
     }
 
     private void showDemographics(User player) {

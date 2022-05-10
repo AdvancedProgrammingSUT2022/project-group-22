@@ -64,19 +64,23 @@ public enum Command {
         CANCEL("unit cancel mission"),
         WAKE("unit wake"),
         DELETE("unit delete"),
+
+        // build
         BUILDROAD("unit build road"),
         BUILDRAILROAD("unit build rail road"),
         BUILDFARM("unit build farm"),
         BUILDMINE("unit build mine"),
         BUILDTRADINGPOST("unit build trading post"),
-        BUILDLAMBERMILL("unit build lamber miil"),
+        BUILDLUMBERMILL("unit build lumbermill"),
         BUILDPASTURE("unit build pasture"),
         BUILDCAMP("unit build camp"),
         BUILDPLANTATION("unit build plantation"),
         BUILDQUARRY("unit build quarry"),
+
         REMOVEJUNGLE("unit build jungle"),
         REMOVEROUTE("unit build route"),
         REPAIR("unit repair"),
+
         NEXT("next"),
 
         // city
