@@ -28,7 +28,7 @@ public class GameMenuController {
             ArrayList<User> players = new ArrayList<User>();
             players.add(player1);
             players.add(player2);
-            database.createGame(players, 24, 40);
+            database.createGame(players, 20, 42);
             GameMenuView.getInstance().gameStarted();
             return true;
         }

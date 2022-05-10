@@ -2,6 +2,7 @@ package models;
 
 import controllers.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Database {
     private static Database instance = null;
@@ -33,7 +34,9 @@ public class Database {
         this.setPlayers(players);
         currentPlayer = this.players.get(0);
         MapController mapController = new MapController();
-        mapController.generateMap(20, 42);
+        this.map = mapController.generateMap(x, y);
+        mapController.generateTiles(map, x, y);
+        mapController.generateRivers(map, x, y);
     }
 
     public ArrayList<User> getPlayers() {
@@ -75,6 +78,18 @@ public class Database {
     }
 
     public void sortPlayers() {
+        // ArrayList<User> temp = new ArrayList<User>();
+        // for (int j = 0; j < this.players.size(); j++) {
+        // for (int i = 0; i < this.players.size(); i++) {
+        // User a = this.players.get(i);
+        // User b = this.players.get(i + 1);
+        // if (b.getCivilization().getScore() > a.getCivilization().getScore()) {
+        // temp.add(i, b);
+        // temp.add(i + 1, a);
+        // }
+        // }
+        // }
+        // this.players = temp;
     }
 
     public void addTileToCity() {
@@ -121,20 +136,18 @@ public class Database {
     public Tile getNeighbor(Tile tile, int side) {
         int i = tile.getCoordinates()[0];
         int j = tile.getCoordinates()[1];
-        if(map != null) {
-            if (side == 0) {
-                return map[i - 1][j];
-            } else if (side == 1) {
-                return j % 2 == 0 ? map[i][j + 1] : map[i - 1][j + 1];
-            } else if (side == 2) {
-                return j % 2 == 0 ? map[i + 1][j + 1] : map[i][j + 1];
-            } else if (side == 3) {
-                return map[i + 1][j];
-            } else if (side == 4) {
-                return j % 2 == 0 ? map[i + 1][j - 1] : map[i][j - 1];
-            } else if (side == 5) {
-                return j % 2 == 0 ? map[i][j - 1] : map[i - 1][j - 1];
-            }
+        if (side == 0) {
+            return map[i - 1][j];
+        } else if (side == 1) {
+            return j % 2 == 0 ? map[i][j + 1] : map[i - 1][j + 1];
+        } else if (side == 2) {
+            return j % 2 == 0 ? map[i + 1][j + 1] : map[i][j + 1];
+        } else if (side == 3) {
+            return map[i + 1][j];
+        } else if (side == 4) {
+            return j % 2 == 0 ? map[i + 1][j - 1] : map[i][j - 1];
+        } else if (side == 5) {
+            return j % 2 == 0 ? map[i][j - 1] : map[i - 1][j - 1];
         }
         return null;
     }

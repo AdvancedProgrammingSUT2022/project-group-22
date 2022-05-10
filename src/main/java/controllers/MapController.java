@@ -14,14 +14,25 @@ public class MapController extends GameController {
         return instance;
     }
 
+    // returns empty map in which all tiles are null
+    public Tile[][] generateMap(int x, int y) {
+        Tile[][] map = new Tile[x + 2][y + 2];
+        for (int i = 1; i < x; i++) {
+            for (int j = 1; j < y; j++) {
+                map[i][j] = null;
+            }
+        }
+        return map;
+    }
+
     public void generateTiles(Tile[][] map, int x, int y) {
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
+        for (int i = 1; i < x; i++) {
+            for (int j = 1; j < y; j++) {
                 LandType landType = LandType.DESERT;
                 landType = landType.randomLandType();
                 Feature feature = landType.randomFeature();
                 Resource resource = null;
-                if(feature!=null) {
+                if (feature != null) {
                     resource = landType.randomResource(feature);
                 }
                 int[] coordinates = { i, j };
@@ -34,13 +45,15 @@ public class MapController extends GameController {
         for (int i = 0; i < 6; i++) {
             Boolean hasRiver = random.nextBoolean();
             tile.setHasRiver(i, hasRiver);
-            database.getNeighbor(tile, i).setHasRiver(i - 3 % 6, hasRiver);
+            if (database.getNeighbor(tile, i) != null) {
+                database.getNeighbor(tile, i).setHasRiver((i + 3) % 6, hasRiver);
+            }
         }
     }
 
     public void generateRivers(Tile[][] map, int x, int y) {
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
+        for (int i = 1; i < x; i++) {
+            for (int j = 1; j < y; j++) {
                 Tile tile = map[i][j];
                 if (tile.getFeature() != null && tile.getFeature().equals(Feature.FLOODPLAIN)) {
                     addRivers(tile);
@@ -52,12 +65,6 @@ public class MapController extends GameController {
                 }
             }
         }
-    }
-
-    public void generateMap(int x, int y) {
-        map = new Tile[x][y];
-        generateTiles(map, x, y);
-        generateRivers(map, x, y);
     }
 
     public ArrayList<String> getRiverColor(Boolean[] hasRiver) {
@@ -102,8 +109,8 @@ public class MapController extends GameController {
 
     public void printArea(Tile[][] map, int x1, int y1, int x2, int y2) {
         ArrayList<TileView> tileView = new ArrayList<TileView>();
-        for (int i = x1; i < x2; i++) {
-            for (int j = y1; j < y2; j++) {
+        for (int i = x1; i <= x2; i++) {
+            for (int j = y1; j <= y2; j++) {
                 addToTileView(tileView, map[i][j]);
             }
         }
