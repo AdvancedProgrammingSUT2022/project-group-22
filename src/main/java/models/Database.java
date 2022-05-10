@@ -121,18 +121,20 @@ public class Database {
     public Tile getNeighbor(Tile tile, int side) {
         int i = tile.getCoordinates()[0];
         int j = tile.getCoordinates()[1];
-        if (side == 0) {
-            return map[i - 1][j];
-        } else if (side == 1) {
-            return j % 2 == 0 ? map[i][j + 1] : map[i - 1][j + 1];
-        } else if (side == 2) {
-            return j % 2 == 0 ? map[i + 1][j + 1] : map[i][j + 1];
-        } else if (side == 3) {
-            return map[i + 1][j];
-        } else if (side == 4) {
-            return j % 2 == 0 ? map[i + 1][j - 1] : map[i][j - 1];
-        } else if (side == 5) {
-            return j % 2 == 0 ? map[i][j - 1] : map[i - 1][j - 1];
+        if(map != null) {
+            if (side == 0) {
+                return map[i - 1][j];
+            } else if (side == 1) {
+                return j % 2 == 0 ? map[i][j + 1] : map[i - 1][j + 1];
+            } else if (side == 2) {
+                return j % 2 == 0 ? map[i + 1][j + 1] : map[i][j + 1];
+            } else if (side == 3) {
+                return map[i + 1][j];
+            } else if (side == 4) {
+                return j % 2 == 0 ? map[i + 1][j - 1] : map[i][j - 1];
+            } else if (side == 5) {
+                return j % 2 == 0 ? map[i][j - 1] : map[i - 1][j - 1];
+            }
         }
         return null;
     }

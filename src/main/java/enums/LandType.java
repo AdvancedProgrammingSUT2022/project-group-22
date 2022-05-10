@@ -58,9 +58,15 @@ public enum LandType {
 
     public Resource randomResource(Feature feature) {
         ArrayList<Resource> resourceList = new ArrayList<Resource>();
-        resourceList.addAll(this.getResources());
-        resourceList.addAll(feature.equals(this.feature1) ? this.feature1.getResources()
-                : feature.equals(this.feature2) ? this.feature2.getResources() : null);
+        if(this.getResources()!=null ) {
+            resourceList.addAll(this.getResources());
+        }
+        if(feature.equals(this.feature1) && this.feature1.getResources() != null){
+            resourceList.addAll(this.feature1.getResources());
+        }
+        else if(feature.equals(this.feature2) && this.feature2.getResources() != null) {
+            resourceList.addAll(this.feature2.getResources());
+        }
         int i = random.nextInt(resourceList.size() + 1);
         return i == resourceList.size() ? null : resourceList.get(i);
     }

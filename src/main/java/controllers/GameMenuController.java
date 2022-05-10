@@ -16,14 +16,12 @@ public class GameMenuController {
     }
 
     public Boolean playGame(Matcher matcher) {
-        User player1, player2;
-        if ((player1 = database.getUserByUsername(matcher.group("username1").trim())) != null) {
-            for (User user : database.getUsers()) {
-                System.out.println(user.getUsername());
-            }
+        User player1 = Database.getInstance().getUserByUsername(matcher.group("username1").trim()),
+                player2 = Database.getInstance().getUserByUsername(matcher.group("username2").trim());
+        if (player1 == null) {
             GameMenuView.getInstance().noUserExists(1);
             return false;
-        } else if ((player2 = database.getUserByUsername(matcher.group("username2").trim())) != null) {
+        } else if (player2 == null) {
             GameMenuView.getInstance().noUserExists(2);
             return false;
         } else {

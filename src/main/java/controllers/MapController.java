@@ -20,7 +20,10 @@ public class MapController extends GameController {
                 LandType landType = LandType.DESERT;
                 landType = landType.randomLandType();
                 Feature feature = landType.randomFeature();
-                Resource resource = landType.randomResource(feature);
+                Resource resource = null;
+                if(feature!=null) {
+                    resource = landType.randomResource(feature);
+                }
                 int[] coordinates = { i, j };
                 map[i][j] = new Tile(coordinates, landType, feature, resource);
             }
@@ -39,7 +42,7 @@ public class MapController extends GameController {
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
                 Tile tile = map[i][j];
-                if (tile.getFeature().equals(Feature.FLOODPLAIN)) {
+                if (tile.getFeature() != null && tile.getFeature().equals(Feature.FLOODPLAIN)) {
                     addRivers(tile);
                 } else if (!tile.getLandType().equals(LandType.DESERT) && !tile.getLandType().equals(LandType.SNOW)
                         && tile.getResource() != null) {
