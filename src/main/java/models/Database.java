@@ -11,7 +11,9 @@ public class Database {
     private User currentPlayer;
 
     public static Database getInstance() {
-        instance = instance != null ? instance : new Database();
+        if (instance == null) {
+            instance = new Database();
+        }
         return instance;
     }
 
@@ -133,6 +135,16 @@ public class Database {
             return j % 2 == 0 ? map[i][j - 1] : map[i - 1][j - 1];
         }
         return null;
+    }
+
+    public void getTilesInRange(Tile tile, int range, ArrayList<Tile> tiles) {
+        if (range == 0 || tiles.contains(tile)) {
+            return;
+        }
+        tiles.add(tile);
+        for (int i = 0; i < 6; i++) {
+            getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
+        }
     }
 
     public ArrayList<Tile> getCityCenters() {

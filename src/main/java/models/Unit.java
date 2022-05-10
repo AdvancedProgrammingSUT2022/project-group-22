@@ -9,6 +9,7 @@ public class Unit {
     protected Tile positon;
     protected boolean isSleeping;
     protected int taskTurns;
+    protected Tile target;
 
     public UnitType getUnitType() {
         return this.unitType;
@@ -56,5 +57,13 @@ public class Unit {
 
     public void setTaskTurns(int taskTurns) {
         this.taskTurns = taskTurns;
+    }
+
+    public Tile getTarget() {
+        return this.target;
+    }
+
+    public void setTarget(Tile target) {
+        this.target = target;
     }
 }

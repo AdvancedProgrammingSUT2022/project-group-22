@@ -19,7 +19,7 @@ public enum Command {
         LOGIN2("user login (--password|-p) (?<password>\\S+) (--username|-u) (?<username>\\S+)"),
         LOGOUT("user logout"),
 
-        NICKNAMECHANGE("profile change --nickname (?<newnickname>\\S+)"),
+        NICKNAMECHANGE("profile change (--nickname|-n) (?<newnickname>\\S+)"),
         CHANGEPASSWORD1(
                         "profile change --password --current (?<currentpassword>\\S+) --new (?<newpassword>\\S+)"),
         CHANGEPASSWORD2(

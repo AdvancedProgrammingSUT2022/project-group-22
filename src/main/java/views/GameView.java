@@ -148,6 +148,10 @@ public class GameView extends Processor {
         System.out.println("no tile with these coordinates exists");
     }
 
+    public void onTarget() {
+        System.out.println("you are already on your selected tile");
+    }
+
     public void tileOccupied() {
         System.out.println("a similar unit occupies this tile");
     }
@@ -350,9 +354,10 @@ public class GameView extends Processor {
     }
 
     // print researchMenu
-    public void PrintResearchInfo(HashMap<Integer, Technology> currentResearch, ArrayList<Technology> possibles, ArrayList<Technology> done){
+    public void PrintResearchInfo(HashMap<Integer, Technology> currentResearch, ArrayList<Technology> possibles,
+            ArrayList<Technology> done) {
         System.out.println("Current researches:");
-        for (Integer number: currentResearch.keySet()) {
+        for (Integer number : currentResearch.keySet()) {
             int key = number;
             String value = currentResearch.get(number).name();
             System.out.println(key + " " + value);
@@ -367,4 +372,3 @@ public class GameView extends Processor {
         }
     }
 }
-

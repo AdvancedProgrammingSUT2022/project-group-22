@@ -113,6 +113,7 @@ public class GameController {
     // city methods
     public void buyTile(Matcher matcher) {
         City city;
+        int price;
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
         if (!isValidCoordinates(i, j)) {
@@ -123,12 +124,13 @@ public class GameController {
             GameView.getInstance().tileOwned();
         } else if ((city = Database.getInstance().getNearbyCity(map[i][j], user)) == null) {
             GameView.getInstance().noCityNearby();
-        } else if (user.getCivilization().getGold() < 100) {
+        } else if (user.getCivilization().getGold() < (price = user.getCivilization().getTilePrice())) {
             GameView.getInstance().goldLow();
         } else {
-            user.getCivilization().setGold(user.getCivilization().getGold() - 100);
+            user.getCivilization().setGold(user.getCivilization().getGold() - price);
             city.addTile(map[i][j]);
             user.getCivilization().updateTileStates(null, map[i][j]);
+            user.getCivilization().setTilePrice(price * 8);
         }
     }
 
@@ -237,11 +239,11 @@ public class GameController {
 
     /******* these functions are for info ********/
 
-     private void researchInfo() {
-         GameView.getInstance().PrintResearchInfo(user.getCivilization().getResearch(),
-                 user.getCivilization().getPossibleTechnologies(), user.getCivilization().getTechnologies());
+    private void researchInfo() {
+        GameView.getInstance().PrintResearchInfo(user.getCivilization().getResearch(),
+                user.getCivilization().getPossibleTechnologies(), user.getCivilization().getTechnologies());
 
-     }
+    }
     //
     // private void unitsInfo() {
     // }

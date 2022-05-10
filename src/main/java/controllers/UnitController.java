@@ -1,15 +1,11 @@
 package controllers;
 
-import enums.Feature;
-import enums.LandType;
-import enums.UnitType;
+import enums.*;
 import models.*;
 import views.GameView;
-
-import java.util.regex.Matcher;
+import java.util.regex.*;
 
 public class UnitController extends GameController {
-
     private static UnitController instance = null;
 
     public static UnitController getInstance() {
@@ -17,7 +13,33 @@ public class UnitController extends GameController {
         return instance;
     }
 
-    public void move(Matcher matcher) {
+    public void multiStepMove(Tile tile, Unit unit, int[][] dist, Tile[][] parent) {
+        Tile nextTile = tile;
+        Tile pointer = tile;
+        while (!pointer.equals(unit.getPositon())) {
+            nextTile = pointer;
+            pointer = parent[pointer.getCoordinates()[0]][pointer.getCoordinates()[1]];
+        }
+        if (dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] <= unit.getMovementPoints()) {
+            user.getCivilization().updateTileStates(unit.getPositon(), nextTile);
+            unit.setPositon(nextTile);
+            multiStepMove(nextTile, unit, dist, parent);
+        } else {
+            for (int k = 0; k < 6; k++) {
+                int i2 = database.getNeighbor(nextTile, k).getCoordinates()[0];
+                int j2 = database.getNeighbor(nextTile, k).getCoordinates()[1];
+                if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
+                    user.getCivilization().updateTileStates(unit.getPositon(), nextTile);
+                    unit.setPositon(nextTile);
+                    parent[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] = map[i2][j2];
+                    multiStepMove(nextTile, unit, dist, parent);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void move(Matcher matcher, Command command) {
         CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
         MilitaryUnit milUnit = user.getCivilization().getCurrentMilitary();
         Unit unit = civUnit != null ? civUnit : milUnit;
@@ -27,27 +49,26 @@ public class UnitController extends GameController {
 
         if (unit == null) {
             GameView.getInstance().noUnitSelected();
-            return;
         } else if (map.length < i || map[0].length < j) {
             GameView.getInstance().invalidTile();
-            return;
+        } else if (tile.equals(unit.getPositon())) {
+            GameView.getInstance().onTarget();
         } else if (civUnit != null && database.getCivilianUnitByTile(tile) != null
                 || milUnit != null && database.getMilitaryUnitByTile(tile) != null) {
             GameView.getInstance().tileOccupied();
-            return;
         } else if (tile.getLandType().equals(LandType.MOUNTAIN) || tile.getLandType().equals(LandType.OCEAN)
                 || tile.getLandType().equals(LandType.SNOW) || tile.getFeature().equals(Feature.ICE)) {
             GameView.getInstance().tileInaccessible();
-            return;
         } else {
             ShortestPath shortestPath = new ShortestPath();
+            Tile[][] parent = new Tile[map.length][map[0].length];
             int[][] dist = shortestPath.getShortestPaths(map,
                     unit.getPositon().getCoordinates()[0],
-                    unit.getPositon().getCoordinates()[1]);
+                    unit.getPositon().getCoordinates()[1], parent);
             if (dist[i][j] <= unit.getMovementPoints()) {
                 user.getCivilization().updateTileStates(unit.getPositon(), tile);
                 unit.setPositon(tile);
-                // MapController.getInstance().printArea(map, 0, 0, 24, 40);
+                MapController.getInstance().printArea(map, 0, 0, 24, 40);
             } else {
                 for (int k = 0; k < 6; k++) {
                     int i2 = database.getNeighbor(tile, k).getCoordinates()[0];
@@ -55,10 +76,17 @@ public class UnitController extends GameController {
                     if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
                         user.getCivilization().updateTileStates(unit.getPositon(), tile);
                         unit.setPositon(tile);
-                        // MapController.getInstance().printArea(map, 0, 0, 24, 40);
+                        MapController.getInstance().printArea(map, 0, 0, 24, 40);
+                        return;
                     }
                 }
-                GameView.getInstance().mpLow();
+                if (command.equals(Command.MOVETO)) {
+                    GameView.getInstance().mpLow();
+                } else {
+                    unit.setTarget(tile);
+                    unit.setTaskTurns(Integer.MAX_VALUE);
+                    multiStepMove(tile, unit, dist, parent);
+                }
             }
         }
     }

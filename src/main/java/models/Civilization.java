@@ -9,6 +9,8 @@ import java.util.*;
 
 public class Civilization {
     private Color color;
+    private int tilePrice = 8;
+
     private int score;
     private int happiness = 10;
     private int unhappiness;
@@ -39,6 +41,14 @@ public class Civilization {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public int getTilePrice() {
+        return tilePrice;
+    }
+
+    public void setTilePrice(int tilePrice) {
+        this.tilePrice = tilePrice;
     }
 
     public int getGold() {
@@ -116,7 +126,6 @@ public class Civilization {
     }
 
     public void updateTileStates(Tile oldPos, Tile newPos) {
-        // view range = 1
         Tile neighbor;
         if (findTile(newPos) == 0) {
             revealedTiles.remove(oldPos);
@@ -222,7 +231,9 @@ public class Civilization {
         }
     }
 
-    public HashMap<Integer, Technology> getResearch() { return research;}
+    public HashMap<Integer, Technology> getResearch() {
+        return research;
+    }
 
     public ArrayList<Technology> getTechnologies() {
         return technologies;
