@@ -30,7 +30,7 @@ public class City {
         this.addTile(tile);
         tile.setPlayer(user);
         if (tile.getFeature().equals(Feature.JUNGLE)) {
-            tile.removeJungle();
+            tile.removeFeature(null);
         }
         tile.setHasRoad(true);
 

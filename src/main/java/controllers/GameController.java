@@ -94,7 +94,7 @@ public class GameController {
             GameView.getInstance().invalidTile();
         }
         MilitaryUnit milUnit;
-        if ((milUnit = Database.getInstance().getMilitaryUnitByTile(map[i][j])).equals(null)) {
+        if ((milUnit = Database.getInstance().getMilitaryUnitByTile(map[i][j])) == null) {
             GameView.getInstance().invalidMilitaryUnit();
         } else if (Database.getInstance().getUnitOwner(milUnit).equals(user)) {
             GameView.getInstance().unitInaccessible();
@@ -111,7 +111,7 @@ public class GameController {
             GameView.getInstance().invalidTile();
         }
         CivilianUnit civUnit;
-        if ((civUnit = Database.getInstance().getCivilianUnitByTile(map[i][j])).equals(null)) {
+        if ((civUnit = Database.getInstance().getCivilianUnitByTile(map[i][j])) == null) {
             GameView.getInstance().invalidCivilianUnit();
         } else if (Database.getInstance().getUnitOwner(civUnit).equals(user)) {
             GameView.getInstance().unitInaccessible();
@@ -124,7 +124,7 @@ public class GameController {
     public void selectCityByName(Matcher matcher) {
         City city;
         String name = matcher.group("name");
-        if ((city = database.getCityByName(name)).equals(null)) {
+        if ((city = database.getCityByName(name)) == null) {
             GameView.getInstance().invalidCity();
         } else if (!database.getCityOwner(city).equals(user)) {
             GameView.getInstance().cityInaccessible();
@@ -139,7 +139,7 @@ public class GameController {
         int j = Integer.parseInt(matcher.group("j"));
         if (!isValidCoordinates(i, j)) {
             GameView.getInstance().invalidTile();
-        } else if ((city = database.getCityByTile(map[i][j])).equals(null)) {
+        } else if ((city = database.getCityByTile(map[i][j])) == null) {
             GameView.getInstance().invalidCity();
         } else if (!database.getCityOwner(city).equals(user)) {
             GameView.getInstance().cityInaccessible();

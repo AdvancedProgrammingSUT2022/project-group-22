@@ -313,7 +313,7 @@ public class UnitController extends GameController {
 
     public void buildImprovements(Improvement improvement) {
         CivilianUnit unit;
-        if ((unit = user.getCivilization().getCurrentCivilian()).equals(null)) {
+        if ((unit = user.getCivilization().getCurrentCivilian()) == null) {
             gameView.noUnitSelected();
         } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
             gameView.unitNotWorker();
@@ -321,7 +321,7 @@ public class UnitController extends GameController {
             gameView.tileNotYours();
         } else if (!canBuildImprovement(improvement, unit.getPositon())) {
             gameView.invalidLocation();
-        } else if (!unit.getPositon().getImprovement().equals(null)) {
+        } else if (unit.getPositon().getImprovement() != null) {
             gameView.tileHasImprovement();
         } else if (!hasImprovementTech(improvement, unit.getPositon().getFeature())) {
             gameView.insufficientTechnologies();
@@ -338,7 +338,7 @@ public class UnitController extends GameController {
 
     public void remove(Feature feature) {
         CivilianUnit unit;
-        if ((unit = user.getCivilization().getCurrentCivilian()).equals(null)) {
+        if ((unit = user.getCivilization().getCurrentCivilian()) == null) {
             gameView.noUnitSelected();
         } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
             gameView.unitNotWorker();

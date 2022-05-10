@@ -123,7 +123,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.MAPMOVEU)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.NEXT)) != null)
-                GameController.getInstance().nextTurn();
+                UnitController.getInstance().nextTurn();
             else
                 System.out.println("invalid Command!");
 
