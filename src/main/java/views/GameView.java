@@ -280,7 +280,7 @@ public class GameView extends Processor {
 
     public void printMap(String player, int totalHappiness, ArrayList<TileView> tiles, int y, int x) {
         System.out.println("Current Player: " + player);
-        System.out.println("Total Happiness =" + totalHappiness);
+        System.out.println("Total Happiness = " + totalHappiness);
         int temp = 0;
         for (int i = 0; i < 2 * x + 1; i++) {
             if (i % 2 == 0) {
