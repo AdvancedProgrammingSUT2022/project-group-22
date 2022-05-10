@@ -65,7 +65,7 @@ public class MapController extends GameController {
                     addRivers(tile);
                 } else if (!tile.getLandType().equals(LandType.DESERT) && !tile.getLandType().equals(LandType.SNOW)
                         && tile.getResource() != null) {
-                    if (random.nextInt(5) == 5) {
+                    if (random.nextInt(6) == 5) {
                         addRivers(tile);
                     }
                 }
@@ -86,20 +86,20 @@ public class MapController extends GameController {
         CivilianUnit civUnit = database.getCivilianUnitByTile(tile);
         MilitaryUnit milUnit = database.getMilitaryUnitByTile(tile);
         String[] colors = {
-                player.equals(null) ? Color.RESET.getColor()
+                player == null ? Color.RESET.getColor()
                         : player.getCivilization().getColor().getColor(),
-                civUnit.equals(null) ? Color.RESET.getColor()
+                civUnit == null? Color.RESET.getColor()
                         : database.getUnitOwner(civUnit).getCivilization().getColor().getColor(),
-                milUnit.equals(null) ? Color.RESET.getColor()
+                milUnit == null ? Color.RESET.getColor()
                         : database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
 
         return new TileView(colors, tile.getLandType().getColor().getColor(),
-                player.equals(null) ? "" : user.getNickname(),
-                milUnit.equals(null) ? "" : milUnit.getUnitType().name(),
-                civUnit.equals(null) ? "" : civUnit.getUnitType().name(),
+                player == null ? "" : user.getNickname(),
+                milUnit == null? "" : milUnit.getUnitType().name(),
+                civUnit == null ? "" : civUnit.getUnitType().name(),
                 tile.getFeature().name(),
                 tile.getResource().getType().equals("STRATEGIC") ? "" : tile.getResource().name(),
-                tile.getImprovement().equals(null) ? "" : tile.getImprovement().name(),
+                tile.getImprovement() == null ? "" : tile.getImprovement().name(),
                 getRiverColor(tile.getHasRiver()), tile.getCoordinates()[0], tile.getCoordinates()[1]);
     }
 
