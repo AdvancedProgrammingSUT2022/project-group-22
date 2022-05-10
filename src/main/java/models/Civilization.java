@@ -1,14 +1,7 @@
 package models;
 
-import enums.Building;
-import enums.Color;
-import enums.Feature;
-import enums.Improvement;
-import enums.Technology;
-
+import enums.*;
 import java.util.*;
-
-import controllers.UnitController;
 
 public class Civilization {
     private Color color;
@@ -130,23 +123,19 @@ public class Civilization {
     }
 
     public void updateTileStates(Tile oldPos, Tile newPos) {
-        Tile neighbor;
-        if (findTile(newPos) == 0) {
-            revealedTiles.remove(oldPos);
-        }
-        this.visibleTiles.add(newPos);
-        for (int i = 0; i < 6; i++) {
-            if (findTile((neighbor = Database.getInstance().getNeighbor(newPos, i))) == 0) {
-                revealedTiles.remove(neighbor);
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        Database.getInstance().getTilesInRange(newPos, 2, tiles);
+        for (Tile tile : tiles) {
+            if (findTile(tile) == 0) {
+                revealedTiles.remove(tile);
             }
-            this.visibleTiles.add(neighbor);
+            this.visibleTiles.add(tile);
         }
         if (oldPos != null) {
-            this.visibleTiles.remove(oldPos);
-            addRevealedTile(oldPos);
-            for (int i = 0; i < 6; i++) {
-                this.visibleTiles.remove((neighbor = Database.getInstance().getNeighbor(oldPos, i)));
-                addRevealedTile(neighbor);
+            Database.getInstance().getTilesInRange(oldPos, 2, tiles);
+            for (Tile tile : tiles) {
+                this.visibleTiles.remove(tile);
+                addRevealedTile(tile);
             }
         }
     }
@@ -185,6 +174,7 @@ public class Civilization {
 
     public void addMilitaryUnits(MilitaryUnit militaryUnit) {
         this.militaryUnits.add(militaryUnit);
+        updateTileStates(null, militaryUnit.positon);
     }
 
     public void deleteMilitaryUnit(MilitaryUnit militaryUnit) {
@@ -197,6 +187,7 @@ public class Civilization {
 
     public void addCivilianUnit(CivilianUnit civilianUnit) {
         this.civilianUnits.add(civilianUnit);
+        updateTileStates(null, civilianUnit.positon);
     }
 
     public void deleteCivilianUnit(CivilianUnit civilianUnit) {
@@ -300,12 +291,13 @@ public class Civilization {
     }
 
     public void addValues() {
-        // for (Tile tile : this.getTiles()) {
-        // this.gold += tile.getGold();
-        // }
-        // for (City city : this.cities) {
-        // city.setFood(city.getFood());
-        // }
+        for (City city : this.cities) {
+            for (Tile tile : getCityTiles(city)) {
+                this.gold += tile.getGold();
+                city.setFood(city.getFood() + tile.getFood());
+                city.setProduction(city.getProduction() + tile.getProduction());
+            }
+        }
     }
 
     public HashMap<CivilianUnit, Tile> getRoadWorkers() {

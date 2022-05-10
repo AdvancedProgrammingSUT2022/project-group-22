@@ -86,8 +86,9 @@ public class UnitController extends GameController {
         if (!user.getCivilization().checkUnitTasks()) {
             GameView.getInstance().turnNotOver();
         } else {
-            processTasks();
             Database.getInstance().nextTurn();
+            database.getCurrentPlayer().getCivilization().addValues();
+            processTasks();
             // restore city + unit in combat
         }
     }

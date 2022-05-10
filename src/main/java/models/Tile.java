@@ -76,6 +76,9 @@ public class Tile {
     }
 
     public void activateResource() {
+        this.gold += this.resource.getGold();
+        this.production += this.resource.getProduction();
+        this.food += this.resource.getFood();
     }
 
     public Boolean[] getHasRiver() {

@@ -61,8 +61,8 @@ public class City {
 
     public void addTile(Tile tile) {
         this.tiles.add(tile);
-        this.food += tile.getFood();
-        this.production += tile.getProduction();
+        tile.setPlayer(this.getCenter().getPlayer());
+        tile.getPlayer().getCivilization().updateTileStates(null, tile);
         // TODO: check if resource is available and add resource
     }
 
@@ -131,13 +131,36 @@ public class City {
 
     public void addResource(Resource resource) {
         this.resources.add(resource);
-        this.food += resource.getFood();
-        // this.gold += resource.getGold();
-        this.production += resource.getProduction();
+    }
+
+    public void activateResources(Improvement improvement) {
+        Civilization player = this.center.getPlayer().getCivilization();
+        Resource resource;
+        for (Tile tile : this.tiles) {
+            if ((resource = tile.getResource()) != null && resource.getImprovement().equals(improvement)) {
+                if (resource.getType().equals("STRATEGIC")
+                        && !player.hasTechnology(resource.getTechnology())) {
+                    return;
+                }
+                tile.activateResource();
+                if (resource.getType().equals("LUXURY")) {
+                    player.setHappiness(player.getHappiness() + 4);
+                }
+            }
+        }
     }
 
     public ArrayList<Improvement> getImprovements() {
         return improvements;
+    }
+
+    public Boolean hasImprovement(Improvement improvement) {
+        for (Improvement tempImprovement : this.improvements) {
+            if (tempImprovement.equals(improvement)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void addImprovement(Improvement improvement, Tile tile) {
@@ -154,15 +177,6 @@ public class City {
 
     public void setGarrisonUnit(MilitaryUnit garrisonUnit) {
         this.garrisonUnit = garrisonUnit;
-    }
-
-    public Boolean hasImprovement(Improvement improvement) {
-        for (Improvement tempImprovement : this.improvements) {
-            if (tempImprovement.equals(improvement)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public void produceUnit(UnitType unit) {

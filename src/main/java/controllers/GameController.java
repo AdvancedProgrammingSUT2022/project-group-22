@@ -8,7 +8,7 @@ import java.util.regex.*;
 /*********** Please read comments Before any changes ******/
 
 public class GameController {
-    // the problem with these seems to have been solveds
+    // the problem with these seems to have been solved
     private static GameController instance = null;
     protected static GameView gameView = GameView.getInstance();
     protected Database database = Database.getInstance();
