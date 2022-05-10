@@ -59,7 +59,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
-                return null;
+                unitController.move(matcher);
             else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
                 UnitController.getInstance().sleep();
             else if ((matcher = getMatcher(command, Command.WAKE)) != null)
@@ -261,6 +261,14 @@ public class GameView extends Processor {
 
     public void insufficientTechnologies() {
         System.out.println("you do not have the prerequired technologies");
+    }
+
+    public void completeTask(String task, Tile tile) {
+        System.out.println(task + "was built on tile " + tile.getCoordinates()[0] + ":" + tile.getCoordinates()[1]);
+    }
+
+    public void completeMove(Tile tile) {
+        System.out.println("unit has moved to tile " + tile.getCoordinates()[0] + ":" + tile.getCoordinates()[1]);
     }
 
     private void showDemographics(User player) {

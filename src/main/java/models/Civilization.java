@@ -8,6 +8,8 @@ import enums.Technology;
 
 import java.util.*;
 
+import controllers.UnitController;
+
 public class Civilization {
     private Color color;
     private int tilePrice = 8;
@@ -306,43 +308,35 @@ public class Civilization {
         // }
     }
 
+    public HashMap<CivilianUnit, Tile> getRoadWorkers() {
+        return this.roadWorkers;
+    }
+
     public void addRoadWorker(CivilianUnit civilianUnit, Tile tile) {
         this.roadWorkers.put(civilianUnit, tile);
     }
 
-    public void addImprovementWorker(CivilianUnit civilianUnit, Improvement improvement) {
-        this.improvementWorkers.put(civilianUnit, improvement);
-    }
-
-    public void addBuildingWorker(CivilianUnit civilianUnit, Building building) {
-        this.buildingWorkers.put(civilianUnit, building);
+    public HashMap<CivilianUnit, Feature> getRemovalWorkers() {
+        return this.removalWorkers;
     }
 
     public void addRemovalWorker(CivilianUnit civilianUnit, Feature feature) {
         this.removalWorkers.put(civilianUnit, feature);
     }
 
-    public void completeBuild(CivilianUnit civilianUnit) {
-        for (CivilianUnit civUnit : this.roadWorkers.keySet()) {
-            if (civUnit.equals(civilianUnit)) {
-                roadWorkers.get(civilianUnit).setHasRoad(true);
-                roadWorkers.remove(civilianUnit);
-            }
-        }
-        for (CivilianUnit civUnit : this.improvementWorkers.keySet()) {
-            if (civUnit.equals(civilianUnit)) {
-                civilianUnit.getPositon().addImprovement(improvementWorkers.get(civilianUnit));
-                improvementWorkers.remove(civilianUnit);
-            }
-        }
-        for (CivilianUnit civUnit : this.buildingWorkers.keySet()) {
-            if (civUnit.equals(civilianUnit)) {
-                civilianUnit.getPositon().addBuilding(buildingWorkers.get(civilianUnit));
-                buildingWorkers.remove(civilianUnit);
-            }
-        }
+    public HashMap<CivilianUnit, Improvement> getImprovementWorkers() {
+        return this.improvementWorkers;
     }
 
-    public void processTasks() {
+    public void addImprovementWorker(CivilianUnit civilianUnit, Improvement improvement) {
+        this.improvementWorkers.put(civilianUnit, improvement);
+    }
+
+    public HashMap<CivilianUnit, Building> getBuildingWorkers() {
+        return this.buildingWorkers;
+    }
+
+    public void addBuildingWorker(CivilianUnit civilianUnit, Building building) {
+        this.buildingWorkers.put(civilianUnit, building);
     }
 }

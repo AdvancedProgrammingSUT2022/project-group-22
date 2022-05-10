@@ -172,20 +172,7 @@ public class GameController {
         }
     }
 
-    public void unitCombatPosition(Matcher matcher) {
-    }
-
-    public void nextTurn() {
-        if (!user.getCivilization().checkUnitTasks()) {
-            GameView.getInstance().turnNotOver();
-        } else {
-            user.getCivilization().processTasks();
-            Database.getInstance().nextTurn();
-            // restore city + unit in combat
-        }
-    }
-
-    /******** run method **********/
+    // run
     public String run() {
         String state;
         while (true) {
@@ -196,8 +183,7 @@ public class GameController {
         }
     }
 
-    /******* these functions are for info ********/
-
+    // info
     public void researchInfo() {
         GameView.getInstance().PrintResearchInfo(user.getCivilization().getResearch(),
                 user.getCivilization().getPossibleTechnologies(), user.getCivilization().getTechnologies());
