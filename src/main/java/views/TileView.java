@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TileView {
     // color : civilization , civilian , military
-    private String[] color = new String[3];
+    private String[] color ;
     private String backgroundColor;
     private String nickname;
     private String militaryUnit;
@@ -21,12 +21,12 @@ public class TileView {
             int x, int y) {
         this.color = color;
         this.backgroundColor = backgroundColor;
-        this.nickname = nickname == null ? "   " : nickname.substring(0, 2);
-        this.militaryUnit = militaryUnit == null ? "   " : militaryUnit.substring(0, 2);
-        this.civilianUnit = civilianUnit == null ? "   " : civilianUnit.substring(0, 2);
-        this.feature = feature == null ? "   " : feature.substring(0, 2);
-        this.resource = resource == null ? "   " : resource.substring(0, 2);
-        this.improvement = improvement == null ? "   " : improvement.substring(0, 2);
+        this.nickname = nickname == null ? "   " : nickname.substring(0, 3);
+        this.militaryUnit = militaryUnit == null ? "   " : militaryUnit.substring(0, 3);
+        this.civilianUnit = civilianUnit == null ? "   " : civilianUnit.substring(0, 3);
+        this.feature = feature == null ? "   " : feature.substring(0, 3);
+        this.resource = resource == null ? "   " : resource.substring(0, 3);
+        this.improvement = improvement == null ? "   " : improvement.substring(0, 3);
         this.hasRiver = hasRiver;
         this.x = x;
         this.y = y;

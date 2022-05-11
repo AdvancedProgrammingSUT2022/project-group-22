@@ -64,7 +64,7 @@ public class Tile {
         this.combatModifier = this.combatModifier - this.feature.getMovementCost() +
                 (feature != null ? feature.getCombatModifier() : 0);
         // remove related resources and improvemnents
-        this.feature = feature != null ? feature : null;
+        this.feature = feature;
     }
 
     public Feature getFeature() {
