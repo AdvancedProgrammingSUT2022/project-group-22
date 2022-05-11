@@ -121,12 +121,12 @@ public class MapController extends GameController {
                         : database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
 
         return new TileView(colors, tile.getLandType().getColor().getColor(),
-                player == null ? "" : database.getCurrentPlayer().getNickname(),
-                milUnit == null ? "" : milUnit.getUnitType().name(),
-                civUnit == null ? "" : civUnit.getUnitType().name(),
-                tile.getFeature() == null ? "" : tile.getFeature().name(),
-                canShowResource(tile.getResource()) ? tile.getResource().name() : "",
-                tile.getImprovement() == null ? "" : tile.getImprovement().name(),
+                player == null ? null : database.getCurrentPlayer().getNickname(),
+                milUnit == null ? null : milUnit.getUnitType().name(),
+                civUnit == null ? null : civUnit.getUnitType().name(),
+                tile.getFeature() == null ? null : tile.getFeature().name(),
+                canShowResource(tile.getResource()) ? tile.getResource().name() : null,
+                tile.getImprovement() == null ? null : tile.getImprovement().name(),
                 getRiverColor(tile.getHasRiver()), tile.getCoordinates()[0], tile.getCoordinates()[1]);
     }
 
