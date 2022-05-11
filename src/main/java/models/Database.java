@@ -7,7 +7,7 @@ public class Database {
     private static Database instance = null;
     private ArrayList<User> users = new ArrayList<User>();
     private Tile[][] map;
-    private ArrayList<User> players = new ArrayList<>();
+    private ArrayList<User> players = new ArrayList<User>();
     private User currentPlayer;
 
     public static Database getInstance() {
@@ -161,10 +161,13 @@ public class Database {
         if (range == 0 || tiles.contains(tile)) {
             return;
         }
-        tiles.add(tile);
-        for (int i = 0; i < 6; i++) {
-            getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
+        if (tile != null) {
+            tiles.add(tile);
+            for (int i = 0; i < 6; i++) {
+                getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
+            }
         }
+
     }
 
     public ArrayList<Tile> getCityCenters() {

@@ -20,8 +20,8 @@ public class Civilization {
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
     private ArrayList<Technology> possibleTechnologies = new ArrayList<Technology>();
     HashMap<Integer, Technology> research = new HashMap<Integer, Technology>();
-    private ArrayList<String> messages = new ArrayList<>();
-    private ArrayList<Tile> visibleTiles = new ArrayList<>();
+    private ArrayList<String> messages = new ArrayList<String>();
+    private ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
     private HashMap<Tile, Tile> revealedTiles = new HashMap<Tile, Tile>();
 
     private HashMap<CivilianUnit, Tile> roadWorkers = new HashMap<CivilianUnit, Tile>();
