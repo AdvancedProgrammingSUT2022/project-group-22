@@ -35,7 +35,7 @@ public class GameController {
     }
 
     protected Boolean hasCombatUnit() {
-        return user.getCivilization().getCurrentMilitary() != null;
+        return database.getCurrentPlayer().getCivilization().getCurrentMilitary() != null;
     }
 
     protected Boolean hasNonCombatUnit() {
