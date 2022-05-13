@@ -20,7 +20,7 @@ public class GameView extends Processor {
 
     public String run() {
         String command;
-        while (true) {
+        while (scanner.hasNext()) {
             command = getInput();
             if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "exit";
@@ -132,13 +132,13 @@ public class GameView extends Processor {
                 UnitController.getInstance().instantBuild(matcher);
             else
                 System.out.println("invalid Command!");
-
         }
+        return "exit";
     }
 
     // errors
     public void cityInaccessible() {
-        System.out.println("you don not have access to this city");
+        System.out.println("you do not have access to this city");
     }
 
     public void noUnitSelected() {

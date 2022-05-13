@@ -96,7 +96,10 @@ public class UnitController extends GameController {
     public void skipTurns(Matcher matcher) {
         int num = Integer.parseInt(matcher.group("amount"));
         for (int i = 0; i < num; i++) {
-            nextTurn();
+            Database.getInstance().nextTurn();
+            database.getCurrentPlayer().getCivilization().addValues();
+            processTasks();
+            // restore city + unit in combat
         }
     }
 

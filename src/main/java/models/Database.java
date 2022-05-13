@@ -57,8 +57,8 @@ public class Database {
     }
 
     public void nextTurn() {
-        User nextPlayer = players.get(players.indexOf(currentPlayer) + 1);
-        currentPlayer = nextPlayer != null ? nextPlayer : this.players.get(0);
+        this.currentPlayer = players
+                .get(players.indexOf(currentPlayer) == players.size() - 1 ? 0 : players.indexOf(currentPlayer) + 1);
     }
 
     public User getUserByUsername(String username) {
