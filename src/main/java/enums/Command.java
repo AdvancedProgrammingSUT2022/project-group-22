@@ -60,7 +60,7 @@ public enum Command {
         GARRISON("unit garrison"),
         SETUP("unit setup ranged"),
         ATTACK("unit attack position (?<positionX>\\d+) (?<positionY>\\d+)"),
-        FOUND("unit found city"),
+        FOUND("unit found city (?<i>\\d+) (?<j>\\d+)"),
         CANCEL("unit cancel mission"),
         WAKE("unit wake"),
         DELETE("unit delete"),

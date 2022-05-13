@@ -277,10 +277,11 @@ public class UnitController extends GameController {
             return;
         } else if (civUnit.getPositon() != tile) {
             GameView.getInstance().unitNotOnTile();
-        } else if (tile.getPlayer() != null || !tile.getPlayer().getNickname().equals(user.getNickname())) {
-            GameView.getInstance().tileNotYours();
-            return;
-        } // check distance from other city centers
+        }
+//        else if (tile.getPlayer() != null || !tile.getPlayer().getNickname().equals(user.getNickname())) {
+//            GameView.getInstance().tileNotYours();
+//            return;
+//        } // check distance from other city centers
         else {
             user.getCivilization().getCivilianUnits().remove(civUnit);
             user.getCivilization().setCurrentCivilian(null);

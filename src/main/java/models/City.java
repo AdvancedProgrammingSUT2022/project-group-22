@@ -27,10 +27,12 @@ public class City {
         this.population = 1;
 
         this.center = tile;
-        this.addTile(tile);
         tile.setPlayer(user);
-        if (tile.getFeature().equals(Feature.JUNGLE)) {
-            tile.removeFeature(null);
+        this.addTile(tile);
+        if(tile.getFeature() != null) {
+            if (tile.getFeature().equals(Feature.JUNGLE)) {
+                tile.removeFeature(null);
+            }
         }
         tile.setHasRoad(true);
 

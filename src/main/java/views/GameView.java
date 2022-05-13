@@ -56,8 +56,6 @@ public class GameView extends Processor {
                 GameController.getInstance().selectNonCombatUnit(matcher);
             else if ((matcher = getMatcher(command, Command.ATTACK)) != null)
                 UnitController.getInstance().attack(matcher);
-            else if ((matcher = getMatcher(command, Command.FOUND)) != null)
-                return null;
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
                 unitController.move(matcher);
             else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
@@ -75,7 +73,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.SETUP)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
-                return null;
+                UnitController.getInstance().foundCity(matcher);
             else if ((matcher = getMatcher(command, Command.CANCEL)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.DELETE)) != null)

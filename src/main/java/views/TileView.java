@@ -21,7 +21,7 @@ public class TileView {
             int x, int y) {
         this.color = color;
         this.backgroundColor = backgroundColor;
-        this.nickname = nickname == null ? "   " : nickname.substring(0, 3);
+        this.nickname = nickname == null ? " " : nickname;
         this.militaryUnit = militaryUnit == null ? "   " : militaryUnit.substring(0, 3);
         this.civilianUnit = civilianUnit == null ? "   " : civilianUnit.substring(0, 3);
         this.feature = feature == null ? "   " : feature.substring(0, 3);
