@@ -6,8 +6,8 @@ import views.Processor;
 
 public class Controller {
     // private static Controller instance = new Controller();
-//    protected Database database = Database.getInstance();
-//    protected Processor processor = Processor.getInstance();
+    // protected Database database = Database.getInstance();
+    // protected Processor processor = Processor.getInstance();
     private final RegisterMenuController registerMenuController = new RegisterMenuController();
     private final MainMenuController mainMenuController = new MainMenuController();
     private final ProfileMenuController profileMenuController = new ProfileMenuController();
@@ -26,19 +26,21 @@ public class Controller {
         user = Database.getInstance().getUserByUsername(input);
         input = mainMenuController.run(user);
         while (true) {
-            if (input.equals("Exit"))
+            if (input.equals("Exit")) {
                 break;
-            else if (input.equals("mainMenu"))
+            } else if (input.equals("mainMenu")) {
                 input = mainMenuController.run(user);
-            else if (input.equals("gameMenu"))
+            } else if (input.equals("gameMenu")) {
                 input = gameMenuController.run();
-            else if (input.equals("registerMenu")) {
+            } else if (input.equals("game")) {
+                input = gameController.run();
+            } else if (input.equals("registerMenu")) {
                 input = registerMenuController.run();
                 user = Database.getInstance().getUserByUsername(input);
                 input = mainMenuController.run(user);
-            }
-            else if (input.equals("profileMenu"))
+            } else if (input.equals("profileMenu")) {
                 input = profileMenuController.run(user);
+            }
         }
         Processor.getInstance().closeScanner();
         return null;

@@ -19,7 +19,6 @@ public enum Command {
         LOGIN2("user login (--password|-p) (?<password>\\S+) (--username|-u) (?<username>\\S+)"),
         LOGOUT("user logout"),
 
-
         NICKNAMECHANGE("profile change --nickname (?<newnickname>\\S+)"),
         CHANGEPASSWORD1(
                         "profile change --password --current (?<currentpassword>\\S+) --new (?<newpassword>\\S+)"),
@@ -47,8 +46,8 @@ public enum Command {
         INFODEALS("info deals"),
 
         // select
-        SELECTUNITCOMBAT("select unit combat (?<positionX>\\d+) (?<positionY>\\d+)"),
-        SELECTUNITNONCOMBAT("select unit noncombat (?<positionX>\\d+) (?<positionY>\\d+)"),
+        SELECTUNITCOMBAT("select unit combat (?<i>\\d+) (?<j>\\d+)"),
+        SELECTUNITNONCOMBAT("select unit noncombat (?<i>\\d+) (?<j>\\d+)"),
         SELECTCITYNAME("select city (?<name>\\S+)"),
         SELECTCITYPOSITION("select city (?<i>\\d+) (?<j>\\d+)"),
 
@@ -80,7 +79,7 @@ public enum Command {
         REPAIR("unit repair"),
         NEXT("next"),
 
-        //city
+        // city
         SETCITIZEN("lock citizen"),
         BUYTILE("buy tile (?<positionX>\\d+) (?<positionY>\\d+)"),
         REMOVECITIZEN("remove citizen (?<nmber>\\d+)"),

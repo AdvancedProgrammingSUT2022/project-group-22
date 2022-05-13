@@ -8,7 +8,6 @@ import views.GameView;
 
 import java.util.regex.Matcher;
 
-
 public class UnitController extends GameController {
 
     private static UnitController instance = null;
@@ -19,6 +18,8 @@ public class UnitController extends GameController {
     }
 
     public void move(Matcher matcher) {
+        CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
+        MilitaryUnit milUnit = user.getCivilization().getCurrentMilitary();
         Unit unit = civUnit != null ? civUnit : milUnit;
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
@@ -60,17 +61,17 @@ public class UnitController extends GameController {
         }
     }
 
-//    public boolean sleep(Civilization civilization) {
-//        if(civilization.getCurrentMilitary().getStatus()) {
-//            civilization.getCurrentMilitary().setSleep();
-//            return true;
-//        }
-//        else if(civilization.getCurrentCivilian().getStatus()) {
-//            civilization.getCurrentCivilian().setSleep();
-//            return true;
-//        }
-//        return false;
-//    }
+    // public boolean sleep(Civilization civilization) {
+    // if(civilization.getCurrentMilitary().getStatus()) {
+    // civilization.getCurrentMilitary().setSleep();
+    // return true;
+    // }
+    // else if(civilization.getCurrentCivilian().getStatus()) {
+    // civilization.getCurrentCivilian().setSleep();
+    // return true;
+    // }
+    // return false;
+    // }
 
     public void garrison() {
     }
@@ -78,9 +79,9 @@ public class UnitController extends GameController {
     public void setup() {
     }
 
-//    public void attack(Uni) {
-//
-//    }
+    // public void attack(Uni) {
+    //
+    // }
 
     public void foundCity(Matcher matcher) {
         CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
@@ -99,8 +100,7 @@ public class UnitController extends GameController {
             return;
         } else if (civUnit.getPositon() != tile) {
             GameView.getInstance().unitNotOnTile();
-//            tile.getPlayer() != user ,We cannot compare two objects with !=
-        } else if (tile.getPlayer() != null || !tile.getPlayer().getNickname().equals(user.getNickname()) ) {
+        } else if (tile.getPlayer() != null || !tile.getPlayer().getNickname().equals(user.getNickname())) {
             GameView.getInstance().tileHasOwner();
             return;
         } // check distance from other city centers
@@ -108,7 +108,7 @@ public class UnitController extends GameController {
             user.getCivilization().getCivilianUnits().remove(civUnit);
             user.getCivilization().setCurrentCivilian(null);
             user.getCivilization().addCity(new City(tile, user));
-            user.getCivilization().setUnhappiness(user.getCivilization().getUnhappiness()+1);
+            user.getCivilization().setUnhappiness(user.getCivilization().getUnhappiness() + 1);
         }
     }
 

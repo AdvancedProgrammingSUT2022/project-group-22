@@ -1,25 +1,13 @@
 package models;
 
-import controllers.GameController;
-import controllers.MapController;
-
+import controllers.*;
 import java.util.ArrayList;
 
 public class Database {
     private static Database instance = null;
-
     private ArrayList<User> users = new ArrayList<User>();
-
     private Tile[][] map;
-
-    private String state = "register";
-
-    private GameController gameController;
-
-    private MapController mapController;
-
     private ArrayList<User> players = new ArrayList<>();
-
     private User currentPlayer;
 
     public static Database getInstance() {
@@ -39,19 +27,10 @@ public class Database {
         this.users.add(user);
     }
 
-    public String getState() {
-        return this.state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public void createGame(ArrayList<User> players, int x, int y) {
-        this.players = players;
+        this.setPlayers(players);
         currentPlayer = this.players.get(0);
-        gameController = new GameController();
-        mapController = new MapController();
+        MapController mapController = new MapController();
         mapController.generateMap(20, 42);
     }
 
@@ -59,20 +38,20 @@ public class Database {
         return this.players;
     }
 
-    public void addPlayer(User user) {
-        this.players.add(user);
-    }
-
-    public GameController getGame() {
-        return this.gameController;
+    public void setPlayers(ArrayList<User> players) {
+        this.players = players;
+        for (User player : this.players) {
+            player.setCivilization(new Civilization());
+        }
     }
 
     public User getCurrentPlayer() {
         return this.currentPlayer;
     }
 
-    public void setCurrentPlayer(User player) {
-        currentPlayer = player;
+    public void nextTurn() {
+        User nextPlayer = players.get(players.indexOf(currentPlayer) + 1);
+        currentPlayer = nextPlayer != null ? nextPlayer : this.players.get(0);
     }
 
     public User getUserByUsername(String username) {
@@ -93,15 +72,6 @@ public class Database {
         return null;
     }
 
-    // public User getUserByPLayer(Civilization civilization) {
-    // for (User user : this.users) {
-    // if (user.getPlayer().equals(civilization)) {
-    // return user;
-    // }
-    // }
-    // return null;
-    // }
-
     public void sortPlayers() {
     }
 
@@ -109,8 +79,8 @@ public class Database {
     }
 
     public MilitaryUnit getMilitaryUnitByTile(Tile tile) {
-        for ( User user : this.players) {
-            for (MilitaryUnit unit : user.getCivilization().getMilitaryUnits()) {
+        for (User player : this.players) {
+            for (MilitaryUnit unit : player.getCivilization().getMilitaryUnits()) {
                 if (unit.getPositon().equals(tile)) {
                     return unit;
                 }
@@ -120,8 +90,8 @@ public class Database {
     }
 
     public CivilianUnit getCivilianUnitByTile(Tile tile) {
-        for (User user : this.players) {
-            for (CivilianUnit unit : user.getCivilization().getCivilianUnits()) {
+        for (User player : this.players) {
+            for (CivilianUnit unit : player.getCivilization().getCivilianUnits()) {
                 if (unit.getPositon().equals(tile)) {
                     return unit;
                 }
@@ -131,15 +101,15 @@ public class Database {
     }
 
     public User getUnitOwner(Unit unit) {
-        for (User user : this.players) {
-            for (CivilianUnit civUnit : user.getCivilization().getCivilianUnits()) {
+        for (User player : this.players) {
+            for (CivilianUnit civUnit : player.getCivilization().getCivilianUnits()) {
                 if (unit.equals(civUnit)) {
-                    return user;
+                    return player;
                 }
             }
-            for (MilitaryUnit milUnit : user.getCivilization().getMilitaryUnits()) {
+            for (MilitaryUnit milUnit : player.getCivilization().getMilitaryUnits()) {
                 if (unit.equals(milUnit)) {
-                    return user;
+                    return player;
                 }
             }
         }
@@ -167,8 +137,8 @@ public class Database {
 
     public ArrayList<Tile> getCityCenters() {
         ArrayList<Tile> centers = new ArrayList<Tile>();
-        for (User user : this.players) {
-            for (City city : user.getCivilization().getCities()) {
+        for (User player : this.players) {
+            for (City city : player.getCivilization().getCities()) {
                 centers.add(city.getCenter());
             }
         }
@@ -176,8 +146,8 @@ public class Database {
     }
 
     public City getCityByName(String name) {
-        for (User user : this.players) {
-            for (City city : user.getCivilization().getCities()) {
+        for (User player : this.players) {
+            for (City city : player.getCivilization().getCities()) {
                 if (city.getName().equals(name)) {
                     return city;
                 }

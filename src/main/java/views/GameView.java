@@ -8,20 +8,19 @@ import models.User;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
-
 public class GameView extends Processor {
     private static GameView instance = null;
 
     Matcher matcher;
 
-//    GameController gameController = GameController.getInstance();
+    // GameController gameController = GameController.getInstance();
 
     public static GameView getInstance() {
         instance = instance != null ? instance : new GameView();
         return instance;
     }
 
-    public String  run() {
+    public String run() {
         String command;
         while (true) {
             command = getInput();
@@ -50,29 +49,31 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "exit";
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
-                selectCityName(matcher);
+                GameController.getInstance().selectCity(matcher, Command.SELECTCITYNAME);
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
-                selectCityPos(matcher);
-            else if((matcher = getMatcher(command,Command.ATTACK)) != null)
-                attack(matcher);
-            else if((matcher = getMatcher(command,Command.FOUND)) != null)
-                return null;
+                GameController.getInstance().selectCity(matcher, Command.SELECTCITYPOSITION);
             else if ((matcher = getMatcher(command, Command.SELECTUNITCOMBAT)) != null)
-                selectUnitCombat(matcher);
+                GameController.getInstance().selectUnit(matcher, Command.SELECTUNITCOMBAT);
             else if ((matcher = getMatcher(command, Command.SELECTUNITNONCOMBAT)) != null)
-                selectUnitNonCombat(matcher);
+                GameController.getInstance().selectUnit(matcher, Command.SELECTUNITNONCOMBAT);
+            else if ((matcher = getMatcher(command, Command.ATTACK)) != null)
+                GameController.getInstance().Attack(matcher);
+            else if ((matcher = getMatcher(command, Command.FOUND)) != null)
+                return null;
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
-                sleep();
+                GameController.getInstance().sleep();
+            else if ((matcher = getMatcher(command, Command.WAKE)) != null)
+                GameController.getInstance().wake();
             else if ((matcher = getMatcher(command, Command.ALERT)) != null)
-                alert();
+                GameController.getInstance().alert();
             else if ((matcher = getMatcher(command, Command.FORTIFY)) != null)
-                fortify();
+                GameController.getInstance().fortify();
             else if ((matcher = getMatcher(command, Command.FORTIFYHEAL)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.GARRISON)) != null)
-                garrison();
+                GameController.getInstance().garrison();
             else if ((matcher = getMatcher(command, Command.SETUP)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
@@ -81,12 +82,10 @@ public class GameView extends Processor {
                 return null;
             else if ((matcher = getMatcher(command, Command.DELETE)) != null)
                 return null;
-            else if ((matcher = getMatcher(command, Command.WAKE)) != null)
-                wake();
             else if ((matcher = getMatcher(command, Command.BUILDROAD)) != null)
-                buildRoad();
+                GameController.getInstance().buildRoad();
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
-                buildRailRoad();
+                GameController.getInstance().buildRailRoad();
             else if ((matcher = getMatcher(command, Command.BUILDFARM)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.BUILDMINE)) != null)
@@ -125,21 +124,16 @@ public class GameView extends Processor {
                 return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEU)) != null)
                 return null;
-            else if((matcher = getMatcher(command, Command.NEXT)) != null)
-                return "next";
+            else if ((matcher = getMatcher(command, Command.NEXT)) != null)
+                GameController.getInstance().nextTurn();
             else
                 System.out.println("invalid Command!");
 
         }
     }
 
-    private void buildRailRoad() {
-        GameController.getInstance().buildRailRoad();
-    }
-
-
-    /**********  these are Errors for both printing map and unit action I used most of them  *************/
-    public void notCityOwner() {
+    // errors
+    public void cityInaccessible() {
         System.out.println("you don not have access to this city");
     }
 
@@ -171,6 +165,18 @@ public class GameView extends Processor {
         System.out.println("the unit is not on the selected tile");
     }
 
+    public void invalidMilitaryUnit() {
+        System.out.println("there is no military unit on the selected tile");
+    }
+
+    public void invalidCivilianUnit() {
+        System.out.println("there is no civilian unit on the selected tile");
+    }
+
+    public void unitInaccessible() {
+        System.out.println("this unit belongs to another civilization");
+    }
+
     public void tileHasOwner() {
         System.out.println("this tile belongs to another civilization");
     }
@@ -179,77 +185,44 @@ public class GameView extends Processor {
         System.out.println("no city with this name exists");
     }
 
-    public void hasNotChoseAUnit(){
-        System.out.println("Please choose a militaryUnit First");
-    }
-
-    public void noMilitaryUnitHere(){
-        System.out.println("there is no Military Unit here");
-    }
-
-    public void sleepSuccessful(){
+    public void sleepSuccessful() {
         System.out.println("This unit put to sleep");
     }
 
-    public void alertMessage(){
+    public void alertMessage() {
         System.out.println("successfully change status of the selected unit");
     }
 
-    public void successfulFortify(){
+    public void successfulFortify() {
         System.out.println("Selected unit successfully fortified");
     }
 
-    public void wakeMessage(){
+    public void wakeMessage() {
         System.out.println("You can use the selected unit from now on");
     }
 
-    public void garrisonMessage(){
+    public void garrisonMessage() {
         System.out.println("Selected unit attached to the tile");
     }
 
-    public void buildRoadSuccessful(){
+    public void buildRoadSuccessful() {
         System.out.println("Road built successfully!");
     }
 
-    /************** these functions are not for printing map ********************/
-    private void buildRoad() {
-        GameController.getInstance().buildRoad();
-    }
-
-    public void accessTileError(){
+    public void accessTileError() {
         System.out.println("you don't have access to this tile");
     }
 
-    public void outOfMap(){
+    public void outOfMap() {
         System.out.println("Coordinate is out of map");
     }
 
-    public void AttackImpossible(){
+    public void AttackImpossible() {
         System.out.println("Attack is not Possible");
     }
 
-    public void successfullySelected(){
+    public void successfullySelected() {
         System.out.println("successfully selected");
-    }
-
-    private void selectCityName(Matcher matcher){
-        GameController.getInstance().selectCityByName(matcher);
-    }
-
-    private void selectCityPos(Matcher matcher) {
-         GameController.getInstance().selectCityByCoordinate(matcher);
-     }
-
-    private void selectUnitCombat(Matcher matcher) {
-        GameController.getInstance().selectUnitCombat(matcher);
-    }
-
-    private void attack(Matcher matcher) {
-        GameController.getInstance().Attack(matcher);
-    }
-
-    private void selectUnitNonCombat(Matcher matcher) {
-        GameController.getInstance().selectUnitNonCombat(matcher);
     }
 
     private void showDemographics(User player) {
@@ -257,28 +230,7 @@ public class GameView extends Processor {
         // TODO: add get population in player class
     }
 
-    private void sleep() {
-        GameController.getInstance().sleep();
-    }
-
-    private void alert() {
-        GameController.getInstance().alert();
-    }
-
-    private void wake() {
-        GameController.getInstance().wake();
-    }
-
-    private void fortify() {
-        GameController.getInstance().fortify();
-    }
-
-    private void garrison() {
-        GameController.getInstance().garrison();
-    }
-
-
-    /************* Please write functions for printing map here **************/
+    // print map
 
     public void printMap(String player, int totalHappiness, ArrayList<TileView> tiles, int y, int x) {
         System.out.println("Current Player: " + player);
