@@ -163,10 +163,10 @@ public class MapController extends GameController {
         minY = maxY = city.getCenter().getCoordinates()[1];
         for (Tile tile : city.getTiles()) {
             addToTileView(tileView, tile);
-            minX = tile.getCoordinates()[0] < minX ? tile.getCoordinates()[0] : minX;
-            maxX = tile.getCoordinates()[0] > maxX ? tile.getCoordinates()[0] : maxX;
-            minY = tile.getCoordinates()[1] < minY ? tile.getCoordinates()[0] : minY;
-            maxY = tile.getCoordinates()[1] > maxY ? tile.getCoordinates()[0] : maxY;
+            minX = Math.min(tile.getCoordinates()[0], minX);
+            maxX = Math.max(tile.getCoordinates()[0], maxX);
+            minY = Math.min(tile.getCoordinates()[1], minY);
+            maxY = Math.max(tile.getCoordinates()[1], maxY);
         }
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(),
@@ -182,10 +182,10 @@ public class MapController extends GameController {
         for (int i = 0; i < 6; i++) {
             Tile neighbor = database.getNeighbor(tile, i);
             addToTileView(tileView, neighbor);
-            minX = neighbor.getCoordinates()[0] < minX ? neighbor.getCoordinates()[0] : minX;
-            maxX = neighbor.getCoordinates()[0] > maxX ? neighbor.getCoordinates()[0] : maxX;
-            minY = neighbor.getCoordinates()[1] < minY ? neighbor.getCoordinates()[0] : minY;
-            maxY = neighbor.getCoordinates()[1] > maxY ? neighbor.getCoordinates()[0] : maxY;
+            minX = Math.min(neighbor.getCoordinates()[0], minX);
+            maxX = Math.max(neighbor.getCoordinates()[0], maxX);
+            minY = Math.min(neighbor.getCoordinates()[1], minY);
+            maxY = Math.max(neighbor.getCoordinates()[1], maxY);
         }
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(),
