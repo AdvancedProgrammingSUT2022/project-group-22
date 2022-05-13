@@ -10,19 +10,15 @@ import java.util.regex.*;
 public class GameController {
     // the problem with these seems to have been solved
     private static GameController instance = null;
-    protected static GameView gameView = GameView.getInstance();
-    protected Database database = Database.getInstance();
-    protected User user = database.getCurrentPlayer();
-    protected Tile[][] map = database.getMap();
+    protected User user ;
+    protected Tile[][] map ;
+    protected Database database;
 
-    // protected Database database;
-    // protected User user;
-    // Tile[][] map;
-    // public GameController() {
-    // this.database = Database.getInstance();
-    // this.user = database.getCurrentPlayer();
-    // this.map = database.getMap();
-    // }
+     public GameController() {
+         this.database = Database.getInstance();
+         this.user = Database.getInstance().getCurrentPlayer();
+         this.map = Database.getInstance().getMap();
+     }
 
     public static GameController getInstance() {
         instance = instance != null ? instance : new GameController();
