@@ -28,12 +28,16 @@ public class GameMenuController {
                 tile1.getCoordinates()[1] == tile2.getCoordinates()[1]) {
             tile2 = database.getMap()[random.nextInt(19)][random.nextInt(41)];
         }
-        player1.getCivilization().addCivilianUnit(new CivilianUnit(UnitType.SETTLER, tile1));
-        // System.out.println(tile1.getCoordinates()[0] + " "
-        // +tile1.getCoordinates()[1]);
+
+        // added unit selection for easier testing, could be removed later
+        CivilianUnit civUnit;
+        player1.getCivilization().addCivilianUnit((civUnit = new CivilianUnit(UnitType.SETTLER, tile1)));
+        player1.getCivilization().setCurrentCivilian(civUnit);
+        // System.out.println(tile1.getCoordinates()[0] + " " +
+        // tile1.getCoordinates()[1]);
         player2.getCivilization().addCivilianUnit(new CivilianUnit(UnitType.SETTLER, tile2));
-        // System.out.println(tile2.getCoordinates()[0] + " "
-        // +tile2.getCoordinates()[1]);
+        // System.out.println(tile2.getCoordinates()[0] + " " +
+        // tile2.getCoordinates()[1]);
         GameMenuView.getInstance().gameStarted();
     }
 

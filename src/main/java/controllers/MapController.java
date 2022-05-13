@@ -93,7 +93,7 @@ public class MapController extends GameController {
     public ArrayList<String> getRiverColor(Boolean[] hasRiver) {
         ArrayList<String> riverColor = new ArrayList<String>();
         for (int i = 0; i < 6; i++) {
-            if(hasRiver[i] != null) {
+            if (hasRiver[i] != null) {
                 riverColor.add(hasRiver[i] ? Color.CYAN_BRIGHT_BG.getColor() : Color.RESET.getColor());
             }
         }
@@ -189,7 +189,7 @@ public class MapController extends GameController {
         }
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(),
-                tileView, maxY - minY + 1, maxX - minX + 1);
+                tileView, maxY - minY, maxX - minX);
     }
 
     public void printAreaCheck(Matcher matcher) {
@@ -216,8 +216,6 @@ public class MapController extends GameController {
     }
 
     public void printTileCheck(Matcher matcher, Command command) {
-        CivilianUnit civUnit = database.getCurrentPlayer().getCivilization().getCurrentCivilian();
-        MilitaryUnit milUnit = database.getCurrentPlayer().getCivilization().getCurrentMilitary();
         if (command.equals(Command.PRINTTILE)) {
             int i = Integer.parseInt(matcher.group("i"));
             int j = Integer.parseInt(matcher.group("j"));
@@ -229,6 +227,8 @@ public class MapController extends GameController {
             }
 
         } else {
+            CivilianUnit civUnit = database.getCurrentPlayer().getCivilization().getCurrentCivilian();
+            MilitaryUnit milUnit = database.getCurrentPlayer().getCivilization().getCurrentMilitary();
             Unit unit = civUnit != null ? civUnit : milUnit;
             if (unit == null) {
                 GameView.getInstance().noUnitSelected();
