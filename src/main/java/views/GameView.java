@@ -130,6 +130,8 @@ public class GameView extends Processor {
                 GameController.getInstance().addGold(matcher);
             else if ((matcher = getMatcher(command, Command.INSTANTBUILD)) != null)
                 UnitController.getInstance().instantBuild(matcher);
+            else if ((matcher = getMatcher(command, Command.BUYTILE)) != null)
+                GameController.getInstance().buyTile(matcher);
             else
                 System.out.println("invalid Command!");
         }
@@ -421,12 +423,12 @@ public class GameView extends Processor {
             System.out.println(key + " " + value);
         }
         System.out.println("Possible technologies to research:");
-        for (int i = 0; i < possibles.size(); i++) {
-            System.out.println(possibles.get(i).name());
+        for (Technology possible : possibles) {
+            System.out.println(possible.name());
         }
         System.out.println("Your own technologies:");
-        for (int i = 0; i < done.size(); i++) {
-            System.out.println(done.get(i).name());
+        for (Technology technology : done) {
+            System.out.println(technology.name());
         }
     }
 }
