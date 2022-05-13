@@ -143,13 +143,15 @@ public class UnitController extends GameController {
             MapController.getInstance().printTile(unit.getPositon());
         } else {
             for (int k = 0; k < 6; k++) {
-                int i2 = database.getNeighbor(tile, k).getCoordinates()[0];
-                int j2 = database.getNeighbor(tile, k).getCoordinates()[1];
-                if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
-                    user.getCivilization().updateTileStates(unit.getPositon(), tile);
-                    unit.setPositon(tile);
-                    MapController.getInstance().printTile(unit.getPositon());
-                    return;
+                if (database.getNeighbor(tile, k) != null) {
+                    int i2 = database.getNeighbor(tile, k).getCoordinates()[0];
+                    int j2 = database.getNeighbor(tile, k).getCoordinates()[1];
+                    if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
+                        user.getCivilization().updateTileStates(unit.getPositon(), tile);
+                        unit.setPositon(tile);
+                        MapController.getInstance().printTile(unit.getPositon());
+                        return;
+                    }
                 }
             }
             GameView.getInstance().mpLow();

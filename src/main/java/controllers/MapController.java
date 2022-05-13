@@ -174,18 +174,18 @@ public class MapController extends GameController {
     }
 
     public void printTile(Tile tile) {
-        ArrayList<TileView> tileView = new ArrayList<TileView>();
-        addToTileView(tileView, tile);
         int minX, minY, maxX, maxY;
         minX = maxX = tile.getCoordinates()[0];
         minY = maxY = tile.getCoordinates()[1];
-        for (int i = 0; i < 6; i++) {
-            Tile neighbor = database.getNeighbor(tile, i);
-            addToTileView(tileView, neighbor);
-            minX = Math.min(neighbor.getCoordinates()[0], minX);
-            maxX = Math.max(neighbor.getCoordinates()[0], maxX);
-            minY = Math.min(neighbor.getCoordinates()[1], minY);
-            maxY = Math.max(neighbor.getCoordinates()[1], maxY);
+        ArrayList<TileView> tileView = new ArrayList<TileView>();
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        database.getTilesInRange(tile, 2, tiles);
+        for (Tile temp : tiles) {
+            addToTileView(tileView, temp);
+            minX = Math.min(temp.getCoordinates()[0], minX);
+            maxX = Math.max(temp.getCoordinates()[0], maxX);
+            minY = Math.min(temp.getCoordinates()[1], minY);
+            maxY = Math.max(temp.getCoordinates()[1], maxY);
         }
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(),

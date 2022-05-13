@@ -3,14 +3,13 @@ package models;
 import enums.*;
 import java.util.*;
 
-
 public class Tile {
     private User player;
     private int[] coordinates;
     private LandType landType;
     private Feature feature;
     private Resource resource;
-    private Boolean[] hasRiver = new Boolean[6];
+    private Boolean[] hasRiver;
 
     private int food;
     private int gold;
@@ -21,21 +20,24 @@ public class Tile {
     private MilitaryUnit garrisonUnit;
     private CivilianUnit workerUnit;
     private Improvement improvement;
-    private ArrayList<Building> buildings = new ArrayList<Building>();
+    private ArrayList<Building> buildings;
     private Boolean hasRoad;
 
     public Tile(int[] coordinates, LandType landType, Feature feature, Resource resource) {
-        this.player = null;
         this.coordinates = coordinates;
         this.landType = landType;
         this.feature = feature;
         this.resource = resource;
-        this.improvement = null;
         this.food = landType.getFood() + (feature != null ? feature.getFood() : 0);
         this.gold = landType.getGold() + (feature != null ? feature.getGold() : 0);
         this.production = landType.getProduction() + (feature != null ? feature.getProduction() : 0);
         this.movementCost = landType.getMovementCost() + (feature != null ? feature.getMovementCost() : 0);
         this.combatModifier = landType.getCombatModifier() + (feature != null ? feature.getCombatModifier() : 0);
+        this.hasRoad = false;
+        this.player = null;
+        this.improvement = null;
+        this.hasRiver = new Boolean[6];
+        this.buildings = new ArrayList<Building>();
     }
 
     public User getPlayer() {
