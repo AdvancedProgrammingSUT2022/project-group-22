@@ -52,7 +52,7 @@ public enum Command {
         SELECTCITYPOSITION("select city (?<i>\\d+) (?<j>\\d+)"),
 
         // unit
-        MOVETO("unit move to (?<i>\\d+):(?<j>\\d+)"),
+        MOVETO("unit move to (?<i>\\d+) (?<j>\\d+)"),
         SLEEP("unit sleep"),
         ALERT("unit alert"),
         FORTIFY("unit fortify"),

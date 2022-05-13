@@ -66,7 +66,7 @@ public class MapController extends GameController {
     public void addRivers(Tile tile, Boolean addRivers) {
         Boolean hasRiver;
         for (int i = 0; i < 6; i++) {
-            hasRiver = addRivers ? random.nextBoolean() : false;
+            hasRiver = addRivers && random.nextBoolean();
             tile.setHasRiver(i, hasRiver);
             if (database.getNeighbor(tile, i) != null) {
                 database.getNeighbor(tile, i).setHasRiver((i + 3) % 6, hasRiver);
@@ -82,7 +82,7 @@ public class MapController extends GameController {
                     addRivers(tile, true);
                 } else if (!tile.getLandType().equals(LandType.DESERT) && !tile.getLandType().equals(LandType.SNOW)
                         && tile.getResource() != null) {
-                    addRivers(tile, random.nextInt(6) == 5 ? true : false);
+                    addRivers(tile, random.nextInt(6) == 5);
                 } else {
                     addRivers(tile, false);
                 }
