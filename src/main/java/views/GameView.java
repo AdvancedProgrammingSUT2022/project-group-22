@@ -296,9 +296,13 @@ public class GameView extends Processor {
                         System.out.print(Color.RESET.getColor() + " ");
                     }
 
-                    for (int l = 0; l < y && temp < tiles.size(); l++) {
+                    for (int l = 0; l < y; l++) {
                         if (l % 2 == 0) {
-                            System.out.print(tiles.get(temp).getHasRiver().get(5) + "/");
+                            if (temp < tiles.size()) {
+                                System.out.print(tiles.get(temp).getHasRiver().get(5) + "/");
+                            } else {
+                                System.out.print(Color.RESET.getColor() + "/");
+                            }
                             if (j == 0) {
                                 System.out.print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
                                         + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
@@ -313,7 +317,6 @@ public class GameView extends Processor {
                                                 // + tiles.get(temp).getColor()[2]
                                                 + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
                             }
-                            System.out.print(tiles.get(temp).getHasRiver().get(1) + "\\");
                         } else {
                             if (j == 0) {
                                 if (temp - y >= 0) {
@@ -350,7 +353,7 @@ public class GameView extends Processor {
                         System.out.print(Color.RESET.getColor() + " ");
                     }
 
-                    for (int l = 0; l < y && temp < tiles.size(); l++) {
+                    for (int l = 0; l < y; l++) {
                         if (l % 2 == 0) {
                             System.out.print(tiles.get(temp).getHasRiver().get(4) + "\\");
                             if (j == 0) {
@@ -379,7 +382,7 @@ public class GameView extends Processor {
                                 System.out.print(tiles.get(temp).getBackgroundColor() + " ");
                             } else {
                                 System.out.print(
-                                        tiles.get(temp).getBackgroundColor() + " "
+                                        tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
                                                 + tiles.get(temp).getCivilianUnit().substring(0, 3) + " "
                                                 // + tiles.get(temp).getColor()[2]
                                                 + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");

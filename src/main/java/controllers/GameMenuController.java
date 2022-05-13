@@ -11,9 +11,17 @@ public class GameMenuController {
     private static Database database = Database.getInstance();
     Random random = new Random();
 
+//<<<<<<< HEAD
+//    public String run() {
+//        String state = GameMenuView.getInstance().run();
+//        Database.getInstance().createGame(Database.getInstance().getPlayers(),0 , 10);
+//        if(state.equals("startGame")) state = startGame();
+//        return state;
+//=======
     public static GameMenuController getInstance() {
         instance = instance != null ? instance : new GameMenuController();
         return instance;
+//>>>>>>> a5a653a676641feffd3712a9aa9423a937f44490
     }
 
     public void startGame(User player1, User player2) {
@@ -24,12 +32,16 @@ public class GameMenuController {
 
         Tile tile1 = database.getMap()[random.nextInt(19)][random.nextInt(41)];
         Tile tile2 = database.getMap()[random.nextInt(19)][random.nextInt(41)];
-        while (tile1.equals(tile2)) {
+        while (tile1.getCoordinates()[0] == tile2.getCoordinates()[0] &&
+                tile1.getCoordinates()[1] == tile2.getCoordinates()[1]) {
             tile2 = database.getMap()[random.nextInt(19)][random.nextInt(41)];
         }
         player1.getCivilization().addCivilianUnit(new CivilianUnit(UnitType.SETTLER, tile1));
+        player1.getCivilization().setColor(Color.BLUE);
+        //System.out.println(tile1.getCoordinates()[0] + " " +tile1.getCoordinates()[1]);
         player2.getCivilization().addCivilianUnit(new CivilianUnit(UnitType.SETTLER, tile2));
-
+        player2.getCivilization().setColor(Color.RED);
+        //System.out.println(tile2.getCoordinates()[0] + " " +tile2.getCoordinates()[1]);
         GameMenuView.getInstance().gameStarted();
     }
 

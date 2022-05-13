@@ -113,11 +113,11 @@ public class MapController extends GameController {
         CivilianUnit civUnit = database.getCivilianUnitByTile(tile);
         MilitaryUnit milUnit = database.getMilitaryUnitByTile(tile);
         String[] colors = {
-                player == null ? Color.RESET.getColor()
+                player == null ? Color.WHITE.getColor()
                         : player.getCivilization().getColor().getColor(),
-                civUnit == null ? Color.RESET.getColor()
+                civUnit == null ? Color.WHITE.getColor()
                         : database.getUnitOwner(civUnit).getCivilization().getColor().getColor(),
-                milUnit == null ? Color.RESET.getColor()
+                milUnit == null ? Color.WHITE.getColor()
                         : database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
 
         return new TileView(colors, tile.getLandType().getColor().getColor(),
@@ -150,7 +150,7 @@ public class MapController extends GameController {
             }
         }
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
-                database.getCurrentPlayer().getCivilization().getTotalHappiness(), tileView, y2 - y1, x2 - x1);
+                database.getCurrentPlayer().getCivilization().getTotalHappiness(), tileView, y2 - y1 + 1, x2 - x1 + 1);
     }
 
     public void printCity(City city) {
@@ -168,7 +168,7 @@ public class MapController extends GameController {
         }
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(),
-                tileView, maxY - minY, maxX - minX);
+                tileView, maxY - minY + 1, maxX - minX + 1);
     }
 
     public void printTile(Tile tile) {
@@ -187,7 +187,7 @@ public class MapController extends GameController {
         }
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(),
-                tileView, maxY - minY, maxX - minX);
+                tileView, maxY - minY + 1, maxX - minX + 1);
     }
 
     public void printAreaCheck(Matcher matcher) {

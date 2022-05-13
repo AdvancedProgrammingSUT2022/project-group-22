@@ -83,7 +83,7 @@ public class UnitController extends GameController {
     }
 
     public void nextTurn() {
-        if (!user.getCivilization().checkUnitTasks()) {
+        if (!database.getCurrentPlayer().getCivilization().checkUnitTasks()) {
             GameView.getInstance().turnNotOver();
         } else {
             Database.getInstance().nextTurn();
@@ -128,9 +128,10 @@ public class UnitController extends GameController {
     }
 
     public void moveTo(int i, int j) {
+        user = database.getCurrentPlayer();
         Unit unit = hasCombatUnit() ? user.getCivilization().getCurrentMilitary()
                 : user.getCivilization().getCurrentCivilian();
-        Tile tile = map[i][j];
+        Tile tile = database.getMap()[i][j];
         if (unit == null) {
             GameView.getInstance().noUnitSelected();
         } else if (map.length < i || map[0].length < j) {
