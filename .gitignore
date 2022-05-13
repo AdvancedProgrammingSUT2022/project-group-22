@@ -152,3 +152,8 @@ module-info.java
 Main/Main.java
 lib/.DS_Store
 .vscode/settings.json
+target/classes/test.in
+target/classes/data/Users.json
+target/classes/compile
+target/classes/clean
+target/classes/.DS_Store

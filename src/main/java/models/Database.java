@@ -1,6 +1,7 @@
 package models;
 
 import controllers.*;
+import enums.*;
 import java.util.*;
 
 public class Database {
@@ -44,9 +45,11 @@ public class Database {
 
     public void setPlayers(ArrayList<User> players) {
         this.players = players;
-        for (User player : this.players) {
-            player.setCivilization(new Civilization());
-        }
+        players.get(0).setCivilization(new Civilization(Color.RED));
+        players.get(1).setCivilization(new Civilization(Color.BLUE));
+        // for (User player : this.players) {
+        // player.setCivilization(new Civilization(Color.getRandomColor()));
+        // }
     }
 
     public User getCurrentPlayer() {
@@ -167,7 +170,6 @@ public class Database {
                 getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
             }
         }
-
     }
 
     public ArrayList<Tile> getCityCenters() {

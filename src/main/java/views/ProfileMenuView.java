@@ -10,7 +10,7 @@ public class ProfileMenuView extends Processor {
     // TODO: print messages for profile menu controllerf
     public static String run(User user) {
         ProfileMenuController profileMenuController = new ProfileMenuController();
-        while (true) {
+        while (scanner.hasNext()) {
             String command = getInput();
             Matcher matcher;
             if ((matcher = getMatcher(command, Command.NICKNAMECHANGE)) != null)
@@ -27,6 +27,7 @@ public class ProfileMenuView extends Processor {
             else
                 System.out.println("invalid Command!");
         }
+        return "exit";
     }
 
     public static void nicknameExists(String nickname) {

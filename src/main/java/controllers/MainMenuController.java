@@ -24,7 +24,7 @@ public class MainMenuController {
                 return "gameMenu";
             else if (whichMenu.equals("profileMenu"))
                 return "profileMenu";
-            else if (whichMenu.equals("Exit"))
+            else if (whichMenu.equals("exit"))
                 return "registerMenu";
             else if (whichMenu.equals("logout"))
                 return "registerMenu";

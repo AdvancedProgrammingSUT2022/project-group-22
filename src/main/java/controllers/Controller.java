@@ -20,13 +20,13 @@ public class Controller {
     // return instance;
     // }
 
-    public String run() {
+    public void run() {
         String input;
         input = registerMenuController.run();
         user = Database.getInstance().getUserByUsername(input);
         input = mainMenuController.run(user);
         while (true) {
-            if (input.equals("Exit")) {
+            if (input.equals("exit")) {
                 break;
             } else if (input.equals("mainMenu")) {
                 input = mainMenuController.run(user);
@@ -43,6 +43,6 @@ public class Controller {
             }
         }
         Processor.getInstance().closeScanner();
-        return null;
+        return;
     }
 }

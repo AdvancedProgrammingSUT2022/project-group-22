@@ -13,7 +13,7 @@ public class GameMenuView extends Processor {
     }
 
     public String run() {
-        while (true) {
+        while (scanner.hasNext()) {
             String command = getInput();
             Matcher matcher;
             if ((matcher = getMatcher(command, Command.PLAYGAME)) != null) {
@@ -28,6 +28,7 @@ public class GameMenuView extends Processor {
                 System.out.println("invalid Command!");
             }
         }
+        return "exit";
     }
 
     public void noUserExists(int i) {

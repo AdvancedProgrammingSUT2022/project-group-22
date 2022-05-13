@@ -7,9 +7,9 @@ import java.util.regex.Matcher;
 
 public class RegisterMenuView extends Processor {
     // TODO: print messages for register menu controller
-    public static Matcher run() {
+    public static String run() {
         RegisterMenuController registerMenuController = new RegisterMenuController();
-        while (true) {
+        while (scanner.hasNext()) {
             String command = getInput();
             Matcher matcher;
             if ((matcher = getMatcher(command, Command.CREATEUSER1)) != null
@@ -23,14 +23,14 @@ public class RegisterMenuView extends Processor {
                     || (matcher = getMatcher(command, Command.LOGIN2)) != null) {
                 if (registerMenuController.canLogin(matcher)) {
                     loggedIn();
-                    return matcher;
+                    return matcher.group("username");
                 }
             } else if ((matcher = getMatcher(command, Command.SHOWMENU)) != null)
                 showMenu();
             else
                 System.out.println("invalid command!");
-
         }
+        return "exit";
     }
 
     public static void accountExists(String username) {

@@ -74,7 +74,7 @@ public class ProfileMenuController {
         whichMenu = ProfileMenuView.run(user);
         return whichMenu;
         // String whichMenu;
-        // while (true) {
+        // while (scanner.hasNext()) {
         // whichMenu = ProfileMenuView.run(user);
         // if (changeMenu(whichMenu))
         // return whichMenu;

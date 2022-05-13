@@ -1,21 +1,18 @@
 package views;
 
-import controllers.MainMenuController;
-import enums.Command;
-
-import java.util.regex.Matcher;
+import enums.*;
+import java.util.regex.*;
 
 public class MainMenuView extends Processor {
     // TODO: print messages for main menu controller
     public static String run() {
-        MainMenuController mainMenuController = new MainMenuController();
-        while (true) {
+        while (scanner.hasNext()) {
             String command = getInput();
             Matcher matcher;
             if ((matcher = getMatcher(command, Command.MENUENTER)) != null)
                 return matcher.group("menuname");
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
-                return "Exit";
+                return "exit";
             else if ((matcher = getMatcher(command, Command.LOGOUT)) != null) {
                 loggedOut();
                 return "logout";
@@ -24,7 +21,7 @@ public class MainMenuView extends Processor {
             else
                 System.out.println("invalid command!");
         }
-
+        return "exit";
     }
 
     public static void menuNavigationNotPossible() {

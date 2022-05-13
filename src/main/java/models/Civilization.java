@@ -5,10 +5,10 @@ import java.util.*;
 
 public class Civilization {
     private Color color;
-    private int tilePrice = 8;
+    private int tilePrice;
 
     private int score;
-    private int happiness = 10;
+    private int happiness;
     private int unhappiness;
     private int gold;
     private int beakers;
@@ -32,6 +32,19 @@ public class Civilization {
     private City currentCity;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
+
+    public Civilization(Color color) {
+        this.color = color;
+        this.tilePrice = 8;
+        this.happiness = 10;
+        this.unhappiness = 0;
+        this.gold = 0;
+        this.beakers = 0;
+        this.capital = null;
+        this.currentCity = null;
+        this.currentMilitary = null;
+        this.currentCivilian = null;
+    }
 
     public Color getColor() {
         return color;

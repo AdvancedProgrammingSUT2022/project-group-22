@@ -6,7 +6,7 @@ import java.util.regex.*;
 
 public class Processor {
     private static final Processor instance = new Processor();
-    private static final Scanner scanner = new Scanner(System.in);
+    protected static final Scanner scanner = new Scanner(System.in);
 
     public static Processor getInstance() {
         return instance;
