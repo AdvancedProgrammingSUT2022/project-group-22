@@ -20,7 +20,7 @@ public class GameView extends Processor {
 
     public String run() {
         String command;
-        while (scanner.hasNext()) {
+        while (true) {
             command = getInput();
             if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "exit";
@@ -132,13 +132,13 @@ public class GameView extends Processor {
                 UnitController.getInstance().instantBuild(matcher);
             else
                 System.out.println("invalid Command!");
+
         }
-        return "exit";
     }
 
     // errors
     public void cityInaccessible() {
-        System.out.println("you do not have access to this city");
+        System.out.println("you don not have access to this city");
     }
 
     public void noUnitSelected() {
@@ -304,18 +304,36 @@ public class GameView extends Processor {
                                 System.out.print(Color.RESET.getColor() + "/");
                             }
                             if (j == 0) {
-                                System.out.print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
-                                        + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                if (temp < tiles.size()) {
+                                    System.out
+                                            .print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
+                                                    + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                } else {
+                                    System.out.print(Color.RESET.getColor() + "     ");
+                                }
                             } else if (j == 1) {
-                                System.out.print(tiles.get(temp).getBackgroundColor() + " ");
-                                System.out.printf("%02d,%02d", tiles.get(temp).getX(), tiles.get(temp).getY());
-                                System.out.print(tiles.get(temp).getBackgroundColor() + " ");
+                                if (temp < tiles.size()) {
+                                    System.out.print(tiles.get(temp).getBackgroundColor() + " ");
+                                    System.out.printf("%02d,%02d", tiles.get(temp).getX(), tiles.get(temp).getY());
+                                    System.out.print(tiles.get(temp).getBackgroundColor() + " ");
+                                } else {
+                                    System.out.print(Color.RESET.getColor() + "       ");
+                                }
                             } else {
-                                System.out.print(
-                                        tiles.get(temp).getBackgroundColor() + " "
-                                                + tiles.get(temp).getCivilianUnit().substring(0, 3) + "P"
-                                                // + tiles.get(temp).getColor()[2]
-                                                + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
+                                if (temp < tiles.size()) {
+                                    System.out.print(
+                                            tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
+                                                    + tiles.get(temp).getCivilianUnit().substring(0, 3) + " "
+                                                    + tiles.get(temp).getColor()[2]
+                                                    + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
+                                } else {
+                                    System.out.print(Color.RESET.getColor() + "         ");
+                                }
+                            }
+                            if (temp < tiles.size()) {
+                                System.out.print(tiles.get(temp).getHasRiver().get(1) + "\\");
+                            } else {
+                                System.out.print(Color.RESET.getColor() + "\\");
                             }
                         } else {
                             if (j == 0) {
@@ -357,14 +375,9 @@ public class GameView extends Processor {
                         if (l % 2 == 0) {
                             System.out.print(tiles.get(temp).getHasRiver().get(4) + "\\");
                             if (j == 0) {
-                                if (temp - y >= 0) {
-                                    System.out.print(tiles.get(temp).getBackgroundColor() + " "
-                                            + tiles.get(temp).getFeature().substring(0, 3) + " "
-                                            + tiles.get(temp - y).getResourceTileView().substring(0, 3) + " ");
-                                } else {
-                                    System.out.print(tiles.get(temp).getBackgroundColor() + " "
-                                            + tiles.get(temp).getFeature().substring(0, 3) + "     ");
-                                }
+                                System.out.print(tiles.get(temp).getBackgroundColor() + " "
+                                        + tiles.get(temp).getFeature().substring(0, 3) + " "
+                                        + tiles.get(temp).getResourceTileView().substring(0, 3) + " ");
                             } else if (j == 1) {
                                 System.out.print(tiles.get(temp).getBackgroundColor() + "  "
                                         + tiles.get(temp).getImprovement().substring(0, 3) + "  ");
@@ -384,7 +397,7 @@ public class GameView extends Processor {
                                 System.out.print(
                                         tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
                                                 + tiles.get(temp).getCivilianUnit().substring(0, 3) + " "
-                                                // + tiles.get(temp).getColor()[2]
+                                                + tiles.get(temp).getColor()[2]
                                                 + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
                             }
                         }
