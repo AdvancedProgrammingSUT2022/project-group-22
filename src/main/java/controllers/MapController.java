@@ -93,7 +93,9 @@ public class MapController extends GameController {
     public ArrayList<String> getRiverColor(Boolean[] hasRiver) {
         ArrayList<String> riverColor = new ArrayList<String>();
         for (int i = 0; i < 6; i++) {
-            riverColor.add(hasRiver[i] ? Color.CYAN_BRIGHT_BG.getColor() : Color.RESET.getColor());
+            if(hasRiver[i] != null) {
+                riverColor.add(hasRiver[i] ? Color.CYAN_BRIGHT_BG.getColor() : Color.RESET.getColor());
+            }
         }
         return riverColor;
     }

@@ -144,8 +144,8 @@ public class UnitController extends GameController {
         } else if (hasNonCombatUnit() && database.getCivilianUnitByTile(tile) != null
                 || hasCombatUnit() != null && database.getMilitaryUnitByTile(tile) != null) {
             GameView.getInstance().tileOccupied();
-        } else if (tile.getLandType().equals(LandType.MOUNTAIN) || tile.getLandType().equals(LandType.OCEAN)
-                || tile.getLandType().equals(LandType.SNOW) || tile.getFeature().equals(Feature.ICE)) {
+        } else if (tile.getFeature() != null && (tile.getLandType().equals(LandType.MOUNTAIN) || tile.getLandType().equals(LandType.OCEAN)
+                || tile.getLandType().equals(LandType.SNOW) || tile.getFeature().equals(Feature.ICE))) {
             GameView.getInstance().tileInaccessible();
         } else {
             ShortestPath shortestPath = new ShortestPath();
