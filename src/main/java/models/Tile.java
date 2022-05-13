@@ -1,8 +1,8 @@
 package models;
 
 import enums.*;
+import java.util.*;
 
-import java.util.ArrayList;
 
 public class Tile {
     private User player;
@@ -22,7 +22,7 @@ public class Tile {
     private CivilianUnit workerUnit;
     private Improvement improvement;
     private ArrayList<Building> buildings = new ArrayList<Building>();
-    private Boolean[] hasRoad = new Boolean[6];
+    private Boolean hasRoad;
 
     public Tile(int[] coordinates, LandType landType, Feature feature, Resource resource) {
         this.player = null;
@@ -54,16 +54,17 @@ public class Tile {
         return this.landType;
     }
 
-    public void removeJungle() {
-        // this.food = this.food - this.landType.getFood() + landType.getFood();
-        // this.gold = this.gold - this.landType.getGold() + landType.getGold();
-        // this.production = this.production - this.landType.getProduction() +
-        // landType.getProduction();
-        // this.movementCost = this.movementCost - this.landType.getMovementCost() +
-        // landType.getMovementCost();
-        // this.combatModifier = this.movementCost - this.landType.getMovementCost() +
-        // landType.getCombatModifier() + (feature != null ? feature.getCombatModifier()
-        // : 0);
+    public void removeFeature(Feature feature) {
+        this.food = this.food - this.feature.getFood() + (feature != null ? feature.getFood() : 0);
+        this.gold = this.gold - this.feature.getGold() + (feature != null ? feature.getGold() : 0);
+        this.production = this.production - this.feature.getProduction()
+                + (feature != null ? feature.getProduction() : 0);
+        this.movementCost = this.movementCost - this.feature.getMovementCost() +
+                (feature != null ? feature.getMovementCost() : 0);
+        this.combatModifier = this.combatModifier - this.feature.getMovementCost() +
+                (feature != null ? feature.getCombatModifier() : 0);
+        // remove related resources and improvemnents
+        this.feature = feature;
     }
 
     public Feature getFeature() {
@@ -72,6 +73,12 @@ public class Tile {
 
     public Resource getResource() {
         return this.resource;
+    }
+
+    public void activateResource() {
+        this.gold += this.resource.getGold();
+        this.production += this.resource.getProduction();
+        this.food += this.resource.getFood();
     }
 
     public Boolean[] getHasRiver() {
@@ -124,6 +131,7 @@ public class Tile {
 
     public void addImprovement(Improvement improvement) {
         this.improvement = improvement;
+        Database.getInstance().getCityByTile(this).activateResources(improvement);
     }
 
     public ArrayList<Building> getBuildings() {
@@ -134,11 +142,11 @@ public class Tile {
         this.buildings.add(building);
     }
 
-    public Boolean[] getHasRoad() {
+    public Boolean getHasRoad() {
         return this.hasRoad;
     }
 
-    public void setHasRoad(int index, Boolean hasRoad) {
-        this.hasRoad[index] = hasRoad;
+    public void setHasRoad(Boolean hasRoad) {
+        this.hasRoad = hasRoad;
     }
 }

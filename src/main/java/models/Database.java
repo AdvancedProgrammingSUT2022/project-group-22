@@ -1,17 +1,19 @@
 package models;
 
 import controllers.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Database {
     private static Database instance = null;
     private ArrayList<User> users = new ArrayList<User>();
     private Tile[][] map;
-    private ArrayList<User> players = new ArrayList<>();
+    private ArrayList<User> players = new ArrayList<User>();
     private User currentPlayer;
 
     public static Database getInstance() {
-        instance = instance != null ? instance : new Database();
+        if (instance == null) {
+            instance = new Database();
+        }
         return instance;
     }
 
@@ -31,7 +33,9 @@ public class Database {
         this.setPlayers(players);
         currentPlayer = this.players.get(0);
         MapController mapController = new MapController();
-        mapController.generateMap(20, 42);
+        this.map = new Tile[x][y];
+        mapController.generateTiles(map, x, y);
+        mapController.generateRivers(map, x, y);
     }
 
     public ArrayList<User> getPlayers() {
@@ -73,6 +77,18 @@ public class Database {
     }
 
     public void sortPlayers() {
+        // ArrayList<User> temp = new ArrayList<User>();
+        // for (int j = 0; j < this.players.size(); j++) {
+        // for (int i = 0; i < this.players.size(); i++) {
+        // User a = this.players.get(i);
+        // User b = this.players.get(i + 1);
+        // if (b.getCivilization().getScore() > a.getCivilization().getScore()) {
+        // temp.add(i, b);
+        // temp.add(i + 1, a);
+        // }
+        // }
+        // }
+        // this.players = temp;
     }
 
     public void addTileToCity() {
@@ -119,20 +135,39 @@ public class Database {
     public Tile getNeighbor(Tile tile, int side) {
         int i = tile.getCoordinates()[0];
         int j = tile.getCoordinates()[1];
+        int x = map.length;
+        int y = map[0].length;
         if (side == 0) {
-            return map[i - 1][j];
+            return i - 1 >= 0 && i - 1 < x ? map[i - 1][j] : null;
         } else if (side == 1) {
-            return j % 2 == 0 ? map[i][j + 1] : map[i - 1][j + 1];
+            return j % 2 == 0 ? (j + 1 >= 0 && j + 1 < x ? map[i][j + 1] : null)
+                    : (i - 1 >= 0 && i - 1 < x && j + 1 >= 0 && j + 1 < y ? map[i - 1][j + 1] : null);
         } else if (side == 2) {
-            return j % 2 == 0 ? map[i + 1][j + 1] : map[i][j + 1];
+            return j % 2 == 0 ? (i + 1 >= 0 && i + 1 < x && j + 1 >= 0 && j + 1 < y ? map[i + 1][j + 1] : null)
+                    : (j + 1 >= 0 && j + 1 < x ? map[i][j + 1] : null);
         } else if (side == 3) {
-            return map[i + 1][j];
+            return i + 1 >= 0 && i + 1 < x ? map[i + 1][j] : null;
         } else if (side == 4) {
-            return j % 2 == 0 ? map[i + 1][j - 1] : map[i][j - 1];
+            return j % 2 == 0 ? (i + 1 >= 0 && i + 1 < x && j - 1 >= 0 && j - 1 < y ? map[i + 1][j - 1] : null)
+                    : (j - 1 >= 0 && j - 1 < x ? map[i][j - 1] : null);
         } else if (side == 5) {
-            return j % 2 == 0 ? map[i][j - 1] : map[i - 1][j - 1];
+            return j % 2 == 0 ? (j - 1 >= 0 && j - 1 < x ? map[i][j - 1] : null)
+                    : (i - 1 >= 0 && i - 1 < x && j - 1 >= 0 && j - 1 < y ? map[i - 1][j - 1] : null);
         }
         return null;
+    }
+
+    public void getTilesInRange(Tile tile, int range, ArrayList<Tile> tiles) {
+        if (range == 0 || tiles.contains(tile)) {
+            return;
+        }
+        if (tile != null) {
+            tiles.add(tile);
+            for (int i = 0; i < 6; i++) {
+                getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
+            }
+        }
+
     }
 
     public ArrayList<Tile> getCityCenters() {
@@ -171,5 +206,15 @@ public class Database {
 
     public User getCityOwner(City city) {
         return city.getCenter().getPlayer();
+    }
+
+    public City getNearbyCity(Tile tile, User player) {
+        City city;
+        for (int i = 0; i < 6; i++) {
+            if ((city = getCityByTile(getNeighbor(tile, i))) != null && getCityOwner(city).equals(player)) {
+                return city;
+            }
+        }
+        return null;
     }
 }

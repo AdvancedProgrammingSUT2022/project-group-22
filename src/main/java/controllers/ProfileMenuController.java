@@ -24,7 +24,7 @@ public class ProfileMenuController {
     public void changePassword(Matcher matcher) {
     }
 
-    private boolean isPasswordValid(Matcher matcher, User user) {
+    private Boolean isPasswordValid(Matcher matcher, User user) {
         if (!user.getPassword().equals(matcher.group("currentpassword").trim())) {
             ProfileMenuView.passwordInvalid();
             return false;
@@ -32,7 +32,7 @@ public class ProfileMenuController {
         return true;
     }
 
-    private boolean isPasswordDifferent(Matcher matcher) {
+    private Boolean isPasswordDifferent(Matcher matcher) {
         if (matcher.group("currentpassword").trim().equals(matcher.group("newpassword").trim())) {
             ProfileMenuView.samePassword();
             return false;
@@ -60,7 +60,7 @@ public class ProfileMenuController {
     public void showMenu(Matcher matcher) {
     }
 
-    public boolean changeMenu(String whichMenu) {
+    public Boolean changeMenu(String whichMenu) {
         if (whichMenu.equals("gameMenu")) {
             ProfileMenuView.menuNavigationNotPossible();
             return false;

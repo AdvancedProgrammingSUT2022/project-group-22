@@ -8,36 +8,41 @@ import java.util.regex.*;
 /*********** Please read comments Before any changes ******/
 
 public class GameController {
-    /********** these variables have some problem *********/
+    // the problem with these seems to have been solved
     private static GameController instance = null;
+    protected static GameView gameView = GameView.getInstance();
+    protected Database database = Database.getInstance();
+    protected User user = database.getCurrentPlayer();
+    protected Tile[][] map = database.getMap();
 
-    // private MapController mapController = MapController.getInstance();
-    protected Database database;
-    protected User user;
-    Tile[][] map;
-
-    public GameController() {
-        this.database = Database.getInstance();
-        this.user = database.getCurrentPlayer();
-        this.map = database.getMap();
-    }
+    // protected Database database;
+    // protected User user;
+    // Tile[][] map;
+    // public GameController() {
+    // this.database = Database.getInstance();
+    // this.user = database.getCurrentPlayer();
+    // this.map = database.getMap();
+    // }
 
     public static GameController getInstance() {
         instance = instance != null ? instance : new GameController();
         return instance;
     }
 
-    /*********** these are not for printing map ***************/
-
-    private boolean hasChosenCombatUnit() {
-        return user.getCivilization().getCurrentMilitary() != null;
+    // check methods
+    protected Boolean isValidCoordinates(int i, int j) {
+        return i >= 0 && j >= 0 && database.getMap().length >= i && database.getMap()[0].length >= j;
     }
 
-    private boolean hasChosenNonCombatUnit() {
+    protected Boolean hasCombatUnit() {
+        return database.getCurrentPlayer().getCivilization().getCurrentMilitary() != null;
+    }
+
+    protected Boolean hasNonCombatUnit() {
         return user.getCivilization().getCurrentCivilian() != null;
     }
 
-    private boolean isAttackPossible(Matcher matcher) {
+    protected Boolean isAttackPossible(Matcher matcher) {
         int[] position = new int[2];
         position[0] = Integer.parseInt(matcher.group("positionX"));
         position[1] = Integer.parseInt(matcher.group("positionY"));
@@ -45,213 +50,151 @@ public class GameController {
         return false;
     }
 
-    public void Attack(Matcher matcher) {
-        if (!hasChosenCombatUnit())
-            GameView.getInstance().noUnitSelected();
-        if (isAttackPossible(matcher))
-            GameView.getInstance().AttackImpossible();
+    public Boolean hasImprovementTech(Improvement improvement, Feature feature) {
+        Civilization player = user.getCivilization();
+        if (improvement.equals(Improvement.FARM)) {
+            if (feature.equals(Feature.FOREST)) {
+                return player.hasTechnology(Technology.MINING);
+            } else if (feature.equals(Feature.JUNGLE)) {
+                return player.hasTechnology(Technology.BRONZEWORKING);
+            } else if (feature.equals(Feature.SWAMP)) {
+                return player.hasTechnology(Technology.MASONRY);
+            }
+        }
+        if (improvement.equals(Improvement.MINE)) {
+            if (feature.equals(Feature.JUNGLE)) {
+                return player.hasTechnology(Technology.BRONZEWORKING);
+            } else if (feature.equals(Feature.SWAMP)) {
+                return player.hasTechnology(Technology.MASONRY);
+            }
+        }
+        return player.hasTechnology(improvement.getTechnology());
     }
 
-    public void selectUnit(Matcher matcher, Command command) {
+    public Boolean canBuildImprovement(Improvement improvement, Tile tile) {
+        for (Improvement temp : tile.getLandType().getImprovements()) {
+            if (temp.equals(improvement)) {
+                return true;
+            }
+        }
+        for (Improvement temp : tile.getFeature().getImprovements()) {
+
+            if (temp.equals(improvement)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // select methods
+    public void selectCombatUnit(Matcher matcher) {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
-        if (i < 0 || j < 0 || map.length < i || map[0].length < j) {
+        if (!isValidCoordinates(i, j)) {
             GameView.getInstance().invalidTile();
         }
-        if (command.equals(Command.SELECTUNITCOMBAT)) {
-            MilitaryUnit milUnit;
-            if ((milUnit = Database.getInstance().getMilitaryUnitByTile(map[i][j])).equals(null)) {
-                GameView.getInstance().invalidMilitaryUnit();
-            } else if (Database.getInstance().getUnitOwner(milUnit).equals(user)) {
-                GameView.getInstance().unitInaccessible();
-            } else {
-                user.getCivilization().setCurrentMilitary(milUnit);
-                GameView.getInstance().successfullySelected();
-            }
+        MilitaryUnit milUnit;
+        if ((milUnit = Database.getInstance().getMilitaryUnitByTile(map[i][j])) == null) {
+            GameView.getInstance().invalidMilitaryUnit();
+        } else if (Database.getInstance().getUnitOwner(milUnit).equals(user)) {
+            GameView.getInstance().unitInaccessible();
         } else {
-            CivilianUnit civUnit;
-            if ((civUnit = Database.getInstance().getCivilianUnitByTile(map[i][j])).equals(null)) {
-                GameView.getInstance().invalidCivilianUnit();
-            } else if (Database.getInstance().getUnitOwner(civUnit).equals(user)) {
-                GameView.getInstance().unitInaccessible();
-            } else {
-                user.getCivilization().setCurrentCivilian(civUnit);
-                GameView.getInstance().successfullySelected();
-            }
+            user.getCivilization().setCurrentMilitary(milUnit);
+            GameView.getInstance().successfullySelected();
         }
     }
 
-    public void selectCity(Matcher matcher, Command command) {
+    public void selectNonCombatUnit(Matcher matcher) {
+        int i = Integer.parseInt(matcher.group("i"));
+        int j = Integer.parseInt(matcher.group("j"));
+        if (!isValidCoordinates(i, j)) {
+            GameView.getInstance().invalidTile();
+        }
+        CivilianUnit civUnit;
+        if ((civUnit = Database.getInstance().getCivilianUnitByTile(map[i][j])) == null) {
+            GameView.getInstance().invalidCivilianUnit();
+        } else if (Database.getInstance().getUnitOwner(civUnit).equals(user)) {
+            GameView.getInstance().unitInaccessible();
+        } else {
+            user.getCivilization().setCurrentCivilian(civUnit);
+            GameView.getInstance().successfullySelected();
+        }
+    }
+
+    public void selectCityByName(Matcher matcher) {
         City city;
-        if (command.equals(Command.SELECTCITYNAME)) {
-            String name = matcher.group("name");
-            if ((city = database.getCityByName(name)).equals(null)) {
-                GameView.getInstance().invalidCity();
-            } else if (!database.getCityOwner(city).equals(user)) {
-                GameView.getInstance().cityInaccessible();
-            } else {
-                user.getCivilization().setCurrentCity(city);
-            }
+        String name = matcher.group("name");
+        if ((city = database.getCityByName(name)) == null) {
+            GameView.getInstance().invalidCity();
+        } else if (!database.getCityOwner(city).equals(user)) {
+            GameView.getInstance().cityInaccessible();
         } else {
-            int i = Integer.parseInt(matcher.group("i"));
-            int j = Integer.parseInt(matcher.group("j"));
-            if (i < 0 || j < 0 || map.length < i || map[0].length < j) {
-                GameView.getInstance().invalidTile();
-            } else if ((city = database.getCityByTile(map[i][j])).equals(null)) {
-                GameView.getInstance().invalidCity();
-            } else if (!database.getCityOwner(city).equals(user)) {
-                GameView.getInstance().cityInaccessible();
-            } else {
-                user.getCivilization().setCurrentCity(city);
-            }
+            user.getCivilization().setCurrentCity(city);
         }
     }
 
-    public void sleep() {
-        if (hasChosenCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().setSleep();
-            GameView.getInstance().sleepSuccessful();
-        } else if (hasChosenNonCombatUnit()) {
-            user.getCivilization().getCurrentCivilian().setSleep();
-            GameView.getInstance().sleepSuccessful();
-        }
-        GameView.getInstance().noUnitSelected();
-    }
-
-    public void alert() {
-        if (hasChosenCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().switchAlert();
-            GameView.getInstance().alertMessage();
-        } else if (hasChosenNonCombatUnit()) {
-            user.getCivilization().getCurrentCivilian().switchSleeping();
-            GameView.getInstance().alertMessage();
-        } else
-            GameView.getInstance().noUnitSelected();
-    }
-
-    public void fortify() {
-        if (hasChosenCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().fortify();
-            GameView.getInstance().successfulFortify();
-        } else
-            GameView.getInstance().noUnitSelected();
-    }
-
-    public void wake() {
-        if (hasChosenNonCombatUnit()) {
-            user.getCivilization().getCurrentCivilian().switchSleeping();
-            GameView.getInstance().wakeMessage();
-        } else if (hasChosenCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().setSleep();
-            GameView.getInstance().wakeMessage();
-        } else
-            GameView.getInstance().noUnitSelected();
-    }
-
-    public void garrison() {
-        if (hasChosenCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().getPositon()
-                    .setGarrisonUnit(user.getCivilization().getCurrentMilitary());
-            GameView.getInstance().garrisonMessage();
-        } else
-            GameView.getInstance().noUnitSelected();
-    }
-
-    /******
-     * This function will build a road in a tile, Check if worker is selected or not
-     ************/
-    public void buildRoad() {
-        // if(user.getCivilization().)
-        // else GameView.getInstance().noUnitSelected();
-    }
-
-    private void buildRoadIn0(int i) {
-        Boolean[] hasRoad = user.getCivilization().getCurrentMilitary().getPositon().getHasRoad();
-        if (hasRoad[0]) {
-            user.getCivilization().getCurrentMilitary().getPositon().setHasRoad(0, true);
-            GameView.getInstance().buildRoadSuccessful();
-        }
-    }
-
-    // map printing
-    public void printMap(Matcher matcher, Command command) {
-        CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
-        MilitaryUnit milUnit = user.getCivilization().getCurrentMilitary();
-        if (command.equals(Command.PRINTAREA)) {
-            int i1 = Integer.parseInt(matcher.group("i1"));
-            int j1 = Integer.parseInt(matcher.group("j1"));
-            int i2 = Integer.parseInt(matcher.group("i2"));
-            int j2 = Integer.parseInt(matcher.group("j2"));
-            // test
-            if (map == null) {
-                System.out.println("map is null");
-                return;
-            }
-            //
-            if (i1 < 0 || j1 < 0 || i2 < 0 || j2 < 0 || map.length < i1 || map.length < i2 ||
-                    map[0].length < j1 || map[0].length < j2) {
-                GameView.getInstance().invalidTile();
-                return;
-            } else {
-                MapController.getInstance().printArea(map, i1, j1, i2, j2);
-            }
-        } else if (command.equals(Command.PRINTCITY)) {
-            String name = matcher.group("name");
-            City city;
-            if ((city = database.getCityByName(name)) == null) {
-                GameView.getInstance().invalidCity();
-            } else {
-                MapController.getInstance().printCity(city);
-            }
-        } else if (command.equals(Command.PRINTTILE)) {
-            int i = Integer.parseInt(matcher.group("i"));
-            int j = Integer.parseInt(matcher.group("j"));
-            if (i < 0 || j < 0 || map.length < i || map[0].length < j) {
-                GameView.getInstance().invalidTile();
-                return;
-            } else {
-                MapController.getInstance().printTile(map[i][j]);
-            }
+    public void selectCityByPosition(Matcher matcher) {
+        City city;
+        int i = Integer.parseInt(matcher.group("i"));
+        int j = Integer.parseInt(matcher.group("j"));
+        if (!isValidCoordinates(i, j)) {
+            GameView.getInstance().invalidTile();
+        } else if ((city = database.getCityByTile(map[i][j])) == null) {
+            GameView.getInstance().invalidCity();
+        } else if (!database.getCityOwner(city).equals(user)) {
+            GameView.getInstance().cityInaccessible();
         } else {
-            Unit unit = civUnit != null ? civUnit : milUnit;
-            if (unit == null) {
-                GameView.getInstance().noUnitSelected();
-                return;
-            } else {
-                MapController.getInstance().printTile(unit.getPositon());
-            }
+            user.getCivilization().setCurrentCity(city);
         }
     }
 
-    private void moveMap(Matcher matcher) {
+    // city methods
+    public void buyTile(Matcher matcher) {
+        City city;
+        int price;
+        int i = Integer.parseInt(matcher.group("i"));
+        int j = Integer.parseInt(matcher.group("j"));
+        if (!isValidCoordinates(i, j)) {
+            GameView.getInstance().invalidTile();
+        } else if (!map[i][j].getPlayer().equals(user)) {
+            GameView.getInstance().tileNotYours();
+        } else if (map[i][j].getPlayer().equals(user)) {
+            GameView.getInstance().tileOwned();
+        } else if ((city = Database.getInstance().getNearbyCity(map[i][j], user)) == null) {
+            GameView.getInstance().noCityNearby();
+        } else if (user.getCivilization().getGold() < (price = user.getCivilization().getTilePrice())) {
+            GameView.getInstance().goldLow();
+        } else {
+            user.getCivilization().setGold(user.getCivilization().getGold() - price);
+            city.addTile(map[i][j]);
+            user.getCivilization().updateTileStates(null, map[i][j]);
+            user.getCivilization().setTilePrice(price * 8);
+        }
     }
 
-    public void unitCombatPosition(Matcher matcher) {
+    public void addGold(Matcher matcher) {
+        int amount = Integer.parseInt(matcher.group("amount"));
+        Civilization civilization = database.getCurrentPlayer().getCivilization();
+        civilization.setGold(civilization.getGold() + amount);
     }
 
-    public void nextTurn() {
-        Database.getInstance().nextTurn();
-        // restore city + unit in combat
-    }
-
-    public void buildRailRoad() {
-    }
-
-    /******** run method **********/
+    // run
     public String run() {
         String state;
         while (true) {
             state = GameView.getInstance().run();
             if (state.equals("exit")) {
-                return state;
+                return "game menu";
             }
         }
     }
 
-    /******* these functions are for info ********/
+    // info
+    public void researchInfo() {
+        GameView.getInstance().PrintResearchInfo(user.getCivilization().getResearch(),
+                user.getCivilization().getPossibleTechnologies(), user.getCivilization().getTechnologies());
 
-    // private void researchInfo() {
-    // }
+    }
     //
     // private void unitsInfo() {
     // }

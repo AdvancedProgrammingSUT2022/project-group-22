@@ -31,7 +31,7 @@ public class GameMenuView extends Processor {
     }
 
     public void noUserExists(int i) {
-        System.out.format("civilization %d does not exists\n", i);
+        System.out.format("player %d does not exist\n", i);
     }
 
     public void gameStarted() {

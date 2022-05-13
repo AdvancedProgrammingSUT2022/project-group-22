@@ -21,7 +21,7 @@ public class RegisterMenuView extends Processor {
                 registerMenuController.createUser(matcher);
             else if ((matcher = getMatcher(command, Command.LOGIN1)) != null
                     || (matcher = getMatcher(command, Command.LOGIN2)) != null) {
-                if (registerMenuController.login(matcher)) {
+                if (registerMenuController.canLogin(matcher)) {
                     loggedIn();
                     return matcher;
                 }
@@ -54,7 +54,11 @@ public class RegisterMenuView extends Processor {
     }
 
     public static void accountDoesNotExists() {
-        System.out.println("username and password didn't match");
+        System.out.println("no account with this username exists");
+    }
+
+    public static void incorrectPassword() {
+        System.out.println("incorrect password");
     }
 
     public static void loggedIn() {

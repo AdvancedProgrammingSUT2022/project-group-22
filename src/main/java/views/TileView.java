@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TileView {
     // color : civilization , civilian , military
-    private String[] color = new String[3];
+    private String[] color ;
     private String backgroundColor;
     private String nickname;
     private String militaryUnit;
@@ -17,15 +17,16 @@ public class TileView {
     private int y;
 
     public TileView(String[] color, String backgroundColor, String nickname, String militaryUnit,
-            String civilianUnit, String feature, String resource, String improvement, ArrayList<String> hasRiver, int x, int y) {
+            String civilianUnit, String feature, String resource, String improvement, ArrayList<String> hasRiver,
+            int x, int y) {
         this.color = color;
         this.backgroundColor = backgroundColor;
-        this.nickname = nickname;
-        this.militaryUnit = militaryUnit;
-        this.civilianUnit = civilianUnit;
-        this.feature = feature;
-        this.resource = resource;
-        this.improvement = improvement;
+        this.nickname = nickname == null ? "   " : nickname.substring(0, 3);
+        this.militaryUnit = militaryUnit == null ? "   " : militaryUnit.substring(0, 3);
+        this.civilianUnit = civilianUnit == null ? "   " : civilianUnit.substring(0, 3);
+        this.feature = feature == null ? "   " : feature.substring(0, 3);
+        this.resource = resource == null ? "   " : resource.substring(0, 3);
+        this.improvement = improvement == null ? "   " : improvement.substring(0, 3);
         this.hasRiver = hasRiver;
         this.x = x;
         this.y = y;
@@ -55,15 +56,23 @@ public class TileView {
         return this.feature;
     }
 
-    public String getResourceTileView() { return resource; }
+    public String getResourceTileView() {
+        return resource;
+    }
 
-    public String getImprovement() { return improvement; }
+    public String getImprovement() {
+        return improvement;
+    }
 
     public ArrayList<String> getHasRiver() {
         return this.hasRiver;
     }
 
-    public int getX() { return x; }
+    public int getX() {
+        return x;
+    }
 
-    public int getY() { return y; }
+    public int getY() {
+        return y;
+    }
 }

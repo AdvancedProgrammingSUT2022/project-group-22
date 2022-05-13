@@ -19,7 +19,7 @@ public enum Command {
         LOGIN2("user login (--password|-p) (?<password>\\S+) (--username|-u) (?<username>\\S+)"),
         LOGOUT("user logout"),
 
-        NICKNAMECHANGE("profile change --nickname (?<newnickname>\\S+)"),
+        NICKNAMECHANGE("profile change (--nickname|-n) (?<newnickname>\\S+)"),
         CHANGEPASSWORD1(
                         "profile change --password --current (?<currentpassword>\\S+) --new (?<newpassword>\\S+)"),
         CHANGEPASSWORD2(
@@ -52,7 +52,7 @@ public enum Command {
         SELECTCITYPOSITION("select city (?<i>\\d+) (?<j>\\d+)"),
 
         // unit
-        MOVETO("unit move to (?<position>\\d+:\\d+)"),
+        MOVETO("unit move to (?<i>\\d+):(?<j>\\d+)"),
         SLEEP("unit sleep"),
         ALERT("unit alert"),
         FORTIFY("unit fortify"),
@@ -64,24 +64,28 @@ public enum Command {
         CANCEL("unit cancel mission"),
         WAKE("unit wake"),
         DELETE("unit delete"),
+
+        // build
         BUILDROAD("unit build road"),
         BUILDRAILROAD("unit build rail road"),
         BUILDFARM("unit build farm"),
         BUILDMINE("unit build mine"),
         BUILDTRADINGPOST("unit build trading post"),
-        BUILDLAMBERMILL("unit build lamber miil"),
+        BUILDLUMBERMILL("unit build lumbermill"),
         BUILDPASTURE("unit build pasture"),
         BUILDCAMP("unit build camp"),
         BUILDPLANTATION("unit build plantation"),
         BUILDQUARRY("unit build quarry"),
+
         REMOVEJUNGLE("unit build jungle"),
         REMOVEROUTE("unit build route"),
         REPAIR("unit repair"),
+
         NEXT("next"),
 
         // city
         SETCITIZEN("lock citizen"),
-        BUYTILE("buy tile (?<positionX>\\d+) (?<positionY>\\d+)"),
+        BUYTILE("buy tile (?<i>\\d+) (?<j>\\d+)"),
         REMOVECITIZEN("remove citizen (?<nmber>\\d+)"),
 
         // print map
@@ -96,7 +100,8 @@ public enum Command {
 
         // cheat sheet
         INCREASETURN("increase -turn (?<amount>\\d+)"),
-        INCREASEGOLD("increase gold (?<amount>\\d+)");
+        INCREASEGOLD("increase gold (?<amount>\\d+)"),
+        INSTANTBUILD("instant build (?<building>\\w+) (?<i>\\d+):(?<j>\\d+)");
 
         private String regex;
 

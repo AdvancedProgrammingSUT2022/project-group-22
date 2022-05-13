@@ -7,8 +7,9 @@ public class Unit {
     protected int movementPoints;
     protected int combatStrength;
     protected Tile positon;
-    protected boolean isSleeping;
+    protected Boolean isSleeping;
     protected int taskTurns;
+    protected Tile target;
 
     public UnitType getUnitType() {
         return this.unitType;
@@ -39,7 +40,15 @@ public class Unit {
     }
 
     public void switchSleeping() {
-        isSleeping = isSleeping == true ? false : true;
+        isSleeping = (isSleeping == true ? false : true);
+    }
+
+    public Boolean isSleeping() {
+        return this.isSleeping;
+    }
+
+    public Boolean hasTask() {
+        return this.taskTurns == 0 ? false : true;
     }
 
     public int getTaskTurns() {
@@ -48,5 +57,13 @@ public class Unit {
 
     public void setTaskTurns(int taskTurns) {
         this.taskTurns = taskTurns;
+    }
+
+    public Tile getTarget() {
+        return this.target;
+    }
+
+    public void setTarget(Tile target) {
+        this.target = target;
     }
 }

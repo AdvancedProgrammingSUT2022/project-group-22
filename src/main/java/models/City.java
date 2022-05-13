@@ -10,7 +10,6 @@ public class City {
     private ArrayList<Tile> tiles = new ArrayList<Tile>();
 
     private int food;
-    private int gold;
     private int production;
     private int population;
 
@@ -31,11 +30,9 @@ public class City {
         this.addTile(tile);
         tile.setPlayer(user);
         if (tile.getFeature().equals(Feature.JUNGLE)) {
-            tile.removeJungle();
+            tile.removeFeature(null);
         }
-        for (int i = 0; i < 6; i++) {
-            tile.setHasRoad(i, true);
-        }
+        tile.setHasRoad(true);
 
         for (int i = 0; i < 6; i++) {
             Tile neighbor = Database.getInstance().getNeighbor(tile, i);
@@ -64,9 +61,8 @@ public class City {
 
     public void addTile(Tile tile) {
         this.tiles.add(tile);
-        this.food += tile.getFood();
-        this.gold += tile.getGold();
-        this.production += tile.getProduction();
+        tile.setPlayer(this.getCenter().getPlayer());
+        tile.getPlayer().getCivilization().updateTileStates(null, tile);
         // TODO: check if resource is available and add resource
     }
 
@@ -84,14 +80,6 @@ public class City {
 
     public void setFood(int food) {
         this.food = food;
-    }
-
-    public int getGold() {
-        return this.gold;
-    }
-
-    public void setGold(int gold) {
-        this.gold = gold;
     }
 
     public int getProduction() {
@@ -140,29 +128,27 @@ public class City {
 
     public void addResource(Resource resource) {
         this.resources.add(resource);
-        this.food += resource.getFood();
-        this.gold += resource.getGold();
-        this.production += resource.getProduction();
+    }
+
+    public void activateResources(Improvement improvement) {
+        Civilization player = this.center.getPlayer().getCivilization();
+        Resource resource;
+        for (Tile tile : this.tiles) {
+            if ((resource = tile.getResource()) != null && resource.getImprovement().equals(improvement)) {
+                if (resource.getType().equals("STRATEGIC")
+                        && !player.hasTechnology(resource.getTechnology())) {
+                    return;
+                }
+                tile.activateResource();
+                if (resource.getType().equals("LUXURY")) {
+                    player.setHappiness(player.getHappiness() + 4);
+                }
+            }
+        }
     }
 
     public ArrayList<Improvement> getImprovements() {
         return improvements;
-    }
-
-    public void addImprovement(Improvement improvement, Tile tile) {
-        tile.addImprovement(improvement);
-        this.improvements.add(improvement);
-        this.food += improvement.getFood();
-        this.gold += improvement.getGold();
-        this.production += improvement.getProduction();
-    }
-
-    public MilitaryUnit getGarrisonUnit() {
-        return this.garrisonUnit;
-    }
-
-    public void setGarrisonUnit(MilitaryUnit garrisonUnit) {
-        this.garrisonUnit = garrisonUnit;
     }
 
     public Boolean hasImprovement(Improvement improvement) {
@@ -172,6 +158,22 @@ public class City {
             }
         }
         return false;
+    }
+
+    public void addImprovement(Improvement improvement, Tile tile) {
+        tile.addImprovement(improvement);
+        this.improvements.add(improvement);
+        this.food += improvement.getFood();
+        // this.gold += improvement.getGold();
+        this.production += improvement.getProduction();
+    }
+
+    public MilitaryUnit getGarrisonUnit() {
+        return this.garrisonUnit;
+    }
+
+    public void setGarrisonUnit(MilitaryUnit garrisonUnit) {
+        this.garrisonUnit = garrisonUnit;
     }
 
     public void produceUnit(UnitType unit) {

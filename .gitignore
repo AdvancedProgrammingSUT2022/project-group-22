@@ -13,6 +13,7 @@
 .idea/**/dictionaries
 .idea/**/shelf
 *.xml
+!pom.xml
 *.idea
 # AWS User-specific
 .idea/**/aws.xml
@@ -142,3 +143,12 @@ replay_pid*
 
 src/main/java/compile
 src/main/java/clean
+src/main/java/Test.java
+src/main/java/test.in
+src/main/java/module-info.java
+src/main/java/Main/Main.java
+src/main/java/Main.java
+module-info.java
+Main/Main.java
+lib/.DS_Store
+.vscode/settings.json

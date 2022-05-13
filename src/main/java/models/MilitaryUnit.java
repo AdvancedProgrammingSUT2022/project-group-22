@@ -5,15 +5,15 @@ import enums.*;
 public class MilitaryUnit extends Unit {
 
     private int experiencePoints;
-    private boolean isAlert;
-    private boolean isRanged;
+    private Boolean isAlert;
+    private Boolean isRanged;
     private int range;
     private int rangedCombatStrength;
-    private boolean needsSetUp;
+    private Boolean needsSetUp;
     private int setUp;
-    private boolean isSleep = false;
+    private Boolean isSleep = false;
 
-    public MilitaryUnit(UnitType unitType, Tile position, boolean needsSetUp) {
+    public MilitaryUnit(UnitType unitType, Tile position, Boolean needsSetUp) {
         this.unitType = unitType;
         this.movementPoints = unitType.getMovementPoints();
         this.combatStrength = unitType.getCombatStrengh();
@@ -26,9 +26,11 @@ public class MilitaryUnit extends Unit {
         this.needsSetUp = needsSetUp;
         this.setUp = 0;
     }
-    public UnitType getUnitType(){
+
+    public UnitType getUnitType() {
         return unitType;
     }
+
     public int getExperiencePoints() {
         return this.experiencePoints;
     }
@@ -49,11 +51,11 @@ public class MilitaryUnit extends Unit {
         this.rangedCombatStrength = rangedCombatStrength;
     }
 
-    public boolean isRanged() {
+    public Boolean isRanged() {
         return this.isRanged;
     }
 
-    public boolean isAlert() {
+    public Boolean isAlert() {
         return this.isAlert;
     }
 
@@ -61,7 +63,7 @@ public class MilitaryUnit extends Unit {
         this.isAlert = this.isAlert == true ? false : true;
     }
 
-    public boolean needsSetUp() {
+    public Boolean needsSetUp() {
         return this.needsSetUp;
     }
 
@@ -75,11 +77,11 @@ public class MilitaryUnit extends Unit {
     public void fortify() {
     }
 
-    public void setSleep(){
+    public void setSleep() {
         isSleep = !isSleep;
     }
 
-    public boolean getStatus(){
+    public Boolean getStatus() {
         return isSleep;
     }
 }
