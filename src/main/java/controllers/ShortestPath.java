@@ -17,7 +17,9 @@ public class ShortestPath {
                         .getNeighbor(tiles[i / tiles[0].length][i % tiles[0].length], j);
                 if (neighbor != null) {
                     if (neighbor.getLandType() != LandType.MOUNTAIN && neighbor.getLandType() != LandType.OCEAN
-                            && neighbor.getFeature() != Feature.ICE && neighbor.getHasRiver()[j]) {
+                            && neighbor.getFeature() != Feature.ICE && !(neighbor.getHasRiver()[j] &&
+                                    (!tiles[i / tiles[0].length][i % tiles[0].length].getHasRoad() ||
+                                            !neighbor.getHasRoad()))) {
                         list.add(new Node(i, neighbor.getMovementCost()));
                     }
                 }

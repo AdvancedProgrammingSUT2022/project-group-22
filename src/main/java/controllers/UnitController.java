@@ -50,7 +50,7 @@ public class UnitController extends GameController {
 
     public void checkMovement(Unit unit) {
         Tile position = unit.getPositon();
-        moveTo(unit.getTarget().getCoordinates()[0], unit.getTarget().getCoordinates()[1]);
+        moveTo(unit.getTarget().getCoordinates()[0], unit.getTarget().getCoordinates()[1], unit, position);
         if (position.equals(unit.getPositon())) {
             unit.setTarget(null);
             unit.setTaskTurns(0);
@@ -130,58 +130,57 @@ public class UnitController extends GameController {
         }
     }
 
-    public void moveTo(int i, int j) {
-        user = database.getCurrentPlayer();
-        Unit unit = hasCombatUnit() ? user.getCivilization().getCurrentMilitary()
-                : user.getCivilization().getCurrentCivilian();
-        Tile tile = database.getMap()[i][j];
-        if (unit == null) {
-            GameView.getInstance().noUnitSelected();
-        } else if (map.length < i || map[0].length < j) {
-            GameView.getInstance().invalidTile();
-        } else if (tile.equals(unit.getPositon())) {
-            GameView.getInstance().onTarget();
-        } else if (hasNonCombatUnit() && database.getCivilianUnitByTile(tile) != null
-                || hasCombatUnit() != null && database.getMilitaryUnitByTile(tile) != null) {
-            GameView.getInstance().tileOccupied();
-        } else if (tile.getFeature() != null && (tile.getLandType().equals(LandType.MOUNTAIN) || tile.getLandType().equals(LandType.OCEAN)
-                || tile.getLandType().equals(LandType.SNOW) || tile.getFeature().equals(Feature.ICE))) {
-            GameView.getInstance().tileInaccessible();
+    public void moveTo(int i, int j, Unit unit, Tile tile) {
+        this.user = database.getCurrentPlayer();
+        ShortestPath shortestPath = new ShortestPath();
+        Tile[][] parent = new Tile[map.length][map[0].length];
+        int[][] dist = shortestPath.getShortestPaths(map,
+                unit.getPositon().getCoordinates()[0],
+                unit.getPositon().getCoordinates()[1], parent);
+        if (dist[i][j] <= unit.getMovementPoints()) {
+            user.getCivilization().updateTileStates(unit.getPositon(), tile);
+            unit.setPositon(tile);
+            MapController.getInstance().printTile(unit.getPositon());
         } else {
-            ShortestPath shortestPath = new ShortestPath();
-            Tile[][] parent = new Tile[map.length][map[0].length];
-            int[][] dist = shortestPath.getShortestPaths(map,
-                    unit.getPositon().getCoordinates()[0],
-                    unit.getPositon().getCoordinates()[1], parent);
-            if (dist[i][j] <= unit.getMovementPoints()) {
-                user.getCivilization().updateTileStates(unit.getPositon(), tile);
-                unit.setPositon(tile);
-                MapController.getInstance().printTile(unit.getPositon());
-
-            } else {
-                for (int k = 0; k < 6; k++) {
-                    int i2 = database.getNeighbor(tile, k).getCoordinates()[0];
-                    int j2 = database.getNeighbor(tile, k).getCoordinates()[1];
-                    if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
-                        user.getCivilization().updateTileStates(unit.getPositon(), tile);
-                        unit.setPositon(tile);
-                        MapController.getInstance().printTile(unit.getPositon());
-
-                        return;
-                    }
+            for (int k = 0; k < 6; k++) {
+                int i2 = database.getNeighbor(tile, k).getCoordinates()[0];
+                int j2 = database.getNeighbor(tile, k).getCoordinates()[1];
+                if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
+                    user.getCivilization().updateTileStates(unit.getPositon(), tile);
+                    unit.setPositon(tile);
+                    MapController.getInstance().printTile(unit.getPositon());
+                    return;
                 }
-                // GameView.getInstance().mpLow();
-                unit.setTarget(tile);
-                unit.setTaskTurns(Integer.MAX_VALUE);
-                multiStepMove(tile, unit, dist, parent);
             }
+            GameView.getInstance().mpLow();
+            unit.setTarget(tile);
+            unit.setTaskTurns(Integer.MAX_VALUE);
+            multiStepMove(tile, unit, dist, parent);
         }
     }
 
     public void move(Matcher matcher) {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
-        moveTo(i, j);
+        Unit unit = hasCombatUnit() ? user.getCivilization().getCurrentMilitary()
+                : user.getCivilization().getCurrentCivilian();
+        Tile tile;
+        if (unit == null) {
+            GameView.getInstance().noUnitSelected();
+        } else if (map.length < i || map[0].length < j) {
+            GameView.getInstance().invalidTile();
+        } else if ((tile = database.getMap()[i][j]).equals(unit.getPositon())) {
+            GameView.getInstance().onTarget();
+        } else if (hasNonCombatUnit() && database.getCivilianUnitByTile(tile) != null
+                || hasCombatUnit() != null && database.getMilitaryUnitByTile(tile) != null) {
+            GameView.getInstance().tileOccupied();
+        } else if (tile.getFeature() != null
+                && (tile.getLandType().equals(LandType.MOUNTAIN) || tile.getLandType().equals(LandType.OCEAN)
+                        || tile.getLandType().equals(LandType.SNOW) || tile.getFeature().equals(Feature.ICE))) {
+            GameView.getInstance().tileInaccessible();
+        } else {
+            moveTo(i, j, unit, tile);
+        }
     }
 
     public void attack(Matcher matcher) {
