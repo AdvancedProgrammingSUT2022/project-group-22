@@ -24,7 +24,7 @@ public enum LandType {
                     Resource.MARBLE, Resource.IVORY, Resource.COTTON, Resource.INCENSE, Resource.SHEEP),
             Arrays.asList(Improvement.CAMP, Improvement.FARM, Improvement.MINE, Improvement.PASTURE,
                     Improvement.PLANTATION, Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY)),
-    SNOW(0, 0, 0, -33, 1, Color.WHITE_BG, null, null, Arrays.asList(Resource.IRON),
+    SNOW(0, 0, 0, -33, 1, Color.WHITE_BRIGHT_BG, null, null, Arrays.asList(Resource.IRON),
             Arrays.asList(Improvement.MINE, Improvement.FACTORY)),
     TUNDRA(1, 0, 0, -33, 1, Color.PURPLE_BRIGHT_BG, Feature.JUNGLE, null,
             Arrays.asList(Resource.IRON, Resource.HORSE, Resource.GAZELLE,

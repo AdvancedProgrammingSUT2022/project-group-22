@@ -309,9 +309,8 @@ public class GameView extends Processor {
                                 }
                                 if (j == 0) {
                                     if (temp < tiles.size()) {
-                                        System.out
-                                                .print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
-                                                        + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                        System.out.print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
+                                                        + "  " +  Character.toUpperCase(tiles.get(temp).getNickname().charAt(0)) + "  ");
                                     } else {
                                         System.out.print(Color.RESET.getColor() + "     ");
                                     }
@@ -325,8 +324,7 @@ public class GameView extends Processor {
                                     }
                                 } else {
                                     if (temp < tiles.size()) {
-                                        System.out.print(
-                                                tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
+                                        System.out.print( tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
                                                         + tiles.get(temp).getCivilianUnit().substring(0, 3) + " "
                                                         + tiles.get(temp).getColor()[2]
                                                         + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
@@ -392,7 +390,7 @@ public class GameView extends Processor {
                             } else {
                                 if (j == 0) {
                                     System.out.print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
-                                            + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                            + "  " +  Character.toUpperCase(tiles.get(temp).getNickname().charAt(0)) + "  ");
                                 } else if (j == 1) {
                                     System.out.print(tiles.get(temp).getBackgroundColor() + " ");
                                     System.out.printf("%02d,%02d", tiles.get(temp).getX(), tiles.get(temp).getY());
@@ -523,7 +521,7 @@ public class GameView extends Processor {
                             } else {
                                 if (j == 0) {
                                     System.out.print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
-                                            + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                            + "  " +  Character.toUpperCase(tiles.get(temp).getNickname().charAt(0)) + "  ");
                                 } else if (j == 1) {
                                     System.out.print(tiles.get(temp).getBackgroundColor() + " ");
                                     System.out.printf("%02d,%02d", tiles.get(temp).getX(), tiles.get(temp).getY());

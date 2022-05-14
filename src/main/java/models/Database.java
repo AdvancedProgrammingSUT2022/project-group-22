@@ -45,7 +45,7 @@ public class Database {
 
     public void setPlayers(ArrayList<User> players) {
         this.players = players;
-        players.get(0).setCivilization(new Civilization(Color.RED));
+        players.get(0).setCivilization(new Civilization(Color.BLACK));
         players.get(1).setCivilization(new Civilization(Color.BLUE));
         // for (User player : this.players) {
         // player.setCivilization(new Civilization(Color.getRandomColor()));
@@ -148,14 +148,14 @@ public class Database {
                     : (i - 1 >= 0 && i - 1 < x && j + 1 >= 0 && j + 1 < y ? map[i - 1][j + 1] : null);
         } else if (side == 2) {
             return j % 2 == 1 ? (i + 1 >= 0 && i + 1 < x && j + 1 >= 0 && j + 1 < y ? map[i + 1][j + 1] : null)
-                    : (j + 1 >= 0 && j + 1 < x ? map[i][j + 1] : null);
+                    : (j + 1 >= 0 && j + 1 < y ? map[i][j + 1] : null);
         } else if (side == 3) {
             return i + 1 >= 0 && i + 1 < x ? map[i + 1][j] : null;
         } else if (side == 4) {
-            return j % 2 == 1 ? (i + 1 >= 0 && i + 1 < x && j - 1 >= 0 && j - 1 < y ? map[i + 1][j - 1] : null)
-                    : (j - 1 >= 0 && j - 1 < x ? map[i][j - 1] : null);
+            return j % 2 == 1 ? (i + 1 >= 0 && i + 1 < x  && j - 1 < y ? map[i + 1][j - 1] : null)
+                    : (j - 1 >= 0 && j - 1 < y ? map[i][j - 1] : null);
         } else if (side == 5) {
-            return j % 2 == 1 ? (j - 1 >= 0 && j - 1 < y ? map[i][j - 1] : null)
+            return j % 2 == 1 ? (j - 1 < y ? map[i][j - 1] : null)
                     : (i - 1 >= 0 && i - 1 < x && j - 1 >= 0 && j - 1 < y ? map[i - 1][j - 1] : null);
         }
         return null;

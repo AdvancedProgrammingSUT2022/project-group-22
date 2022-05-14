@@ -116,7 +116,7 @@ public class MapController extends GameController {
         MilitaryUnit milUnit = database.getMilitaryUnitByTile(tile);
         String[] colors = {
                 player == null ? Color.WHITE.getColor()
-                        : player.getCivilization().getColor().getColor(),
+                        : database.getCurrentPlayer().getCivilization().getColor().getColor(),
                 civUnit == null ? Color.WHITE.getColor()
                         : database.getUnitOwner(civUnit).getCivilization().getColor().getColor(),
                 milUnit == null ? Color.WHITE.getColor()
