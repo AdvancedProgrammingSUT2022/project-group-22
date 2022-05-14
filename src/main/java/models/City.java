@@ -27,10 +27,14 @@ public class City {
         this.population = 1;
 
         this.center = tile;
+        tile.setFood(tile.getFood() + 2);
+        tile.setProduction(tile.getProduction() + 1);
+
         tile.setPlayer(user);
         this.addTile(tile);
-        if(tile.getFeature() != null) {
-            if (tile.getFeature().equals(Feature.JUNGLE)) {
+        if (tile.getFeature() != null) {
+            if (tile.getFeature().equals(Feature.JUNGLE) || tile.getFeature().equals(Feature.FOREST)
+                    || tile.getFeature().equals(Feature.SWAMP)) {
                 tile.removeFeature(null);
             }
         }
@@ -38,16 +42,15 @@ public class City {
 
         for (int i = 0; i < 6; i++) {
             Tile neighbor = Database.getInstance().getNeighbor(tile, i);
-            if(neighbor != null){
-                //test
-                //System.out.println("all not nulls " +  i + " " + neighbor.getCoordinates()[0] + " " + neighbor.getCoordinates()[1]);
+            if (neighbor != null) {
                 if (neighbor.getPlayer() != null) {
                     // check tiles up to 3 tiles away
                 } else {
                     this.addTile(neighbor);
                     neighbor.setPlayer(user);
-                    //test
-                    //System.out.println(neighbor.getCoordinates()[0] + " " + neighbor.getCoordinates()[1]);
+                    if (neighbor.getHasRiver()[(i + 3) % 6]) {
+                        neighbor.setHasRoad(true);
+                    }
                 }
             }
         }

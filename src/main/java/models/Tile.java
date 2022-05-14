@@ -103,12 +103,24 @@ public class Tile {
         return this.production;
     }
 
+    public void setProduction(int production) {
+        this.production = production;
+    }
+
     public int getGold() {
         return this.gold;
     }
 
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
     public int getFood() {
         return this.food;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
     }
 
     public MilitaryUnit getGarrisonUnit() {
