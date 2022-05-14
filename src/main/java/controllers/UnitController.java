@@ -21,28 +21,30 @@ public class UnitController extends GameController {
         for (CivilianUnit unit : player.getRoadWorkers().keySet()) {
             if (unit.equals(civilianUnit)) {
                 player.getRoadWorkers().get(civilianUnit).setHasRoad(true);
-                gameView.completeTask("road", unit.getPosition());
+                gameView.completeTask("road", unit.getPosition().getCoordinates());
                 player.getRoadWorkers().remove(civilianUnit);
             }
         }
         for (CivilianUnit unit : player.getRemovalWorkers().keySet()) {
             if (unit.equals(civilianUnit)) {
                 civilianUnit.getPosition().removeFeature(player.getRemovalWorkers().get(unit));
-                gameView.completeTask(player.getRemovalWorkers().get(unit).name(), unit.getPosition());
+                gameView.completeTask(player.getRemovalWorkers().get(unit).name(), unit.getPosition().getCoordinates());
                 player.getRemovalWorkers().remove(civilianUnit);
             }
         }
         for (CivilianUnit unit : player.getImprovementWorkers().keySet()) {
             if (unit.equals(civilianUnit)) {
                 civilianUnit.getPosition().addImprovement(player.getImprovementWorkers().get(civilianUnit));
-                gameView.completeTask(player.getImprovementWorkers().get(unit).name(), unit.getPosition());
+                gameView.completeTask(player.getImprovementWorkers().get(unit).name(),
+                        unit.getPosition().getCoordinates());
                 player.getImprovementWorkers().remove(civilianUnit);
             }
         }
         for (CivilianUnit unit : player.getBuildingWorkers().keySet()) {
             if (unit.equals(civilianUnit)) {
                 civilianUnit.getPosition().addBuilding(player.getBuildingWorkers().get(civilianUnit));
-                gameView.completeTask(player.getBuildingWorkers().get(unit).name(), unit.getPosition());
+                gameView.completeTask(player.getBuildingWorkers().get(unit).name(),
+                        unit.getPosition().getCoordinates());
                 player.getBuildingWorkers().remove(civilianUnit);
             }
         }
@@ -55,7 +57,7 @@ public class UnitController extends GameController {
             unit.setTarget(null);
             unit.setTaskTurns(0);
         } else if (unit.getTarget().equals(unit.getPosition())) {
-            gameView.completeMove(unit.getTarget());
+            gameView.completeMove(unit.getTarget().getCoordinates());
             MapController.getInstance().printTile(unit.getPosition());
             unit.setTarget(null);
             unit.setTaskTurns(0);
@@ -112,6 +114,8 @@ public class UnitController extends GameController {
             pointer = parent[pointer.getCoordinates()[0]][pointer.getCoordinates()[1]];
         }
         if (dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] <= unit.getMovementPoints()) {
+            unit.setMovementPoints(
+                    unit.getMovementPoints() - dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]]);
             user.getCivilization().updateTileStates(unit.getPosition(), nextTile);
             unit.setPosition(nextTile);
             multiStepMove(nextTile, unit, dist, parent);
@@ -120,6 +124,8 @@ public class UnitController extends GameController {
                 int i2 = database.getNeighbor(nextTile, k).getCoordinates()[0];
                 int j2 = database.getNeighbor(nextTile, k).getCoordinates()[1];
                 if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
+                    unit.setMovementPoints(unit.getMovementPoints()
+                            - dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]]);
                     user.getCivilization().updateTileStates(unit.getPosition(), nextTile);
                     unit.setPosition(nextTile);
                     parent[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] = map[i2][j2];
@@ -138,6 +144,7 @@ public class UnitController extends GameController {
                 unit.getPosition().getCoordinates()[0],
                 unit.getPosition().getCoordinates()[1], parent);
         if (dist[i][j] <= unit.getMovementPoints()) {
+            unit.setMovementPoints(unit.getMovementPoints() - dist[i][j]);
             user.getCivilization().updateTileStates(unit.getPosition(), tile);
             unit.setPosition(tile);
             MapController.getInstance().printTile(unit.getPosition());
@@ -147,6 +154,7 @@ public class UnitController extends GameController {
                     int i2 = database.getNeighbor(tile, k).getCoordinates()[0];
                     int j2 = database.getNeighbor(tile, k).getCoordinates()[1];
                     if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
+                        unit.setMovementPoints(unit.getMovementPoints() - dist[i2][j2]);
                         user.getCivilization().updateTileStates(unit.getPosition(), tile);
                         unit.setPosition(tile);
                         MapController.getInstance().printTile(unit.getPosition());
@@ -279,15 +287,17 @@ public class UnitController extends GameController {
         } else if (civUnit.getPosition() != tile) {
             GameView.getInstance().unitNotOnTile();
         }
-//        else if (tile.getPlayer() != null || !tile.getPlayer().getNickname().equals(user.getNickname())) {
-//            GameView.getInstance().tileNotYours();
-//            return;
-//        } // check distance from other city centers
+        // else if (tile.getPlayer() != null ||
+        // !tile.getPlayer().getNickname().equals(user.getNickname())) {
+        // GameView.getInstance().tileNotYours();
+        // return;
+        // } // check distance from other city centers
         else {
             user.getCivilization().getCivilianUnits().remove(civUnit);
             user.getCivilization().setCurrentCivilian(null);
             user.getCivilization().addCity(new City(tile, user));
             user.getCivilization().setUnhappiness(user.getCivilization().getUnhappiness() + 1);
+            gameView.cityFounded(map[i][j].getPlayer().getUsername(), i, j);
         }
     }
 
