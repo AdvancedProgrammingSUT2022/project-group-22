@@ -563,19 +563,20 @@ public class GameView extends Processor {
     }
 
     // print researchMenu
-    public void PrintResearchInfo(HashMap<Integer, Technology> currentResearch, ArrayList<Technology> possibles,
+    public void PrintResearchInfo(String nickName, HashMap<Technology, Integer> currentResearch, ArrayList<Technology> possibles,
             ArrayList<Technology> done) {
-        System.out.println("Current researches:");
-        for (Integer number : currentResearch.keySet()) {
-            int key = number;
-            String value = currentResearch.get(number).name();
+        System.out.println(Color.WHITE.getColor() + "User nickName: " + Color.RESET.getColor() + nickName);
+        System.out.println(Color.WHITE.getColor() + "Current researches:" + Color.RESET.getColor());
+        for (Technology technology : currentResearch.keySet()) {
+            String key = technology.name();
+            Integer value = currentResearch.get(technology);
             System.out.println(key + " " + value);
         }
-        System.out.println("Possible technologies to research:");
+        System.out.println(Color.WHITE.getColor() + "Possible technologies to research:" + Color.RESET.getColor());
         for (Technology possible : possibles) {
             System.out.println(possible.name());
         }
-        System.out.println("Your own technologies:");
+        System.out.println(Color.WHITE.getColor() + "Your own technologies:" + Color.RESET.getColor());
         for (Technology technology : done) {
             System.out.println(technology.name());
         }

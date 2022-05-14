@@ -210,7 +210,8 @@ public class GameController {
 
     // info
     public void researchInfo() {
-        GameView.getInstance().PrintResearchInfo(user.getCivilization().getResearch(),
+        user = database.getCurrentPlayer();
+        GameView.getInstance().PrintResearchInfo(user.getNickname(), user.getCivilization().getResearch(),
                 user.getCivilization().getPossibleTechnologies(), user.getCivilization().getTechnologies());
 
     }

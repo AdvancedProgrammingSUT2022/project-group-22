@@ -19,7 +19,7 @@ public class Civilization {
     private ArrayList<CivilianUnit> civilianUnits = new ArrayList<CivilianUnit>();
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
     private ArrayList<Technology> possibleTechnologies = new ArrayList<Technology>();
-    HashMap<Integer, Technology> research = new HashMap<Integer, Technology>();
+    private HashMap<Technology, Integer> research = new HashMap<Technology, Integer>();
     private ArrayList<String> messages = new ArrayList<String>();
     private ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
     private HashMap<Tile, Tile> revealedTiles = new HashMap<Tile, Tile>();
@@ -239,14 +239,19 @@ public class Civilization {
         this.messages.add(message);
     }
 
-    public HashMap<Integer, Technology> getResearch() {
+    public HashMap<Technology, Integer> getResearch() {
         return research;
     }
 
     public void addResearch(Technology technology) {
         if (technology.getCost() > beakers) {
-            research.put(technology.getCost() - beakers, technology);
+            research.put(technology, technology.getCost() - beakers);
             this.beakers = 0;
+            for (int i = 0; i < possibleTechnologies.size(); i++) {
+                if(possibleTechnologies.get(i) == technology){
+                    possibleTechnologies.remove(i);
+                }
+            }
         } else {
             this.beakers = this.beakers - technology.getCost();
             addTechnology(technology);
@@ -254,6 +259,22 @@ public class Civilization {
     }
 
     public void researchProgress() {
+        if(!this.research.isEmpty()){
+            for (Technology technology: research.keySet()) {
+                int i = research.get(technology);
+                if(i > beakers){
+                    research.replace(technology, i - beakers);
+                    this.beakers = 0;
+                    return;
+                }
+                else{
+                    this.beakers = this.beakers - technology.getCost();
+                    research.remove(technology);
+                    addTechnology(technology);
+                }
+            }
+
+        }
     }
 
     public ArrayList<Technology> getTechnologies() {
@@ -338,7 +359,8 @@ public class Civilization {
                 city.setProduction(city.getProduction() + tile.getProduction());
             }
         }
-        this.beakers += 3 + getPopulation() * 1;
+        this.beakers += 3 * cities.size() + this.getPopulation();
+        this.researchProgress();
     }
 
     public HashMap<CivilianUnit, Tile> getRoadWorkers() {
