@@ -54,6 +54,8 @@ public class GameView extends Processor {
                 GameController.getInstance().selectCombatUnit(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTUNITNONCOMBAT)) != null)
                 GameController.getInstance().selectNonCombatUnit(matcher);
+            else if ((matcher = getMatcher(command, Command.BUYUNIT)) != null)
+                unitController.buyUnit(matcher);
             else if ((matcher = getMatcher(command, Command.ATTACK)) != null)
                 UnitController.getInstance().attack(matcher);
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
@@ -147,6 +149,10 @@ public class GameView extends Processor {
         System.out.println("no unit has been selected");
     }
 
+    public void noCitySelected() {
+        System.out.println("no city has been selected");
+    }
+
     public void invalidTile() {
         System.out.println("no tile with these coordinates exists");
     }
@@ -203,7 +209,7 @@ public class GameView extends Processor {
         System.out.println("this tile isn't neighboring your current civilization");
     }
 
-    public void negativeHappiness(){
+    public void negativeHappiness() {
         System.out.println("The level of happiness is negative");
     }
 
@@ -259,7 +265,7 @@ public class GameView extends Processor {
         System.out.println("Coordinate is out of map");
     }
 
-    public void AttackImpossible() {
+    public void attackImpossible() {
         System.out.println("Attack is not Possible");
     }
 
@@ -291,6 +297,14 @@ public class GameView extends Processor {
         System.out.println("you do not have the prerequired technologies");
     }
 
+    public void insufficientResources() {
+        System.out.println("you do not have the prerequired resources");
+    }
+
+    public void goldIncreased(int amount) {
+        System.out.println("gold increased by " + amount);
+    }
+
     public void completeTask(String task, int[] coordinates) {
         System.out.println(task + "was built on tile " + coordinates[0] + ":" + coordinates[1]);
     }
@@ -301,6 +315,14 @@ public class GameView extends Processor {
 
     public void cityFounded(String username, int i, int j) {
         System.out.println("city founded for player " + username + " on tile " + i + ":" + j);
+    }
+
+    public void noSuchUnitType(String type) {
+        System.out.println(type + " is not an available unit type");
+    }
+
+    public void unitBought(String type) {
+        System.out.println(type + " unit bought successfully");
     }
 
     private void showDemographics(User player) {
@@ -575,8 +597,8 @@ public class GameView extends Processor {
     }
 
     // print researchMenu
-    public void PrintResearchInfo(String nickName, HashMap<Technology, Integer> currentResearch, ArrayList<Technology> possibles,
-            ArrayList<Technology> done) {
+    public void PrintResearchInfo(String nickName, HashMap<Technology, Integer> currentResearch,
+            ArrayList<Technology> possibles, ArrayList<Technology> done) {
         System.out.println(Color.WHITE.getColor() + "User nickName: " + Color.RESET.getColor() + nickName);
         System.out.println(Color.WHITE.getColor() + "Current researches:" + Color.RESET.getColor());
         for (Technology technology : currentResearch.keySet()) {

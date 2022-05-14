@@ -189,6 +189,19 @@ public class MapController extends GameController {
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(),
                 tileView, maxY - minY, maxX - minX);
+        // ArrayList<TileView> tileView = new ArrayList<TileView>();
+        // int x = tile.getCoordinates()[0];
+        // int y = tile.getCoordinates()[1];
+        // for (int i = x - 2; i <= x + 2; i++) {
+        // for (int j = y - 2; j <= y + 2; j++) {
+        // if (isValidCoordinates(i, j)) {
+        // addToTileView(tileView, map[i][j]);
+        // }
+        // }
+        // }
+        // gameView.printMap(database.getCurrentPlayer().getUsername(),
+        // database.getCurrentPlayer().getCivilization().getTotalHappiness(), tileView,
+        // y, x);
     }
 
     public void printAreaCheck(Matcher matcher) {

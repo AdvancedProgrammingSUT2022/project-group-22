@@ -48,6 +48,15 @@ public enum UnitType {
         this.technology = technology;
     }
 
+    public static UnitType matchUnitType(String type) {
+        for (UnitType unitType : values()) {
+            if (unitType.name().equals(type)) {
+                return unitType;
+            }
+        }
+        return null;
+    }
+
     public int getCost() {
         return this.cost;
     }

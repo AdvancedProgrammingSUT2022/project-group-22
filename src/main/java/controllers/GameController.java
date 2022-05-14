@@ -10,15 +10,15 @@ import java.util.regex.*;
 public class GameController {
     // the problem with these seems to have been solved
     private static GameController instance = null;
-    protected User user ;
-    protected Tile[][] map ;
+    protected User user;
+    protected Tile[][] map;
     protected Database database;
 
-     public GameController() {
-         this.database = Database.getInstance();
-         this.user = database.getCurrentPlayer();
-         this.map = database.getMap();
-     }
+    public GameController() {
+        this.database = Database.getInstance();
+        this.user = database.getCurrentPlayer();
+        this.map = database.getMap();
+    }
 
     public static GameController getInstance() {
         instance = instance != null ? instance : new GameController();
@@ -103,11 +103,10 @@ public class GameController {
     public void selectNonCombatUnit(Matcher matcher) {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
+        CivilianUnit civUnit;
         if (!isValidCoordinates(i, j)) {
             GameView.getInstance().invalidTile();
-        }
-        CivilianUnit civUnit;
-        if ((civUnit = Database.getInstance().getCivilianUnitByTile(map[i][j])) == null) {
+        } else if ((civUnit = Database.getInstance().getCivilianUnitByTile(map[i][j])) == null) {
             GameView.getInstance().invalidCivilianUnit();
         } else if (Database.getInstance().getUnitOwner(civUnit).getNickname().equals(user.getNickname())) {
             GameView.getInstance().unitInaccessible();
@@ -172,20 +171,22 @@ public class GameController {
         int amount = Integer.parseInt(matcher.group("amount"));
         Civilization civilization = database.getCurrentPlayer().getCivilization();
         civilization.setGold(civilization.getGold() + amount);
+        GameView.getInstance().goldIncreased(amount);
     }
-    public void addResearch(Matcher matcher){
+
+    public void addResearch(Matcher matcher) {
         String tech = matcher.group("name");
         Technology techEnum = Technology.valueOf(tech);
-        if(user.getCivilization().getCities().size() == 0){
+        if (user.getCivilization().getCities().size() == 0) {
             GameView.getInstance().dontHaveCity();
             return;
         }
-        if(user.getCivilization().hasTechnology(techEnum)){
+        if (user.getCivilization().hasTechnology(techEnum)) {
             GameView.getInstance().hadTechnology();
             return;
         }
-        for(int i = 0; i < user.getCivilization().getPossibleTechnologies().size(); i++){
-            if(user.getCivilization().getPossibleTechnologies().get(i).name().equals(tech)){
+        for (int i = 0; i < user.getCivilization().getPossibleTechnologies().size(); i++) {
+            if (user.getCivilization().getPossibleTechnologies().get(i).name().equals(tech)) {
                 user.getCivilization().addResearch(techEnum);
                 GameView.getInstance().researchAdded();
                 return;
@@ -194,8 +195,6 @@ public class GameController {
         GameView.getInstance().technologyInaccessible();
 
     }
-
-
 
     // run
     public String run() {

@@ -137,6 +137,15 @@ public class City {
         return this.resources;
     }
 
+    public Boolean hasResource(Resource resource) {
+        for (Resource temp : this.resources) {
+            if (temp.equals(resource)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addResource(Resource resource) {
         this.resources.add(resource);
     }

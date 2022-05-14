@@ -7,8 +7,8 @@ import java.util.regex.*;
 
 public class UnitController extends GameController {
     private static UnitController instance = null;
-    protected static GameView gameView = GameView.getInstance();
-    protected Database database = Database.getInstance();
+    private static GameView gameView = GameView.getInstance();
+    private Database database = Database.getInstance();
 
     public static UnitController getInstance() {
         instance = instance != null ? instance : new UnitController();
@@ -105,6 +105,40 @@ public class UnitController extends GameController {
         }
     }
 
+    // create unit
+    public void buyUnit(Matcher matcher) {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        String type = matcher.group("type").toUpperCase();
+        City city;
+        UnitType unitType;
+        if ((unitType = UnitType.matchUnitType(type)) == null) {
+            gameView.noSuchUnitType(type);
+        } else if ((city = player.getCurrentCity()) == null) {
+            gameView.noCitySelected();
+        } else if (((unitType.equals(UnitType.SETTLER) || unitType.equals(UnitType.WORKER))
+                && database.getCivilianUnitByTile(city.getCenter()) != null)) {
+            gameView.tileOccupied();
+        } else if (!(unitType.equals(UnitType.SETTLER) || unitType.equals(UnitType.WORKER))
+                && database.getMilitaryUnitByTile(city.getCenter()) != null) {
+            gameView.tileOccupied();
+        } else if (unitType.getResource() != null && city.hasResource(unitType.getResource())) {
+            gameView.insufficientResources();
+        } else if (unitType.getTechnology() != null && player.hasTechnology(unitType.getTechnology())) {
+            gameView.insufficientTechnologies();
+        } else if (player.getGold() < unitType.getCost()) {
+            gameView.goldLow();
+        } else {
+            player.setGold(player.getGold() - unitType.getCost());
+            if (unitType.equals(UnitType.SETTLER) || unitType.equals(UnitType.WORKER)) {
+                player.addCivilianUnit(new CivilianUnit(unitType, city.getCenter()));
+            } else {
+                player.addMilitaryUnits(
+                        new MilitaryUnit(unitType, city.getCenter(), unitType.getCombatType().equals("SIEGE")));
+            }
+            gameView.unitBought(unitType.name().toLowerCase());
+        }
+    }
+
     // movement
     public void multiStepMove(Tile tile, Unit unit, int[][] dist, Tile[][] parent) {
         Tile nextTile = tile;
@@ -197,7 +231,7 @@ public class UnitController extends GameController {
         if (!hasCombatUnit())
             GameView.getInstance().noUnitSelected();
         if (isAttackPossible(matcher))
-            GameView.getInstance().AttackImpossible();
+            GameView.getInstance().attackImpossible();
     }
 
     public void sleep() {
@@ -274,19 +308,15 @@ public class UnitController extends GameController {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
         Tile tile = map[i][j];
-        if(user.getCivilization().getTotalHappiness() < 0){
+        if (user.getCivilization().getTotalHappiness() < 0) {
             GameView.getInstance().negativeHappiness();
-        }
-        else if (civUnit == null) {
+        } else if (civUnit == null) {
             GameView.getInstance().noUnitSelected();
-        }
-        else if (civUnit.getUnitType() != UnitType.SETTLER) {
+        } else if (civUnit.getUnitType() != UnitType.SETTLER) {
             GameView.getInstance().unitNotSettler();
-        }
-        else if (map.length < i || map[0].length < j) {
+        } else if (map.length < i || map[0].length < j) {
             GameView.getInstance().invalidTile();
-        }
-        else if (civUnit.getPosition() != tile) {
+        } else if (civUnit.getPosition() != tile) {
             GameView.getInstance().unitNotOnTile();
         }
         // else if (tile.getPlayer() != null ||

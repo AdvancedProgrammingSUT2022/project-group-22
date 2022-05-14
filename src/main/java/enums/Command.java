@@ -52,6 +52,9 @@ public enum Command {
         SELECTCITYPOSITION("select city (?<i>\\d+) (?<j>\\d+)"),
 
         // unit
+        BUYUNIT("unit buy (?<type>[a-zA-Z]+)"),
+        BUILDUNIT("unit build (?<type>[a-zA-Z]+)"),
+
         MOVETO("unit move to (?<i>\\d+) (?<j>\\d+)"),
         SLEEP("unit sleep"),
         ALERT("unit alert"),
@@ -98,7 +101,7 @@ public enum Command {
         MAPMOVEU("map move up"),
         MAPMOVED("map move down"),
 
-        //tech
+        // tech
         RESEARCH("research (?<name>\\S+)"),
 
         // cheat sheet
