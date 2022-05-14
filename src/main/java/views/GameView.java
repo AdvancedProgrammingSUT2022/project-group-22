@@ -203,6 +203,10 @@ public class GameView extends Processor {
         System.out.println("this tile isn't neighboring your current civilization");
     }
 
+    public void negativeHappiness(){
+        System.out.println("The level of happiness is negative");
+    }
+
     public void dontHaveCity() {
         System.out.println("You should own at least one city");
     }

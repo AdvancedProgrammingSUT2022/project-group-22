@@ -274,17 +274,19 @@ public class UnitController extends GameController {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
         Tile tile = map[i][j];
-
-        if (civUnit == null) {
+        if(user.getCivilization().getTotalHappiness() < 0){
+            GameView.getInstance().negativeHappiness();
+        }
+        else if (civUnit == null) {
             GameView.getInstance().noUnitSelected();
-            return;
-        } else if (civUnit.getUnitType() != UnitType.SETTLER) {
+        }
+        else if (civUnit.getUnitType() != UnitType.SETTLER) {
             GameView.getInstance().unitNotSettler();
-            return;
-        } else if (map.length < i || map[0].length < j) {
+        }
+        else if (map.length < i || map[0].length < j) {
             GameView.getInstance().invalidTile();
-            return;
-        } else if (civUnit.getPosition() != tile) {
+        }
+        else if (civUnit.getPosition() != tile) {
             GameView.getInstance().unitNotOnTile();
         }
         // else if (tile.getPlayer() != null ||
