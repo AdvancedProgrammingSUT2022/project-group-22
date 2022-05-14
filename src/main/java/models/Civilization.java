@@ -266,12 +266,12 @@ public class Civilization {
         boolean wasPossible = false;
         for (int j = 0; j < temp.length; j++) {
             for (int i = 0; i < this.possibleTechnologies.size(); i++) {
-                if(this.possibleTechnologies.get(i).name().equals(temp[j])){
+                if (this.possibleTechnologies.get(i).name().equals(temp[j])) {
                     wasPossible = true;
                     break;
                 }
             }
-            if(!wasPossible){
+            if (!wasPossible) {
                 Technology newTech = Technology.valueOf(temp[j]);
                 this.addPossibleTechnologies(newTech);
             }
@@ -371,5 +371,14 @@ public class Civilization {
 
     public void addBuildingWorker(CivilianUnit civilianUnit, Building building) {
         this.buildingWorkers.put(civilianUnit, building);
+    }
+
+    public void reset() {
+        for (MilitaryUnit milUnit : this.militaryUnits) {
+            milUnit.setMovementPoints(milUnit.getUnitType().getMovementPoints());
+        }
+        for (CivilianUnit civUnit : this.civilianUnits) {
+            civUnit.setMovementPoints(civUnit.getUnitType().getMovementPoints());
+        }
     }
 }
