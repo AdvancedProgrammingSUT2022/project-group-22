@@ -18,7 +18,7 @@ public class MilitaryUnit extends Unit {
         this.movementPoints = unitType.getMovementPoints();
         this.combatStrength = unitType.getCombatStrengh();
         this.experiencePoints = 0;
-        this.positon = position;
+        this.position = position;
         this.range = unitType.getRange();
         this.rangedCombatStrength = unitType.getRangedCombatStrengh();
         this.isSleeping = false;

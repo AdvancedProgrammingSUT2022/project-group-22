@@ -196,7 +196,7 @@ public class Civilization {
 
     public void addMilitaryUnits(MilitaryUnit militaryUnit) {
         this.militaryUnits.add(militaryUnit);
-        updateTileStates(null, militaryUnit.positon);
+        updateTileStates(null, militaryUnit.position);
     }
 
     public void deleteMilitaryUnit(MilitaryUnit militaryUnit) {
@@ -209,7 +209,7 @@ public class Civilization {
 
     public void addCivilianUnit(CivilianUnit civilianUnit) {
         this.civilianUnits.add(civilianUnit);
-        updateTileStates(null, civilianUnit.positon);
+        updateTileStates(null, civilianUnit.position);
     }
 
     public void deleteCivilianUnit(CivilianUnit civilianUnit) {

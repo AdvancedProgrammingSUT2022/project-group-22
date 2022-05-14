@@ -12,7 +12,7 @@ public class CivilianUnit extends Unit {
         this.isWorker = unitType.name().equals("WORKER") ? true : false;
         this.movementPoints = unitType.getMovementPoints();
         this.combatStrength = unitType.getCombatStrengh();
-        this.positon = position;
+        this.position = position;
         this.isSleeping = false;
     }
 

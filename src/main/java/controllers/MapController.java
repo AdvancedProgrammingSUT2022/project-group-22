@@ -121,7 +121,6 @@ public class MapController extends GameController {
                         : database.getUnitOwner(civUnit).getCivilization().getColor().getColor(),
                 milUnit == null ? Color.WHITE.getColor()
                         : database.getUnitOwner(milUnit).getCivilization().getColor().getColor() };
-
         return new TileView(colors, tile.getLandType().getColor().getColor(),
                 player == null ? null : database.getCurrentPlayer().getNickname(),
                 milUnit == null ? null : milUnit.getUnitType().name(),
@@ -234,7 +233,7 @@ public class MapController extends GameController {
                 GameView.getInstance().noUnitSelected();
                 return;
             } else {
-                MapController.getInstance().printTile(unit.getPositon());
+                MapController.getInstance().printTile(unit.getPosition());
             }
         }
     }

@@ -6,7 +6,7 @@ public class Unit {
     protected UnitType unitType;
     protected int movementPoints;
     protected int combatStrength;
-    protected Tile positon;
+    protected Tile position;
     protected Boolean isSleeping;
     protected int taskTurns;
     protected Tile target;
@@ -15,12 +15,12 @@ public class Unit {
         return this.unitType;
     }
 
-    public Tile getPositon() {
-        return positon;
+    public Tile getPosition() {
+        return position;
     }
 
-    public void setPositon(Tile positon) {
-        this.positon = positon;
+    public void setPosition(Tile position) {
+        this.position = position;
     }
 
     public int getMovementPoints() {
