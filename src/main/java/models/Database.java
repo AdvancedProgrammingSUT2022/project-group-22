@@ -100,7 +100,7 @@ public class Database {
     public MilitaryUnit getMilitaryUnitByTile(Tile tile) {
         for (User player : this.players) {
             for (MilitaryUnit unit : player.getCivilization().getMilitaryUnits()) {
-                if (unit.getPositon().equals(tile)) {
+                if (unit.getPosition().equals(tile)) {
                     return unit;
                 }
             }
@@ -111,7 +111,7 @@ public class Database {
     public CivilianUnit getCivilianUnitByTile(Tile tile) {
         for (User player : this.players) {
             for (CivilianUnit unit : player.getCivilization().getCivilianUnits()) {
-                if (unit.getPositon().equals(tile)) {
+                if (unit.getPosition().equals(tile)) {
                     return unit;
                 }
             }
@@ -140,21 +140,22 @@ public class Database {
         int j = tile.getCoordinates()[1];
         int x = map.length;
         int y = map[0].length;
+        //System.out.println(x + " " + y);
         if (side == 0) {
             return i - 1 >= 0 && i - 1 < x ? map[i - 1][j] : null;
         } else if (side == 1) {
-            return j % 2 == 0 ? (j + 1 >= 0 && j + 1 < x ? map[i][j + 1] : null)
+            return j % 2 == 1 ? (j + 1 >= 0 && j + 1 < y ? map[i][j + 1] : null)
                     : (i - 1 >= 0 && i - 1 < x && j + 1 >= 0 && j + 1 < y ? map[i - 1][j + 1] : null);
         } else if (side == 2) {
-            return j % 2 == 0 ? (i + 1 >= 0 && i + 1 < x && j + 1 >= 0 && j + 1 < y ? map[i + 1][j + 1] : null)
+            return j % 2 == 1 ? (i + 1 >= 0 && i + 1 < x && j + 1 >= 0 && j + 1 < y ? map[i + 1][j + 1] : null)
                     : (j + 1 >= 0 && j + 1 < x ? map[i][j + 1] : null);
         } else if (side == 3) {
             return i + 1 >= 0 && i + 1 < x ? map[i + 1][j] : null;
         } else if (side == 4) {
-            return j % 2 == 0 ? (i + 1 >= 0 && i + 1 < x && j - 1 >= 0 && j - 1 < y ? map[i + 1][j - 1] : null)
+            return j % 2 == 1 ? (i + 1 >= 0 && i + 1 < x && j - 1 >= 0 && j - 1 < y ? map[i + 1][j - 1] : null)
                     : (j - 1 >= 0 && j - 1 < x ? map[i][j - 1] : null);
         } else if (side == 5) {
-            return j % 2 == 0 ? (j - 1 >= 0 && j - 1 < x ? map[i][j - 1] : null)
+            return j % 2 == 1 ? (j - 1 >= 0 && j - 1 < y ? map[i][j - 1] : null)
                     : (i - 1 >= 0 && i - 1 < x && j - 1 >= 0 && j - 1 < y ? map[i - 1][j - 1] : null);
         }
         return null;

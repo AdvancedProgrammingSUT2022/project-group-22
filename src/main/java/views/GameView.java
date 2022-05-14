@@ -288,125 +288,260 @@ public class GameView extends Processor {
         System.out.println("Current Player: " + player);
         System.out.println("Total Happiness = " + totalHappiness);
         int temp = 0;
-        for (int i = 0; i < 2 * x + 1; i++) {
-            if (i % 2 == 0) {
-                for (int j = 0; j < 3; j++) {
+//        for (int i = 0; i < tiles.size(); i++) {
+//            System.out.println(tiles.get(i).getX() + " " + tiles.get(i).getY());
+//        }
+        if(tiles.get(temp).getY() % 2 == 0) {
+            for (int i = 0; i < 2 * x + 1; i++) {
+                if (i % 2 == 0) {
+                    for (int j = 0; j < 3; j++) {
 
-                    for (int k = 2 - j; k > 0; k--) {
-                        System.out.print(Color.RESET.getColor() + " ");
-                    }
+                        for (int k = 2 - j; k > 0; k--) {
+                            System.out.print(Color.RESET.getColor() + " ");
+                        }
 
-                    for (int l = 0; l < y; l++) {
-                        if (l % 2 == 0) {
-                            if (temp < tiles.size()) {
-                                System.out.print(tiles.get(temp).getHasRiver().get(5) + "/");
-                            } else {
-                                System.out.print(Color.RESET.getColor() + "/");
-                            }
-                            if (j == 0) {
+                        for (int l = 0; l < y; l++) {
+                            if (l % 2 == 0) {
                                 if (temp < tiles.size()) {
-                                    System.out
-                                            .print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
-                                                    + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                    System.out.print(tiles.get(temp).getHasRiver().get(5) + "/");
                                 } else {
-                                    System.out.print(Color.RESET.getColor() + "     ");
+                                    System.out.print(Color.RESET.getColor() + "/");
                                 }
-                            } else if (j == 1) {
+                                if (j == 0) {
+                                    if (temp < tiles.size()) {
+                                        System.out
+                                                .print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
+                                                        + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "     ");
+                                    }
+                                } else if (j == 1) {
+                                    if (temp < tiles.size()) {
+                                        System.out.print(tiles.get(temp).getBackgroundColor() + " ");
+                                        System.out.printf("%02d,%02d", tiles.get(temp).getX(), tiles.get(temp).getY());
+                                        System.out.print(tiles.get(temp).getBackgroundColor() + " ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "       ");
+                                    }
+                                } else {
+                                    if (temp < tiles.size()) {
+                                        System.out.print(
+                                                tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
+                                                        + tiles.get(temp).getCivilianUnit().substring(0, 3) + " "
+                                                        + tiles.get(temp).getColor()[2]
+                                                        + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "         ");
+                                    }
+                                }
                                 if (temp < tiles.size()) {
+                                    System.out.print(tiles.get(temp).getHasRiver().get(1) + "\\");
+                                } else {
+                                    System.out.print(Color.RESET.getColor() + "\\");
+                                }
+                            } else {
+                                if (j == 0) {
+                                    if (temp - y >= 0) {
+                                        System.out.print(tiles.get(temp - y).getBackgroundColor() + " "
+                                                + tiles.get(temp - y).getFeature().substring(0, 3) + " "
+                                                + tiles.get(temp - y).getResourceTileView().substring(0, 3) + " ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "         ");
+                                    }
+                                } else if (j == 1) {
+                                    if (temp - y >= 0) {
+                                        System.out.print(tiles.get(temp - y).getBackgroundColor() + "  "
+                                                + tiles.get(temp - y).getImprovement().substring(0, 3) + "  ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "       ");
+                                    }
+                                } else {
+                                    if (temp - y >= 0) {
+                                        System.out.print(tiles.get(temp - y).getHasRiver().get(3) + "-----");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "-----");
+                                    }
+                                }
+                            }
+                            temp++;
+                        }
+                        temp -= (y);
+                        System.out.println(Color.RESET.getColor());
+                    }
+                } else {
+                    for (int j = 0; j < 3; j++) {
+
+                        for (int k = j; k > 0; k--) {
+                            System.out.print(Color.RESET.getColor() + " ");
+                        }
+
+                        for (int l = 0; l < y; l++) {
+                            if (l % 2 == 0) {
+                                System.out.print(tiles.get(temp).getHasRiver().get(4) + "\\");
+                                if (j == 0) {
+                                    System.out.print(tiles.get(temp).getBackgroundColor() + " "
+                                            + tiles.get(temp).getFeature().substring(0, 3) + " "
+                                            + tiles.get(temp).getResourceTileView().substring(0, 3) + " ");
+                                } else if (j == 1) {
+                                    System.out.print(tiles.get(temp).getBackgroundColor() + "  "
+                                            + tiles.get(temp).getImprovement().substring(0, 3) + "  ");
+                                } else {
+                                    System.out.print(tiles.get(temp).getHasRiver().get(3) + "-----");
+                                }
+                                System.out.print(tiles.get(temp).getHasRiver().get(2) + "/");
+                            } else {
+                                if (j == 0) {
+                                    System.out.print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
+                                            + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                } else if (j == 1) {
                                     System.out.print(tiles.get(temp).getBackgroundColor() + " ");
                                     System.out.printf("%02d,%02d", tiles.get(temp).getX(), tiles.get(temp).getY());
                                     System.out.print(tiles.get(temp).getBackgroundColor() + " ");
                                 } else {
-                                    System.out.print(Color.RESET.getColor() + "       ");
-                                }
-                            } else {
-                                if (temp < tiles.size()) {
                                     System.out.print(
                                             tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
                                                     + tiles.get(temp).getCivilianUnit().substring(0, 3) + " "
                                                     + tiles.get(temp).getColor()[2]
                                                     + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
-                                } else {
-                                    System.out.print(Color.RESET.getColor() + "         ");
                                 }
                             }
-                            if (temp < tiles.size()) {
-                                System.out.print(tiles.get(temp).getHasRiver().get(1) + "\\");
-                            } else {
-                                System.out.print(Color.RESET.getColor() + "\\");
-                            }
-                        } else {
-                            if (j == 0) {
-                                if (temp - y >= 0) {
-                                    System.out.print(tiles.get(temp - y).getBackgroundColor() + " "
-                                            + tiles.get(temp - y).getFeature().substring(0, 3) + " "
-                                            + tiles.get(temp - y).getResourceTileView().substring(0, 3) + " ");
-                                } else {
-                                    System.out.print(Color.RESET.getColor() + "         ");
-                                }
-                            } else if (j == 1) {
-                                if (temp - y >= 0) {
-                                    System.out.print(tiles.get(temp - y).getBackgroundColor() + "  "
-                                            + tiles.get(temp - y).getImprovement().substring(0, 3) + "  ");
-                                } else {
-                                    System.out.print(Color.RESET.getColor() + "       ");
-                                }
-                            } else {
-                                if (temp - y >= 0) {
-                                    System.out.print(tiles.get(temp - y).getHasRiver().get(3) + "-----");
-                                } else {
-                                    System.out.print(Color.RESET.getColor() + "-----");
-                                }
-                            }
+                            temp++;
                         }
-                        temp++;
+                        temp -= y;
+                        System.out.println(Color.RESET.getColor());
                     }
-                    temp -= (y);
-                    System.out.println(Color.RESET.getColor());
+                    temp += y;
                 }
-            } else {
-                for (int j = 0; j < 3; j++) {
+            }
+        }
 
-                    for (int k = j; k > 0; k--) {
-                        System.out.print(Color.RESET.getColor() + " ");
-                    }
+        else{
+            temp = -y;
+            for (int i = 0; i < 2 * x + 1; i++) {
+                if (i % 2 == 0) {
+                    for (int j = 0; j < 3; j++) {
 
-                    for (int l = 0; l < y; l++) {
-                        if (l % 2 == 0) {
-                            System.out.print(tiles.get(temp).getHasRiver().get(4) + "\\");
-                            if (j == 0) {
-                                System.out.print(tiles.get(temp).getBackgroundColor() + " "
-                                        + tiles.get(temp).getFeature().substring(0, 3) + " "
-                                        + tiles.get(temp).getResourceTileView().substring(0, 3) + " ");
-                            } else if (j == 1) {
-                                System.out.print(tiles.get(temp).getBackgroundColor() + "  "
-                                        + tiles.get(temp).getImprovement().substring(0, 3) + "  ");
-                            } else {
-                                System.out.print(tiles.get(temp).getHasRiver().get(3) + "-----");
-                            }
-                            System.out.print(tiles.get(temp).getHasRiver().get(2) + "/");
-                        } else {
-                            if (j == 0) {
-                                System.out.print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
-                                        + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
-                            } else if (j == 1) {
-                                System.out.print(tiles.get(temp).getBackgroundColor() + " ");
-                                System.out.printf("%02d,%02d", tiles.get(temp).getX(), tiles.get(temp).getY());
-                                System.out.print(tiles.get(temp).getBackgroundColor() + " ");
-                            } else {
-                                System.out.print(
-                                        tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
-                                                + tiles.get(temp).getCivilianUnit().substring(0, 3) + " "
-                                                + tiles.get(temp).getColor()[2]
-                                                + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
-                            }
+                        for (int k = j; k > 0; k--) {
+                            System.out.print(Color.RESET.getColor() + " ");
                         }
-                        temp++;
+
+                        for (int l = 0; l < y; l++) {
+                            if (l % 2 == 1) {
+                                if (temp + y < tiles.size()) {
+                                    System.out.print(tiles.get(temp + y).getHasRiver().get(5) + "/");
+                                }
+                                else {
+                                    System.out.print(Color.RESET.getColor() + "/");
+                                }
+                                if (j == 0) {
+                                    if (temp + y < tiles.size()) {
+                                        System.out
+                                                .print(tiles.get(temp + y).getColor()[0] + tiles.get(temp + y).getBackgroundColor()
+                                                        + "  " + tiles.get(temp + y).getNickname().charAt(0) + "  ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "     ");
+                                    }
+                                }
+                                else if (j == 1) {
+                                    if (temp + y < tiles.size()) {
+                                        System.out.print(tiles.get(temp + y).getBackgroundColor() + " ");
+                                        System.out.printf("%02d,%02d", tiles.get(temp + y).getX(), tiles.get(temp + y).getY());
+                                        System.out.print(tiles.get(temp + y).getBackgroundColor() + " ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "       ");
+                                    }
+                                }
+                                else {
+                                    if (temp + y < tiles.size()) {
+                                        System.out.print(
+                                                tiles.get(temp + y).getBackgroundColor() + " " + tiles.get(temp + y).getColor()[1]
+                                                        + tiles.get(temp + y).getCivilianUnit().substring(0, 3) + " "
+                                                        + tiles.get(temp + y).getColor()[2]
+                                                        + tiles.get(temp + y).getMilitaryUnit().substring(0, 3) + " ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "         ");
+                                    }
+                                }
+                                if (temp + y < tiles.size()) {
+                                    System.out.print(tiles.get(temp + y).getHasRiver().get(1) + "\\");
+                                } else {
+                                    System.out.print(Color.RESET.getColor() + "\\");
+                                }
+                            } else {
+                                if (j == 0) {
+                                    if (temp >= 0) {
+                                        System.out.print(tiles.get(temp).getBackgroundColor() + " "
+                                                + tiles.get(temp).getFeature().substring(0, 3) + " "
+                                                + tiles.get(temp).getResourceTileView().substring(0, 3) + " ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "         ");
+                                    }
+                                }
+                                else if (j == 1) {
+                                    if (temp >= 0) {
+                                        System.out.print(tiles.get(temp).getBackgroundColor() + "  "
+                                                + tiles.get(temp).getImprovement().substring(0, 3) + "  ");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "       ");
+                                    }
+                                }
+                                else {
+                                    if (temp >= 0) {
+                                        System.out.print(tiles.get(temp).getHasRiver().get(3) + "-----");
+                                    } else {
+                                        System.out.print(Color.RESET.getColor() + "-----");
+                                    }
+                                }
+                            }
+                            temp++;
+                        }
+                        temp -= (y);
+                        System.out.println(Color.RESET.getColor());
                     }
-                    temp -= y;
-                    System.out.println(Color.RESET.getColor());
+                    temp += y;
+                } else {
+                    for (int j = 0; j < 3; j++) {
+
+                        for (int k = 2 - j; k > 0; k--) {
+                            System.out.print(Color.RESET.getColor() + " ");
+                        }
+
+                        for (int l = 0; l < y; l++) {
+                            if (l % 2 == 1) {
+                                System.out.print(tiles.get(temp).getHasRiver().get(4) + "\\");
+                                if (j == 0) {
+                                    System.out.print(tiles.get(temp).getBackgroundColor() + " "
+                                            + tiles.get(temp).getFeature().substring(0, 3) + " "
+                                            + tiles.get(temp).getResourceTileView().substring(0, 3) + " ");
+                                } else if (j == 1) {
+                                    System.out.print(tiles.get(temp).getBackgroundColor() + "  "
+                                            + tiles.get(temp).getImprovement().substring(0, 3) + "  ");
+                                } else {
+                                    System.out.print(tiles.get(temp).getHasRiver().get(3) + "-----");
+                                }
+                                System.out.print(tiles.get(temp).getHasRiver().get(2) + "/");
+                            } else {
+                                if (j == 0) {
+                                    System.out.print(tiles.get(temp).getColor()[0] + tiles.get(temp).getBackgroundColor()
+                                            + "  " + tiles.get(temp).getNickname().charAt(0) + "  ");
+                                } else if (j == 1) {
+                                    System.out.print(tiles.get(temp).getBackgroundColor() + " ");
+                                    System.out.printf("%02d,%02d", tiles.get(temp).getX(), tiles.get(temp).getY());
+                                    System.out.print(tiles.get(temp).getBackgroundColor() + " ");
+                                } else {
+                                    System.out.print(
+                                            tiles.get(temp).getBackgroundColor() + " " + tiles.get(temp).getColor()[1]
+                                                    + tiles.get(temp).getCivilianUnit().substring(0, 3) + " "
+                                                    + tiles.get(temp).getColor()[2]
+                                                    + tiles.get(temp).getMilitaryUnit().substring(0, 3) + " ");
+                                }
+                            }
+                            temp++;
+                        }
+                        temp -= y;
+                        System.out.println(Color.RESET.getColor());
+                    }
                 }
-                temp += y;
             }
         }
     }
