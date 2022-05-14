@@ -109,7 +109,7 @@ public class GameController {
         CivilianUnit civUnit;
         if ((civUnit = Database.getInstance().getCivilianUnitByTile(map[i][j])) == null) {
             GameView.getInstance().invalidCivilianUnit();
-        } else if (Database.getInstance().getUnitOwner(civUnit).equals(user)) {
+        } else if (Database.getInstance().getUnitOwner(civUnit).getNickname().equals(user.getNickname())) {
             GameView.getInstance().unitInaccessible();
         } else {
             user.getCivilization().setCurrentCivilian(civUnit);
@@ -173,6 +173,29 @@ public class GameController {
         Civilization civilization = database.getCurrentPlayer().getCivilization();
         civilization.setGold(civilization.getGold() + amount);
     }
+    public void addResearch(Matcher matcher){
+        String tech = matcher.group("name");
+        Technology techEnum = Technology.valueOf(tech);
+        if(user.getCivilization().getCities().size() == 0){
+            GameView.getInstance().dontHaveCity();
+            return;
+        }
+        if(user.getCivilization().hasTechnology(techEnum)){
+            GameView.getInstance().hadTechnology();
+            return;
+        }
+        for(int i = 0; i < user.getCivilization().getPossibleTechnologies().size(); i++){
+            if(user.getCivilization().getPossibleTechnologies().get(i).name().equals(tech)){
+                user.getCivilization().addResearch(techEnum);
+                GameView.getInstance().researchAdded();
+                return;
+            }
+        }
+        GameView.getInstance().technologyInaccessible();
+
+    }
+
+
 
     // run
     public String run() {

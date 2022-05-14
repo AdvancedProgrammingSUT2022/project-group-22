@@ -98,6 +98,9 @@ public enum Command {
         MAPMOVEU("map move up"),
         MAPMOVED("map move down"),
 
+        //tech
+        RESEARCH("research (?<name>\\S+)"),
+
         // cheat sheet
         INCREASETURN("increase -turn (?<amount>\\d+)"),
         INCREASEGOLD("increase gold (?<amount>\\d+)"),

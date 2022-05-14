@@ -44,6 +44,7 @@ public class Civilization {
         this.currentCity = null;
         this.currentMilitary = null;
         this.currentCivilian = null;
+        this.possibleTechnologies.add(Technology.AGRICULTURE);
     }
 
     public Color getColor() {
@@ -261,6 +262,20 @@ public class Civilization {
 
     public void addTechnology(Technology technology) {
         this.technologies.add(technology);
+        String[] temp = technology.getLeadsToTechs().split(",");
+        boolean wasPossible = false;
+        for (int j = 0; j < temp.length; j++) {
+            for (int i = 0; i < this.possibleTechnologies.size(); i++) {
+                if(this.possibleTechnologies.get(i).name().equals(temp[j])){
+                    wasPossible = true;
+                    break;
+                }
+            }
+            if(!wasPossible){
+                Technology newTech = Technology.valueOf(temp[j]);
+                this.addPossibleTechnologies(newTech);
+            }
+        }
     }
 
     public Boolean hasTechnology(Technology technology) {

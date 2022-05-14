@@ -130,6 +130,8 @@ public class GameView extends Processor {
                 UnitController.getInstance().instantBuild(matcher);
             else if ((matcher = getMatcher(command, Command.BUYTILE)) != null)
                 GameController.getInstance().buyTile(matcher);
+            else if ((matcher = getMatcher(command, Command.RESEARCH)) != null)
+               GameController.getInstance().addResearch(matcher);
             else
                 System.out.println("invalid Command!");
         }
@@ -199,6 +201,22 @@ public class GameView extends Processor {
 
     public void noCityNearby() {
         System.out.println("this tile isn't neighboring your current civilization");
+    }
+
+    public void dontHaveCity(){
+        System.out.println("You should own at least one city");
+    }
+
+    public void researchAdded(){
+        System.out.println("research added successfully");
+    }
+    
+    public void technologyInaccessible(){
+        System.out.println("this technology isn't accessible");
+    }
+
+    public void hadTechnology(){
+        System.out.println("You already have this technology");
     }
 
     public void invalidCity() {
