@@ -167,12 +167,17 @@ public class Database {
         tiles.add(tile);
         for (int i = 0; i < 6; i++) {
             if (getNeighbor(tile, i) != null) {
-                if (getNeighbor(tile, i).getLandType().equals(LandType.HILL)
-                        || getNeighbor(tile, i).getLandType().equals(LandType.MOUNTAIN)) {
-                    tiles.add(getNeighbor(tile, i));
-                } else {
-                    getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
-                }
+                // if (getNeighbor(tile, i).getLandType().equals(LandType.HILL)
+                // || getNeighbor(tile, i).getLandType().equals(LandType.MOUNTAIN)) {
+                // tiles.add(getNeighbor(tile, i));
+                // for (int j = 0; j < 6; j++) {
+                // if (j != (i + 3) % 6 && getNeighbor(getNeighbor(tile, i), j) != null) {
+                // getTilesInRange(getNeighbor(getNeighbor(tile, i), j), range - 1, tiles);
+                // }
+                // }
+                // } else {
+                getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
+                // }
             }
         }
     }

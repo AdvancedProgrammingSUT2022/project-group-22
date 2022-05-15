@@ -138,14 +138,12 @@ public class MapController extends GameController {
         } else if (database.getCurrentPlayer().getCivilization().findTile(tile) == 0) {
             tileView.add(generateTileView(database.getCurrentPlayer().getCivilization().getRevealedTile(tile)));
         } else {
-            // String[] colors = { Color.WHITE.getColor(), Color.WHITE.getColor(),
-            // Color.WHITE.getColor() };
-            // Boolean[] hasRiver = { false, false, false, false, false, false };
-            // tileView.add(new TileView(colors, Color.RESET.getColor(), " ", " ", " ", " ",
-            // " ",
-            // " ", getRiverColor(hasRiver), tile.getCoordinates()[0],
-            // tile.getCoordinates()[1]));
-            tileView.add(generateTileView(tile));
+            String[] colors = { Color.WHITE.getColor(), Color.WHITE.getColor(),
+                    Color.WHITE.getColor() };
+            Boolean[] hasRiver = { false, false, false, false, false, false };
+            tileView.add(new TileView(colors, Color.BLACK_BRIGHT_BG.getColor(), null, null, null, null, null, null,
+                    getRiverColor(hasRiver), tile.getCoordinates()[0], tile.getCoordinates()[1]));
+            // tileView.add(generateTileView(tile));
         }
     }
 
