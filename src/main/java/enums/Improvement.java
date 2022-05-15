@@ -1,7 +1,5 @@
 package enums;
 
-import java.util.*;
-
 public enum Improvement {
     CAMP(0, 0, 0, Technology.TRAPPING),
     FARM(1, 0, 0, Technology.AGRICULTURE),

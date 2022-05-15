@@ -2,13 +2,10 @@ package controllers;
 
 import enums.*;
 import models.*;
-import views.GameView;
 import java.util.regex.*;
 
 public class UnitController extends GameController {
     private static UnitController instance = null;
-    private static GameView gameView = GameView.getInstance();
-    private Database database = Database.getInstance();
 
     public static UnitController getInstance() {
         instance = instance != null ? instance : new UnitController();
@@ -16,26 +13,27 @@ public class UnitController extends GameController {
     }
 
     // turn handling + tasks
-    public void completeTask(CivilianUnit civilianUnit) {
-        Civilization player = user.getCivilization();
+    public void taskCompleted(CivilianUnit civilianUnit) {
+        Civilization player = database.getCurrentPlayer().getCivilization();
         for (CivilianUnit unit : player.getRoadWorkers().keySet()) {
             if (unit.equals(civilianUnit)) {
                 player.getRoadWorkers().get(civilianUnit).setHasRoad(true);
-                gameView.completeTask("road", unit.getPosition().getCoordinates());
+                gameView.taskCompleted("road", unit.getPosition().getCoordinates());
                 player.getRoadWorkers().remove(civilianUnit);
             }
         }
         for (CivilianUnit unit : player.getRemovalWorkers().keySet()) {
             if (unit.equals(civilianUnit)) {
                 civilianUnit.getPosition().removeFeature(player.getRemovalWorkers().get(unit));
-                gameView.completeTask(player.getRemovalWorkers().get(unit).name(), unit.getPosition().getCoordinates());
+                gameView.taskCompleted(player.getRemovalWorkers().get(unit).name(),
+                        unit.getPosition().getCoordinates());
                 player.getRemovalWorkers().remove(civilianUnit);
             }
         }
         for (CivilianUnit unit : player.getImprovementWorkers().keySet()) {
             if (unit.equals(civilianUnit)) {
                 civilianUnit.getPosition().addImprovement(player.getImprovementWorkers().get(civilianUnit));
-                gameView.completeTask(player.getImprovementWorkers().get(unit).name(),
+                gameView.taskCompleted(player.getImprovementWorkers().get(unit).name(),
                         unit.getPosition().getCoordinates());
                 player.getImprovementWorkers().remove(civilianUnit);
             }
@@ -43,7 +41,7 @@ public class UnitController extends GameController {
         for (CivilianUnit unit : player.getBuildingWorkers().keySet()) {
             if (unit.equals(civilianUnit)) {
                 civilianUnit.getPosition().addBuilding(player.getBuildingWorkers().get(civilianUnit));
-                gameView.completeTask(player.getBuildingWorkers().get(unit).name(),
+                gameView.taskCompleted(player.getBuildingWorkers().get(unit).name(),
                         unit.getPosition().getCoordinates());
                 player.getBuildingWorkers().remove(civilianUnit);
             }
@@ -57,7 +55,7 @@ public class UnitController extends GameController {
             unit.setTarget(null);
             unit.setTaskTurns(0);
         } else if (unit.getTarget().equals(unit.getPosition())) {
-            gameView.completeMove(unit.getTarget().getCoordinates());
+            gameView.moveCompleted(unit.getTarget().getCoordinates());
             MapController.getInstance().printTile(unit.getPosition());
             unit.setTarget(null);
             unit.setTaskTurns(0);
@@ -69,7 +67,7 @@ public class UnitController extends GameController {
         for (CivilianUnit unit : player.getCivilianUnits()) {
             unit.setTaskTurns(unit.getTaskTurns() - 1);
             if (unit.getTaskTurns() == 0) {
-                completeTask(unit);
+                taskCompleted(unit);
             }
             if (unit.getTarget() != null) {
                 checkMovement(unit);
@@ -86,23 +84,26 @@ public class UnitController extends GameController {
 
     public void nextTurn() {
         if (!database.getCurrentPlayer().getCivilization().checkUnitTasks()) {
-            GameView.getInstance().turnNotOver();
+            gameView.turnNotOver();
         } else {
-            Database.getInstance().nextTurn();
+            database.nextTurn();
             database.getCurrentPlayer().getCivilization().addValues();
             processTasks();
             // restore city + unit in combat
+            gameView.currentPlayer(database.getCurrentPlayer().getUsername());
         }
     }
 
     public void skipTurns(Matcher matcher) {
         int num = Integer.parseInt(matcher.group("amount"));
         for (int i = 0; i < num; i++) {
-            Database.getInstance().nextTurn();
+            database.nextTurn();
             database.getCurrentPlayer().getCivilization().addValues();
             processTasks();
             // restore city + unit in combat
         }
+        gameView.turnsIncreased(num);
+        gameView.currentPlayer(database.getCurrentPlayer().getUsername());
     }
 
     // create unit
@@ -150,19 +151,19 @@ public class UnitController extends GameController {
         if (dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] <= unit.getMovementPoints()) {
             unit.setMovementPoints(
                     unit.getMovementPoints() - dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]]);
-            user.getCivilization().updateTileStates(unit.getPosition(), nextTile);
+            database.getCurrentPlayer().getCivilization().updateTileStates(unit.getPosition(), nextTile);
             unit.setPosition(nextTile);
             multiStepMove(nextTile, unit, dist, parent);
         } else {
             for (int k = 0; k < 6; k++) {
                 int i2 = database.getNeighbor(nextTile, k).getCoordinates()[0];
                 int j2 = database.getNeighbor(nextTile, k).getCoordinates()[1];
-                if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
+                if (dist[i2][j2] < unit.getMovementPoints() && !database.getMap()[i2][j2].getHasRiver()[k]) {
                     unit.setMovementPoints(unit.getMovementPoints()
                             - dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]]);
-                    user.getCivilization().updateTileStates(unit.getPosition(), nextTile);
+                    database.getCurrentPlayer().getCivilization().updateTileStates(unit.getPosition(), nextTile);
                     unit.setPosition(nextTile);
-                    parent[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] = map[i2][j2];
+                    parent[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] = database.getMap()[i2][j2];
                     multiStepMove(nextTile, unit, dist, parent);
                     return;
                 }
@@ -171,15 +172,14 @@ public class UnitController extends GameController {
     }
 
     public void moveTo(int i, int j, Unit unit, Tile tile) {
-        this.user = database.getCurrentPlayer();
         ShortestPath shortestPath = new ShortestPath();
-        Tile[][] parent = new Tile[map.length][map[0].length];
-        int[][] dist = shortestPath.getShortestPaths(map,
+        Tile[][] parent = new Tile[database.getMap().length][database.getMap()[0].length];
+        int[][] dist = shortestPath.getShortestPaths(database.getMap(),
                 unit.getPosition().getCoordinates()[0],
                 unit.getPosition().getCoordinates()[1], parent);
         if (dist[i][j] <= unit.getMovementPoints()) {
             unit.setMovementPoints(unit.getMovementPoints() - dist[i][j]);
-            user.getCivilization().updateTileStates(unit.getPosition(), tile);
+            database.getCurrentPlayer().getCivilization().updateTileStates(unit.getPosition(), tile);
             unit.setPosition(tile);
             MapController.getInstance().printTile(unit.getPosition());
         } else {
@@ -187,16 +187,16 @@ public class UnitController extends GameController {
                 if (database.getNeighbor(tile, k) != null) {
                     int i2 = database.getNeighbor(tile, k).getCoordinates()[0];
                     int j2 = database.getNeighbor(tile, k).getCoordinates()[1];
-                    if (dist[i2][j2] < unit.getMovementPoints() && !map[i2][j2].getHasRiver()[k]) {
+                    if (dist[i2][j2] < unit.getMovementPoints() && !database.getMap()[i2][j2].getHasRiver()[k]) {
                         unit.setMovementPoints(unit.getMovementPoints() - dist[i2][j2]);
-                        user.getCivilization().updateTileStates(unit.getPosition(), tile);
+                        database.getCurrentPlayer().getCivilization().updateTileStates(unit.getPosition(), tile);
                         unit.setPosition(tile);
                         MapController.getInstance().printTile(unit.getPosition());
                         return;
                     }
                 }
             }
-            GameView.getInstance().mpLow();
+            gameView.mpLow();
             unit.setTarget(tile);
             unit.setTaskTurns(Integer.MAX_VALUE);
             multiStepMove(tile, unit, dist, parent);
@@ -206,22 +206,22 @@ public class UnitController extends GameController {
     public void move(Matcher matcher) {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
-        Unit unit = hasCombatUnit() ? user.getCivilization().getCurrentMilitary()
-                : user.getCivilization().getCurrentCivilian();
+        Unit unit = hasCombatUnit() ? database.getCurrentPlayer().getCivilization().getCurrentMilitary()
+                : database.getCurrentPlayer().getCivilization().getCurrentCivilian();
         Tile tile;
         if (unit == null) {
-            GameView.getInstance().noUnitSelected();
-        } else if (map.length < i || map[0].length < j) {
-            GameView.getInstance().invalidTile();
+            gameView.noUnitSelected();
+        } else if (!isValidCoordinates(i, j)) {
+            gameView.invalidTile();
         } else if ((tile = database.getMap()[i][j]).equals(unit.getPosition())) {
-            GameView.getInstance().onTarget();
+            gameView.onTarget();
         } else if (hasNonCombatUnit() && database.getCivilianUnitByTile(tile) != null
                 || hasCombatUnit() != null && database.getMilitaryUnitByTile(tile) != null) {
-            GameView.getInstance().tileOccupied();
+            gameView.tileOccupied();
         } else if (tile.getFeature() != null
                 && (tile.getLandType().equals(LandType.MOUNTAIN) || tile.getLandType().equals(LandType.OCEAN)
                         || tile.getLandType().equals(LandType.SNOW) || tile.getFeature().equals(Feature.ICE))) {
-            GameView.getInstance().tileInaccessible();
+            gameView.tileInaccessible();
         } else {
             moveTo(i, j, unit, tile);
         }
@@ -229,59 +229,59 @@ public class UnitController extends GameController {
 
     public void attack(Matcher matcher) {
         if (!hasCombatUnit())
-            GameView.getInstance().noUnitSelected();
+            gameView.noUnitSelected();
         if (isAttackPossible(matcher))
-            GameView.getInstance().attackImpossible();
+            gameView.attackImpossible();
     }
 
     public void sleep() {
         if (hasCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().setSleep();
-            GameView.getInstance().sleepSuccessful();
+            database.getCurrentPlayer().getCivilization().getCurrentMilitary().setSleep();
+            gameView.unitSlept();
         } else if (hasNonCombatUnit()) {
-            user.getCivilization().getCurrentCivilian().setSleep();
-            GameView.getInstance().sleepSuccessful();
+            database.getCurrentPlayer().getCivilization().getCurrentCivilian().setSleep();
+            gameView.unitSlept();
         }
-        GameView.getInstance().noUnitSelected();
+        gameView.noUnitSelected();
     }
 
     public void alert() {
         if (hasCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().switchAlert();
-            GameView.getInstance().alertMessage();
+            database.getCurrentPlayer().getCivilization().getCurrentMilitary().switchAlert();
+            gameView.unitAlerted();
         } else if (hasNonCombatUnit()) {
-            user.getCivilization().getCurrentCivilian().switchSleeping();
-            GameView.getInstance().alertMessage();
+            database.getCurrentPlayer().getCivilization().getCurrentCivilian().switchSleeping();
+            gameView.unitAlerted();
         } else
-            GameView.getInstance().noUnitSelected();
+            gameView.noUnitSelected();
     }
 
     public void fortify() {
         if (hasCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().fortify();
-            GameView.getInstance().successfulFortify();
+            database.getCurrentPlayer().getCivilization().getCurrentMilitary().fortify();
+            gameView.unitFortified();
         } else
-            GameView.getInstance().noUnitSelected();
+            gameView.noUnitSelected();
     }
 
     public void wake() {
         if (hasNonCombatUnit()) {
-            user.getCivilization().getCurrentCivilian().switchSleeping();
-            GameView.getInstance().wakeMessage();
+            database.getCurrentPlayer().getCivilization().getCurrentCivilian().switchSleeping();
+            gameView.unitWoke();
         } else if (hasCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().setSleep();
-            GameView.getInstance().wakeMessage();
+            database.getCurrentPlayer().getCivilization().getCurrentMilitary().setSleep();
+            gameView.unitWoke();
         } else
-            GameView.getInstance().noUnitSelected();
+            gameView.noUnitSelected();
     }
 
     public void garrison() {
         if (hasCombatUnit()) {
-            user.getCivilization().getCurrentMilitary().getPosition()
-                    .setGarrisonUnit(user.getCivilization().getCurrentMilitary());
-            GameView.getInstance().garrisonMessage();
+            database.getCurrentPlayer().getCivilization().getCurrentMilitary().getPosition()
+                    .setGarrisonUnit(database.getCurrentPlayer().getCivilization().getCurrentMilitary());
+            gameView.unitGarrisoned();
         } else
-            GameView.getInstance().noUnitSelected();
+            gameView.noUnitSelected();
     }
 
     // public Boolean sleep(Civilization civilization) {
@@ -304,32 +304,37 @@ public class UnitController extends GameController {
     // }
 
     public void foundCity(Matcher matcher) {
-        CivilianUnit civUnit = user.getCivilization().getCurrentCivilian();
+        CivilianUnit civUnit = database.getCurrentPlayer().getCivilization().getCurrentCivilian();
+        String name = matcher.group("name");
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
-        Tile tile = map[i][j];
-        if (user.getCivilization().getTotalHappiness() < 0) {
-            GameView.getInstance().negativeHappiness();
-        } else if (civUnit == null) {
-            GameView.getInstance().noUnitSelected();
+        Tile tile = database.getMap()[i][j];
+        if (civUnit == null) {
+            gameView.noUnitSelected();
         } else if (civUnit.getUnitType() != UnitType.SETTLER) {
-            GameView.getInstance().unitNotSettler();
-        } else if (map.length < i || map[0].length < j) {
-            GameView.getInstance().invalidTile();
+            gameView.unitNotSettler();
+        } else if (!isValidCoordinates(i, j)) {
+            gameView.invalidTile();
         } else if (civUnit.getPosition() != tile) {
-            GameView.getInstance().unitNotOnTile();
-        }
-        // else if (tile.getPlayer() != null ||
-        // !tile.getPlayer().getNickname().equals(user.getNickname())) {
-        // GameView.getInstance().tileNotYours();
-        // return;
-        // } // check distance from other city centers
-        else {
-            user.getCivilization().getCivilianUnits().remove(civUnit);
-            user.getCivilization().setCurrentCivilian(null);
-            user.getCivilization().addCity(new City(tile, user));
-            user.getCivilization().setUnhappiness(user.getCivilization().getUnhappiness() + 1);
-            gameView.cityFounded(map[i][j].getPlayer().getUsername(), i, j);
+            gameView.unitNotOnTile();
+        } else if (tile.getPlayer() != null &&
+                !tile.getPlayer().getNickname().equals(database.getCurrentPlayer().getNickname())) {
+            gameView.tileNotYours();
+        } else if (database.getCityCenters().indexOf(tile) != -1) {
+            gameView.cityExists(tile.getCoordinates());
+        } else if (!canFoundCity(tile)) {
+            gameView.tooCloseToCity(tile.getCoordinates());
+        } else if (database.getCurrentPlayer().getCivilization().getTotalHappiness() < 0) {
+            gameView.negativeHappiness();
+        } else if (database.getCityByName(name) != null) {
+            gameView.nameTaken(name);
+        } else {
+            database.getCurrentPlayer().getCivilization().getCivilianUnits().remove(civUnit);
+            database.getCurrentPlayer().getCivilization().setCurrentCivilian(null);
+            database.getCurrentPlayer().getCivilization().addCity(new City(tile, database.getCurrentPlayer(), name));
+            database.getCurrentPlayer().getCivilization()
+                    .setUnhappiness(database.getCurrentPlayer().getCivilization().getUnhappiness() + 1);
+            gameView.cityFounded(database.getMap()[i][j].getPlayer().getUsername(), i, j);
         }
     }
 
@@ -339,22 +344,23 @@ public class UnitController extends GameController {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
         if (!isValidCoordinates(i, j)) {
-            GameView.getInstance().invalidTile();
+            gameView.invalidTile();
         } else if (!hasNonCombatUnit() && !hasCombatUnit()) {
-            GameView.getInstance().noUnitSelected();
-        } else if (!hasNonCombatUnit() || !(civUnit = user.getCivilization().getCurrentCivilian()).isWorker()) {
-            GameView.getInstance().unitNotWorker();
-        } else if (!civUnit.getPosition().equals(map[i][j])) {
-            GameView.getInstance().unitNotOnTile();
+            gameView.noUnitSelected();
+        } else if (!hasNonCombatUnit()
+                || !(civUnit = database.getCurrentPlayer().getCivilization().getCurrentCivilian()).isWorker()) {
+            gameView.unitNotWorker();
+        } else if (!civUnit.getPosition().equals(database.getMap()[i][j])) {
+            gameView.unitNotOnTile();
         } else {
             civUnit.setTaskTurns(3);
-            user.getCivilization().addRoadWorker(civUnit, map[i][j]);
+            database.getCurrentPlayer().getCivilization().addRoadWorker(civUnit, database.getMap()[i][j]);
         }
     }
 
     public void setImprovementTask(CivilianUnit unit, Improvement improvement) {
         Feature feature = unit.getPosition().getFeature();
-        Civilization player = user.getCivilization();
+        Civilization player = database.getCurrentPlayer().getCivilization();
         if (improvement.equals(Improvement.FARM) || improvement.equals(Improvement.MINE)) {
             if (feature.equals(Feature.FOREST) || feature.equals(Feature.JUNGLE) || feature.equals(Feature.SWAMP)) {
                 player.addRemovalWorker(unit, null);
@@ -369,11 +375,11 @@ public class UnitController extends GameController {
 
     public void buildImprovements(Improvement improvement) {
         CivilianUnit unit;
-        if ((unit = user.getCivilization().getCurrentCivilian()) == null) {
+        if ((unit = database.getCurrentPlayer().getCivilization().getCurrentCivilian()) == null) {
             gameView.noUnitSelected();
         } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
             gameView.unitNotWorker();
-        } else if (!unit.getPosition().getPlayer().equals(user)) {
+        } else if (!unit.getPosition().getPlayer().equals(database.getCurrentPlayer())) {
             gameView.tileNotYours();
         } else if (!canBuildImprovement(improvement, unit.getPosition())) {
             gameView.invalidLocation();
@@ -395,18 +401,22 @@ public class UnitController extends GameController {
     public void repair() {
     }
 
-    public void remove(Feature feature) {
+    public void removeFeature(Matcher matcher) {
         CivilianUnit unit;
-        if ((unit = user.getCivilization().getCurrentCivilian()) == null) {
+        String featureName = matcher.group("feature");
+        Feature feature = Feature.matchFeature(featureName);
+        if (!(feature.equals(Feature.JUNGLE) || feature.equals(Feature.FOREST) || feature.equals(Feature.SWAMP))) {
+            gameView.featureIrremovable(featureName);
+        } else if ((unit = database.getCurrentPlayer().getCivilization().getCurrentCivilian()) == null) {
             gameView.noUnitSelected();
         } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
             gameView.unitNotWorker();
-        } else if (!unit.getPosition().getPlayer().equals(user)) {
+        } else if (!unit.getPosition().getPlayer().equals(database.getCurrentPlayer())) {
             gameView.tileNotYours();
-        } else if (!unit.getPosition().getFeature().equals(feature)) {
+        } else if (unit.getPosition().getFeature() == null || !unit.getPosition().getFeature().equals(feature)) {
             gameView.noFeature(feature);
         } else {
-            user.getCivilization().addRemovalWorker(unit, null);
+            database.getCurrentPlayer().getCivilization().addRemovalWorker(unit, null);
             unit.setTaskTurns(feature.equals(Feature.FOREST) ? 10 : feature.equals(Feature.JUNGLE) ? 13 : 12);
         }
     }

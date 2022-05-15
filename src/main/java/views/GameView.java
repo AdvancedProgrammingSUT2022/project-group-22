@@ -2,7 +2,6 @@ package views;
 
 import controllers.*;
 import enums.*;
-import models.*;
 import java.util.*;
 import java.util.regex.*;
 
@@ -24,10 +23,12 @@ public class GameView extends Processor {
             command = getInput();
             if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "exit";
+            else if ((matcher = getMatcher(command, Command.NEXTTURN)) != null)
+                unitController.nextTurn();
             else if ((matcher = getMatcher(command, Command.INFOCITY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFORESEARCH)) != null)
-                GameController.getInstance().researchInfo();
+                gameController.researchInfo();
             else if ((matcher = getMatcher(command, Command.INFODEALS)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFODEMOGRAPHICS)) != null)
@@ -47,43 +48,43 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.INFOVICTORY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
-                GameController.getInstance().selectCityByName(matcher);
+                gameController.selectCityByName(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTCITYPOSITION)) != null)
-                GameController.getInstance().selectCityByPosition(matcher);
+                gameController.selectCityByPosition(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTUNITCOMBAT)) != null)
-                GameController.getInstance().selectCombatUnit(matcher);
+                gameController.selectCombatUnit(matcher);
             else if ((matcher = getMatcher(command, Command.SELECTUNITNONCOMBAT)) != null)
-                GameController.getInstance().selectNonCombatUnit(matcher);
+                gameController.selectNonCombatUnit(matcher);
             else if ((matcher = getMatcher(command, Command.BUYUNIT)) != null)
                 unitController.buyUnit(matcher);
             else if ((matcher = getMatcher(command, Command.ATTACK)) != null)
-                UnitController.getInstance().attack(matcher);
+                unitController.attack(matcher);
             else if ((matcher = getMatcher(command, Command.MOVETO)) != null)
                 unitController.move(matcher);
             else if ((matcher = getMatcher(command, Command.SLEEP)) != null)
-                UnitController.getInstance().sleep();
+                unitController.sleep();
             else if ((matcher = getMatcher(command, Command.WAKE)) != null)
-                UnitController.getInstance().wake();
+                unitController.wake();
             else if ((matcher = getMatcher(command, Command.ALERT)) != null)
-                UnitController.getInstance().alert();
+                unitController.alert();
             else if ((matcher = getMatcher(command, Command.FORTIFY)) != null)
-                UnitController.getInstance().fortify();
+                unitController.fortify();
             else if ((matcher = getMatcher(command, Command.FORTIFYHEAL)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.GARRISON)) != null)
-                UnitController.getInstance().garrison();
+                unitController.garrison();
             else if ((matcher = getMatcher(command, Command.SETUP)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.FOUND)) != null)
-                UnitController.getInstance().foundCity(matcher);
+                unitController.foundCity(matcher);
             else if ((matcher = getMatcher(command, Command.CANCEL)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.DELETE)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.BUILDROAD)) != null)
-                UnitController.getInstance().buildRoad(matcher);
+                unitController.buildRoad(matcher);
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
-                UnitController.getInstance().buildRailRoad();
+                unitController.buildRailRoad();
             else if ((matcher = getMatcher(command, Command.BUILDFARM)) != null)
                 unitController.buildImprovements(Improvement.FARM);
             else if ((matcher = getMatcher(command, Command.BUILDMINE)) != null)
@@ -100,20 +101,20 @@ public class GameView extends Processor {
                 unitController.buildImprovements(Improvement.PLANTATION);
             else if ((matcher = getMatcher(command, Command.BUILDQUARRY)) != null)
                 unitController.buildImprovements(Improvement.QUARRY);
-            else if ((matcher = getMatcher(command, Command.REMOVEJUNGLE)) != null)
-                return null;
+            else if ((matcher = getMatcher(command, Command.REMOVEFEATURE)) != null)
+                unitController.removeFeature(matcher);
             else if ((matcher = getMatcher(command, Command.REMOVEROUTE)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.REPAIR)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.PRINTAREA)) != null)
-                MapController.getInstance().printAreaCheck(matcher);
+                mapController.printAreaCheck(matcher);
             else if ((matcher = getMatcher(command, Command.PRINTCITY)) != null)
-                MapController.getInstance().printCityCheck(matcher);
+                mapController.printCityCheck(matcher);
             else if ((matcher = getMatcher(command, Command.PRINTTILE)) != null)
-                MapController.getInstance().printTileCheck(matcher, Command.PRINTTILE);
+                mapController.printTileCheck(matcher, Command.PRINTTILE);
             else if ((matcher = getMatcher(command, Command.PRINTUNITPOSITION)) != null)
-                MapController.getInstance().printTileCheck(matcher, Command.PRINTUNITPOSITION);
+                mapController.printTileCheck(matcher, Command.PRINTUNITPOSITION);
             else if ((matcher = getMatcher(command, Command.MAPMOVED)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEL)) != null)
@@ -122,22 +123,81 @@ public class GameView extends Processor {
                 return null;
             else if ((matcher = getMatcher(command, Command.MAPMOVEU)) != null)
                 return null;
-            else if ((matcher = getMatcher(command, Command.NEXT)) != null)
-                UnitController.getInstance().nextTurn();
             else if ((matcher = getMatcher(command, Command.INCREASETURN)) != null)
-                UnitController.getInstance().skipTurns(matcher);
+                unitController.skipTurns(matcher);
             else if ((matcher = getMatcher(command, Command.INCREASEGOLD)) != null)
-                GameController.getInstance().addGold(matcher);
+                gameController.addGold(matcher);
             else if ((matcher = getMatcher(command, Command.INSTANTBUILD)) != null)
-                UnitController.getInstance().instantBuild(matcher);
+                unitController.instantBuild(matcher);
             else if ((matcher = getMatcher(command, Command.BUYTILE)) != null)
-                GameController.getInstance().buyTile(matcher);
+                gameController.buyTile(matcher);
             else if ((matcher = getMatcher(command, Command.RESEARCH)) != null)
-                GameController.getInstance().addResearch(matcher);
+                gameController.addResearch(matcher);
             else
                 System.out.println("invalid Command!");
         }
         return "exit";
+    }
+
+    // messages
+    public void currentPlayer(String username) {
+        System.out.println("current player: " + username);
+    }
+
+    public void unitSelected(String type, int[] coordinates) {
+        System.out.println(type + " unit on tile " + coordinates[0] + ":" + coordinates[1] + " has been selected");
+    }
+
+    public void citySelected(String name) {
+        System.out.println(name + " city has been selected");
+    }
+
+    public void cityFounded(String username, int i, int j) {
+        System.out.println("city founded for player " + username + " on tile " + i + ":" + j);
+    }
+
+    public void unitBought(String type) {
+        System.out.println(type + " unit bought successfully");
+    }
+
+    public void unitSlept() {
+        System.out.println("the selected unit has been put to sleep");
+    }
+
+    public void unitAlerted() {
+        System.out.println("successfully change status of the selected unit");
+    }
+
+    public void unitFortified() {
+        System.out.println("Selected unit successfully fortified");
+    }
+
+    public void unitWoke() {
+        System.out.println("you can use the selected unit from now on");
+    }
+
+    public void unitGarrisoned() {
+        System.out.println("selected unit attached to the tile");
+    }
+
+    public void taskCompleted(String task, int[] coordinates) {
+        System.out.println(task + "was built on tile " + coordinates[0] + ":" + coordinates[1]);
+    }
+
+    public void moveCompleted(int[] coordinates) {
+        System.out.println("unit has moved to tile " + coordinates[0] + ":" + coordinates[1]);
+    }
+
+    public void researchAdded() {
+        System.out.println("research added successfully");
+    }
+
+    public void goldIncreased(int amount) {
+        System.out.println("gold increased by " + amount);
+    }
+
+    public void turnsIncreased(int amount) {
+        System.out.println(amount + " turns skipped");
     }
 
     // errors
@@ -210,15 +270,11 @@ public class GameView extends Processor {
     }
 
     public void negativeHappiness() {
-        System.out.println("The level of happiness is negative");
+        System.out.println("the level of happiness is negative");
     }
 
     public void dontHaveCity() {
-        System.out.println("You should own at least one city");
-    }
-
-    public void researchAdded() {
-        System.out.println("research added successfully");
+        System.out.println("you should own at least one city");
     }
 
     public void technologyInaccessible() {
@@ -226,51 +282,15 @@ public class GameView extends Processor {
     }
 
     public void hadTechnology() {
-        System.out.println("You already have this technology");
+        System.out.println("you already have this technology");
     }
 
     public void invalidCity() {
         System.out.println("no city with this name exists");
     }
 
-    public void sleepSuccessful() {
-        System.out.println("This unit put to sleep");
-    }
-
-    public void alertMessage() {
-        System.out.println("successfully change status of the selected unit");
-    }
-
-    public void successfulFortify() {
-        System.out.println("Selected unit successfully fortified");
-    }
-
-    public void wakeMessage() {
-        System.out.println("You can use the selected unit from now on");
-    }
-
-    public void garrisonMessage() {
-        System.out.println("Selected unit attached to the tile");
-    }
-
-    public void buildRoadSuccessful() {
-        System.out.println("Road built successfully!");
-    }
-
-    public void accessTileError() {
-        System.out.println("you don't have access to this tile");
-    }
-
-    public void outOfMap() {
-        System.out.println("Coordinate is out of map");
-    }
-
     public void attackImpossible() {
-        System.out.println("Attack is not Possible");
-    }
-
-    public void successfullySelected() {
-        System.out.println("successfully selected");
+        System.out.println("attack is not Possible");
     }
 
     public void turnNotOver() {
@@ -301,34 +321,50 @@ public class GameView extends Processor {
         System.out.println("you do not have the prerequired resources");
     }
 
-    public void goldIncreased(int amount) {
-        System.out.println("gold increased by " + amount);
-    }
-
-    public void completeTask(String task, int[] coordinates) {
-        System.out.println(task + "was built on tile " + coordinates[0] + ":" + coordinates[1]);
-    }
-
-    public void completeMove(int[] coordinates) {
-        System.out.println("unit has moved to tile " + coordinates[0] + ":" + coordinates[1]);
-    }
-
-    public void cityFounded(String username, int i, int j) {
-        System.out.println("city founded for player " + username + " on tile " + i + ":" + j);
-    }
-
     public void noSuchUnitType(String type) {
         System.out.println(type + " is not an available unit type");
     }
 
-    public void unitBought(String type) {
-        System.out.println(type + " unit bought successfully");
+    public void featureIrremovable(String feature) {
+        System.out.println(feature + " is not a removable feature");
     }
 
-    private void showDemographics(User player) {
-        // System.out.println(player.getPopulation());
-        // TODO: add get population in player class
+    public void nameTaken(String name) {
+        System.out.println("a city named \"" + name + " already exists");
     }
+
+    public void cityExists(int[] coordinates) {
+        System.out.println("tile " + coordinates[0] + ":" + coordinates[1] + " is a city center");
+    }
+
+    public void tooCloseToCity(int[] coordinates) {
+        System.out.println("tile " + coordinates[0] + ":" + coordinates[1] + " is too close to another city center");
+    }
+
+    // print info
+    public void PrintResearchInfo(String nickName, HashMap<Technology, Integer> currentResearch,
+            ArrayList<Technology> possibles, ArrayList<Technology> done) {
+        System.out.println(Color.WHITE.getColor() + "User nickName: " + Color.RESET.getColor() + nickName);
+        System.out.println(Color.WHITE.getColor() + "Current researches:" + Color.RESET.getColor());
+        for (Technology technology : currentResearch.keySet()) {
+            String key = technology.name();
+            Integer value = currentResearch.get(technology);
+            System.out.println(key + " " + value);
+        }
+        System.out.println(Color.WHITE.getColor() + "Possible technologies to research:" + Color.RESET.getColor());
+        for (Technology possible : possibles) {
+            System.out.println(possible.name());
+        }
+        System.out.println(Color.WHITE.getColor() + "Acquired technologies:" + Color.RESET.getColor());
+        for (Technology technology : done) {
+            System.out.println(technology.name());
+        }
+    }
+
+    // private void showDemographics(User player) {
+    // System.out.println(player.getPopulation());
+    // TODO: add get population in player class
+    // }
 
     // print map
     public void printMap(String player, int totalHappiness, ArrayList<TileView> tiles, int y, int x) {
@@ -593,26 +629,6 @@ public class GameView extends Processor {
                     }
                 }
             }
-        }
-    }
-
-    // print researchMenu
-    public void PrintResearchInfo(String nickName, HashMap<Technology, Integer> currentResearch,
-            ArrayList<Technology> possibles, ArrayList<Technology> done) {
-        System.out.println(Color.WHITE.getColor() + "User nickName: " + Color.RESET.getColor() + nickName);
-        System.out.println(Color.WHITE.getColor() + "Current researches:" + Color.RESET.getColor());
-        for (Technology technology : currentResearch.keySet()) {
-            String key = technology.name();
-            Integer value = currentResearch.get(technology);
-            System.out.println(key + " " + value);
-        }
-        System.out.println(Color.WHITE.getColor() + "Possible technologies to research:" + Color.RESET.getColor());
-        for (Technology possible : possibles) {
-            System.out.println(possible.name());
-        }
-        System.out.println(Color.WHITE.getColor() + "Your own technologies:" + Color.RESET.getColor());
-        for (Technology technology : done) {
-            System.out.println(technology.name());
         }
     }
 }

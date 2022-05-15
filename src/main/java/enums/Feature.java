@@ -31,6 +31,15 @@ public enum Feature {
         this.improvements = improvements;
     }
 
+    public static Feature matchFeature(String feature) {
+        for (Feature temp : values()) {
+            if (temp.name().equals(feature)) {
+                return temp;
+            }
+        }
+        return null;
+    }
+
     public List<Improvement> getImprovements() {
         return improvements;
     }

@@ -46,24 +46,24 @@ public enum Command {
         INFODEALS("info deals"),
 
         // select
-        SELECTUNITCOMBAT("select unit combat (?<i>\\d+) (?<j>\\d+)"),
-        SELECTUNITNONCOMBAT("select unit noncombat (?<i>\\d+) (?<j>\\d+)"),
+        SELECTUNITCOMBAT("select unit combat (?<i>\\d+):(?<j>\\d+)"),
+        SELECTUNITNONCOMBAT("select unit noncombat (?<i>\\d+):(?<j>\\d+)"),
         SELECTCITYNAME("select city (?<name>\\S+)"),
-        SELECTCITYPOSITION("select city (?<i>\\d+) (?<j>\\d+)"),
+        SELECTCITYPOSITION("select city (?<i>\\d+):(?<j>\\d+)"),
 
         // unit
         BUYUNIT("unit buy (?<type>[a-zA-Z]+)"),
         BUILDUNIT("unit build (?<type>[a-zA-Z]+)"),
 
-        MOVETO("unit move to (?<i>\\d+) (?<j>\\d+)"),
+        MOVETO("unit move to (?<i>\\d+):(?<j>\\d+)"),
         SLEEP("unit sleep"),
         ALERT("unit alert"),
         FORTIFY("unit fortify"),
         FORTIFYHEAL("unit fortify heal"),
         GARRISON("unit garrison"),
         SETUP("unit setup ranged"),
-        ATTACK("unit attack position (?<positionX>\\d+) (?<positionY>\\d+)"),
-        FOUND("unit found city (?<i>\\d+) (?<j>\\d+)"),
+        ATTACK("unit attack position (?<i>\\d+):(?<j>\\d+)"),
+        FOUND("unit found city (?<name>\\w+) (?<i>\\d+):(?<j>\\d+)"),
         CANCEL("unit cancel mission"),
         WAKE("unit wake"),
         DELETE("unit delete"),
@@ -80,21 +80,19 @@ public enum Command {
         BUILDPLANTATION("unit build plantation"),
         BUILDQUARRY("unit build quarry"),
 
-        REMOVEJUNGLE("unit build jungle"),
+        REMOVEFEATURE("unit remove (?<feature>\\w+)"),
         REMOVEROUTE("unit build route"),
         REPAIR("unit repair"),
 
-        NEXT("next"),
-
         // city
         SETCITIZEN("lock citizen"),
-        BUYTILE("buy tile (?<i>\\d+) (?<j>\\d+)"),
+        BUYTILE("buy tile (?<i>\\d+):(?<j>\\d+)"),
         REMOVECITIZEN("remove citizen (?<nmber>\\d+)"),
 
         // print map
-        PRINTAREA("print map (?<i1>\\d+) (?<j1>\\d+) (?<i2>\\d+) (?<j2>\\d+)"),
+        PRINTAREA("print map (?<i1>\\d+):(?<j1>\\d+) (?<i2>\\d+):(?<j2>\\d+)"),
         PRINTCITY("print map (?<name>\\w+)"),
-        PRINTTILE("print map (?<i>\\d+) (?<j>\\d+)"),
+        PRINTTILE("print map (?<i>\\d+):(?<j>\\d+)"),
         PRINTUNITPOSITION("print map current unit position"),
         MAPMOVER("map move right"),
         MAPMOVEL("map move left"),
@@ -104,8 +102,10 @@ public enum Command {
         // tech
         RESEARCH("research (?<name>\\S+)"),
 
+        NEXTTURN("next turn"),
+
         // cheat sheet
-        INCREASETURN("increase -turn (?<amount>\\d+)"),
+        INCREASETURN("increase turn (?<amount>\\d+)"),
         INCREASEGOLD("increase gold (?<amount>\\d+)"),
         INSTANTBUILD("instant build (?<building>\\w+) (?<i>\\d+):(?<j>\\d+)");
 

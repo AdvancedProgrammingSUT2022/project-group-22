@@ -22,8 +22,9 @@ public class City {
     private ArrayList<Resource> resources = new ArrayList<Resource>();
     private ArrayList<Improvement> improvements = new ArrayList<Improvement>();
 
-    public City(Tile tile, User user) {
+    public City(Tile tile, User user, String name) {
         // TODO: update combat variables
+        this.name = name;
         this.population = 1;
 
         this.center = tile;

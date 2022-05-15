@@ -235,7 +235,7 @@ public class MapController extends GameController {
                 GameView.getInstance().invalidTile();
                 return;
             } else {
-                MapController.getInstance().printTile(map[i][j]);
+                MapController.getInstance().printTile(database.getMap()[i][j]);
             }
 
         } else {
