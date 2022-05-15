@@ -13,12 +13,11 @@ public class GameMenuView extends Processor {
     }
 
     public String run() {
-        while (true) {
-            String command = getInput();
-            Matcher matcher;
-            if (!scanner.hasNext()) {
-                return "exit";
-            } else if ((matcher = getMatcher(command, Command.PLAYGAME)) != null) {
+        String command;
+        Matcher matcher;
+        while (scanner.hasNext()) {
+            command = getInput();
+            if ((matcher = getMatcher(command, Command.PLAYGAME)) != null) {
                 if (GameMenuController.getInstance().playGame(matcher)) {
                     return "game";
                 }
@@ -30,6 +29,7 @@ public class GameMenuView extends Processor {
                 System.out.println("invalid Command!");
             }
         }
+        return "mainMenu";
     }
 
     public void noUserExists(int i) {
@@ -39,5 +39,4 @@ public class GameMenuView extends Processor {
     public void gameStarted() {
         System.out.println("game started successfully!");
     }
-    // TODO: print messages for game menu controller
 }

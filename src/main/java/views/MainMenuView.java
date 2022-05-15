@@ -8,11 +8,9 @@ public class MainMenuView extends Processor {
     public static String run() {
         Matcher matcher;
         String command;
-        while (true) {
+        while (scanner.hasNext()) {
             command = getInput();
-            if (!scanner.hasNext()) {
-                return "exit";
-            } else if ((matcher = getMatcher(command, Command.MENUENTER)) != null)
+            if ((matcher = getMatcher(command, Command.MENUENTER)) != null)
                 return matcher.group("menuname");
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "exit";
@@ -24,6 +22,7 @@ public class MainMenuView extends Processor {
             else
                 System.out.println("invalid command!");
         }
+        return "exit";
     }
 
     public static void menuNavigationNotPossible() {

@@ -12,11 +12,9 @@ public class ProfileMenuView extends Processor {
         ProfileMenuController profileMenuController = new ProfileMenuController();
         Matcher matcher;
         String command;
-        while (true) {
+        while (scanner.hasNext()) {
             command = getInput();
-            if (!scanner.hasNext()) {
-                return "exit";
-            } else if ((matcher = getMatcher(command, Command.NICKNAMECHANGE)) != null)
+            if ((matcher = getMatcher(command, Command.NICKNAMECHANGE)) != null)
                 profileMenuController.changeNickname(matcher, user);
             else if ((matcher = getMatcher(command, Command.CHANGEPASSWORD1)) != null
                     || (matcher = getMatcher(command, Command.CHANGEPASSWORD2)) != null)
@@ -30,6 +28,7 @@ public class ProfileMenuView extends Processor {
             else
                 System.out.println("invalid Command!");
         }
+        return "mainMenu";
     }
 
     public static void nicknameExists(String nickname) {

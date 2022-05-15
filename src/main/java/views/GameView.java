@@ -19,12 +19,10 @@ public class GameView extends Processor {
 
     public String run() {
         String command;
-        while (true) {
+        while (scanner.hasNext()) {
             command = getInput();
-            if (!scanner.hasNext()) {
-                return "exit";
-            } else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
-                return "exit";
+            if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
+                return "gameMenu";
             else if ((matcher = getMatcher(command, Command.NEXTTURN)) != null)
                 unitController.nextTurn();
             else if ((matcher = getMatcher(command, Command.INFOCITY)) != null)
@@ -138,6 +136,7 @@ public class GameView extends Processor {
             else
                 System.out.println("invalid Command!");
         }
+        return "gameMenu";
     }
 
     // messages
