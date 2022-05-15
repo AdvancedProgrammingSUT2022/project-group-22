@@ -6,6 +6,7 @@ import java.util.regex.*;
 
 public class UnitController extends GameController {
     private static UnitController instance = null;
+    private static MapController mapController = MapController.getInstance();
 
     public static UnitController getInstance() {
         instance = instance != null ? instance : new UnitController();
@@ -56,7 +57,7 @@ public class UnitController extends GameController {
             unit.setTaskTurns(0);
         } else if (unit.getTarget().equals(unit.getPosition())) {
             gameView.moveCompleted(unit.getTarget().getCoordinates());
-            MapController.getInstance().printTile(unit.getPosition());
+            mapController.printTile(unit.getPosition());
             unit.setTarget(null);
             unit.setTaskTurns(0);
         }
@@ -133,10 +134,10 @@ public class UnitController extends GameController {
             if (unitType.equals(UnitType.SETTLER) || unitType.equals(UnitType.WORKER)) {
                 player.addCivilianUnit(new CivilianUnit(unitType, city.getCenter()));
             } else {
-                player.addMilitaryUnits(
-                        new MilitaryUnit(unitType, city.getCenter(), unitType.getCombatType().equals("SIEGE")));
+                player.addMilitaryUnits(new MilitaryUnit(unitType, city.getCenter()));
             }
             gameView.unitBought(unitType.name().toLowerCase());
+            mapController.printTile(city.getCenter());
         }
     }
 
@@ -181,7 +182,7 @@ public class UnitController extends GameController {
             unit.setMovementPoints(unit.getMovementPoints() - dist[i][j]);
             database.getCurrentPlayer().getCivilization().updateTileStates(unit.getPosition(), tile);
             unit.setPosition(tile);
-            MapController.getInstance().printTile(unit.getPosition());
+            mapController.printTile(unit.getPosition());
         } else {
             for (int k = 0; k < 6; k++) {
                 if (database.getNeighbor(tile, k) != null) {
@@ -191,7 +192,7 @@ public class UnitController extends GameController {
                         unit.setMovementPoints(unit.getMovementPoints() - dist[i2][j2]);
                         database.getCurrentPlayer().getCivilization().updateTileStates(unit.getPosition(), tile);
                         unit.setPosition(tile);
-                        MapController.getInstance().printTile(unit.getPosition());
+                        mapController.printTile(unit.getPosition());
                         return;
                     }
                 }

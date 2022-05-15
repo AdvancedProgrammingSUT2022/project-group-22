@@ -127,8 +127,7 @@ public class GameController {
             gameView.invalidTile();
         } else if ((civUnit = database.getCivilianUnitByTile(database.getMap()[i][j])) == null) {
             gameView.invalidCivilianUnit();
-        } else if (database.getUnitOwner(civUnit).getNickname()
-                .equals(database.getCurrentPlayer().getNickname())) {
+        } else if (database.getUnitOwner(civUnit).equals(database.getCurrentPlayer())) {
             gameView.unitInaccessible();
         } else {
             database.getCurrentPlayer().getCivilization().setCurrentCivilian(civUnit);

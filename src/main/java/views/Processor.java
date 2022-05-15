@@ -29,4 +29,8 @@ public class Processor {
     public void closeScanner() {
         scanner.close();
     }
+
+    public static void showCurrentMenu(String menu) {
+        System.out.println("current menu: " + menu);
+    }
 }

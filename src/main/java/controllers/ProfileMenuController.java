@@ -57,9 +57,6 @@ public class ProfileMenuController {
         user.setPassword(matcher.group("newpassword").trim());
     }
 
-    public void showMenu(Matcher matcher) {
-    }
-
     public Boolean changeMenu(String whichMenu) {
         if (whichMenu.equals("gameMenu")) {
             ProfileMenuView.menuNavigationNotPossible();
@@ -82,6 +79,5 @@ public class ProfileMenuController {
     }
 
     public void menuNavigation() {
-
     }
 }

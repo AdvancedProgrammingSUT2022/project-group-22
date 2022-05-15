@@ -45,11 +45,10 @@ public class RegisterMenuController {
             RegisterMenuView.nicknameExists(matcher.group("nickname").trim());
             return;
         }
-        RegisterMenuView.userCreated();
         Database.getInstance().addUser(new User(matcher.group("username").trim(),
                 matcher.group("password").trim(),
                 matcher.group("nickname").trim()));
-
+        RegisterMenuView.userCreated();
     }
 
     public Boolean canLogin(Matcher matcher) {

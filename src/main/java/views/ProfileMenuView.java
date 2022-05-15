@@ -19,7 +19,7 @@ public class ProfileMenuView extends Processor {
                     || (matcher = getMatcher(command, Command.CHANGEPASSWORD2)) != null)
                 profileMenuController.changePassword(matcher, user);
             else if ((matcher = getMatcher(command, Command.SHOWMENU)) != null)
-                showMenu();
+                showCurrentMenu("profile menu");
             else if ((matcher = getMatcher(command, Command.MENUENTER)) != null)
                 return matcher.group("menuname");
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
@@ -44,10 +44,6 @@ public class ProfileMenuView extends Processor {
 
     public static void samePassword() {
         System.out.println("please enter a new password");
-    }
-
-    public static void showMenu() {
-        System.out.println("Profile Menu");
     }
 
     public static void menuNavigationNotPossible() {

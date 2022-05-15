@@ -17,7 +17,7 @@ public class MainMenuView extends Processor {
                 loggedOut();
                 return "logout";
             } else if ((matcher = getMatcher(command, Command.SHOWMENU)) != null)
-                showMenu();
+                showCurrentMenu("main menu");
             else
                 System.out.println("invalid command!");
         }
@@ -26,10 +26,6 @@ public class MainMenuView extends Processor {
 
     public static void menuNavigationNotPossible() {
         System.out.println("menu navigation is not possible");
-    }
-
-    public static void showMenu() {
-        System.out.println("Main Menu");
     }
 
     public static void loggedOut() {

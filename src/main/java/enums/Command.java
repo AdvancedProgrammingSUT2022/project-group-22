@@ -28,7 +28,7 @@ public enum Command {
         // menu navigation
         MENUENTER("menu enter (?<menuname>\\S+)"),
         MENUEXIT("menu exit"),
-        SHOWMENU("menu show-current"),
+        SHOWMENU("menu show -current"),
         PLAYGAME("play game --player1 (?<username1>\\S+) --player2 (?<username2>\\S+)"),
 
         // game enums

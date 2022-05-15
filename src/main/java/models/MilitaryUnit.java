@@ -9,11 +9,10 @@ public class MilitaryUnit extends Unit {
     private Boolean isRanged;
     private int range;
     private int rangedCombatStrength;
-    private Boolean needsSetUp;
     private int setUp;
     private Boolean isSleep = false;
 
-    public MilitaryUnit(UnitType unitType, Tile position, Boolean needsSetUp) {
+    public MilitaryUnit(UnitType unitType, Tile position) {
         this.unitType = unitType;
         this.movementPoints = unitType.getMovementPoints();
         this.combatStrength = unitType.getCombatStrengh();
@@ -23,7 +22,6 @@ public class MilitaryUnit extends Unit {
         this.rangedCombatStrength = unitType.getRangedCombatStrengh();
         this.isSleeping = false;
         this.isAlert = false;
-        this.needsSetUp = needsSetUp;
         this.setUp = 0;
     }
 
@@ -64,7 +62,7 @@ public class MilitaryUnit extends Unit {
     }
 
     public Boolean needsSetUp() {
-        return this.needsSetUp;
+        return this.unitType.getCombatType().equals("SIEGE");
     }
 
     public int getSetUp() {

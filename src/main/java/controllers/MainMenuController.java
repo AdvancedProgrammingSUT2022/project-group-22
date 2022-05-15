@@ -2,6 +2,7 @@ package controllers;
 
 import models.User;
 import views.MainMenuView;
+import views.Processor;
 
 import java.util.regex.*;
 
@@ -10,10 +11,6 @@ public class MainMenuController {
 
     public void createGame(Matcher matcher) {
         // TODO: scan players and create a new game
-    }
-
-    public void showMenu(Matcher matcher) {
-        MainMenuView.showMenu();
     }
 
     public String run(User user) {
