@@ -32,13 +32,13 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.INFODEALS)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFODEMOGRAPHICS)) != null)
-                return null;
+                gameController.demographicInfo();
             else if ((matcher = getMatcher(command, Command.INFODIPLOMACY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFODIPLOMATIC)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFOECONOMIC)) != null)
-                return null;
+                gameController.economicInfo();
             else if ((matcher = getMatcher(command, Command.INFOMILITARY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFONOTIFICATIONS)) != null)
@@ -361,7 +361,7 @@ public class GameView extends Processor {
     // print info
     public void printResearchInfo(String nickName, HashMap<Technology, Integer> currentResearch,
             ArrayList<Technology> possibles, ArrayList<Technology> done) {
-        System.out.println(Color.WHITE.getColor() + "User nickName: " + Color.RESET.getColor() + nickName);
+        System.out.println(Color.WHITE.getColor() + "User nickname: " + Color.RESET.getColor() + nickName);
         System.out.println(Color.WHITE.getColor() + "Current researches:" + Color.RESET.getColor());
         for (Technology technology : currentResearch.keySet()) {
             String key = technology.name();
@@ -378,15 +378,8 @@ public class GameView extends Processor {
         }
     }
 
-    public void printNotifications(ArrayList<String> messages) {
-        System.out.println("Notifications:");
-        for (String msg : messages) {
-            System.out.println(msg);
-        }
-    }
-
     public void printUnitList(ArrayList<String> civUnits, ArrayList<String> milUnits) {
-        System.out.println("(Unit List)");
+        System.out.println(Color.WHITE_BG.getColor() + Color.BLACK.getColor() + "Unit List" + Color.RESET.getColor());
         System.out.println("Civilian Units:");
         for (String unitInfo : civUnits) {
             System.out.println(unitInfo);
@@ -398,16 +391,40 @@ public class GameView extends Processor {
     }
 
     public void printCitiesList(ArrayList<String> cities) {
-        System.out.println("(Cities List)");
+        System.out.println(Color.WHITE_BG.getColor() + Color.BLACK.getColor() + "Cities List" + Color.RESET.getColor());
         for (String cityInfo : cities) {
             System.out.println(cityInfo);
         }
     }
 
-    // private void showDemographics(User player) {
-    // System.out.println(player.getPopulation());
-    // TODO: add get population in player class
-    // }
+    public void printDemographicInfo(String nickname, ArrayList<String> info) {
+        System.out.println(
+                Color.WHITE_BG.getColor() + Color.BLACK.getColor() + "Demographic Info" + Color.RESET.getColor());
+        System.out.println("Player: " + nickname);
+        System.out.println("   Size: " + info.get(0));
+        System.out.println("   Population: " + info.get(1));
+        System.out.println("   Happiness: " + info.get(2));
+        System.out.println("   Gold: " + info.get(3));
+    }
+
+    public void printEconomicInfo(ArrayList<String> cities, ArrayList<ArrayList<String>> cityInfo) {
+        System.out.println(
+                Color.WHITE_BG.getColor() + Color.BLACK.getColor() + "Economic Info" + Color.RESET.getColor());
+        for (String city : cities) {
+            System.out.println(city);
+            for (String info : cityInfo.get(cities.indexOf(city))) {
+                System.out.println("   " + info);
+            }
+        }
+    }
+
+    public void printNotifications(ArrayList<String> messages) {
+        System.out.println(
+                Color.WHITE_BG.getColor() + Color.BLACK.getColor() + "Notification History:" + Color.RESET.getColor());
+        for (String msg : messages) {
+            System.out.println(msg);
+        }
+    }
 
     // print map
     public void printMap(String player, int totalHappiness, ArrayList<TileView> tiles, int y, int x) {

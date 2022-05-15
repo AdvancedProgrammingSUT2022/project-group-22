@@ -237,14 +237,6 @@ public class GameController {
 
     }
 
-    public void addMessage(String msg) {
-        database.getCurrentPlayer().getCivilization().addMessage(msg);
-    }
-
-    public void notificationInfo() {
-        gameView.printNotifications(database.getCurrentPlayer().getCivilization().getMessages());
-    }
-
     public void unitInfo() {
         Civilization player = database.getCurrentPlayer().getCivilization();
         ArrayList<String> civUnits = new ArrayList<String>();
@@ -269,13 +261,42 @@ public class GameController {
         gameView.printCitiesList(cities);
     }
 
+    public void demographicInfo() {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        ArrayList<String> info = new ArrayList<String>();
+        info.add(Integer.toString(player.getTiles().size()));
+        info.add(Integer.toString(player.getPopulation()));
+        info.add(Integer.toString(player.getHappiness()));
+        info.add(Integer.toString(player.getGold()));
+        gameView.printDemographicInfo(database.getCurrentPlayer().getNickname(), info);
+    }
+
+    public void economicInfo() {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        ArrayList<String> cities = new ArrayList<String>();
+        ArrayList<ArrayList<String>> info = new ArrayList<ArrayList<String>>();
+        for (City city : player.getCities()) {
+            cities.add(city.getName());
+            info.get(cities.indexOf(city.getName())).add("Population:" + city.getPopulation());
+            info.get(cities.indexOf(city.getName())).add("Combat Strength:" + city.getCombatStrength());
+            info.get(cities.indexOf(city.getName())).add("Food:" + city.getFood());
+            info.get(cities.indexOf(city.getName())).add("Production:" + city.getProduction());
+        }
+        gameView.printEconomicInfo(cities, info);
+    }
+
+    public void addMessage(String msg) {
+        database.getCurrentPlayer().getCivilization().addMessage(msg);
+    }
+
+    public void notificationInfo() {
+        gameView.printNotifications(database.getCurrentPlayer().getCivilization().getMessages());
+    }
+
     // private void diplomacyInfo() {
     // }
     //
     // private void victoryInfo() {
-    // }
-    //
-    // private void demographicsInfo() {
     // }
     //
     // private void notificationsInfo() {
