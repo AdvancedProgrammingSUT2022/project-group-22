@@ -137,11 +137,14 @@ public class MapController extends GameController {
         } else if (database.getCurrentPlayer().getCivilization().findTile(tile) == 0) {
             tileView.add(generateTileView(database.getCurrentPlayer().getCivilization().getRevealedTile(tile)));
         } else {
-            String[] colors = { Color.WHITE.getColor(), Color.WHITE.getColor(), Color.WHITE.getColor() };
-            Boolean[] hasRiver = { false, false, false, false, false, false };
-            tileView.add(new TileView(colors, Color.WHITE_BG.getColor(), "   ", "   ", "   ", "   ", "   ",
-                    "   ", getRiverColor(hasRiver), tile.getCoordinates()[0], tile.getCoordinates()[1]));
-            // tileView.add(generateTileView(tile));
+            // String[] colors = { Color.WHITE.getColor(), Color.WHITE.getColor(),
+            // Color.WHITE.getColor() };
+            // Boolean[] hasRiver = { false, false, false, false, false, false };
+            // tileView.add(new TileView(colors, Color.RESET.getColor(), " ", " ", " ", " ",
+            // " ",
+            // " ", getRiverColor(hasRiver), tile.getCoordinates()[0],
+            // tile.getCoordinates()[1]));
+            tileView.add(generateTileView(tile));
         }
     }
 
@@ -183,25 +186,23 @@ public class MapController extends GameController {
         int y1 = tile.getCoordinates()[1];
         int y2 = tile.getCoordinates()[1];
 
-        if(x1 - 1 >= 0){
+        if (x1 - 1 >= 0) {
             x1--;
         }
 
-        if(y1 - 2 >= 0){
+        if (y1 - 2 >= 0) {
             y1 -= 2;
-        }
-        else if(y1 - 1 >= 0){
+        } else if (y1 - 1 >= 0) {
             y1--;
         }
 
-        if(x2 + 1 < database.getMap().length){
+        if (x2 + 1 < database.getMap().length) {
             x2 += 1;
         }
 
-        if(y2 + 2 < database.getMap()[0].length){
+        if (y2 + 2 < database.getMap()[0].length) {
             y2 += 2;
-        }
-        else if(y2 + 1 < database.getMap()[0].length){
+        } else if (y2 + 1 < database.getMap()[0].length) {
             y2 += 1;
         }
 

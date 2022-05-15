@@ -20,7 +20,8 @@ public class ShortestPath {
                             && neighbor.getFeature() != Feature.ICE && !(neighbor.getHasRiver()[j] &&
                                     (!tiles[i / tiles[0].length][i % tiles[0].length].getHasRoad() ||
                                             !neighbor.getHasRoad()))) {
-                        list.add(new Node(i, neighbor.getMovementCost()));
+                        list.add(new Node(neighbor.getCoordinates()[0] * tiles[0].length + neighbor.getCoordinates()[1],
+                                neighbor.getMovementCost()));
                     }
                 }
             }
@@ -43,10 +44,7 @@ public class ShortestPath {
         dist[src] = 0;
         heap.add(new Node(src, 0));
 
-        while (selected.size() != n) {
-            if (heap.isEmpty()) {
-                break;
-            }
+        while (!heap.isEmpty()) {
             int u = heap.remove().node;
             if (selected.contains(u)) {
                 continue;
@@ -77,7 +75,7 @@ public class ShortestPath {
 
         int counter = 0;
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < m; j++) {
                 d[i][j] = dist[counter];
                 parent[i][j] = tiles[pi[counter] / m][pi[counter] % m];
                 counter++;
