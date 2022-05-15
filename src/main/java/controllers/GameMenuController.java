@@ -16,28 +16,39 @@ public class GameMenuController {
         return instance;
     }
 
+    // added unit selection for easier testing, could be removed later
+    public void setSettlers(User player1, User player2) {
+        Tile[][] map = database.getMap();
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                if (!(map[i][j].getLandType().equals(LandType.MOUNTAIN)
+                        || map[i][j].getLandType().equals(LandType.OCEAN)
+                        || (map[i][j].getFeature() != null && map[i][j].getFeature().equals(Feature.ICE)))) {
+                    tiles.add(map[i][j]);
+                }
+            }
+        }
+        CivilianUnit civUnit;
+        int i = random.nextInt(tiles.size());
+        player1.getCivilization().addCivilianUnit((civUnit = new CivilianUnit(UnitType.SETTLER, tiles.get(i))));
+        player1.getCivilization().setCurrentCivilian(civUnit);
+        tiles.remove(i);
+        System.out.println(
+                "player #1 unit: " + tiles.get(i).getCoordinates()[0] + ":" + tiles.get(i).getCoordinates()[1]);
+        i = random.nextInt(tiles.size());
+        player2.getCivilization().addCivilianUnit((civUnit = new CivilianUnit(UnitType.SETTLER, tiles.get(i))));
+        player2.getCivilization().setCurrentCivilian(civUnit);
+        System.out.println(
+                "player #2 unit: " + tiles.get(i).getCoordinates()[0] + ":" + tiles.get(i).getCoordinates()[1]);
+    }
+
     public void startGame(User player1, User player2) {
         ArrayList<User> players = new ArrayList<User>();
         players.add(player1);
         players.add(player2);
         database.createGame(players, 20, 42);
-
-        Tile tile1 = database.getMap()[random.nextInt(19)][random.nextInt(41)];
-        Tile tile2 = database.getMap()[random.nextInt(19)][random.nextInt(41)];
-        while (tile1.getCoordinates()[0] == tile2.getCoordinates()[0] &&
-                tile1.getCoordinates()[1] == tile2.getCoordinates()[1]) {
-            tile2 = database.getMap()[random.nextInt(19)][random.nextInt(41)];
-        }
-
-        // added unit selection for easier testing, could be removed later
-        CivilianUnit civUnit;
-        player1.getCivilization().addCivilianUnit((civUnit = new CivilianUnit(UnitType.SETTLER, tile1)));
-        player1.getCivilization().setCurrentCivilian(civUnit);
-//         System.out.println(tile1.getCoordinates()[0] + " " +
-//         tile1.getCoordinates()[1]);
-        player2.getCivilization().addCivilianUnit(new CivilianUnit(UnitType.SETTLER, tile2));
-//         System.out.println(tile2.getCoordinates()[0] + " " +
-//         tile2.getCoordinates()[1]);
+        setSettlers(player1, player2);
         GameMenuView.getInstance().gameStarted();
     }
 

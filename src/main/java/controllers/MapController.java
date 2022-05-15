@@ -173,35 +173,34 @@ public class MapController extends GameController {
     }
 
     public void printTile(Tile tile) {
-        int minX, minY, maxX, maxY;
-        minX = maxX = tile.getCoordinates()[0];
-        minY = maxY = tile.getCoordinates()[1];
-        ArrayList<TileView> tileView = new ArrayList<TileView>();
-        ArrayList<Tile> tiles = new ArrayList<Tile>();
-        database.getTilesInRange(tile, 2, tiles);
-        for (Tile temp : tiles) {
-            addToTileView(tileView, temp);
-            minX = Math.min(temp.getCoordinates()[0], minX);
-            maxX = Math.max(temp.getCoordinates()[0], maxX);
-            minY = Math.min(temp.getCoordinates()[1], minY);
-            maxY = Math.max(temp.getCoordinates()[1], maxY);
-        }
-        GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
-                database.getCurrentPlayer().getCivilization().getTotalHappiness(),
-                tileView, maxY - minY, maxX - minX);
+        // int minX, minY, maxX, maxY;
+        // minX = maxX = tile.getCoordinates()[0];
+        // minY = maxY = tile.getCoordinates()[1];
         // ArrayList<TileView> tileView = new ArrayList<TileView>();
-        // int x = tile.getCoordinates()[0];
-        // int y = tile.getCoordinates()[1];
-        // for (int i = x - 2; i <= x + 2; i++) {
-        // for (int j = y - 2; j <= y + 2; j++) {
-        // if (isValidCoordinates(i, j)) {
-        // addToTileView(tileView, map[i][j]);
+        // ArrayList<Tile> tiles = new ArrayList<Tile>();
+        // database.getTilesInRange(tile, 2, tiles);
+        // for (Tile temp : tiles) {
+        // addToTileView(tileView, temp);
+        // minX = Math.min(temp.getCoordinates()[0], minX);
+        // maxX = Math.max(temp.getCoordinates()[0], maxX);
+        // minY = Math.min(temp.getCoordinates()[1], minY);
+        // maxY = Math.max(temp.getCoordinates()[1], maxY);
         // }
-        // }
-        // }
-        // gameView.printMap(database.getCurrentPlayer().getUsername(),
-        // database.getCurrentPlayer().getCivilization().getTotalHappiness(), tileView,
-        // y, x);
+        // GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
+        // database.getCurrentPlayer().getCivilization().getTotalHappiness(),
+        // tileView, maxY - minY, maxX - minX);
+        ArrayList<TileView> tileView = new ArrayList<TileView>();
+        int x = tile.getCoordinates()[0];
+        int y = tile.getCoordinates()[1];
+        for (int i = x - 2; i <= x + 2; i++) {
+            for (int j = y - 2; j <= y + 2; j++) {
+                if (isValidCoordinates(i, j)) {
+                    addToTileView(tileView, database.getMap()[i][j]);
+                }
+            }
+        }
+        gameView.printMap(database.getCurrentPlayer().getUsername(),
+                database.getCurrentPlayer().getCivilization().getTotalHappiness(), tileView, y - 1, x - 1);
     }
 
     public void printAreaCheck(Matcher matcher) {

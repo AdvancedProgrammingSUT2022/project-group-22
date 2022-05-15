@@ -334,7 +334,7 @@ public class UnitController extends GameController {
             database.getCurrentPlayer().getCivilization().addCity(new City(tile, database.getCurrentPlayer(), name));
             database.getCurrentPlayer().getCivilization()
                     .setUnhappiness(database.getCurrentPlayer().getCivilization().getUnhappiness() + 1);
-            gameView.cityFounded(database.getMap()[i][j].getPlayer().getUsername(), i, j);
+            gameView.cityFounded(name, database.getMap()[i][j].getPlayer().getUsername(), i, j);
         }
     }
 

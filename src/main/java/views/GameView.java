@@ -152,8 +152,8 @@ public class GameView extends Processor {
         System.out.println(name + " city has been selected");
     }
 
-    public void cityFounded(String username, int i, int j) {
-        System.out.println("city founded for player " + username + " on tile " + i + ":" + j);
+    public void cityFounded(String name, String username, int i, int j) {
+        System.out.println(name + " city founded for player " + username + " on tile " + i + ":" + j);
     }
 
     public void unitBought(String type) {
