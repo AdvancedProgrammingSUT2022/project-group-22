@@ -178,35 +178,34 @@ public class MapController extends GameController {
     }
 
     public void printTile(Tile tile) {
-        // ArrayList<TileView> tileView = new ArrayList<TileView>();
-        // ArrayList<Tile> tiles = new ArrayList<Tile>();
-        // database.getTilesInRange(tile, 2, tiles);
-        // sortTilesByCoordinates(tiles);
-        // int minX = tiles.get(0).getCoordinates()[0];
-        // int minY = tiles.get(0).getCoordinates()[1];
-        // int maxX = tiles.get(tiles.size() - 1).getCoordinates()[0];
-        // int maxY = tiles.get(tiles.size() - 1).getCoordinates()[1];
-        // for (int i = minX; i <= maxX; i++) {
-        // for (int j = minY; j <= maxY; j++) {
-        // if (tiles.indexOf(database.getMap()[i][j]) != -1) {
-        // addToTileView(tileView, database.getMap()[i][j]);
-        // } else {
-        // String[] colors = { Color.WHITE.getColor(), Color.WHITE.getColor(),
-        // Color.WHITE.getColor() };
-        // Boolean[] hasRiver = { false, false, false, false, false, false };
-        // tileView.add(new TileView(colors, Color.WHITE_BG.getColor(), " ", " ", " ", "
-        // ", " ",
-        // " ", getRiverColor(hasRiver), i, j));
-        // }
-        // }
-        // }
-        // GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
-        // database.getCurrentPlayer().getCivilization().getTotalHappiness(),
-        // tileView, maxY - minY + 1, maxX - minX + 1);
+        int x1 = tile.getCoordinates()[0];
+        int x2 = tile.getCoordinates()[0];
+        int y1 = tile.getCoordinates()[1];
+        int y2 = tile.getCoordinates()[1];
 
-        printArea(database.getMap(), tile.getCoordinates()[0] - 2,
-                tile.getCoordinates()[1] - 2,
-                tile.getCoordinates()[0] + 2, tile.getCoordinates()[1] + 2);
+        if(x1 - 1 >= 0){
+            x1--;
+        }
+
+        if(y1 - 2 >= 0){
+            y1 -= 2;
+        }
+        else if(y1 - 1 >= 0){
+            y1--;
+        }
+
+        if(x2 + 1 < database.getMap().length){
+            x2 += 1;
+        }
+
+        if(y2 + 2 < database.getMap()[0].length){
+            y2 += 2;
+        }
+        else if(y2 + 1 < database.getMap()[0].length){
+            y2 += 1;
+        }
+
+        printArea(database.getMap(), x1, y1, x2, y2);
     }
 
     public void printAreaCheck(Matcher matcher) {

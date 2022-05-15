@@ -528,10 +528,11 @@ public class GameView extends Processor {
                                 }
                                 if (j == 0) {
                                     if (temp + y < tiles.size()) {
-                                        System.out
-                                                .print(tiles.get(temp + y).getColor()[0]
-                                                        + tiles.get(temp + y).getBackgroundColor()
-                                                        + "  " + tiles.get(temp + y).getNickname().charAt(0) + "  ");
+                                        System.out.print(tiles.get(temp + y).getColor()[0]
+                                                + tiles.get(temp + y).getBackgroundColor()
+                                                + "  "
+                                                + Character.toUpperCase(tiles.get(temp + y).getNickname().charAt(0))
+                                                + "  ");
                                     } else {
                                         System.out.print(Color.RESET.getColor() + "     ");
                                     }

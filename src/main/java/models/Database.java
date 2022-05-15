@@ -140,7 +140,6 @@ public class Database {
         int j = tile.getCoordinates()[1];
         int x = map.length;
         int y = map[0].length;
-        // System.out.println(x + " " + y);
         if (side == 0) {
             return i - 1 >= 0 && i - 1 < x ? map[i - 1][j] : null;
         } else if (side == 1) {
