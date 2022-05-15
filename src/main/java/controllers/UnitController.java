@@ -50,13 +50,18 @@ public class UnitController extends GameController {
     }
 
     public void checkMovement(Unit unit) {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        String name = player.getCivilianUnits().indexOf(unit) != -1
+                ? "CivUnit No. " + player.getCivilianUnits().indexOf(unit)
+                : "MilUnit No. " + player.getMilitaryUnits().indexOf(unit);
         Tile position = unit.getPosition();
         moveTo(unit.getTarget().getCoordinates()[0], unit.getTarget().getCoordinates()[1], unit, position);
         if (position.equals(unit.getPosition())) {
+            gameView.pathBlocked(name, unit.getPosition().getCoordinates(), unit.getTarget().getCoordinates());
             unit.setTarget(null);
             unit.setTaskTurns(0);
         } else if (unit.getTarget().equals(unit.getPosition())) {
-            gameView.moveCompleted(unit.getTarget().getCoordinates());
+            gameView.moveCompleted(name, unit.getTarget().getCoordinates());
             mapController.printTile(unit.getPosition());
             unit.setTarget(null);
             unit.setTaskTurns(0);
@@ -130,7 +135,7 @@ public class UnitController extends GameController {
         } else if (player.getGold() < unitType.getCost()) {
             gameView.goldLow();
         } else if (unitType.equals(UnitType.SETTLER)
-                && database.getCurrentPlayer().getCivilization().getTotalHappiness() < 0){
+                && database.getCurrentPlayer().getCivilization().getTotalHappiness() < 0) {
             gameView.negativeHappiness();
         } else {
             player.setGold(player.getGold() - unitType.getCost());
@@ -200,7 +205,7 @@ public class UnitController extends GameController {
                     }
                 }
             }
-            gameView.mpLow();
+            // gameView.mpLow();
             unit.setTarget(tile);
             unit.setTaskTurns(Integer.MAX_VALUE);
             multiStepMove(tile, unit, dist, parent);

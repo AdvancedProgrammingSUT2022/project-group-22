@@ -26,7 +26,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.NEXTTURN)) != null)
                 unitController.nextTurn();
             else if ((matcher = getMatcher(command, Command.INFOCITY)) != null)
-                return null;
+                gameController.citiesInfo();
             else if ((matcher = getMatcher(command, Command.INFORESEARCH)) != null)
                 gameController.researchInfo();
             else if ((matcher = getMatcher(command, Command.INFODEALS)) != null)
@@ -42,9 +42,9 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.INFOMILITARY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.INFONOTIFICATIONS)) != null)
-                return null;
+                gameController.notificationInfo();
             else if ((matcher = getMatcher(command, Command.INFOUNIT)) != null)
-                return null;
+                gameController.unitInfo();
             else if ((matcher = getMatcher(command, Command.INFOVICTORY)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.SELECTCITYNAME)) != null)
@@ -181,11 +181,15 @@ public class GameView extends Processor {
     }
 
     public void taskCompleted(String task, int[] coordinates) {
-        System.out.println(task + "was built on tile " + coordinates[0] + ":" + coordinates[1]);
+        String str = task + "was built on tile " + coordinates[0] + ":" + coordinates[1];
+        gameController.addMessage(str);
+        System.out.println(str);
     }
 
-    public void moveCompleted(int[] coordinates) {
-        System.out.println("unit has moved to tile " + coordinates[0] + ":" + coordinates[1]);
+    public void moveCompleted(String name, int[] coordinates) {
+        String str = name + " has moved to tile " + coordinates[0] + ":" + coordinates[1];
+        gameController.addMessage(str);
+        System.out.println(str);
     }
 
     public void researchAdded() {
@@ -349,8 +353,13 @@ public class GameView extends Processor {
         System.out.println("tile " + coordinates[0] + ":" + coordinates[1] + " is too close to another city center");
     }
 
+    public void pathBlocked(String name, int[] pos, int[] dest) {
+        System.out.println(name + " on tile " + pos[0] + ":" + pos[1]
+                + " can no longer move towards tile " + dest[0] + ":" + dest[1]);
+    }
+
     // print info
-    public void PrintResearchInfo(String nickName, HashMap<Technology, Integer> currentResearch,
+    public void printResearchInfo(String nickName, HashMap<Technology, Integer> currentResearch,
             ArrayList<Technology> possibles, ArrayList<Technology> done) {
         System.out.println(Color.WHITE.getColor() + "User nickName: " + Color.RESET.getColor() + nickName);
         System.out.println(Color.WHITE.getColor() + "Current researches:" + Color.RESET.getColor());
@@ -366,6 +375,32 @@ public class GameView extends Processor {
         System.out.println(Color.WHITE.getColor() + "Acquired technologies:" + Color.RESET.getColor());
         for (Technology technology : done) {
             System.out.println(technology.name());
+        }
+    }
+
+    public void printNotifications(ArrayList<String> messages) {
+        System.out.println("Notifications:");
+        for (String msg : messages) {
+            System.out.println(msg);
+        }
+    }
+
+    public void printUnitList(ArrayList<String> civUnits, ArrayList<String> milUnits) {
+        System.out.println("(Unit List)");
+        System.out.println("Civilian Units:");
+        for (String unitInfo : civUnits) {
+            System.out.println(unitInfo);
+        }
+        System.out.println("Military Units:");
+        for (String unitInfo : milUnits) {
+            System.out.println(unitInfo);
+        }
+    }
+
+    public void printCitiesList(ArrayList<String> cities) {
+        System.out.println("(Cities List)");
+        for (String cityInfo : cities) {
+            System.out.println(cityInfo);
         }
     }
 

@@ -230,19 +230,45 @@ public class GameController {
     // info
     public void researchInfo() {
         Civilization player = database.getCurrentPlayer().getCivilization();
-        gameView.PrintResearchInfo(database.getCurrentPlayer().getNickname(),
+        gameView.printResearchInfo(database.getCurrentPlayer().getNickname(),
                 player.getResearch(),
                 player.getPossibleTechnologies(),
                 player.getTechnologies());
 
     }
-    //
-    // private void unitsInfo() {
-    // }
-    //
-    // private void citiesInfo() {
-    // }
-    //
+
+    public void addMessage(String msg) {
+        database.getCurrentPlayer().getCivilization().addMessage(msg);
+    }
+
+    public void notificationInfo() {
+        gameView.printNotifications(database.getCurrentPlayer().getCivilization().getMessages());
+    }
+
+    public void unitInfo() {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        ArrayList<String> civUnits = new ArrayList<String>();
+        ArrayList<String> milUnits = new ArrayList<String>();
+        for (CivilianUnit civUnit : player.getCivilianUnits()) {
+            civUnits.add("CivUnit No. " + player.getCivilianUnits().indexOf(civUnit) + " - "
+                    + civUnit.getPosition().getCoordinates()[0] + ":" + civUnit.getPosition().getCoordinates()[1]);
+        }
+        for (MilitaryUnit milUnit : player.getMilitaryUnits()) {
+            milUnits.add("CivUnit No. " + player.getMilitaryUnits().indexOf(milUnit) + " - "
+                    + milUnit.getPosition().getCoordinates()[0] + ":" + milUnit.getPosition().getCoordinates()[1]);
+        }
+        gameView.printUnitList(civUnits, milUnits);
+    }
+
+    public void citiesInfo() {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        ArrayList<String> cities = new ArrayList<String>();
+        for (City city : player.getCities()) {
+            cities.add(city.getName() + " - Pop." + city.getPopulation());
+        }
+        gameView.printCitiesList(cities);
+    }
+
     // private void diplomacyInfo() {
     // }
     //
