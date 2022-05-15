@@ -137,8 +137,11 @@ public class MapController extends GameController {
         } else if (database.getCurrentPlayer().getCivilization().findTile(tile) == 0) {
             tileView.add(generateTileView(database.getCurrentPlayer().getCivilization().getRevealedTile(tile)));
         } else {
-            // tileView.add(null);
-            tileView.add(generateTileView(tile));
+            String[] colors = { Color.WHITE.getColor(), Color.WHITE.getColor(), Color.WHITE.getColor() };
+            Boolean[] hasRiver = { false, false, false, false, false, false };
+            tileView.add(new TileView(colors, Color.WHITE_BG.getColor(), "   ", "   ", "   ", "   ", "   ",
+                    "   ", getRiverColor(hasRiver), tile.getCoordinates()[0], tile.getCoordinates()[1]));
+            // tileView.add(generateTileView(tile));
         }
     }
 
@@ -175,23 +178,34 @@ public class MapController extends GameController {
     }
 
     public void printTile(Tile tile) {
-        // int minX, minY, maxX, maxY;
-        // minX = maxX = tile.getCoordinates()[0];
-        // minY = maxY = tile.getCoordinates()[1];
         // ArrayList<TileView> tileView = new ArrayList<TileView>();
         // ArrayList<Tile> tiles = new ArrayList<Tile>();
         // database.getTilesInRange(tile, 2, tiles);
-        // for (Tile temp : tiles) {
-        // addToTileView(tileView, temp);
-        // minX = Math.min(temp.getCoordinates()[0], minX);
-        // maxX = Math.max(temp.getCoordinates()[0], maxX);
-        // minY = Math.min(temp.getCoordinates()[1], minY);
-        // maxY = Math.max(temp.getCoordinates()[1], maxY);
+        // sortTilesByCoordinates(tiles);
+        // int minX = tiles.get(0).getCoordinates()[0];
+        // int minY = tiles.get(0).getCoordinates()[1];
+        // int maxX = tiles.get(tiles.size() - 1).getCoordinates()[0];
+        // int maxY = tiles.get(tiles.size() - 1).getCoordinates()[1];
+        // for (int i = minX; i <= maxX; i++) {
+        // for (int j = minY; j <= maxY; j++) {
+        // if (tiles.indexOf(database.getMap()[i][j]) != -1) {
+        // addToTileView(tileView, database.getMap()[i][j]);
+        // } else {
+        // String[] colors = { Color.WHITE.getColor(), Color.WHITE.getColor(),
+        // Color.WHITE.getColor() };
+        // Boolean[] hasRiver = { false, false, false, false, false, false };
+        // tileView.add(new TileView(colors, Color.WHITE_BG.getColor(), " ", " ", " ", "
+        // ", " ",
+        // " ", getRiverColor(hasRiver), i, j));
+        // }
+        // }
         // }
         // GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
         // database.getCurrentPlayer().getCivilization().getTotalHappiness(),
-        // tileView, maxY - minY, maxX - minX);
-        printArea(database.getMap(), tile.getCoordinates()[0] - 2, tile.getCoordinates()[1] - 2,
+        // tileView, maxY - minY + 1, maxX - minX + 1);
+
+        printArea(database.getMap(), tile.getCoordinates()[0] - 2,
+                tile.getCoordinates()[1] - 2,
                 tile.getCoordinates()[0] + 2, tile.getCoordinates()[1] + 2);
     }
 

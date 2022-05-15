@@ -19,6 +19,18 @@ public class GameController {
         return instance;
     }
 
+    public void sortTilesByCoordinates(ArrayList<Tile> tiles) {
+        Collections.sort(tiles, new Comparator<Tile>() {
+            public int compare(Tile a, Tile b) {
+                int c1 = a.getCoordinates()[0] == b.getCoordinates()[0] ? 0
+                        : a.getCoordinates()[0] > b.getCoordinates()[0] ? 1 : -1;
+                int c2 = a.getCoordinates()[1] == b.getCoordinates()[1] ? 0
+                        : a.getCoordinates()[1] > b.getCoordinates()[1] ? 1 : -1;
+                return (c1 != 0) ? c1 : c2;
+            }
+        });
+    }
+
     // check methods
     protected Boolean isValidCoordinates(int i, int j) {
         return i >= 0 && j >= 0 && database.getMap().length > i && database.getMap()[0].length > j;
