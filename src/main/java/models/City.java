@@ -161,7 +161,7 @@ public class City {
                     return;
                 }
                 tile.activateResource();
-                if (resource.getType().equals("LUXURY")) {
+                if (resource.getType().equals("LUXURY") && !player.hasLuxuryResource(resource)) {
                     player.setHappiness(player.getHappiness() + 4);
                 }
             }

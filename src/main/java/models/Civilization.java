@@ -23,6 +23,7 @@ public class Civilization {
     private ArrayList<String> messages = new ArrayList<String>();
     private ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
     private HashMap<Tile, Tile> revealedTiles = new HashMap<Tile, Tile>();
+    private ArrayList<Resource> luxuryResources = new ArrayList<Resource>();
 
     private HashMap<CivilianUnit, Tile> roadWorkers = new HashMap<CivilianUnit, Tile>();
     private HashMap<CivilianUnit, Improvement> improvementWorkers = new HashMap<CivilianUnit, Improvement>();
@@ -297,6 +298,15 @@ public class Civilization {
     public Boolean hasTechnology(Technology technology) {
         for (Technology tempTechnology : this.technologies) {
             if (tempTechnology.equals(technology)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean hasLuxuryResource(Resource resource){
+        for (int i = 0; i < this.luxuryResources.size(); i++) {
+            if(resource.equals(this.luxuryResources.get(i))){
                 return true;
             }
         }
