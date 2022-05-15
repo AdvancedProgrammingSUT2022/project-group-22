@@ -129,6 +129,9 @@ public class UnitController extends GameController {
             gameView.insufficientTechnologies();
         } else if (player.getGold() < unitType.getCost()) {
             gameView.goldLow();
+        } else if (unitType.equals(UnitType.SETTLER)
+                && database.getCurrentPlayer().getCivilization().getTotalHappiness() < 0){
+            gameView.negativeHappiness();
         } else {
             player.setGold(player.getGold() - unitType.getCost());
             if (unitType.equals(UnitType.SETTLER) || unitType.equals(UnitType.WORKER)) {
