@@ -247,27 +247,22 @@ public class Civilization {
         if (technology.getCost() > beakers) {
             research.put(technology, technology.getCost() - beakers);
             this.beakers = 0;
-            for (int i = 0; i < possibleTechnologies.size(); i++) {
-                if(possibleTechnologies.get(i) == technology){
-                    possibleTechnologies.remove(i);
-                }
-            }
+            possibleTechnologies.remove(technology);
         } else {
-            this.beakers = this.beakers - technology.getCost();
+            this.beakers -= technology.getCost();
             addTechnology(technology);
         }
     }
 
     public void researchProgress() {
-        if(!this.research.isEmpty()){
-            for (Technology technology: research.keySet()) {
+        if (!this.research.isEmpty()) {
+            for (Technology technology : research.keySet()) {
                 int i = research.get(technology);
-                if(i > beakers){
+                if (i > beakers) {
                     research.replace(technology, i - beakers);
                     this.beakers = 0;
                     return;
-                }
-                else{
+                } else {
                     this.beakers = this.beakers - technology.getCost();
                     research.remove(technology);
                     addTechnology(technology);

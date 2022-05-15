@@ -340,22 +340,19 @@ public class UnitController extends GameController {
     }
 
     // build methods
-    public void buildRoad(Matcher matcher) {
+    public void buildRoad() {
+        Civilization player = database.getCurrentPlayer().getCivilization();
         CivilianUnit civUnit;
-        int i = Integer.parseInt(matcher.group("i"));
-        int j = Integer.parseInt(matcher.group("j"));
-        if (!isValidCoordinates(i, j)) {
-            gameView.invalidTile();
-        } else if (!hasNonCombatUnit() && !hasCombatUnit()) {
+        Tile tile;
+        if (!hasNonCombatUnit()) {
             gameView.noUnitSelected();
-        } else if (!hasNonCombatUnit()
-                || !(civUnit = database.getCurrentPlayer().getCivilization().getCurrentCivilian()).isWorker()) {
+        } else if (!(civUnit = player.getCurrentCivilian()).isWorker()) {
             gameView.unitNotWorker();
-        } else if (!civUnit.getPosition().equals(database.getMap()[i][j])) {
-            gameView.unitNotOnTile();
+        } else if ((tile = civUnit.getPosition()).getHasRoad()) {
+            gameView.tileHasRoad(tile.getCoordinates());
         } else {
             civUnit.setTaskTurns(3);
-            database.getCurrentPlayer().getCivilization().addRoadWorker(civUnit, database.getMap()[i][j]);
+            player.addRoadWorker(civUnit, tile);
         }
     }
 

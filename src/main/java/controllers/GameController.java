@@ -127,7 +127,7 @@ public class GameController {
             gameView.invalidTile();
         } else if ((civUnit = database.getCivilianUnitByTile(database.getMap()[i][j])) == null) {
             gameView.invalidCivilianUnit();
-        } else if (database.getUnitOwner(civUnit).equals(database.getCurrentPlayer())) {
+        } else if (!database.getUnitOwner(civUnit).equals(database.getCurrentPlayer())) {
             gameView.unitInaccessible();
         } else {
             database.getCurrentPlayer().getCivilization().setCurrentCivilian(civUnit);
@@ -200,25 +200,20 @@ public class GameController {
     }
 
     public void addResearch(Matcher matcher) {
-        String tech = matcher.group("name");
-        Technology techEnum = Technology.valueOf(tech);
-        if (database.getCurrentPlayer().getCivilization().getCities().size() == 0) {
+        String tech = matcher.group("name").toUpperCase();
+        Technology technlogy;
+        if ((technlogy = Technology.matchTechnology(tech)) == null) {
+            gameView.noSuchTechnology(tech);
+        } else if (database.getCurrentPlayer().getCivilization().getCities().size() == 0) {
             gameView.dontHaveCity();
-            return;
-        }
-        if (database.getCurrentPlayer().getCivilization().hasTechnology(techEnum)) {
+        } else if (database.getCurrentPlayer().getCivilization().hasTechnology(technlogy)) {
             gameView.hadTechnology();
-            return;
+        } else if (database.getCurrentPlayer().getCivilization().getPossibleTechnologies().indexOf(technlogy) == -1) {
+            gameView.technologyInaccessible();
+        } else {
+            database.getCurrentPlayer().getCivilization().addResearch(technlogy);
+            gameView.researchAdded();
         }
-        for (int i = 0; i < database.getCurrentPlayer().getCivilization().getPossibleTechnologies().size(); i++) {
-            if (database.getCurrentPlayer().getCivilization().getPossibleTechnologies().get(i).name().equals(tech)) {
-                database.getCurrentPlayer().getCivilization().addResearch(techEnum);
-                gameView.researchAdded();
-                return;
-            }
-        }
-        gameView.technologyInaccessible();
-
     }
 
     // run

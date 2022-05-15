@@ -82,7 +82,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.DELETE)) != null)
                 return null;
             else if ((matcher = getMatcher(command, Command.BUILDROAD)) != null)
-                unitController.buildRoad(matcher);
+                unitController.buildRoad();
             else if ((matcher = getMatcher(command, Command.BUILDRAILROAD)) != null)
                 unitController.buildRailRoad();
             else if ((matcher = getMatcher(command, Command.BUILDFARM)) != null)
@@ -257,6 +257,10 @@ public class GameView extends Processor {
         System.out.println("this unit belongs to another civilization");
     }
 
+    public void tileHasRoad(int[] coordinates) {
+        System.out.println("tile " + coordinates[0] + ":" + coordinates[1] + " already has a road");
+    }
+
     public void tileNotYours() {
         System.out.println("this tile belongs to another civilization");
     }
@@ -323,6 +327,10 @@ public class GameView extends Processor {
 
     public void noSuchUnitType(String type) {
         System.out.println(type + " is not an available unit type");
+    }
+
+    public void noSuchTechnology(String tech) {
+        System.out.println(tech + " is not an available technology");
     }
 
     public void featureIrremovable(String feature) {

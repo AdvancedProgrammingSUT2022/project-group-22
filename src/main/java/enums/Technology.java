@@ -59,6 +59,15 @@ public enum Technology {
         this.leadsToTechs = leadsToTechs;
     }
 
+    public static Technology matchTechnology(String tech) {
+        for (Technology temp : values()) {
+            if (temp.name().equals(tech)) {
+                return temp;
+            }
+        }
+        return null;
+    }
+
     public int getCost() {
         return cost;
     }
