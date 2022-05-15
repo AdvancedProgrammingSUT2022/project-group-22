@@ -22,10 +22,6 @@ public class Processor {
         return scanner.nextLine();
     }
 
-    public void printOutput(String output) {
-        System.out.println(output);
-    }
-
     public void closeScanner() {
         scanner.close();
     }

@@ -6,10 +6,13 @@ import java.util.regex.*;
 public class MainMenuView extends Processor {
     // TODO: print messages for main menu controller
     public static String run() {
-        while (scanner.hasNext()) {
-            String command = getInput();
-            Matcher matcher;
-            if ((matcher = getMatcher(command, Command.MENUENTER)) != null)
+        Matcher matcher;
+        String command;
+        while (true) {
+            command = getInput();
+            if (!scanner.hasNext()) {
+                return "exit";
+            } else if ((matcher = getMatcher(command, Command.MENUENTER)) != null)
                 return matcher.group("menuname");
             else if ((matcher = getMatcher(command, Command.MENUEXIT)) != null)
                 return "exit";
@@ -21,7 +24,6 @@ public class MainMenuView extends Processor {
             else
                 System.out.println("invalid command!");
         }
-        return "exit";
     }
 
     public static void menuNavigationNotPossible() {

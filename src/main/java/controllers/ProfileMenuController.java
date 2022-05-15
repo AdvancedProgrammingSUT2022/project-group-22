@@ -66,16 +66,7 @@ public class ProfileMenuController {
     }
 
     public String run(User user) {
-        this.user = database.getUserByUsername(user.getUsername());
-        String whichMenu;
-        whichMenu = ProfileMenuView.run(user);
-        return whichMenu;
-        // String whichMenu;
-        // while (scanner.hasNext()) {
-        // whichMenu = ProfileMenuView.run(user);
-        // if (changeMenu(whichMenu))
-        // return whichMenu;
-        // }
+        return ProfileMenuView.run(database.getUserByUsername(user.getUsername()));
     }
 
     public void menuNavigation() {
