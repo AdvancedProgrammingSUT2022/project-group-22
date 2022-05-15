@@ -118,13 +118,13 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.PRINTUNITPOSITION)) != null)
                 mapController.printTileCheck(matcher, Command.PRINTUNITPOSITION);
             else if ((matcher = getMatcher(command, Command.MAPMOVED)) != null)
-                return null;
+                mapController.moveMap(Command.MAPMOVED);
             else if ((matcher = getMatcher(command, Command.MAPMOVEL)) != null)
-                return null;
+                mapController.moveMap(Command.MAPMOVEL);
             else if ((matcher = getMatcher(command, Command.MAPMOVER)) != null)
-                return null;
+                mapController.moveMap(Command.MAPMOVER);
             else if ((matcher = getMatcher(command, Command.MAPMOVEU)) != null)
-                return null;
+                mapController.moveMap(Command.MAPMOVEU);
             else if ((matcher = getMatcher(command, Command.INCREASETURN)) != null)
                 unitController.skipTurns(matcher);
             else if ((matcher = getMatcher(command, Command.INCREASEGOLD)) != null)

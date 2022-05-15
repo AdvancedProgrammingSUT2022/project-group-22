@@ -164,10 +164,15 @@ public class Database {
         if (range == 0 || tiles.contains(tile)) {
             return;
         }
-        if (tile != null) {
-            tiles.add(tile);
-            for (int i = 0; i < 6; i++) {
-                getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
+        tiles.add(tile);
+        for (int i = 0; i < 6; i++) {
+            if (getNeighbor(tile, i) != null) {
+                if (getNeighbor(tile, i).getLandType().equals(LandType.HILL)
+                        || getNeighbor(tile, i).getLandType().equals(LandType.MOUNTAIN)) {
+                    tiles.add(getNeighbor(tile, i));
+                } else {
+                    getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
+                }
             }
         }
     }

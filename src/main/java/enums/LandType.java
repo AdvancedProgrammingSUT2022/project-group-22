@@ -13,7 +13,7 @@ public enum LandType {
                     Resource.GEMS, Resource.MARBLE, Resource.COTTON, Resource.SHEEP),
             Arrays.asList(Improvement.FARM, Improvement.MINE, Improvement.PASTURE, Improvement.PLANTATION,
                     Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY)),
-    HIILS(0, 2, 0, +25, 2, Color.RED_BRIGHT_BG, Feature.JUNGLE, Feature.FOREST,
+    HILL(0, 2, 0, +25, 2, Color.RED_BRIGHT_BG, Feature.JUNGLE, Feature.FOREST,
             Arrays.asList(Resource.IRON, Resource.COAL, Resource.GAZELLE,
                     Resource.GOLD, Resource.SILVER, Resource.GEMS, Resource.MARBLE, Resource.SHEEP),
             Arrays.asList(Improvement.CAMP, Improvement.MINE, Improvement.QUARRY)),

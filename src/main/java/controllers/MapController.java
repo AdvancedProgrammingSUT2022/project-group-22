@@ -9,6 +9,7 @@ import java.util.regex.*;
 public class MapController extends GameController {
     private static MapController instance = null;
     private final Random random = new Random();
+    private int lastX1, lastY1, lastX2, lastY2;
 
     public static MapController getInstance() {
         instance = instance != null ? instance : new MapController();
@@ -17,11 +18,11 @@ public class MapController extends GameController {
 
     // sample map
     private LandType[][] landTypes1 = {
-            { LandType.MOUNTAIN, LandType.MOUNTAIN, LandType.DESERT, LandType.HIILS, LandType.PLAIN, LandType.PLAIN,
+            { LandType.MOUNTAIN, LandType.MOUNTAIN, LandType.DESERT, LandType.HILL, LandType.PLAIN, LandType.PLAIN,
                     LandType.SNOW, LandType.SNOW },
-            { LandType.MOUNTAIN, LandType.PLAIN, LandType.DESERT, LandType.HIILS, LandType.PLAIN, LandType.GRASSLAND,
+            { LandType.MOUNTAIN, LandType.PLAIN, LandType.DESERT, LandType.HILL, LandType.PLAIN, LandType.GRASSLAND,
                     LandType.TUNDRA, LandType.TUNDRA },
-            { LandType.PLAIN, LandType.PLAIN, LandType.HIILS, LandType.HIILS, LandType.PLAIN, LandType.PLAIN,
+            { LandType.PLAIN, LandType.PLAIN, LandType.HILL, LandType.HILL, LandType.PLAIN, LandType.PLAIN,
                     LandType.PLAIN, LandType.GRASSLAND },
             { LandType.OCEAN, LandType.OCEAN, LandType.GRASSLAND, LandType.GRASSLAND, LandType.MOUNTAIN,
                     LandType.MOUNTAIN, LandType.GRASSLAND, LandType.DESERT },
@@ -149,6 +150,35 @@ public class MapController extends GameController {
     }
 
     // printing
+    public void moveMap(Command command) {
+        Tile[][] map = database.getMap();
+        if (command.equals(Command.MAPMOVEU)) {
+            if (!isValidCoordinates(lastX1 - 1, lastY1) || !isValidCoordinates(lastX2 - 1, lastY2)) {
+                gameView.invalidTile();
+            } else {
+                printArea(map, lastX1 - 1, lastY1, lastX2 - 1, lastY2);
+            }
+        } else if (command.equals(Command.MAPMOVED)) {
+            if (!isValidCoordinates(lastX1 + 1, lastY1) || !isValidCoordinates(lastX2 + 1, lastY2)) {
+                gameView.invalidTile();
+            } else {
+                printArea(map, lastX1 + 1, lastY1, lastX2 + 1, lastY2);
+            }
+        } else if (command.equals(Command.MAPMOVEL)) {
+            if (!isValidCoordinates(lastX1, lastY1 - 1) || !isValidCoordinates(lastX2, lastY2 - 1)) {
+                gameView.invalidTile();
+            } else {
+                printArea(map, lastX1, lastY1 - 1, lastX2, lastY2 - 1);
+            }
+        } else {
+            if (!isValidCoordinates(lastX1, lastY1 + 1) || !isValidCoordinates(lastX2, lastY2 + 1)) {
+                gameView.invalidTile();
+            } else {
+                printArea(map, lastX1, lastY1 + 1, lastX2, lastY2 + 1);
+            }
+        }
+    }
+
     public void printArea(Tile[][] map, int x1, int y1, int x2, int y2) {
         ArrayList<TileView> tileView = new ArrayList<TileView>();
         for (int i = x1; i <= x2; i++) {
@@ -158,6 +188,10 @@ public class MapController extends GameController {
                 }
             }
         }
+        lastX1 = x1;
+        lastX2 = x2;
+        lastY1 = y1;
+        lastY2 = y2;
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(), tileView, y2 - y1 + 1, x2 - x1 + 1);
     }
@@ -175,6 +209,10 @@ public class MapController extends GameController {
             minY = Math.min(tile.getCoordinates()[1], minY);
             maxY = Math.max(tile.getCoordinates()[1], maxY);
         }
+        lastX1 = minX;
+        lastX2 = maxX;
+        lastY1 = minY;
+        lastY2 = maxY;
         GameView.getInstance().printMap(database.getCurrentPlayer().getUsername(),
                 database.getCurrentPlayer().getCivilization().getTotalHappiness(),
                 tileView, maxY - minY + 1, maxX - minX + 1);
@@ -189,23 +227,24 @@ public class MapController extends GameController {
         if (x1 - 1 >= 0) {
             x1--;
         }
-
         if (y1 - 2 >= 0) {
             y1 -= 2;
         } else if (y1 - 1 >= 0) {
             y1--;
         }
-
         if (x2 + 1 < database.getMap().length) {
             x2 += 1;
         }
-
         if (y2 + 2 < database.getMap()[0].length) {
             y2 += 2;
         } else if (y2 + 1 < database.getMap()[0].length) {
             y2 += 1;
         }
 
+        lastX1 = x1;
+        lastX2 = x2;
+        lastY1 = y1;
+        lastY2 = y2;
         printArea(database.getMap(), x1, y1, x2, y2);
     }
 
