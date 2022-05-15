@@ -222,7 +222,7 @@ public class GameController {
         while (true) {
             state = gameView.run();
             if (state.equals("exit")) {
-                return "game menu";
+                return "gameMenu";
             }
         }
     }

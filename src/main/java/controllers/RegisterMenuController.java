@@ -14,7 +14,6 @@ public class RegisterMenuController {
     // String nickname = arr.getJSONObject(i).getString("nickname");
     // String password = arr.getJSONObject(i).getString("password");
     // Database.getInstance().addUser(new User(username, nickname, password));
-    // System.out.println(username + nickname + password);
     // }
     // }
 

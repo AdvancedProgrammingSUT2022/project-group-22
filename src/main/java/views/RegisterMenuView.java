@@ -10,9 +10,11 @@ public class RegisterMenuView extends Processor {
         RegisterMenuController registerMenuController = new RegisterMenuController();
         Matcher matcher;
         String command;
-        while (scanner.hasNext()) {
+        while (true) {
             command = getInput();
-            if ((matcher = getMatcher(command, Command.CREATEUSER1)) != null
+            if (!scanner.hasNext()) {
+                return "exit";
+            } else if ((matcher = getMatcher(command, Command.CREATEUSER1)) != null
                     || (matcher = getMatcher(command, Command.CREATEUSER2)) != null
                     || (matcher = getMatcher(command, Command.CREATEUSER3)) != null
                     || (matcher = getMatcher(command, Command.CREATEUSER4)) != null
@@ -33,7 +35,6 @@ public class RegisterMenuView extends Processor {
                 System.out.println("invalid command!");
             }
         }
-        return "exit";
     }
 
     public static void accountExists(String username) {

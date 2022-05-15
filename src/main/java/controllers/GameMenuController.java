@@ -33,14 +33,10 @@ public class GameMenuController {
         int i = random.nextInt(tiles.size());
         player1.getCivilization().addCivilianUnit((civUnit = new CivilianUnit(UnitType.SETTLER, tiles.get(i))));
         player1.getCivilization().setCurrentCivilian(civUnit);
-        System.out.println(
-                "player #1 unit: " + tiles.get(i).getCoordinates()[0] + ":" + tiles.get(i).getCoordinates()[1]);
         tiles.remove(i);
         i = random.nextInt(tiles.size());
         player2.getCivilization().addCivilianUnit((civUnit = new CivilianUnit(UnitType.SETTLER, tiles.get(i))));
         player2.getCivilization().setCurrentCivilian(civUnit);
-        System.out.println(
-                "player #2 unit: " + tiles.get(i).getCoordinates()[0] + ":" + tiles.get(i).getCoordinates()[1]);
     }
 
     public void startGame(User player1, User player2) {

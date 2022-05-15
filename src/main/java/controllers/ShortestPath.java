@@ -98,7 +98,6 @@ class Node implements Comparator<Node> {
     public Node() {
     }
 
-    @Override
     public int compare(Node node1, Node node2) {
         return (node1.cost < node2.cost) ? -1 : (node1.cost > node2.cost) ? 1 : 0;
     }
