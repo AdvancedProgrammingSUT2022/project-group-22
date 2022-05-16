@@ -97,6 +97,9 @@ public class MapController extends GameController {
             if (hasRiver[i] != null) {
                 riverColor.add(hasRiver[i] ? Color.CYAN_BRIGHT_BG.getColor() : Color.RESET.getColor());
             }
+            else{
+                riverColor.add(Color.RESET.getColor());
+            }
         }
         return riverColor;
     }

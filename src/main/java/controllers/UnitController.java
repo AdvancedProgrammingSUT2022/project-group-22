@@ -165,16 +165,18 @@ public class UnitController extends GameController {
             multiStepMove(nextTile, unit, dist, parent);
         } else {
             for (int k = 0; k < 6; k++) {
-                int i2 = database.getNeighbor(nextTile, k).getCoordinates()[0];
-                int j2 = database.getNeighbor(nextTile, k).getCoordinates()[1];
-                if (dist[i2][j2] < unit.getMovementPoints() && !database.getMap()[i2][j2].getHasRiver()[k]) {
-                    unit.setMovementPoints(unit.getMovementPoints()
-                            - dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]]);
-                    database.getCurrentPlayer().getCivilization().updateTileStates(unit.getPosition(), nextTile);
-                    unit.setPosition(nextTile);
-                    parent[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] = database.getMap()[i2][j2];
-                    multiStepMove(nextTile, unit, dist, parent);
-                    return;
+                if(database.getNeighbor(nextTile, k) != null) {
+                    int i2 = database.getNeighbor(nextTile, k).getCoordinates()[0];
+                    int j2 = database.getNeighbor(nextTile, k).getCoordinates()[1];
+                    if (dist[i2][j2] < unit.getMovementPoints() && !database.getMap()[i2][j2].getHasRiver()[k]) {
+                        unit.setMovementPoints(unit.getMovementPoints()
+                                - dist[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]]);
+                        database.getCurrentPlayer().getCivilization().updateTileStates(unit.getPosition(), nextTile);
+                        unit.setPosition(nextTile);
+                        parent[nextTile.getCoordinates()[0]][nextTile.getCoordinates()[1]] = database.getMap()[i2][j2];
+                        multiStepMove(nextTile, unit, dist, parent);
+                        return;
+                    }
                 }
             }
         }
