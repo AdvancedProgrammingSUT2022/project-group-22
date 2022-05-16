@@ -128,7 +128,7 @@ public class GameView extends Processor {
             else if ((matcher = getMatcher(command, Command.INCREASEGOLD)) != null)
                 gameController.addGold(matcher);
             else if ((matcher = getMatcher(command, Command.INSTANTBUILD)) != null)
-                unitController.instantBuild(matcher);
+                unitController.instantBuild();
             else if ((matcher = getMatcher(command, Command.BUYTILE)) != null)
                 gameController.buyTile(matcher);
             else if ((matcher = getMatcher(command, Command.RESEARCH)) != null)
@@ -234,7 +234,8 @@ public class GameView extends Processor {
     }
 
     public void mpLow() {
-        System.out.println("you don't have enough mp to move to this tile");
+        System.out.println(
+                "you don't have enough mp to directly move to this tile, the unit will start nearing the target");
     }
 
     public void unitNotSettler() {
@@ -356,6 +357,10 @@ public class GameView extends Processor {
     public void pathBlocked(String name, int[] pos, int[] dest) {
         System.out.println(name + " on tile " + pos[0] + ":" + pos[1]
                 + " can no longer move towards tile " + dest[0] + ":" + dest[1]);
+    }
+
+    public void noBuildTask() {
+        System.out.println("the selected unit doesn't have any build task");
     }
 
     // print info

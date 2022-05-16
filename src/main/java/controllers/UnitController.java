@@ -165,7 +165,7 @@ public class UnitController extends GameController {
             multiStepMove(nextTile, unit, dist, parent);
         } else {
             for (int k = 0; k < 6; k++) {
-                if(database.getNeighbor(nextTile, k) != null) {
+                if (database.getNeighbor(nextTile, k) != null) {
                     int i2 = database.getNeighbor(nextTile, k).getCoordinates()[0];
                     int j2 = database.getNeighbor(nextTile, k).getCoordinates()[1];
                     if (dist[i2][j2] < unit.getMovementPoints() && !database.getMap()[i2][j2].getHasRiver()[k]) {
@@ -207,7 +207,7 @@ public class UnitController extends GameController {
                     }
                 }
             }
-            // gameView.mpLow();
+            gameView.mpLow();
             unit.setTarget(tile);
             unit.setTaskTurns(Integer.MAX_VALUE);
             multiStepMove(tile, unit, dist, parent);
@@ -403,7 +403,18 @@ public class UnitController extends GameController {
     public void buildRailRoad() {
     }
 
-    public void instantBuild(Matcher matcher) {
+    public void instantBuild() {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        CivilianUnit unit;
+        if ((unit = player.getCurrentCivilian()) == null) {
+            gameView.noUnitSelected();
+        } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
+            gameView.unitNotWorker();
+        } else if (unit.getTaskTurns() == 0 || unit.getTaskTurns() > 1000) {
+            gameView.noBuildTask();
+        } else {
+            taskCompleted(unit);
+        }
     }
 
     public void repair() {
