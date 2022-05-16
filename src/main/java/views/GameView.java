@@ -246,8 +246,10 @@ public class GameView extends Processor {
     }
 
     public void mpLow() {
-        System.out.println(
-                "you don't have enough mp to directly move to this tile, the unit will start nearing the target");
+        System.out.println("insufficient mp");
+        // System.out.println(
+        // "you don't have enough mp to directly move to this tile, the unit will start
+        // nearing the target");
     }
 
     public void unitNotSettler() {

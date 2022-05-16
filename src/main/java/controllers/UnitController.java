@@ -75,15 +75,15 @@ public class UnitController extends GameController {
             if (unit.getTaskTurns() == 0) {
                 taskCompleted(unit);
             }
-            if (unit.getTarget() != null) {
-                checkMovement(unit);
-            }
+            // if (unit.getTarget() != null) {
+            // checkMovement(unit);
+            // }
         }
         for (MilitaryUnit unit : player.getMilitaryUnits()) {
             unit.setTaskTurns(unit.getTaskTurns() - 1);
-            if (unit.getTarget() != null) {
-                checkMovement(unit);
-            }
+            // if (unit.getTarget() != null) {
+            // checkMovement(unit);
+            // }
         }
         player.researchProgress();
     }
@@ -208,9 +208,9 @@ public class UnitController extends GameController {
                 }
             }
             gameView.mpLow();
-            unit.setTarget(tile);
-            unit.setTaskTurns(Integer.MAX_VALUE);
-            multiStepMove(tile, unit, dist, parent);
+            // unit.setTarget(tile);
+            // unit.setTaskTurns(Integer.MAX_VALUE);
+            // multiStepMove(tile, unit, dist, parent);
         }
     }
 
