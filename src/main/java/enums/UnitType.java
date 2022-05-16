@@ -8,7 +8,7 @@ public enum UnitType {
     SCOUT(25, 4, 0, 0, 2, "RECON", null, null),
     SPEARMAN(50, 7, 0, 0, 2, "MELEE", null, Technology.BRONZEWORKING),
     WARRIOR(40, 6, 0, 0, 2, "MELEE", null, null),
-    CATAPULT(100, 4, 14, 2, 2, "SIEGE", Resource.IRON, Technology.MATHMATICS),
+    CATAPULT(100, 4, 14, 2, 2, "SIEGE", Resource.IRON, Technology.MATHEMATICS),
     HORSEMAN(80, 12, 0, 0, 4, "MOUNTED", Resource.HORSE, Technology.HORSEBACKRIDING),
     SWORDSMAN(80, 11, 0, 0, 2, "MELEE", Resource.IRON, Technology.IRONWORKING),
     CROSSBOWMAN(120, 6, 12, 2, 2, "ARCHERY", null, Technology.MACHINERY),

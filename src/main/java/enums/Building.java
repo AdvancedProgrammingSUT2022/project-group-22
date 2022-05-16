@@ -11,7 +11,7 @@ public enum Building {
     BURIALTOMB(120, 0, Technology.PHILOSOPHY),
     CIRCUS(150, 3, Technology.HORSEBACKRIDING),
     COLOSSEUM(150, 3, Technology.CONSTRUCTION),
-    COURTHOUSE(200, 5, Technology.MATHMATICS),
+    COURTHOUSE(200, 5, Technology.MATHEMATICS),
     STABLE(100, 1, Technology.HORSEBACKRIDING),
     TEMPLE(120, 2, Technology.PHILOSOPHY),
     CASTLE(200, 3, Technology.CHIVALRY),
