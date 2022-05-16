@@ -93,10 +93,10 @@ public class UnitController extends GameController {
             gameView.turnNotOver();
         } else {
             database.nextTurn();
+            gameView.currentPlayer(database.getCurrentPlayer().getUsername());
             database.getCurrentPlayer().getCivilization().addValues();
             processTasks();
             // restore city + unit in combat
-            gameView.currentPlayer(database.getCurrentPlayer().getUsername());
         }
     }
 
