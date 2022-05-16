@@ -111,7 +111,8 @@ public class Database {
     public CivilianUnit getCivilianUnitByTile(Tile tile) {
         for (User player : this.players) {
             for (CivilianUnit unit : player.getCivilization().getCivilianUnits()) {
-                if (unit.getPosition().equals(tile)) {
+                if (unit.getPosition().getCoordinates()[0] == tile.getCoordinates()[0]
+                        && unit.getPosition().getCoordinates()[1] == tile.getCoordinates()[1]) {
                     return unit;
                 }
             }
