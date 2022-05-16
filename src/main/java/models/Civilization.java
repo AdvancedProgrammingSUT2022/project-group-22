@@ -17,9 +17,12 @@ public class Civilization {
     private ArrayList<City> cities = new ArrayList<City>();
     private ArrayList<MilitaryUnit> militaryUnits = new ArrayList<MilitaryUnit>();
     private ArrayList<CivilianUnit> civilianUnits = new ArrayList<CivilianUnit>();
+
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
     private ArrayList<Technology> possibleTechnologies = new ArrayList<Technology>();
     private HashMap<Technology, Integer> research = new HashMap<Technology, Integer>();
+    private Technology currentTechnology = null;
+
     private ArrayList<String> messages = new ArrayList<String>();
     private ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
     private HashMap<Tile, Tile> revealedTiles = new HashMap<Tile, Tile>();
@@ -262,7 +265,6 @@ public class Civilization {
                 if (i > beakers) {
                     research.replace(technology, i - beakers);
                     this.beakers = 0;
-                    return;
                 } else {
                     this.beakers = this.beakers - technology.getCost();
                     research.remove(technology);
@@ -279,6 +281,7 @@ public class Civilization {
 
     public void addTechnology(Technology technology) {
         this.technologies.add(technology);
+        addMessage(technology.name().toLowerCase() + " added");
         String[] temp = technology.getLeadsToTechs().split(",");
         boolean wasPossible = false;
         for (int j = 0; j < temp.length; j++) {
@@ -304,9 +307,17 @@ public class Civilization {
         return false;
     }
 
-    public Boolean hasLuxuryResource(Resource resource){
+    public Technology getCurrentTechnology() {
+        return this.currentTechnology;
+    }
+
+    public void setCurrentTechnology(Technology currentTechnology) {
+        this.currentTechnology = currentTechnology;
+    }
+
+    public Boolean hasLuxuryResource(Resource resource) {
         for (int i = 0; i < this.luxuryResources.size(); i++) {
-            if(resource.equals(this.luxuryResources.get(i))){
+            if (resource.equals(this.luxuryResources.get(i))) {
                 return true;
             }
         }

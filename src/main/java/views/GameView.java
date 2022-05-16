@@ -129,6 +129,8 @@ public class GameView extends Processor {
                 gameController.addGold(matcher);
             else if ((matcher = getMatcher(command, Command.INSTANTBUILD)) != null)
                 unitController.instantBuild();
+            else if ((matcher = getMatcher(command, Command.INSTANTRESEARCH)) != null)
+                unitController.instantResearch();
             else if ((matcher = getMatcher(command, Command.BUYTILE)) != null)
                 gameController.buyTile(matcher);
             else if ((matcher = getMatcher(command, Command.RESEARCH)) != null)
@@ -194,6 +196,10 @@ public class GameView extends Processor {
 
     public void researchAdded() {
         System.out.println("research added successfully");
+    }
+
+    public void technologyAdded(String tech) {
+        System.out.println(tech + " technology added successfully");
     }
 
     public void goldIncreased(int amount) {

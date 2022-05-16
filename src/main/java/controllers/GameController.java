@@ -216,6 +216,14 @@ public class GameController {
         }
     }
 
+    public void instantResearch() {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        Technology tech = player.getCurrentTechnology();
+        player.addTechnology(tech);
+        player.getResearch().remove(tech);
+        gameView.technologyAdded(tech.name());
+    }
+
     // run
     public String run() {
         String state;

@@ -107,7 +107,8 @@ public enum Command {
         // cheat sheet
         INCREASETURN("increase turn (?<amount>\\d+)"),
         INCREASEGOLD("increase gold (?<amount>\\d+)"),
-        INSTANTBUILD("instant build");
+        INSTANTBUILD("instant build"),
+        INSTANTRESEARCH("instant research");
 
         private String regex;
 
