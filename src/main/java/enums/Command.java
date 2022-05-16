@@ -107,6 +107,7 @@ public enum Command {
         // cheat sheet
         INCREASETURN("increase turn (?<amount>\\d+)"),
         INCREASEGOLD("increase gold (?<amount>\\d+)"),
+        INCREASEBEAKERS("increase beakers (?<amount>\\d+)"),
         INSTANTBUILD("instant build"),
         INSTANTRESEARCH("instant research");
 

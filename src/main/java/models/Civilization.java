@@ -21,7 +21,7 @@ public class Civilization {
     private ArrayList<Technology> technologies = new ArrayList<Technology>();
     private ArrayList<Technology> possibleTechnologies = new ArrayList<Technology>();
     private HashMap<Technology, Integer> research = new HashMap<Technology, Integer>();
-    private Technology currentTechnology = null;
+    private Technology currentResearch = null;
 
     private ArrayList<String> messages = new ArrayList<String>();
     private ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
@@ -73,6 +73,14 @@ public class Civilization {
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public int getBeakers() {
+        return this.beakers;
+    }
+
+    public void setBeakers(int beakers) {
+        this.beakers = beakers;
     }
 
     public City getCapital() {
@@ -250,6 +258,7 @@ public class Civilization {
     public void addResearch(Technology technology) {
         if (technology.getCost() > beakers) {
             research.put(technology, technology.getCost() - beakers);
+            currentResearch = technology;
             this.beakers = 0;
             possibleTechnologies.remove(technology);
         } else {
@@ -259,19 +268,17 @@ public class Civilization {
     }
 
     public void researchProgress() {
-        if (!this.research.isEmpty()) {
-            for (Technology technology : research.keySet()) {
-                int i = research.get(technology);
-                if (i > beakers) {
-                    research.replace(technology, i - beakers);
-                    this.beakers = 0;
-                } else {
-                    this.beakers = this.beakers - technology.getCost();
-                    research.remove(technology);
-                    addTechnology(technology);
-                }
+        if (this.currentResearch != null) {
+            int cost = research.get(this.currentResearch);
+            if (cost > beakers) {
+                research.replace(this.currentResearch, cost - beakers);
+                this.beakers = 0;
+            } else {
+                this.beakers -= this.currentResearch.getCost();
+                research.remove(this.currentResearch);
+                addTechnology(this.currentResearch);
+                this.currentResearch = null;
             }
-
         }
     }
 
@@ -307,12 +314,12 @@ public class Civilization {
         return false;
     }
 
-    public Technology getCurrentTechnology() {
-        return this.currentTechnology;
+    public Technology getcurrentResearch() {
+        return this.currentResearch;
     }
 
-    public void setCurrentTechnology(Technology currentTechnology) {
-        this.currentTechnology = currentTechnology;
+    public void setcurrentResearch(Technology currentResearch) {
+        this.currentResearch = currentResearch;
     }
 
     public Boolean hasLuxuryResource(Resource resource) {

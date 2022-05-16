@@ -194,31 +194,38 @@ public class GameController {
 
     public void addGold(Matcher matcher) {
         int amount = Integer.parseInt(matcher.group("amount"));
-        Civilization civilization = database.getCurrentPlayer().getCivilization();
-        civilization.setGold(civilization.getGold() + amount);
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        player.setGold(player.getGold() + amount);
         gameView.goldIncreased(amount);
+    }
+
+    public void addBeakers(Matcher matcher) {
+        Civilization player = database.getCurrentPlayer().getCivilization();
+        int amount = Integer.parseInt(matcher.group("amount"));
+        player.setBeakers(player.getBeakers() + amount);
+        gameView.beakersIncreased(amount);
     }
 
     public void addResearch(Matcher matcher) {
         String tech = matcher.group("name").toUpperCase();
-        Technology technlogy;
-        if ((technlogy = Technology.matchTechnology(tech)) == null) {
+        Technology technology;
+        if ((technology = Technology.matchTechnology(tech)) == null) {
             gameView.noSuchTechnology(tech);
         } else if (database.getCurrentPlayer().getCivilization().getCities().size() == 0) {
             gameView.dontHaveCity();
-        } else if (database.getCurrentPlayer().getCivilization().hasTechnology(technlogy)) {
+        } else if (database.getCurrentPlayer().getCivilization().hasTechnology(technology)) {
             gameView.hadTechnology();
-        } else if (database.getCurrentPlayer().getCivilization().getPossibleTechnologies().indexOf(technlogy) == -1) {
+        } else if (database.getCurrentPlayer().getCivilization().getPossibleTechnologies().indexOf(technology) == -1) {
             gameView.technologyInaccessible();
         } else {
-            database.getCurrentPlayer().getCivilization().addResearch(technlogy);
+            database.getCurrentPlayer().getCivilization().addResearch(technology);
             gameView.researchAdded();
         }
     }
 
     public void instantResearch() {
         Civilization player = database.getCurrentPlayer().getCivilization();
-        Technology tech = player.getCurrentTechnology();
+        Technology tech = player.getcurrentResearch();
         player.addTechnology(tech);
         player.getResearch().remove(tech);
         gameView.technologyAdded(tech.name());

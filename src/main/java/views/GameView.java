@@ -127,6 +127,8 @@ public class GameView extends Processor {
                 unitController.skipTurns(matcher);
             else if ((matcher = getMatcher(command, Command.INCREASEGOLD)) != null)
                 gameController.addGold(matcher);
+            else if ((matcher = getMatcher(command, Command.INCREASEBEAKERS)) != null)
+                gameController.addBeakers(matcher);
             else if ((matcher = getMatcher(command, Command.INSTANTBUILD)) != null)
                 unitController.instantBuild();
             else if ((matcher = getMatcher(command, Command.INSTANTRESEARCH)) != null)
@@ -204,6 +206,10 @@ public class GameView extends Processor {
 
     public void goldIncreased(int amount) {
         System.out.println("gold increased by " + amount);
+    }
+
+    public void beakersIncreased(int amount) {
+        System.out.println("beakers increased by " + amount);
     }
 
     public void turnsIncreased(int amount) {
