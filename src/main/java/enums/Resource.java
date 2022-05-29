@@ -41,6 +41,15 @@ public enum Resource {
         this.technology = technology;
     }
 
+    public static Resource matchResource(String resource) {
+        for (Resource temp : values()) {
+            if (temp.name().equals(resource)) {
+                return temp;
+            }
+        }
+        return null;
+    }
+
     public String getType() {
         return this.type;
     }

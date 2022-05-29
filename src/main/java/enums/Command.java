@@ -108,6 +108,7 @@ public enum Command {
         INCREASETURN("increase turn (?<amount>\\d+)"),
         INCREASEGOLD("increase gold (?<amount>\\d+)"),
         INCREASEBEAKERS("increase beakers (?<amount>\\d+)"),
+        ADDRESOURCE("add resource (?<name>\\w+) (?<i>\\d+):(?<j>\\d+)"),
         INSTANTBUILD("instant build"),
         INSTANTRESEARCH("instant research");
 

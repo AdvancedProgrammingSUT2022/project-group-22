@@ -61,7 +61,7 @@ public enum Technology {
 
     public static Technology matchTechnology(String tech) {
         for (Technology temp : values()) {
-            if (temp.name().equals(tech)) {
+            if (temp.name().equalsIgnoreCase(tech)) {
                 return temp;
             }
         }

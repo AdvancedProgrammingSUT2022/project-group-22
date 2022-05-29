@@ -110,7 +110,7 @@ public class GameController {
             gameView.invalidTile();
         } else if ((milUnit = database.getMilitaryUnitByTile(database.getMap()[i][j])) == null) {
             gameView.invalidMilitaryUnit();
-        } else if (database.getUnitOwner(milUnit).equals(database.getCurrentPlayer())) {
+        } else if (!database.getUnitOwner(milUnit).equals(database.getCurrentPlayer())) {
             gameView.unitInaccessible();
         } else {
             database.getCurrentPlayer().getCivilization().setCurrentMilitary(milUnit);
@@ -173,9 +173,13 @@ public class GameController {
         int j = Integer.parseInt(matcher.group("j"));
         if (!isValidCoordinates(i, j)) {
             gameView.invalidTile();
-        } else if (!database.getMap()[i][j].getPlayer().equals(database.getCurrentPlayer())) {
-            gameView.tileNotYours();
-        } else if (database.getMap()[i][j].getPlayer().equals(database.getCurrentPlayer())) {
+        }
+        // else if (database.getMap()[i][j].getPlayer() == null
+        // || !database.getMap()[i][j].getPlayer().equals(database.getCurrentPlayer()))
+        // {
+        // gameView.tileNotYours();
+        // }
+        else if (database.getMap()[i][j].getPlayer() != null) {
             gameView.tileOwned();
         } else if ((city = database.getNearbyCity(database.getMap()[i][j],
                 database.getCurrentPlayer())) == null) {
@@ -204,6 +208,19 @@ public class GameController {
         int amount = Integer.parseInt(matcher.group("amount"));
         player.setBeakers(player.getBeakers() + amount);
         gameView.beakersIncreased(amount);
+    }
+
+    public void addResource(Matcher matcher) {
+        String res = matcher.group("name").toUpperCase();
+        int i = Integer.parseInt(matcher.group("i"));
+        int j = Integer.parseInt(matcher.group("j"));
+        Resource resource;
+        if ((resource = Resource.matchResource(res)) == null) {
+            gameView.noSuchTechnology(res);
+        } else {
+            database.getMap()[i][j].addResource(resource);
+            database.getCurrentPlayer().getCivilization().getCurrentCity().addResource(resource);
+        }
     }
 
     public void addResearch(Matcher matcher) {
@@ -258,11 +275,13 @@ public class GameController {
         ArrayList<String> milUnits = new ArrayList<String>();
         for (CivilianUnit civUnit : player.getCivilianUnits()) {
             civUnits.add("CivUnit No. " + player.getCivilianUnits().indexOf(civUnit) + " - "
-                    + civUnit.getPosition().getCoordinates()[0] + ":" + civUnit.getPosition().getCoordinates()[1]);
+                    + civUnit.getPosition().getCoordinates()[0] + ":" + civUnit.getPosition().getCoordinates()[1]
+                    + " - " + civUnit.getMovementPoints());
         }
         for (MilitaryUnit milUnit : player.getMilitaryUnits()) {
-            milUnits.add("CivUnit No. " + player.getMilitaryUnits().indexOf(milUnit) + " - "
-                    + milUnit.getPosition().getCoordinates()[0] + ":" + milUnit.getPosition().getCoordinates()[1]);
+            milUnits.add("MilUnit No. " + player.getMilitaryUnits().indexOf(milUnit) + " - "
+                    + milUnit.getPosition().getCoordinates()[0] + ":" + milUnit.getPosition().getCoordinates()[1]
+                    + " - " + milUnit.getMovementPoints());
         }
         gameView.printUnitList(civUnits, milUnits);
     }

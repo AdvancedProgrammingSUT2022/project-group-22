@@ -96,8 +96,7 @@ public class MapController extends GameController {
         for (int i = 0; i < 6; i++) {
             if (hasRiver[i] != null) {
                 riverColor.add(hasRiver[i] ? Color.CYAN_BRIGHT_BG.getColor() : Color.RESET.getColor());
-            }
-            else{
+            } else {
                 riverColor.add(Color.RESET.getColor());
             }
         }
@@ -144,8 +143,10 @@ public class MapController extends GameController {
             String[] colors = { Color.WHITE.getColor(), Color.WHITE.getColor(),
                     Color.WHITE.getColor() };
             Boolean[] hasRiver = { false, false, false, false, false, false };
-            tileView.add(new TileView(colors, Color.BLACK_BRIGHT_BG.getColor(), null, null, null, null, null, null,
-                    getRiverColor(hasRiver), tile.getCoordinates()[0], tile.getCoordinates()[1]));
+            tileView.add(new TileView(colors, Color.BLACK_BRIGHT_BG.getColor(), null,
+                    null, null, null, null, null,
+                    getRiverColor(hasRiver), tile.getCoordinates()[0],
+                    tile.getCoordinates()[1]));
             // tileView.add(generateTileView(tile));
         }
     }

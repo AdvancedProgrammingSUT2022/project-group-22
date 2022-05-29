@@ -385,6 +385,12 @@ public class Civilization {
                 }
             }
         }
+        for (CivilianUnit civUnit : this.civilianUnits) {
+            civUnit.setMovementPoints(civUnit.getUnitType().getMovementPoints());
+        }
+        for (MilitaryUnit milUnit : this.militaryUnits) {
+            milUnit.setMovementPoints(milUnit.getUnitType().getMovementPoints());
+        }
         this.beakers += 3 * cities.size() + this.getPopulation();
         this.researchProgress();
     }

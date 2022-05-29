@@ -137,6 +137,8 @@ public class GameView extends Processor {
                 gameController.buyTile(matcher);
             else if ((matcher = getMatcher(command, Command.RESEARCH)) != null)
                 gameController.addResearch(matcher);
+            else if ((matcher = getMatcher(command, Command.ADDRESOURCE)) != null)
+                gameController.addResource(matcher);
             else
                 System.out.println("invalid Command!");
         }

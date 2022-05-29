@@ -77,6 +77,11 @@ public class Tile {
         return this.resource;
     }
 
+    public void addResource(Resource resource) {
+        this.resource = resource;
+        this.activateResource();
+    }
+
     public void activateResource() {
         this.gold += this.resource.getGold();
         this.production += this.resource.getProduction();
