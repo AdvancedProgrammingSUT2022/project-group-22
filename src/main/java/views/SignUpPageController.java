@@ -4,8 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import models.*;
 import resources.*;
+import controllers.*;
 
 public class SignUpPageController extends View {
     private static SignUpPageController instance = null;
@@ -24,22 +24,21 @@ public class SignUpPageController extends View {
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String username, password;
-                User user;
+                String username, password, nickname;
                 if ((username = usernameField.getText()).isEmpty()) {
                     showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!",
-                            "Please enter your username.");
+                            "Please enter a username.");
                 } else if ((password = passwordField.getText()).isEmpty()) {
                     showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!",
                             "Please enter a password.");
-                } else if (database.getUserByUsername(username) != null) {
+                } else if ((nickname = nicknameField.getText()).isEmpty()) {
                     showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!",
-                            "Username already taken.");
+                            "Please enter a nickname.");
                 } else {
-                    // database.addUser(user = new User(username, password));
-                    // login(user);
+                    // TODO : fix late pop-up messages
+                    RegisterMenuController.getInstance().createUser(gridPane, username, nickname, password);
+                    changeStage(MainPageController.getInstance().createPage(), "Civilization");
                 }
-
             }
         });
     }

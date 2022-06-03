@@ -1,4 +1,3 @@
-views/LoginPageController$3.class
 models/User.class
 views/MainPageController$2.class
 views/MainPageController.class
@@ -12,7 +11,6 @@ enums/Command.class
 enums/UnitType.class
 views/TileView.class
 controllers/UnitController.class
-views/LoginPageController$2.class
 models/CivilianUnit.class
 controllers/ProfileMenuController.class
 controllers/GameController$1.class

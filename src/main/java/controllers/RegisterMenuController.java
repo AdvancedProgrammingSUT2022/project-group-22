@@ -1,12 +1,19 @@
 package controllers;
 
-// import org.json.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import models.*;
 import views.*;
 
-import java.util.regex.*;
-
 public class RegisterMenuController {
+    private static RegisterMenuController instance = null;
+
+    public static RegisterMenuController getInstance() {
+        instance = instance == null ? new RegisterMenuController() : instance;
+        return instance;
+    }
+
+    Database database = Database.getInstance();
     // public void loadUsers() {
     // JSONArray arr = new JSONArray();
     // for (int i = 0; i < arr.length(); i++) {
@@ -36,34 +43,41 @@ public class RegisterMenuController {
         // }
     }
 
-    public void createUser(Matcher matcher) {
-        if (Database.getInstance().getUserByUsername(matcher.group("username").trim()) != null) {
-            RegisterMenuView.accountExists(matcher.group("username").trim());
-            return;
-        } else if (Database.getInstance().getUserByNickname(matcher.group("nickname").trim()) != null) {
-            RegisterMenuView.nicknameExists(matcher.group("nickname").trim());
-            return;
-        }
-        Database.getInstance().addUser(new User(matcher.group("username").trim(),
-                matcher.group("password").trim(),
-                matcher.group("nickname").trim()));
-        RegisterMenuView.userCreated();
-    }
-
-    public Boolean canLogin(Matcher matcher) {
+    public void createUser(GridPane gridPane, String username, String nickname, String password) {
         User user;
-        if ((user = Database.getInstance().getUserByUsername(matcher.group("username").trim())) == null) {
-            RegisterMenuView.accountDoesNotExists();
-            return false;
-        } else if (!user.getPassword().equals(matcher.group("password").trim())) {
-            RegisterMenuView.incorrectPassword();
-            return false;
+        if (database.getUserByUsername(username) != null) {
+            MainPageController.getInstance().showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                    "Error!",
+                    "Username taken.");
+        } else if (database.getUserByNickname(nickname) != null) {
+            MainPageController.getInstance().showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                    "Error!",
+                    "Nickname taken.");
+        } else {
+            database.addUser((user = new User(username, password, nickname)));
+            saveUser(user);
+            database.setCurrentUser(user);
+            MainPageController.getInstance().showAlert(Alert.AlertType.CONFIRMATION,
+                    gridPane.getScene().getWindow(), "Sign Up Successful!",
+                    "Welcome " + user.getUsername() + "!");
         }
-        return true;
     }
 
-    public String run() {
-        return RegisterMenuView.run();
+    public void login(GridPane gridPane, String username, String password) {
+        User user;
+        if ((user = Database.getInstance().getUserByUsername(username)) == null) {
+            MainPageController.getInstance().showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                    "Error!",
+                    "No user with this username exists.");
+        } else if (!user.getPassword().equals(password)) {
+            MainPageController.getInstance().showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                    "Error!",
+                    "Incorrect password.");
+        } else {
+            database.setCurrentUser(user);
+            MainPageController.getInstance().showAlert(Alert.AlertType.CONFIRMATION,
+                    gridPane.getScene().getWindow(), "Sign In Successful!",
+                    "Welcome " + user.getUsername() + "!");
+        }
     }
-
 }
