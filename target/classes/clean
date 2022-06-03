@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm models/*.class
+rm views/*.class
+rm controllers/*.class
+rm Main.class

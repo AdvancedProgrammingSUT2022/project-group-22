@@ -1,0 +1,4 @@
+javac models/*.java
+javac controllers/*.java
+javac views/*.java
+javac Main.java

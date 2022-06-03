@@ -1,4 +1,0 @@
-
-module Project {
-    exports Main;
-}
