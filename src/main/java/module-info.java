@@ -1,4 +1,7 @@
+module Main {
+    requires javafx.controls;
+    requires javafx.fxml;
 
-module Project {
     exports Main;
+    opens Main to javafx.fxml;
 }
