@@ -1,5 +1,6 @@
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/models/Civilization.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/views/Processor.java
+/Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/resources/MainPageLayout.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/Test.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/enums/Resource.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/models/Database.java
@@ -14,9 +15,9 @@
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/views/TileView.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/models/Tile.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/controllers/RegisterMenuController.java
-/Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/views/RegisterMenuView.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/controllers/ProfileMenuController.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/enums/Command.java
+/Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/views/MainPageController.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/controllers/GameController.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/controllers/ShortestPath.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/enums/Building.java
@@ -26,8 +27,6 @@
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/enums/Feature.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/views/GameMenuView.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/enums/Technology.java
-/Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/controllers/Controller.java
-/Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/views/RegisterPageController.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/controllers/MapController.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/controllers/MainMenuController.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/resources/SignUpPageLayout.java
@@ -40,4 +39,3 @@
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/enums/LandType.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/enums/Color.java
 /Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/models/CivilianUnit.java
-/Users/mahya/Documents/University/Spring 2022/Advanced Programming/Project/project-group-22/src/main/java/resources/RegisterPageLayout.java
