@@ -8,7 +8,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Civilization");
-        GridPane gridPane = RegisterPageController.getInstance().createPage();
+        GridPane gridPane = MainPageController.getInstance().createPage();
         View.getInstance().setStage(primaryStage);
         Scene scene = new Scene(gridPane, 800, 500);
         primaryStage.setScene(scene);

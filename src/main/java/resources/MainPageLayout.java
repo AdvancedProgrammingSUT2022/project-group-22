@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
-public class RegisterPageLayout extends Layout {
+public class MainPageLayout extends Layout {
     public void addLabels(GridPane gridPane) {
         Label headerLabel = new Label("Civilization");
         headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
@@ -26,6 +26,22 @@ public class RegisterPageLayout extends Layout {
         Button button = new Button("Sign In");
         buttonLayout(button);
         gridPane.add(button, 0, 2, 2, 1);
+        GridPane.setMargin(button, new Insets(0, 0, 10, 0));
+        return button;
+    }
+
+    public Button addProfileButton(GridPane gridPane) {
+        Button button = new Button("Profile Menu");
+        buttonLayout(button);
+        gridPane.add(button, 0, 3, 2, 1);
+        GridPane.setMargin(button, new Insets(0, 0, 10, 0));
+        return button;
+    }
+
+    public Button addGameButton(GridPane gridPane) {
+        Button button = new Button("Game Menu");
+        buttonLayout(button);
+        gridPane.add(button, 0, 4, 2, 1);
         GridPane.setMargin(button, new Insets(0, 0, 20, 0));
         return button;
     }
