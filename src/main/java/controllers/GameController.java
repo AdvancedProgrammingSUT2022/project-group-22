@@ -68,12 +68,14 @@ public class GameController {
     public Boolean hasImprovementTech(Improvement improvement, Feature feature) {
         Civilization player = database.getCurrentPlayer().getCivilization();
         if (improvement.equals(Improvement.FARM)) {
-            if (feature.equals(Feature.FOREST)) {
-                return player.hasTechnology(Technology.MINING);
-            } else if (feature.equals(Feature.JUNGLE)) {
-                return player.hasTechnology(Technology.BRONZEWORKING);
-            } else if (feature.equals(Feature.SWAMP)) {
-                return player.hasTechnology(Technology.MASONRY);
+            if (feature != null) {
+                if (feature.equals(Feature.FOREST)) {
+                    return player.hasTechnology(Technology.MINING);
+                } else if (feature.equals(Feature.JUNGLE)) {
+                    return player.hasTechnology(Technology.BRONZEWORKING);
+                } else if (feature.equals(Feature.SWAMP)) {
+                    return player.hasTechnology(Technology.MASONRY);
+                }
             }
         }
         if (improvement.equals(Improvement.MINE)) {
@@ -92,10 +94,11 @@ public class GameController {
                 return true;
             }
         }
-        for (Improvement temp : tile.getFeature().getImprovements()) {
-
-            if (temp.equals(improvement)) {
-                return true;
+        if (tile.getFeature() != null) {
+            for (Improvement temp : tile.getFeature().getImprovements()) {
+                if (temp.equals(improvement)) {
+                    return true;
+                }
             }
         }
         return false;
