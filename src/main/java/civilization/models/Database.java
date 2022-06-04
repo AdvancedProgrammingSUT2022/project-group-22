@@ -9,7 +9,6 @@ public class Database {
     private ArrayList<User> users = new ArrayList<User>();
     private Tile[][] map;
     private ArrayList<User> players = new ArrayList<User>();
-    private User currentUser = null;
     private User currentPlayer;
 
     public static Database getInstance() {
@@ -17,14 +16,6 @@ public class Database {
             instance = new Database();
         }
         return instance;
-    }
-
-    public User getCurrentUser() {
-        return this.currentUser;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
     }
 
     public ArrayList<User> getUsers() {

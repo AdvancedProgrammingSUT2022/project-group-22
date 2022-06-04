@@ -370,8 +370,7 @@ public class UnitController extends GameController {
         Feature feature = unit.getPosition().getFeature();
         Civilization player = database.getCurrentPlayer().getCivilization();
         if (improvement.equals(Improvement.FARM) || improvement.equals(Improvement.MINE)) {
-            if (feature != null && (feature.equals(Feature.FOREST) || feature.equals(Feature.JUNGLE)
-                    || feature.equals(Feature.SWAMP))) {
+            if (feature.equals(Feature.FOREST) || feature.equals(Feature.JUNGLE) || feature.equals(Feature.SWAMP)) {
                 player.addRemovalWorker(unit, null);
                 player.addImprovementWorker(unit, improvement);
                 unit.setTaskTurns(feature.equals(Feature.FOREST) ? 10 : feature.equals(Feature.JUNGLE) ? 13 : 12);
@@ -388,8 +387,7 @@ public class UnitController extends GameController {
             gameView.noUnitSelected();
         } else if (!unit.getUnitType().equals(UnitType.WORKER)) {
             gameView.unitNotWorker();
-        } else if (unit.getPosition().getPlayer() == null
-                || !unit.getPosition().getPlayer().equals(database.getCurrentPlayer())) {
+        } else if (!unit.getPosition().getPlayer().equals(database.getCurrentPlayer())) {
             gameView.tileNotYours();
         } else if (!canBuildImprovement(improvement, unit.getPosition())) {
             gameView.invalidLocation();
