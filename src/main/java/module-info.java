@@ -1,7 +1,9 @@
-module Main {
+module Civilization {
     requires javafx.controls;
     requires javafx.fxml;
 
-    exports Main;
-    opens Main to javafx.fxml;
+    exports civilization;
+    opens civilization to javafx.fxml;
+    exports civilization.views;
+    opens civilization.views to javafx.fxml;
 }
