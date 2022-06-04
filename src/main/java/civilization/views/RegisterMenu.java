@@ -1,6 +1,7 @@
 package civilization.views;
 
 import civilization.App;
+import civilization.controllers.RegisterMenuController;
 import civilization.enums.Avatars;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
@@ -22,7 +23,6 @@ public class RegisterMenu extends Menu{
     private TextField usernameField;
     private TextField nicknameField;
     private PasswordField passwordField;
-    private String randomAvatar;
 
     public RegisterMenu(){
         pane = new BorderPane();
@@ -45,53 +45,58 @@ public class RegisterMenu extends Menu{
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
 
         vBox.getChildren().add(title);
+        vBox.getChildren().add(new Label("username"));
         vBox.getChildren().add(addUsernameField());
+        vBox.getChildren().add(new Label("nickname"));
         vBox.getChildren().add(addNicknameField());
+        vBox.getChildren().add(new Label("password"));
         vBox.getChildren().add(addPasswordField());
         vBox.getChildren().add(addSignUpButton());
 
         pane.setCenter(vBox);
-    }
-
-    public TextField addNicknameField() {
-        nicknameField = new TextField();
-        nicknameField.setPrefHeight(40);
-        nicknameField.setMaxWidth(200);
-        return nicknameField;
+//        pane.setBottom(addSignUpButton());
     }
 
     public TextField addUsernameField() {
         usernameField = new TextField();
         usernameField.setPrefHeight(40);
-        usernameField.setMaxWidth(200);
+        usernameField.setMaxWidth(250);
+        usernameField.setPromptText("enter username");
         return usernameField;
     }
 
+    public TextField addNicknameField() {
+        nicknameField = new TextField();
+        nicknameField.setPrefHeight(40);
+        nicknameField.setMaxWidth(250);
+        nicknameField.setPromptText("enter nickname");
+        return nicknameField;
+    }
 
     public PasswordField addPasswordField() {
         passwordField = new PasswordField();
         passwordField.setPrefHeight(40);
-        passwordField.setMaxWidth(200);
+        passwordField.setMaxWidth(250);
+        passwordField.setPromptText("enter password");
         return passwordField;
     }
 
     public GameButton addSignUpButton() {
         GameButton signUpButton = new GameButton("Sign Up");
+//        signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
+            String username, nickname, password;
             @Override
             public void handle(ActionEvent event) {
-                if (usernameField.getText().isEmpty()) {
+                if ((username = usernameField.getText()).isEmpty()) {
                     showPopUp("Please enter a username.");
-                } else if (passwordField.getText().isEmpty()) {
+                } else if ((password = passwordField.getText()).isEmpty()) {
                     showPopUp("Please enter a password.");
-                } else if (nicknameField.getText().isEmpty()) {
+                } else if ((nickname = nicknameField.getText()).isEmpty()) {
                     showPopUp("Please enter a nickname.");
-                } else {
-                    Random random = new Random();
-                    int i = random.nextInt(Avatars.values().length);
-                    randomAvatar = Avatars.values()[i].getUrl();
+                } else if(RegisterMenuController.createUser(username, nickname, password)){
+                    App.setScene(FirstPage.getInstance().getFirstPane().getScene());
                 }
-                // TODO : other errors
             }
         });
         return signUpButton;

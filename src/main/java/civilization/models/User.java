@@ -4,12 +4,14 @@ public class User {
     private String username;
     private String password;
     private String nickname;
+    private String avatarAddress;
     private Civilization civilization;
 
-    public User(String username, String password, String nickname) {
+    public User(String username, String password, String nickname, String avatarAddress) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+        this.avatarAddress = avatarAddress;
     }
 
     public String getUsername() {

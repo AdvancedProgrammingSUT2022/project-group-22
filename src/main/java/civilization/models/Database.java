@@ -10,12 +10,21 @@ public class Database {
     private Tile[][] map;
     private ArrayList<User> players = new ArrayList<User>();
     private User currentPlayer;
+    private User loggedInUser = null;
 
     public static Database getInstance() {
         if (instance == null) {
             instance = new Database();
         }
         return instance;
+    }
+
+    public void setLoggedInUser(User user){
+        this.loggedInUser = user;
+    }
+
+    public User getLoggedInUser(){
+        return loggedInUser;
     }
 
     public ArrayList<User> getUsers() {

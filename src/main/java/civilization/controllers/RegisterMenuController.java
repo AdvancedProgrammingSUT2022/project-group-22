@@ -1,9 +1,11 @@
 package civilization.controllers;
 
 // import org.json.*;
+import civilization.enums.Avatars;
 import civilization.models.*;
 import civilization.views.*;
 
+import java.util.Random;
 import java.util.regex.*;
 
 public class RegisterMenuController {
@@ -36,29 +38,32 @@ public class RegisterMenuController {
         // }
     }
 
-    public void createUser(Matcher matcher) {
-        if (Database.getInstance().getUserByUsername(matcher.group("username").trim()) != null) {
-            RegisterMenuView.accountExists(matcher.group("username").trim());
-            return;
-        } else if (Database.getInstance().getUserByNickname(matcher.group("nickname").trim()) != null) {
-            RegisterMenuView.nicknameExists(matcher.group("nickname").trim());
-            return;
+    public static boolean createUser(String username, String nickname, String password) {
+        if (Database.getInstance().getUserByUsername(username) != null) {
+            Menu.showPopUp("user with username " + username + " already exists");
+            return false;
+        } else if (Database.getInstance().getUserByNickname(nickname) != null) {
+            Menu.showPopUp("user with nickname " + nickname + " already exists");
+            return false;
         }
-        Database.getInstance().addUser(new User(matcher.group("username").trim(),
-                matcher.group("password").trim(),
-                matcher.group("nickname").trim()));
-        RegisterMenuView.userCreated();
+        Random random = new Random();
+        int i = random.nextInt(Avatars.values().length);
+        String randomAvatar = Avatars.values()[i].getUrl();
+        Database.getInstance().addUser(new User(username, password, nickname, randomAvatar));
+        Menu.showPopUp("user created successfully");
+        return true;
     }
 
-    public Boolean canLogin(Matcher matcher) {
+    public static Boolean canLogin(String username, String password) {
         User user;
-        if ((user = Database.getInstance().getUserByUsername(matcher.group("username").trim())) == null) {
-            RegisterMenuView.accountDoesNotExists();
+        if ((user = Database.getInstance().getUserByUsername(username)) == null) {
+            Menu.showPopUp("no account with this username exists");
             return false;
-        } else if (!user.getPassword().equals(matcher.group("password").trim())) {
-            RegisterMenuView.incorrectPassword();
+        } else if (!user.getPassword().equals(password)) {
+            Menu.showPopUp("incorrect password");
             return false;
         }
+        Database.getInstance().setLoggedInUser(Database.getInstance().getUserByUsername(username));
         return true;
     }
 

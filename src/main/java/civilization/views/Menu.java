@@ -21,7 +21,7 @@ public class Menu {
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     }
 
-    public void showPopUp(String error){
+    public static void showPopUp(String error){
         Label label = new Label(error);
         label.setStyle(" -fx-background-color: white;");
         Popup popup = new Popup();

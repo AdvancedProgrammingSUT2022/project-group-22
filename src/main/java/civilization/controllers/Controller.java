@@ -10,7 +10,7 @@ public class Controller {
     private final ProfileMenuController profileMenuController = new ProfileMenuController();
     private final GameMenuController gameMenuController = new GameMenuController();
     private final GameController gameController = new GameController();
-    private User user = new User("a", "a", "a");
+    private User user = new User("a", "a", "a", "a");
 
     public void run() {
         String input;

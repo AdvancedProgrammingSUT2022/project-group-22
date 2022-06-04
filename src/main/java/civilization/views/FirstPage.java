@@ -1,5 +1,6 @@
-package civilization;
+package civilization.views;
 
+import civilization.App;
 import civilization.enums.Images;
 import civilization.views.Menu;
 import civilization.views.RegisterMenu;
@@ -13,10 +14,17 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 public class FirstPage extends Menu {
+    private static FirstPage instance;
     private static Scene firstScene;
     private AnchorPane firstPane;
 
-    public FirstPage() {
+    public static FirstPage getInstance() {
+        if (instance == null)
+            instance = new FirstPage();
+        return instance;
+    }
+
+    private FirstPage() {
         super();
         firstPane = new AnchorPane();
         firstScene = new Scene(firstPane, 1280, 800);
@@ -48,8 +56,9 @@ public class FirstPage extends Menu {
 
             @Override
             public void handle(ActionEvent event) {
-
-
+                LoginMenu loginMenu = new LoginMenu();
+                App.setScene(loginMenu.getPane().getScene());
+                return;
             }
         });
         return loginButton;
