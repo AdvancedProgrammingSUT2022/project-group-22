@@ -35,9 +35,13 @@ public class SignUpPageController extends View {
                     showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!",
                             "Please enter a nickname.");
                 } else {
-                    // TODO : fix late pop-up messages
-                    RegisterMenuController.getInstance().createUser(gridPane, username, nickname, password);
-                    changeStage(MainPageController.getInstance().createPage(), "Civilization");
+                    if (RegisterMenuController.getInstance().createUser(gridPane, username, nickname, password)) {
+                        GridPane newGrid;
+                        changeStage((newGrid = MainPageController.getInstance().createPage()), "Civilization");
+                        MainPageController.getInstance().showAlert(Alert.AlertType.CONFIRMATION,
+                                newGrid.getScene().getWindow(), "Sign Up Successful!",
+                                "Welcome " + username + "!");
+                    }
                 }
             }
         });

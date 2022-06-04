@@ -31,8 +31,13 @@ public class LoginPageController extends View {
                     showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!",
                             "Please enter your password.");
                 } else {
-                    RegisterMenuController.getInstance().login(gridPane, username, password);
-                    changeStage(MainPageController.getInstance().createPage(), "Civilization");
+                    if (RegisterMenuController.getInstance().login(gridPane, username, password)) {
+                        GridPane newGrid;
+                        changeStage((newGrid = MainPageController.getInstance().createPage()), "Civilization");
+                        MainPageController.getInstance().showAlert(Alert.AlertType.CONFIRMATION,
+                                newGrid.getScene().getWindow(), "Sign In Successful!",
+                                "Welcome " + username + "!");
+                    }
                 }
             }
         });

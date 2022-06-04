@@ -43,7 +43,7 @@ public class RegisterMenuController {
         // }
     }
 
-    public void createUser(GridPane gridPane, String username, String nickname, String password) {
+    public Boolean createUser(GridPane gridPane, String username, String nickname, String password) {
         User user;
         if (database.getUserByUsername(username) != null) {
             MainPageController.getInstance().showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
@@ -57,13 +57,12 @@ public class RegisterMenuController {
             database.addUser((user = new User(username, password, nickname)));
             saveUser(user);
             database.setCurrentUser(user);
-            MainPageController.getInstance().showAlert(Alert.AlertType.CONFIRMATION,
-                    gridPane.getScene().getWindow(), "Sign Up Successful!",
-                    "Welcome " + user.getUsername() + "!");
+            return true;
         }
+        return false;
     }
 
-    public void login(GridPane gridPane, String username, String password) {
+    public Boolean login(GridPane gridPane, String username, String password) {
         User user;
         if ((user = Database.getInstance().getUserByUsername(username)) == null) {
             MainPageController.getInstance().showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
@@ -75,9 +74,8 @@ public class RegisterMenuController {
                     "Incorrect password.");
         } else {
             database.setCurrentUser(user);
-            MainPageController.getInstance().showAlert(Alert.AlertType.CONFIRMATION,
-                    gridPane.getScene().getWindow(), "Sign In Successful!",
-                    "Welcome " + user.getUsername() + "!");
+            return true;
         }
+        return false;
     }
 }
