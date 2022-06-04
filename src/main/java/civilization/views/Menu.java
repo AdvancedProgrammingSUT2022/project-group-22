@@ -2,6 +2,7 @@ package civilization.views;
 
 import civilization.App;
 import civilization.enums.Images;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundImage;
@@ -30,6 +31,8 @@ public class Menu {
 //      label.setMinHeight(50);
         popup.setAnchorLocation(PopupWindow.AnchorLocation.WINDOW_BOTTOM_LEFT);
         popup.setAutoHide(true);
+        popup.setAnchorX(690);
+        popup.setAnchorY(100);
         popup.show(App.getMainStage());
     }
 }
