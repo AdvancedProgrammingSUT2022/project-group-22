@@ -41,18 +41,26 @@ public class SignUpMenu extends Menu {
         title.setFont(font);
         title.setFill(Color.WHITE);
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
-
         vBox.getChildren().add(title);
-        vBox.getChildren().add(new Label("username"));
+
+        Label username = new Label("Username:");
+        username.setTextFill(Color.WHITE);
+        vBox.getChildren().add(username);
         vBox.getChildren().add(addUsernameField());
-        vBox.getChildren().add(new Label("nickname"));
+
+        Label nickname = new Label("Nickname:");
+        nickname.setTextFill(Color.WHITE);
+        vBox.getChildren().add(nickname);
         vBox.getChildren().add(addNicknameField());
-        vBox.getChildren().add(new Label("password"));
+
+        Label password = new Label("Password:");
+        password.setTextFill(Color.WHITE);
+        vBox.getChildren().add(password);
         vBox.getChildren().add(addPasswordField());
+
         vBox.getChildren().add(addSignUpButton());
 
         pane.setCenter(vBox);
-        // pane.setBottom(addSignUpButton());
     }
 
     public TextField addUsernameField() {
