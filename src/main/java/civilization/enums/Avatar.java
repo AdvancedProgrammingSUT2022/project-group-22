@@ -1,6 +1,6 @@
 package civilization.enums;
 
-public enum Avatars {
+public enum Avatar {
     ALEXANDER("/civilization/png/icons/0.png"),
     AMANITORE("/civilization/png/icons/1.png"),
     AMBIORIX("/civilization/png/icons/2.png"),
@@ -10,7 +10,9 @@ public enum Avatars {
 
     private String url;
 
-    private Avatars(String url) { this.url = url; }
+    private Avatar(String url) {
+        this.url = url;
+    }
 
     public String getUrl() {
         return this.url;

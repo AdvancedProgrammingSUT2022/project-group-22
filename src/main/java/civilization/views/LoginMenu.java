@@ -10,20 +10,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-import static civilization.views.Menu.backgroundImage;
-
-public class LoginMenu extends Menu{
+public class LoginMenu extends Menu {
     private static Scene scene;
     private BorderPane pane;
     private TextField usernameField;
     private PasswordField passwordField;
-
 
     public LoginMenu() {
         super();
@@ -37,13 +34,15 @@ public class LoginMenu extends Menu{
         return pane;
     }
 
-    private void addElements(){
+    private void addElements() {
         VBox vBox = new VBox();
         vBox.setSpacing(20);
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        Text title = new Text(530,350,"login menu");
+        Text title = new Text(640, 350, "L O G I N  M E N U");
+        title.setFont(font);
+        title.setFill(Color.WHITE);
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
 
         vBox.getChildren().add(title);
@@ -73,17 +72,18 @@ public class LoginMenu extends Menu{
     }
 
     public GameButton addLoginButton() {
-        GameButton loginButton = new GameButton("login");
-//        signUpButton.setAlignment(Pos.BOTTOM_CENTER);
+        GameButton loginButton = new GameButton("Login");
+        // signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             String username, password;
+
             @Override
             public void handle(ActionEvent event) {
                 if ((username = usernameField.getText()).isEmpty()) {
                     showPopUp("Please enter a username.");
                 } else if ((password = passwordField.getText()).isEmpty()) {
                     showPopUp("Please enter a password.");
-                } else if(RegisterMenuController.canLogin(username, password)){
+                } else if (RegisterMenuController.login(username, password)) {
                     showPopUp("user logged in successfully");
                     App.setScene(MainMenu.getInstance().getPane().getScene());
                 }

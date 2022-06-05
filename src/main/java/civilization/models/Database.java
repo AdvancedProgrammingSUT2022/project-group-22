@@ -10,21 +10,13 @@ public class Database {
     private Tile[][] map;
     private ArrayList<User> players = new ArrayList<User>();
     private User currentPlayer;
-    private User loggedInUser = null;
+    private User currentUser = null;
 
     public static Database getInstance() {
         if (instance == null) {
             instance = new Database();
         }
         return instance;
-    }
-
-    public void setLoggedInUser(User user){
-        this.loggedInUser = user;
-    }
-
-    public User getLoggedInUser(){
-        return loggedInUser;
     }
 
     public ArrayList<User> getUsers() {
@@ -63,6 +55,14 @@ public class Database {
 
     public User getCurrentPlayer() {
         return this.currentPlayer;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     public void nextTurn() {

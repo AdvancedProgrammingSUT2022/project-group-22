@@ -1,6 +1,6 @@
 package civilization.enums;
 
-public enum Images {
+public enum Graphic {
     CHECK("/civilization/png/checkmark.png"),
     CROSS("/civilization/png/cross.png"),
     BUTTON("/civilization/png/button.png"),
@@ -9,7 +9,9 @@ public enum Images {
 
     private String url;
 
-    private Images(String url) { this.url = url; }
+    private Graphic(String url) {
+        this.url = url;
+    }
 
     public String getUrl() {
         return this.url;

@@ -6,7 +6,7 @@ import java.util.regex.*;
 
 public class ProfileMenuController {
     Database database = Database.getInstance();
-    User user = new User("a", "a", "a", "a");
+    User user;
 
     public void changeNickname(Matcher matcher, User user) {
         if (database.getUserByNickname(matcher.group("newnickname").trim()) != null) {

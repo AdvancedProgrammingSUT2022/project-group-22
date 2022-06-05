@@ -1,17 +1,13 @@
 package civilization.views;
 
 import civilization.App;
-import civilization.enums.Images;
-import civilization.views.Menu;
-import civilization.views.RegisterMenu;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
+import javafx.scene.text.*;
 
 public class FirstPage extends Menu {
     private static FirstPage instance;
@@ -36,20 +32,21 @@ public class FirstPage extends Menu {
         return firstPane;
     }
 
-
-    private void addElements(){
-        Text title = new Text(530,350,"civilization");
+    private void addElements() {
+        Text title = new Text(400, 300, "C I V I L I Z A T I O N");
+        title.setFont(font);
+        title.setFill(Color.WHITE);
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
 
         firstPane.getChildren().add(title);
 
-        firstPane.getChildren().add( createLoginButton());
-        firstPane.getChildren().add(createRegisterButton());
+        firstPane.getChildren().add(createLoginButton());
+        firstPane.getChildren().add(createSignUpButton());
         firstPane.getChildren().add(createExitButton());
     }
 
-    private GameButton createLoginButton(){
-        GameButton loginButton = new GameButton("login");
+    private GameButton createLoginButton() {
+        GameButton loginButton = new GameButton("Login");
         loginButton.setLayoutX(565.5);
         loginButton.setLayoutY(400);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -64,24 +61,24 @@ public class FirstPage extends Menu {
         return loginButton;
     }
 
-    private GameButton createRegisterButton(){
-        GameButton registerButton = new GameButton("register");
-        registerButton.setLayoutX(565.5);
-        registerButton.setLayoutY(470);
-        registerButton.setOnAction(new EventHandler<ActionEvent>() {
+    private GameButton createSignUpButton() {
+        GameButton signUpButton = new GameButton("Sign Up");
+        signUpButton.setLayoutX(565.5);
+        signUpButton.setLayoutY(470);
+        signUpButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                RegisterMenu registerMenu = new RegisterMenu();
-                App.setScene(registerMenu.getPane().getScene());
+                SignUpMenu signUpMenu = new SignUpMenu();
+                App.setScene(signUpMenu.getPane().getScene());
                 return;
             }
         });
-        return registerButton;
+        return signUpButton;
     }
 
-    private GameButton createExitButton(){
-        GameButton exitButton = new GameButton("exit");
+    private GameButton createExitButton() {
+        GameButton exitButton = new GameButton("Exit");
         exitButton.setLayoutX(565.5);
         exitButton.setLayoutY(540);
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -95,5 +92,3 @@ public class FirstPage extends Menu {
     }
 
 }
-
-
