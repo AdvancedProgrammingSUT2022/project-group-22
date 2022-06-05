@@ -2,29 +2,25 @@ package civilization.views;
 
 import civilization.App;
 import civilization.controllers.RegisterMenuController;
-import civilization.enums.Avatars;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
+import java.io.*;
 
-import java.util.Random;
-
-public class RegisterMenu extends Menu{
+public class SignUpMenu extends Menu {
     private static Scene scene;
     private BorderPane pane;
     private TextField usernameField;
     private TextField nicknameField;
     private PasswordField passwordField;
 
-    public RegisterMenu(){
+    public SignUpMenu() {
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
@@ -35,13 +31,15 @@ public class RegisterMenu extends Menu{
         return pane;
     }
 
-    private void addElements(){
+    private void addElements() {
         VBox vBox = new VBox();
         vBox.setSpacing(20);
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        Text title = new Text(530,350,"register menu");
+        Text title = new Text(640, 350, "S I G N  U P  M E N U");
+        title.setFont(font);
+        title.setFill(Color.WHITE);
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
 
         vBox.getChildren().add(title);
@@ -54,7 +52,7 @@ public class RegisterMenu extends Menu{
         vBox.getChildren().add(addSignUpButton());
 
         pane.setCenter(vBox);
-//        pane.setBottom(addSignUpButton());
+        // pane.setBottom(addSignUpButton());
     }
 
     public TextField addUsernameField() {
@@ -83,9 +81,10 @@ public class RegisterMenu extends Menu{
 
     public GameButton addSignUpButton() {
         GameButton signUpButton = new GameButton("Sign Up");
-//        signUpButton.setAlignment(Pos.BOTTOM_CENTER);
+        // signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
             String username, nickname, password;
+
             @Override
             public void handle(ActionEvent event) {
                 if ((username = usernameField.getText()).isEmpty()) {
@@ -94,8 +93,13 @@ public class RegisterMenu extends Menu{
                     showPopUp("Please enter a password.");
                 } else if ((nickname = nicknameField.getText()).isEmpty()) {
                     showPopUp("Please enter a nickname.");
-                } else if(RegisterMenuController.createUser(username, nickname, password)){
-                    App.setScene(FirstPage.getInstance().getFirstPane().getScene());
+                } else if (RegisterMenuController.signUp(username, nickname, password)) {
+                    try {
+                        RegisterMenuController.saveUsers();
+                    } catch (Exception e) {
+                    }
+                    showPopUp("user created and logged in successfully");
+                    App.setScene(MainMenu.getInstance().getPane().getScene());
                 }
             }
         });

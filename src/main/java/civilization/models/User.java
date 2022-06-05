@@ -7,11 +7,12 @@ public class User {
     private String avatarAddress;
     private Civilization civilization;
 
-    public User(String username, String password, String nickname, String avatarAddress) {
+    public User(String username, String password, String nickname, String avatarAddress, Civilization civilization) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.avatarAddress = avatarAddress;
+        this.civilization = civilization;
     }
 
     public String getUsername() {
@@ -36,6 +37,14 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getAvatarAddress() {
+        return avatarAddress;
+    }
+
+    public void setAvatarAddress(String avatarAddress) {
+        this.avatarAddress = avatarAddress;
     }
 
     public Civilization getCivilization() {

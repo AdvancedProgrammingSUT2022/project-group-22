@@ -1,5 +1,6 @@
 package civilization;
 
+import civilization.controllers.RegisterMenuController;
 import civilization.views.FirstPage;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -15,8 +16,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-//        Pane pane = FXMLLoader.load(App.class.getResource("fxml/FirstPage.fxml"));
+        RegisterMenuController.loadUsers();
+        // Pane pane = FXMLLoader.load(App.class.getResource("fxml/FirstPage.fxml"));
         mainStage = new Stage();
+        mainStage.setTitle("Civilization");
         mainStage.setScene(FirstPage.getInstance().getFirstPane().getScene());
         stage = mainStage;
         stage.show();
@@ -36,7 +39,7 @@ public class App extends Application {
     }
 
     public static void setMainStage(Stage mainStage) {
-//        Game.getInstance().createGame(App.mainStage);
+        // Game.getInstance().createGame(App.mainStage);
     }
 
     public static void setScene(Scene scene) {
