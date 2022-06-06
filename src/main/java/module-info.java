@@ -1,6 +1,8 @@
 module Civilization {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
+    requires com.google.gson;
 
     exports civilization;
     opens civilization to javafx.fxml;

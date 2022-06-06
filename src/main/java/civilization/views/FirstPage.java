@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 
 public class FirstPage extends Menu {
-    private static FirstPage instance;
+    private static FirstPage instance = null;
     private static Scene firstScene;
     private AnchorPane firstPane;
 

@@ -1,13 +1,28 @@
 package civilization.controllers;
 
-import com.google.gson.*;
+//import civilization.views.Menu;
+//import civilization.views.RegisterMenuView;
+//import com.google.gson.*;
+//import com.google.gson.reflect.TypeToken;
+//import com.google.gson.stream.JsonReader;
+//import civilization.enums.Avatar;
+//import civilization.models.*;
+//import java.io.*;
+//import java.util.*;
+
+import civilization.enums.Avatar;
+import civilization.models.Database;
+import civilization.models.User;
+import civilization.views.RegisterMenuView;
+import civilization.views.Menu;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import civilization.enums.Avatar;
-import civilization.models.*;
-import civilization.views.*;
+
 import java.io.*;
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 public class RegisterMenuController {
     private static Database database = Database.getInstance();
@@ -63,4 +78,9 @@ public class RegisterMenuController {
         database.setCurrentUser(user);
         return true;
     }
+
+    public String run() {
+        return RegisterMenuView.run();
+    }
+
 }

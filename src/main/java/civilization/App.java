@@ -1,7 +1,7 @@
 package civilization;
 
 import civilization.controllers.RegisterMenuController;
-import civilization.views.*;
+import civilization.views.FirstPage;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,13 +16,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        RegisterMenuController.loadUsers();
-        // Pane pane = FXMLLoader.load(App.class.getResource("fxml/FirstPage.fxml"));
+//        RegisterMenuController.loadUsers();
         mainStage = new Stage();
         mainStage.setTitle("Civilization");
         mainStage.setScene(FirstPage.getInstance().getFirstPane().getScene());
         stage = mainStage;
         stage.show();
+
     }
 
     public static void setRoot(String fxml) throws Exception {

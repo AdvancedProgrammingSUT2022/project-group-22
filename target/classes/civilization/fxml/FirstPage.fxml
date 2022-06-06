@@ -10,6 +10,6 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="civilization.views.FirstPage"
             prefHeight="400.0" prefWidth="600.0">
-    <Label text="yayahoo yayahoo yayahaha"/>
+    <Label text="test"/>
 
 </AnchorPane>
