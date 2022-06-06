@@ -41,17 +41,19 @@ public class LoginMenu extends Menu {
         vBox.maxWidth(350);
 
         Text title = new Text(640, 350, "L O G I N  M E N U");
-        title.setFont(font);
+        title.setFont(titleFont);
         title.setFill(Color.WHITE);
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
         vBox.getChildren().add(title);
 
         Label username = new Label("Username:");
+        username.setFont(textFont);
         username.setTextFill(Color.WHITE);
         vBox.getChildren().add(username);
         vBox.getChildren().add(addUsernameField());
 
         Label password = new Label("Password:");
+        password.setFont(textFont);
         password.setTextFill(Color.WHITE);
         vBox.getChildren().add(password);
         vBox.getChildren().add(addPasswordField());
@@ -79,6 +81,8 @@ public class LoginMenu extends Menu {
 
     public GameButton addLoginButton() {
         GameButton loginButton = new GameButton("Login");
+        loginButton.setFont(buttonFont);
+        loginButton.setTextFill(Color.WHITE);
         // signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             String username, password;

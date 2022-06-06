@@ -14,8 +14,17 @@ import javafx.stage.PopupWindow;
 
 public class Menu {
     public static BackgroundImage backgroundImage;
-    public static Font font = Font.loadFont(App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
+
+    // fonts
+    public static final Font titleFont = Font.loadFont(
+            App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
             50);
+    public static final Font buttonFont = Font.loadFont(
+            App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
+            17);
+    public static final Font textFont = Font.loadFont(
+            App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
+            12);
 
     public Menu() {
         backgroundImage = new BackgroundImage(

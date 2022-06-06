@@ -34,7 +34,7 @@ public class FirstPage extends Menu {
 
     private void addElements() {
         Text title = new Text(400, 300, "C I V I L I Z A T I O N");
-        title.setFont(font);
+        title.setFont(titleFont);
         title.setFill(Color.WHITE);
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
 
@@ -47,6 +47,8 @@ public class FirstPage extends Menu {
 
     private GameButton createLoginButton() {
         GameButton loginButton = new GameButton("Login");
+        loginButton.setFont(buttonFont);
+        loginButton.setTextFill(Color.WHITE);
         loginButton.setLayoutX(565.5);
         loginButton.setLayoutY(400);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -63,6 +65,8 @@ public class FirstPage extends Menu {
 
     private GameButton createSignUpButton() {
         GameButton signUpButton = new GameButton("Sign Up");
+        signUpButton.setFont(buttonFont);
+        signUpButton.setTextFill(Color.WHITE);
         signUpButton.setLayoutX(565.5);
         signUpButton.setLayoutY(470);
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -79,6 +83,8 @@ public class FirstPage extends Menu {
 
     private GameButton createExitButton() {
         GameButton exitButton = new GameButton("Exit");
+        exitButton.setFont(buttonFont);
+        exitButton.setTextFill(Color.WHITE);
         exitButton.setLayoutX(565.5);
         exitButton.setLayoutY(540);
         exitButton.setOnAction(new EventHandler<ActionEvent>() {

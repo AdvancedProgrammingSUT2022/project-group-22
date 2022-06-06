@@ -38,22 +38,25 @@ public class SignUpMenu extends Menu {
         vBox.maxWidth(350);
 
         Text title = new Text(640, 350, "S I G N  U P  M E N U");
-        title.setFont(font);
+        title.setFont(titleFont);
         title.setFill(Color.WHITE);
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
         vBox.getChildren().add(title);
 
         Label username = new Label("Username:");
+        username.setFont(textFont);
         username.setTextFill(Color.WHITE);
         vBox.getChildren().add(username);
         vBox.getChildren().add(addUsernameField());
 
         Label nickname = new Label("Nickname:");
+        nickname.setFont(textFont);
         nickname.setTextFill(Color.WHITE);
         vBox.getChildren().add(nickname);
         vBox.getChildren().add(addNicknameField());
 
         Label password = new Label("Password:");
+        password.setFont(textFont);
         password.setTextFill(Color.WHITE);
         vBox.getChildren().add(password);
         vBox.getChildren().add(addPasswordField());
@@ -89,6 +92,8 @@ public class SignUpMenu extends Menu {
 
     public GameButton addSignUpButton() {
         GameButton signUpButton = new GameButton("Sign Up");
+        signUpButton.setFont(buttonFont);
+        signUpButton.setTextFill(Color.WHITE);
         // signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
             String username, nickname, password;

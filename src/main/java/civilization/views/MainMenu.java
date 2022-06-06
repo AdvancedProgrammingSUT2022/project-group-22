@@ -14,14 +14,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class MainMenu extends Menu {
-    private static MainMenu instance;
+    private static MainMenu instance = null;
     private static Scene scene;
     private BorderPane pane;
 
     public static MainMenu getInstance() {
-        if (instance == null)
-            instance = new MainMenu();
-        return instance;
+        return instance == null ? new MainMenu() : instance;
     }
 
     private MainMenu() {
@@ -43,7 +41,7 @@ public class MainMenu extends Menu {
         vBox.maxWidth(350);
 
         Text title = new Text(530, 350, "M A I N  M E N U");
-        title.setFont(font);
+        title.setFont(titleFont);
         title.setFill(Color.WHITE);
         title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
 
@@ -54,7 +52,9 @@ public class MainMenu extends Menu {
     }
 
     private GameButton addLogoutButton() {
-        GameButton logoutButton = new GameButton("logout");
+        GameButton logoutButton = new GameButton("Logout");
+        logoutButton.setFont(buttonFont);
+        logoutButton.setTextFill(Color.WHITE);
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
