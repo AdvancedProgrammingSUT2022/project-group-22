@@ -7,14 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 public class LoginMenu extends Menu {
     private static Scene scene;
@@ -73,6 +70,7 @@ public class LoginMenu extends Menu {
         // signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             String username, password;
+
             @Override
             public void handle(ActionEvent event) {
                 if ((username = usernameField.getText()).isEmpty()) {

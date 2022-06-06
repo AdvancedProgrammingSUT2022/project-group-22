@@ -10,11 +10,13 @@
 /Users/mahya/Projects/Civ/src/main/java/civilization/enums/Command.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/enums/LandType.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/Database.java
+/Users/mahya/Projects/Civ/src/main/java/civilization/controllers/ScoreboardMenuController.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/views/SignUpMenu.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/enums/Technology.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/enums/Feature.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/controllers/ShortestPath.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/views/ScoreboardPage.java
+/Users/mahya/Projects/Civ/src/main/java/civilization/Main.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/CivilianUnit.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/views/FirstPage.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/User.java
@@ -26,6 +28,7 @@
 /Users/mahya/Projects/Civ/src/main/java/civilization/views/ProfileMenu.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/controllers/RegisterMenuController.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/MilitaryUnit.java
+/Users/mahya/Projects/Civ/src/main/java/civilization/controllers/Controller.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/Tile.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/Civilization.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/enums/Building.java

@@ -7,8 +7,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.*;
 
 public class FirstPage extends Menu {
     private static FirstPage instance = null;

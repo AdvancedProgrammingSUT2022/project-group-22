@@ -9,9 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import java.io.*;
 
 public class SignUpMenu extends Menu {
     private static Scene scene;

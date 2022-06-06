@@ -6,7 +6,12 @@ public enum Avatar {
     AMBIORIX("/civilization/png/icons/2.png"),
     BASIL("/civilization/png/icons/3.png"),
     BATRIOWEBP("/civilization/png/icons/4.png"),
-    Catherine_de_Medici("/civilization/png/icons/5.png");
+    CATHERINE_DE_MEDICI("/civilization/png/icons/5.png"),
+    CLEOPATRA("/civilization/png/icons/6.png"),
+    CYRUS("/civilization/png/icons/7.png"),
+    GANDHI("/civilization/png/icons/8.png"),
+    GORGO("/civilization/png/icons/9.png"),
+    DIDO("/civilization/png/icons/10.png");
 
     private String url;
 

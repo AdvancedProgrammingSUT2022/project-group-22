@@ -10,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 public class MainMenu extends Menu {
     private static MainMenu instance = null;
@@ -59,7 +57,7 @@ public class MainMenu extends Menu {
         return logoutButton;
     }
 
-    private GameButton addProfileButton(){
+    private GameButton addProfileButton() {
         GameButton profileButton = new GameButton("Profile Menu");
         profileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

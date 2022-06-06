@@ -20,7 +20,6 @@ public class App extends Application {
         mainStage = new Stage();
         mainStage.setTitle("Civilization");
         mainStage.setScene(FirstPage.getInstance().getFirstPane().getScene());
-        // MainMenuController.getInstance().showScoreboard();
         // mainStage.setScene(ScoreboardPage.getInstance().getPane().getScene());
         stage = mainStage;
         stage.show();

@@ -7,7 +7,6 @@ civilization/views/FirstPage$3.class
 civilization/models/Database.class
 civilization/views/MainMenu$1.class
 civilization/models/Civilization.class
-civilization/views/RegisterMenuView.class
 civilization/views/MainMenu.class
 civilization/models/Tile.class
 civilization/enums/Feature.class
@@ -25,13 +24,13 @@ civilization/views/SignUpMenu$1.class
 civilization/controllers/RegisterMenuController.class
 civilization/views/components/GameButton$1.class
 civilization/enums/UnitType.class
+civilization/controllers/ScoreboardMenuController.class
 civilization/views/GameMenuView.class
 civilization/views/Processor.class
 civilization/views/MainMenu$2.class
 civilization/controllers/GameMenuController.class
 civilization/controllers/MapController.class
 civilization/controllers/LocalDateTimeSerializer.class
-civilization/controllers/MainMenuController.class
 civilization/models/Database$1.class
 civilization/views/LoginMenu$1.class
 civilization/views/LoginMenu.class

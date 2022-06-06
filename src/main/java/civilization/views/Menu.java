@@ -3,7 +3,6 @@ package civilization.views;
 import civilization.App;
 import civilization.enums.Graphic;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -30,7 +29,6 @@ public class Menu {
             App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
             12);
 
-
     public static void showPopUp(String error) {
         Label label = new Label(error);
         label.setStyle(" -fx-background-color: white;");
@@ -45,15 +43,15 @@ public class Menu {
         popup.show(App.getMainStage());
     }
 
-    public static Text createText (String text){
+    public static Text createText(String text) {
         Text title = new Text(text.replaceAll(".(?!$)", "$0 "));
         title.setFont(titleFont);
         title.setFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
+        title.setStyle("-fx-font-weight: bold;");
         return title;
     }
 
-    public static Label createLabel(String text){
+    public static Label createLabel(String text) {
         Label label = new Label(text);
         label.setFont(textFont);
         label.setTextFill(Color.WHITE);
