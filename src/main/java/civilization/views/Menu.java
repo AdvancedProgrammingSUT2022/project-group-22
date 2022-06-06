@@ -19,9 +19,7 @@ public class Menu {
     public static final Font titleFont = Font.loadFont(
             App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
             50);
-    public static final Font buttonFont = Font.loadFont(
-            App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
-            17);
+
     public static final Font textFont = Font.loadFont(
             App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
             12);

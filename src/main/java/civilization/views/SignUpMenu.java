@@ -92,8 +92,6 @@ public class SignUpMenu extends Menu {
 
     public GameButton addSignUpButton() {
         GameButton signUpButton = new GameButton("Sign Up");
-        signUpButton.setFont(buttonFont);
-        signUpButton.setTextFill(Color.WHITE);
         // signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
             String username, nickname, password;
@@ -102,10 +100,10 @@ public class SignUpMenu extends Menu {
             public void handle(ActionEvent event) {
                 if ((username = usernameField.getText()).isEmpty()) {
                     showPopUp("Please enter a username.");
-                } else if ((password = passwordField.getText()).isEmpty()) {
-                    showPopUp("Please enter a password.");
                 } else if ((nickname = nicknameField.getText()).isEmpty()) {
                     showPopUp("Please enter a nickname.");
+                } else if ((password = passwordField.getText()).isEmpty()) {
+                    showPopUp("Please enter a password.");
                 } else if (RegisterMenuController.signUp(username, nickname, password)) {
                     try {
                         RegisterMenuController.saveUsers();

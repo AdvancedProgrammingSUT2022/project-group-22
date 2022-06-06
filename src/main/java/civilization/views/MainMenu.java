@@ -53,12 +53,10 @@ public class MainMenu extends Menu {
 
     private GameButton addLogoutButton() {
         GameButton logoutButton = new GameButton("Logout");
-        logoutButton.setFont(buttonFont);
-        logoutButton.setTextFill(Color.WHITE);
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Database.getInstance().setCurrentUser(null);
+                Database.getInstance().setLoggedInUser(null);
                 App.setScene(FirstPage.getInstance().getFirstPane().getScene());
                 return;
             }

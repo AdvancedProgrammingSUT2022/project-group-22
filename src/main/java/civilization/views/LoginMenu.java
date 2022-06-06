@@ -81,8 +81,6 @@ public class LoginMenu extends Menu {
 
     public GameButton addLoginButton() {
         GameButton loginButton = new GameButton("Login");
-        loginButton.setFont(buttonFont);
-        loginButton.setTextFill(Color.WHITE);
         // signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             String username, password;

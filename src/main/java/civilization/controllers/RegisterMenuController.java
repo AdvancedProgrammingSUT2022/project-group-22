@@ -1,15 +1,5 @@
 package civilization.controllers;
 
-//import civilization.views.Menu;
-//import civilization.views.RegisterMenuView;
-//import com.google.gson.*;
-//import com.google.gson.reflect.TypeToken;
-//import com.google.gson.stream.JsonReader;
-//import civilization.enums.Avatar;
-//import civilization.models.*;
-//import java.io.*;
-//import java.util.*;
-
 import civilization.enums.Avatar;
 import civilization.models.Database;
 import civilization.models.User;
@@ -61,7 +51,7 @@ public class RegisterMenuController {
         int i = random.nextInt(Avatar.values().length);
         String randomAvatar = Avatar.values()[i].getUrl();
         database.addUser((user = new User(username, password, nickname, randomAvatar, null)));
-        database.setCurrentUser(user);
+        database.setLoggedInUser(user);
         return true;
     }
 
@@ -75,7 +65,7 @@ public class RegisterMenuController {
             Menu.showPopUp("incorrect password");
             return false;
         }
-        database.setCurrentUser(user);
+        database.setLoggedInUser(user);
         return true;
     }
 
