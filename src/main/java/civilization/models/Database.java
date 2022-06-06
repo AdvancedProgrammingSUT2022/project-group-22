@@ -103,6 +103,18 @@ public class Database {
         // this.players = temp;
     }
 
+    public void sortUsers() {
+        Collections.sort(this.users, new Comparator<User>() {
+            @Override
+            public int compare(User a, User b) {
+                int c1 = a.getScore() < b.getScore() ? -1 : a.getScore() == b.getScore() ? 0 : 1;
+                int c2 = a.getLastWinTime().compareTo(b.getLastWinTime());
+                int c3 = a.getNickname().compareTo(b.getNickname());
+                return (c1 != 0) ? c1 : (c2 != 0) ? c2 : c3;
+            }
+        });
+    }
+
     public void addTileToCity() {
     }
 

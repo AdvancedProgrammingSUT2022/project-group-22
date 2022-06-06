@@ -1,37 +1,47 @@
 package civilization.controllers;
 
-import civilization.enums.Avatar;
-import civilization.models.Database;
-import civilization.models.User;
-import civilization.views.RegisterMenuView;
-import civilization.views.Menu;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import civilization.enums.*;
+import civilization.models.*;
+import civilization.views.*;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-
 import java.io.*;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.lang.reflect.Type;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class RegisterMenuController {
     private static Database database = Database.getInstance();
 
     public static void loadUsers() throws FileNotFoundException, IOException {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
+        Gson gson = gsonBuilder.setPrettyPrinting().serializeNulls().create();
         JsonReader reader = new JsonReader(new FileReader("src/main/resources/civilization/json/Users.json"));
-        List<User> users = new Gson().fromJson(reader, new TypeToken<List<User>>() {
+        List<User> users = gson.fromJson(reader, new TypeToken<List<User>>() {
         }.getType());
+
         if (users != null) {
             for (User user : users) {
                 database.addUser(user);
             }
         }
+
         reader.close();
     }
 
     public static void saveUsers() throws FileNotFoundException, IOException {
         try (Writer writer = new FileWriter("src/main/resources/civilization/json/Users.json")) {
-            Gson gson = new GsonBuilder().create();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+            gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+            Gson gson = gsonBuilder.setPrettyPrinting().serializeNulls().create();
             gson.toJson(database.getUsers(), writer);
             writer.close();
         }
@@ -50,7 +60,8 @@ public class RegisterMenuController {
         Random random = new Random();
         int i = random.nextInt(Avatar.values().length);
         String randomAvatar = Avatar.values()[i].getUrl();
-        database.addUser((user = new User(username, password, nickname, randomAvatar, null)));
+        database.addUser((user = new User(username, password, nickname, randomAvatar, null, 0,
+                LocalDateTime.of(1900, 01, 01, 00, 00, 00), LocalDateTime.of(1900, 01, 01, 00, 00, 00))));
         database.setLoggedInUser(user);
         return true;
     }
@@ -68,9 +79,40 @@ public class RegisterMenuController {
         database.setLoggedInUser(user);
         return true;
     }
+}
 
-    public String run() {
-        return RegisterMenuView.run();
+class LocalDateSerializer implements JsonSerializer<LocalDate> {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-d-yyyy");
+
+    @Override
+    public JsonElement serialize(LocalDate localDate, Type srcType, JsonSerializationContext context) {
+        return new JsonPrimitive(formatter.format(localDate));
     }
+}
 
+class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d uuuu, HH:mm:ss");
+
+    @Override
+    public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
+        return new JsonPrimitive(formatter.format(localDateTime));
+    }
+}
+
+class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
+    @Override
+    public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+        return LocalDate.parse(json.getAsString(),
+                DateTimeFormatter.ofPattern("MMM-d-yyyy").withLocale(Locale.ENGLISH));
+    }
+}
+
+class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
+    @Override
+    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+        return LocalDateTime.parse(json.getAsString(),
+                DateTimeFormatter.ofPattern("MMM d uuuu, HH:mm:ss").withLocale(Locale.ENGLISH));
+    }
 }

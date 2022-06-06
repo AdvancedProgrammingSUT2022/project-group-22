@@ -1,1 +1,12 @@
 [
+    {
+        "username": "me",
+        "password": "me",
+        "nickname": "me",
+        "avatarAddress": "/civilization/png/icons/3.png",
+        "civilization": null,
+        "score": 0,
+        "lastWinTime": "Jan 1 1900, 00:00:00",
+        "lastActivityTime": "Jan 1 1900, 00:00:00"
+    }
+]

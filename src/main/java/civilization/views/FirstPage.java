@@ -12,7 +12,6 @@ import javafx.scene.text.*;
 
 public class FirstPage extends Menu {
     private static FirstPage instance = null;
-    private static Scene firstScene;
     private BorderPane firstPane;
 
     public static FirstPage getInstance() {
@@ -23,7 +22,7 @@ public class FirstPage extends Menu {
 
     private FirstPage() {
         firstPane = new BorderPane();
-        firstScene = new Scene(firstPane, 1280, 800);
+        Scene firstScene = new Scene(firstPane, 1280, 800);
         firstPane.setBackground(new Background(backgroundImage));
         addElements();
     }
@@ -49,8 +48,8 @@ public class FirstPage extends Menu {
 
     private GameButton createLoginButton() {
         GameButton loginButton = new GameButton("Login");
-//        loginButton.setLayoutX(565.5);
-//        loginButton.setLayoutY(400);
+        // loginButton.setLayoutX(565.5);
+        // loginButton.setLayoutY(400);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -65,8 +64,8 @@ public class FirstPage extends Menu {
 
     private GameButton createSignUpButton() {
         GameButton signUpButton = new GameButton("Sign Up");
-//        signUpButton.setLayoutX(565.5);
-//        signUpButton.setLayoutY(470);
+        // signUpButton.setLayoutX(565.5);
+        // signUpButton.setLayoutY(470);
         signUpButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -81,8 +80,8 @@ public class FirstPage extends Menu {
 
     private GameButton createExitButton() {
         GameButton exitButton = new GameButton("Exit");
-//        exitButton.setLayoutX(565.5);
-//        exitButton.setLayoutY(540);
+        // exitButton.setLayoutX(565.5);
+        // exitButton.setLayoutY(540);
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override

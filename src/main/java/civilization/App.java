@@ -1,14 +1,14 @@
 package civilization;
 
-import civilization.controllers.RegisterMenuController;
-import civilization.views.FirstPage;
+import civilization.controllers.*;
+import civilization.views.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
-import java.io.IOException;
+import java.io.*;
 
 public class App extends Application {
     private static Scene scene;
@@ -16,13 +16,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-//        RegisterMenuController.loadUsers();
+        RegisterMenuController.loadUsers();
         mainStage = new Stage();
         mainStage.setTitle("Civilization");
         mainStage.setScene(FirstPage.getInstance().getFirstPane().getScene());
+        // MainMenuController.getInstance().showScoreboard();
+        // mainStage.setScene(ScoreboardPage.getInstance().getPane().getScene());
         stage = mainStage;
         stage.show();
-
     }
 
     public static void setRoot(String fxml) throws Exception {
