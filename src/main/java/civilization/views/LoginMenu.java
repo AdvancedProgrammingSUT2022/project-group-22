@@ -23,7 +23,6 @@ public class LoginMenu extends Menu {
     private PasswordField passwordField;
 
     public LoginMenu() {
-        super();
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
@@ -40,22 +39,12 @@ public class LoginMenu extends Menu {
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        Text title = new Text(640, 350, "L O G I N  M E N U");
-        title.setFont(titleFont);
-        title.setFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
-        vBox.getChildren().add(title);
+        vBox.getChildren().add(createText("LOGINMENU"));
 
-        Label username = new Label("Username:");
-        username.setFont(textFont);
-        username.setTextFill(Color.WHITE);
-        vBox.getChildren().add(username);
+        vBox.getChildren().add(createLabel("username"));
         vBox.getChildren().add(addUsernameField());
 
-        Label password = new Label("Password:");
-        password.setFont(textFont);
-        password.setTextFill(Color.WHITE);
-        vBox.getChildren().add(password);
+        vBox.getChildren().add(createLabel("password"));
         vBox.getChildren().add(addPasswordField());
 
         vBox.getChildren().add(addLoginButton());
@@ -84,7 +73,6 @@ public class LoginMenu extends Menu {
         // signUpButton.setAlignment(Pos.BOTTOM_CENTER);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             String username, password;
-
             @Override
             public void handle(ActionEvent event) {
                 if ((username = usernameField.getText()).isEmpty()) {

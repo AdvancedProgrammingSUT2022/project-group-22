@@ -3,17 +3,23 @@ package civilization.views;
 import civilization.App;
 import civilization.enums.Graphic;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.PopupWindow;
 
 public class Menu {
-    public static BackgroundImage backgroundImage;
+    public static final BackgroundImage backgroundImage = new BackgroundImage(
+            new Image(App.class.getResource(Graphic.BACKGROUND.getUrl()).toExternalForm()),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER, BackgroundSize.DEFAULT);;
 
     // fonts
     public static final Font titleFont = Font.loadFont(
@@ -24,12 +30,6 @@ public class Menu {
             App.class.getResource("/civilization/font/CivFont.ttf").toExternalForm(),
             12);
 
-    public Menu() {
-        backgroundImage = new BackgroundImage(
-                new Image(App.class.getResource(Graphic.BACKGROUND.getUrl()).toExternalForm()),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-    }
 
     public static void showPopUp(String error) {
         Label label = new Label(error);
@@ -43,5 +43,20 @@ public class Menu {
         popup.setAnchorX(690);
         popup.setAnchorY(100);
         popup.show(App.getMainStage());
+    }
+
+    public static Text createText (String text){
+        Text title = new Text(text.replaceAll(".(?!$)", "$0 "));
+        title.setFont(titleFont);
+        title.setFill(Color.WHITE);
+        title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
+        return title;
+    }
+
+    public static Label createLabel(String text){
+        Label label = new Label(text);
+        label.setFont(textFont);
+        label.setTextFill(Color.WHITE);
+        return label;
     }
 }

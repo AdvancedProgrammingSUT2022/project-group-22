@@ -22,7 +22,6 @@ public class FirstPage extends Menu {
     }
 
     private FirstPage() {
-        super();
         firstPane = new BorderPane();
         firstScene = new Scene(firstPane, 1280, 800);
         firstPane.setBackground(new Background(backgroundImage));
@@ -39,11 +38,7 @@ public class FirstPage extends Menu {
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        Text title = new Text( "C I V I L I Z A T I O N");
-        title.setFont(titleFont);
-        title.setFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
-        vBox.getChildren().add(title);
+        vBox.getChildren().add(createText("CIVILIZATION"));
 
         vBox.getChildren().add(createSignUpButton());
         vBox.getChildren().add(createLoginButton());

@@ -23,7 +23,6 @@ public class MainMenu extends Menu {
     }
 
     private MainMenu() {
-        super();
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
@@ -40,13 +39,9 @@ public class MainMenu extends Menu {
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        Text title = new Text(530, 350, "M A I N  M E N U");
-        title.setFont(titleFont);
-        title.setFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
-
-        vBox.getChildren().add(title);
+        vBox.getChildren().add(createText("MAINMENU"));
         vBox.getChildren().add(addLogoutButton());
+        vBox.getChildren().add(addProfileButton());
 
         pane.setCenter(vBox);
     }
@@ -62,6 +57,17 @@ public class MainMenu extends Menu {
             }
         });
         return logoutButton;
+    }
+
+    private GameButton addProfileButton(){
+        GameButton profileButton = new GameButton("Profile Menu");
+        profileButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                return;
+            }
+        });
+        return profileButton;
     }
 
 }

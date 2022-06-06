@@ -37,28 +37,15 @@ public class SignUpMenu extends Menu {
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        Text title = new Text(640, 350, "S I G N  U P  M E N U");
-        title.setFont(titleFont);
-        title.setFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
-        vBox.getChildren().add(title);
+        vBox.getChildren().add(createText("SIGNUPMENU"));
 
-        Label username = new Label("Username:");
-        username.setFont(textFont);
-        username.setTextFill(Color.WHITE);
-        vBox.getChildren().add(username);
+        vBox.getChildren().add(createLabel("username"));
         vBox.getChildren().add(addUsernameField());
 
-        Label nickname = new Label("Nickname:");
-        nickname.setFont(textFont);
-        nickname.setTextFill(Color.WHITE);
-        vBox.getChildren().add(nickname);
+        vBox.getChildren().add(createLabel("nickname"));
         vBox.getChildren().add(addNicknameField());
 
-        Label password = new Label("Password:");
-        password.setFont(textFont);
-        password.setTextFill(Color.WHITE);
-        vBox.getChildren().add(password);
+        vBox.getChildren().add(createLabel("password"));
         vBox.getChildren().add(addPasswordField());
 
         vBox.getChildren().add(addSignUpButton());
