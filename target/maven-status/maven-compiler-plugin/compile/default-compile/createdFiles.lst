@@ -26,6 +26,7 @@ civilization/views/components/GameButton$1.class
 civilization/enums/UnitType.class
 civilization/controllers/ScoreboardMenuController.class
 civilization/views/GameMenuView.class
+civilization/views/UserView.class
 civilization/views/Processor.class
 civilization/views/MainMenu$2.class
 civilization/controllers/GameMenuController.class

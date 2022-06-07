@@ -1,13 +1,13 @@
 package civilization;
 
 import civilization.controllers.*;
+import civilization.models.Database;
 import civilization.views.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-
 import java.io.*;
 
 public class App extends Application {
@@ -20,7 +20,11 @@ public class App extends Application {
         mainStage = new Stage();
         mainStage.setTitle("Civilization");
         mainStage.setScene(FirstPage.getInstance().getFirstPane().getScene());
+
+        // scoreboard test
+        // Database.getInstance().setLoggedInUser(Database.getInstance().getUsers().get(1));
         // mainStage.setScene(ScoreboardPage.getInstance().getPane().getScene());
+
         stage = mainStage;
         stage.show();
     }

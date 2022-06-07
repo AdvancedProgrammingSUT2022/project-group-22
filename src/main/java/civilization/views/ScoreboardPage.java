@@ -1,9 +1,12 @@
 package civilization.views;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 
+import civilization.App;
 import civilization.controllers.ScoreboardMenuController;
+import javafx.geometry.*;
 import javafx.scene.Scene;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 public class ScoreboardPage extends Menu {
     private static ScoreboardPage instance;
     private BorderPane pane;
-    private VBox vBox;
+    private GridPane grid;
 
     public static ScoreboardPage getInstance() {
         return instance != null ? instance : new ScoreboardPage();
@@ -25,8 +28,8 @@ public class ScoreboardPage extends Menu {
         pane = new BorderPane();
         Scene scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
-        vBox = new VBox();
-        // ScoreboardMenuController.getInstance().addUserData();
+        addGrid();
+        addRatings(ScoreboardMenuController.getInstance().createUserView());
         addElements();
     }
 
@@ -37,18 +40,29 @@ public class ScoreboardPage extends Menu {
         rectangle.setFill(Color.web("#00224A", 0.8));
 
         StackPane centerPane = new StackPane();
-        centerPane.getChildren().addAll(rectangle, vBox);
+        centerPane.getChildren().addAll(rectangle, grid);
 
         pane.setCenter(centerPane);
     }
 
-    public void addUser(String nickname, String avatarAddress, int score, LocalDateTime lastWinTime,
-            LocalDateTime lastActivityTime, Boolean isCurrentUser) {
-        Rectangle rectangle = new Rectangle(950, 55);
-        rectangle.setArcWidth(20);
-        rectangle.setArcHeight(10);
-        rectangle.setFill(Color.web((isCurrentUser ? "#4C779B" : "#023D6F"), 1));
+    public void addGrid() {
+        grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+    }
 
-        vBox.getChildren().add(rectangle);
+    public void addRatings(ArrayList<UserView> users) {
+        int i = 1;
+        for (UserView user : users) {
+            System.out.println(user.getAvatarAddress() + user.isCurrentUser());
+            grid.add(new ImageView(new Image(App.class.getResource(user.getAvatarAddress()).toExternalForm())), 1, i);
+            Rectangle rectangle = new Rectangle(950, 50);
+            rectangle.setArcWidth(20);
+            rectangle.setArcHeight(10);
+            rectangle.setFill(Color.web((user.isCurrentUser() ? "#4C779B" : "#023D6F"), 1));
+
+            grid.add(rectangle, 2, i++);
+        }
     }
 }
