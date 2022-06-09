@@ -11,7 +11,7 @@ public enum Avatar {
     CYRUS("/civilization/png/icons/7.png"),
     GANDHI("/civilization/png/icons/8.png"),
     GORGO("/civilization/png/icons/9.png"),
-    DIDO("/civilization/png/icons/10.png");
+    DIDO("/civilization/png/icons/11.png");
 
     private String url;
 

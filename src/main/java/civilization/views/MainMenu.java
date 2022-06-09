@@ -62,6 +62,7 @@ public class MainMenu extends Menu {
         profileButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                App.setScene(ProfileMenu.getInstance().getPane().getScene());
                 return;
             }
         });
