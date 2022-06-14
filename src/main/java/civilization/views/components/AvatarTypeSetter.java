@@ -19,6 +19,8 @@ public class AvatarTypeSetter extends VBox {
     public AvatarTypeSetter(Avatar avatar) {
         circleImage = new ImageView(new Image(App.class.getResource(Graphic.CROSS.getUrl()).toExternalForm()));
         avatarImage = new ImageView(new Image(App.class.getResource(avatar.getUrl()).toExternalForm()));
+        avatarImage.setFitWidth(128);
+        avatarImage.setFitHeight(128);
         this.avatar = avatar;
         isChoosen = false;
         this.setSpacing(10);

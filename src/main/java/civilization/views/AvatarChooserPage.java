@@ -9,8 +9,10 @@ import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
@@ -49,21 +51,21 @@ public class AvatarChooserPage extends Menu{
 
     private void addElements(){
         VBox vBox = new VBox();
-        vBox.setSpacing(10);
+        vBox.setSpacing(20);
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        Text title = new Text("choose your avatar");
-        title.setStyle("-fx-font-size: 50; -fx-font-weight: bold;");
-
-        vBox.getChildren().add(title);
+        vBox.getChildren().add(createText("choose your avatar"));
 
         vBox.getChildren().add(createAvatarsToChoose());
         vBox.getChildren().add(createRandomButton());
         vBox.getChildren().add(createUploadButton());
+        vBox.getChildren().add(createApplyButton());
+        vBox.getChildren().add(createSwitchSceneButton("cancel",ProfileMenu.getInstance().getPane().getScene()));
 
         avatarPane.setCenter(vBox);
     }
+
 
     private HBox createAvatarsToChoose() {
         HBox hBox = new HBox();
@@ -83,7 +85,8 @@ public class AvatarChooserPage extends Menu{
                     }
                     avatarToPick.setIsChoosen(true);
                     choosenAvatar = avatarToPick.getAvatar();
-
+                    ImageView temp = new ImageView(new Image(App.class.getResource(choosenAvatar.getUrl()).toExternalForm()));
+                    Database.getInstance().getLoggedInUser().setAvatar(temp);
                 }
             });
         }
@@ -97,8 +100,9 @@ public class AvatarChooserPage extends Menu{
             public void handle(ActionEvent event) {
                 Random random = new Random();
                 int i = random.nextInt(Avatar.values().length);
-                Database.getInstance().getLoggedInUser().setAvatarAddress(Avatar.values()[i].getUrl());
-                App.setScene(MainMenu.getInstance().getPane().getScene());
+                ImageView temp = new ImageView(new Image(App.class.getResource(Avatar.values()[i].getUrl()).toExternalForm()));
+                Database.getInstance().getLoggedInUser().setAvatar(temp);
+                App.setScene(ProfileMenu.getInstance().getPane().getScene());
             }
         });
         return randomButton;
@@ -114,10 +118,22 @@ public class AvatarChooserPage extends Menu{
                 File selectedFile = fileChooser.showOpenDialog(null);
                 if (selectedFile != null) {
                     Image image = new Image(selectedFile.toURI().toString());
-//                    TODO set the image for the logged in user
+                    Database.getInstance().getLoggedInUser().setAvatar(new ImageView(image));
+                    App.setScene(ProfileMenu.getInstance().getPane().getScene());
                 }
             }
         });
         return uploadButton;
+    }
+
+    private GameButton createApplyButton() {
+        GameButton applyButton = new GameButton("Apply");
+        applyButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                App.setScene(ProfileMenu.getInstance().getPane().getScene());
+            }
+        });
+        return applyButton;
     }
 }

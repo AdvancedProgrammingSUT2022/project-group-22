@@ -89,10 +89,10 @@ public class SignUpMenu extends Menu {
                 } else if ((password = passwordField.getText()).isEmpty()) {
                     showPopUp("Please enter a password.");
                 } else if (RegisterMenuController.signUp(username, nickname, password)) {
-                    try {
-                        RegisterMenuController.saveUsers();
-                    } catch (Exception e) {
-                    }
+//                    try {
+//                        RegisterMenuController.saveUsers();
+//                    } catch (Exception e) {
+//                    }
                     showPopUp("user created and logged in successfully");
                     App.setScene(MainMenu.getInstance().getPane().getScene());
                 }

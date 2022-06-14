@@ -1,5 +1,7 @@
 package civilization.views;
 
+import civilization.App;
+import civilization.models.Database;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,6 +40,7 @@ public class NicknameChangingPage extends Menu{
         vBox.getChildren().add(addNicknameField());
 
         vBox.getChildren().add(createApplyButton());
+        vBox.getChildren().add(createSwitchSceneButton("cancel",ProfileMenu.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }
@@ -55,7 +58,15 @@ public class NicknameChangingPage extends Menu{
         applyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //TODO check if it is possible
+                if(Database.getInstance().getUserByNickname(nicknameField.getText()) != null){
+                    showPopUp("user with nickname " + nicknameField.getText() + " already exists");
+                }
+                else{
+                    showPopUp("nickname changed successfully");
+                    Database.getInstance().getLoggedInUser().setNickname(nicknameField.getText());
+                    System.out.println(Database.getInstance().getLoggedInUser().getNickname());
+                    App.setScene(ProfileMenu.getInstance().getPane().getScene());
+                }
             }
         });
 

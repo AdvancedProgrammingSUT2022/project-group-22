@@ -55,8 +55,8 @@ public class ScoreboardPage extends Menu {
     public void addRatings(ArrayList<UserView> users) {
         int i = 1;
         for (UserView user : users) {
-            System.out.println(user.getAvatarAddress() + user.isCurrentUser());
-            grid.add(new ImageView(new Image(App.class.getResource(user.getAvatarAddress()).toExternalForm())), 1, i);
+//            System.out.println(user.getAvatarAddress() + user.isCurrentUser());
+            grid.add(user.getAvatar(), 1, i);
             Rectangle rectangle = new Rectangle(950, 50);
             rectangle.setArcWidth(20);
             rectangle.setArcHeight(10);

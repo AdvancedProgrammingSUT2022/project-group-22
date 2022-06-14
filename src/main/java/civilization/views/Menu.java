@@ -2,6 +2,10 @@ package civilization.views;
 
 import civilization.App;
 import civilization.enums.Graphic;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundImage;
@@ -56,5 +60,18 @@ public class Menu {
         label.setFont(textFont);
         label.setTextFill(Color.WHITE);
         return label;
+    }
+
+    public static Button createSwitchSceneButton(String text , Scene scene) {
+        Button button = new Button(text);
+        button.setStyle("-fx-background-color: none;");
+        button.setTextFill(Color.WHITE);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                App.setScene(scene);
+            }
+        });
+        return button;
     }
 }

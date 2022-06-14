@@ -6,10 +6,13 @@ import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class ProfileMenu extends Menu{
     private static ProfileMenu instance = null;
@@ -39,16 +42,21 @@ public class ProfileMenu extends Menu{
         vBox.maxWidth(350);
 
         vBox.getChildren().add(createText("PROFILEMENU"));
+        vBox.getChildren().add(Database.getInstance().getLoggedInUser().getAvatar());
+//        vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getNickname()));
+//        vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getUsername()));
+//        vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getPassword()));
         vBox.getChildren().add(createAvatarButton());
         vBox.getChildren().add(createPasswordButton());
         vBox.getChildren().add(createNicknameButton());
+        vBox.getChildren().add((createSwitchSceneButton("return to main", MainMenu.getInstance().getPane().getScene())));
 
         pane.setCenter(vBox);
     }
 
 
     private GameButton createAvatarButton(){
-        GameButton avatarButton = new GameButton("choose avatar");
+        GameButton avatarButton = new GameButton("change avatar");
         avatarButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

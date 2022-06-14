@@ -1,11 +1,15 @@
 package civilization.controllers;
 
+import civilization.App;
 import civilization.enums.*;
 import civilization.models.*;
 import civilization.views.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -49,26 +53,26 @@ public class RegisterMenuController {
 
     public static Boolean signUp(String username, String nickname, String password) {
         User user;
-        if (database.getUserByUsername(username) != null) {
+        if (Database.getInstance().getUserByUsername(username) != null) {
             Menu.showPopUp("user with username " + username + " already exists");
             return false;
         }
-        if (database.getUserByNickname(nickname) != null) {
+        if (Database.getInstance().getUserByNickname(nickname) != null) {
             Menu.showPopUp("user with nickname " + nickname + " already exists");
             return false;
         }
         Random random = new Random();
         int i = random.nextInt(Avatar.values().length);
-        String randomAvatar = Avatar.values()[i].getUrl();
-        database.addUser((user = new User(username, password, nickname, randomAvatar, null, 0,
+        ImageView temp = new ImageView(new Image(App.class.getResource(Avatar.values()[i].getUrl()).toExternalForm()));
+        Database.getInstance().addUser((user = new User(username, password, nickname, temp, null, 0,
                 LocalDateTime.of(1900, 01, 01, 00, 00, 00), LocalDateTime.of(1900, 01, 01, 00, 00, 00))));
-        database.setLoggedInUser(user);
+        Database.getInstance().setLoggedInUser(user);
         return true;
     }
 
     public static Boolean login(String username, String password) {
         User user;
-        if ((user = database.getUserByUsername(username)) == null) {
+        if ((user = Database.getInstance().getUserByUsername(username)) == null) {
             Menu.showPopUp("no account with this username exists");
             return false;
         }
@@ -76,7 +80,7 @@ public class RegisterMenuController {
             Menu.showPopUp("incorrect password");
             return false;
         }
-        database.setLoggedInUser(user);
+        Database.getInstance().setLoggedInUser(user);
         return true;
     }
 }

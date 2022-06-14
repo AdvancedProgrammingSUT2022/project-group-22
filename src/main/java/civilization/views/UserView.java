@@ -1,19 +1,21 @@
 package civilization.views;
 
+import javafx.scene.image.ImageView;
+
 import java.time.LocalDateTime;
 
 public class UserView {
     private String nickname;
-    private String avatarAddress;
+    private ImageView avatar;
     private int score;
     private LocalDateTime lastWinTime;
     private LocalDateTime lastActivityTime;
     private Boolean isCurrentUser;
 
-    public UserView(String nickname, String avatarAddress, int score, LocalDateTime lastWinTime,
-            LocalDateTime lastActivityTime, Boolean isCurrentUser) {
+    public UserView(String nickname, ImageView avatar, int score, LocalDateTime lastWinTime,
+                    LocalDateTime lastActivityTime, Boolean isCurrentUser) {
         this.nickname = nickname;
-        this.avatarAddress = avatarAddress;
+        this.avatar = avatar;
         this.score = score;
         this.lastWinTime = lastWinTime;
         this.lastActivityTime = lastActivityTime;
@@ -28,12 +30,12 @@ public class UserView {
         this.nickname = nickname;
     }
 
-    public String getAvatarAddress() {
-        return avatarAddress;
+    public ImageView getAvatar() {
+        return avatar;
     }
 
-    public void setAvatarAddress(String avatarAddress) {
-        this.avatarAddress = avatarAddress;
+    public void setAvatar(ImageView avatar) {
+        this.avatar = avatar;
     }
 
     public int getScore() {

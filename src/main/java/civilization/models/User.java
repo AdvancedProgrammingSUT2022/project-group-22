@@ -1,23 +1,25 @@
 package civilization.models;
 
+import javafx.scene.image.ImageView;
+
 import java.time.LocalDateTime;
 
 public class User {
     private String username;
     private String password;
     private String nickname;
-    private String avatarAddress;
+    private ImageView avatar;
     private Civilization civilization;
     private int score;
     private LocalDateTime lastWinTime;
     private LocalDateTime lastActivityTime;
 
-    public User(String username, String password, String nickname, String avatarAddress,
+    public User(String username, String password, String nickname, ImageView avatar,
             Civilization civilization, int score, LocalDateTime lastWinTime, LocalDateTime lastActivityTime) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-        this.avatarAddress = avatarAddress;
+        this.avatar = avatar;
         this.civilization = civilization;
         this.score = score;
         this.lastWinTime = lastWinTime;
@@ -48,12 +50,12 @@ public class User {
         this.nickname = nickname;
     }
 
-    public String getAvatarAddress() {
-        return avatarAddress;
+    public ImageView getAvatar() {
+        return avatar;
     }
 
-    public void setAvatarAddress(String avatarAddress) {
-        this.avatarAddress = avatarAddress;
+    public void setAvatar(ImageView avatar) {
+        this.avatar = avatar;
     }
 
     public Civilization getCivilization() {

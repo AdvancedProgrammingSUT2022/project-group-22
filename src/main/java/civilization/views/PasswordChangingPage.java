@@ -1,10 +1,13 @@
 package civilization.views;
 
+import civilization.App;
+import civilization.models.Database;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
@@ -13,7 +16,8 @@ import javafx.scene.layout.VBox;
 public class PasswordChangingPage extends Menu{
     private static Scene scene;
     private BorderPane pane;
-    private PasswordField passwordField;
+    private PasswordField firstField;
+    private PasswordField secondField;
 
 
     public PasswordChangingPage(){
@@ -40,24 +44,25 @@ public class PasswordChangingPage extends Menu{
         vBox.getChildren().add(addNewPasswordField());
 
         vBox.getChildren().add(createApplyButton());
+        vBox.getChildren().add(createSwitchSceneButton("cancel",ProfileMenu.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }
 
     public PasswordField addPasswordField() {
-        passwordField = new PasswordField();
-        passwordField.setPrefHeight(40);
-        passwordField.setMaxWidth(250);
-        passwordField.setPromptText("enter current password");
-        return passwordField;
+        firstField = new PasswordField();
+        firstField.setPrefHeight(40);
+        firstField.setMaxWidth(250);
+        firstField.setPromptText("enter current password");
+        return firstField;
     }
 
     public PasswordField addNewPasswordField() {
-        passwordField = new PasswordField();
-        passwordField.setPrefHeight(40);
-        passwordField.setMaxWidth(250);
-        passwordField.setPromptText("enter new password");
-        return passwordField;
+        secondField = new PasswordField();
+        secondField.setPrefHeight(40);
+        secondField.setMaxWidth(250);
+        secondField.setPromptText("enter new password");
+        return secondField;
     }
 
     public GameButton createApplyButton(){
@@ -65,10 +70,20 @@ public class PasswordChangingPage extends Menu{
         applyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //TODO check if it is possible
+                if(!firstField.getText().equals(Database.getInstance().getLoggedInUser().getPassword())){
+                    showPopUp("current password is invalid");
+                }
+                else if(firstField.getText().equals(secondField.getText())){
+                    showPopUp("enter a new password");
+                }
+                else{
+                    showPopUp("password changed successfully");
+                    Database.getInstance().getLoggedInUser().setPassword(secondField.getText());
+                    App.setScene(ProfileMenu.getInstance().getPane().getScene());
+                }
             }
         });
-
         return applyButton;
     }
+
 }
