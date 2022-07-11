@@ -46,6 +46,7 @@ public class SignUpMenu extends Menu {
         vBox.getChildren().add(addPasswordField());
 
         vBox.getChildren().add(addSignUpButton());
+        vBox.getChildren().add(createSwitchSceneButton("return",FirstPage.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }

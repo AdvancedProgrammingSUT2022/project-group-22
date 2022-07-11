@@ -28,7 +28,7 @@ public class FirstPage extends Menu {
         addElements();
     }
 
-    public BorderPane getFirstPane() {
+    public BorderPane getPane() {
         return firstPane;
     }
 
