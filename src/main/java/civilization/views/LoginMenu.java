@@ -45,6 +45,7 @@ public class LoginMenu extends Menu {
         vBox.getChildren().add(addPasswordField());
 
         vBox.getChildren().add(addLoginButton());
+        vBox.getChildren().add(createSwitchSceneButton("return",FirstPage.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }

@@ -19,7 +19,7 @@ public class App extends Application {
         RegisterMenuController.loadUsers();
         mainStage = new Stage();
         mainStage.setTitle("Civilization");
-        mainStage.setScene(FirstPage.getInstance().getFirstPane().getScene());
+        mainStage.setScene(FirstPage.getInstance().getPane().getScene());
 
         // scoreboard test
         // Database.getInstance().setLoggedInUser(Database.getInstance().getUsers().get(1));

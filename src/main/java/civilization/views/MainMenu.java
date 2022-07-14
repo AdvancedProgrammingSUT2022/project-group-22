@@ -41,6 +41,7 @@ public class MainMenu extends Menu {
         vBox.getChildren().add(addLogoutButton());
         vBox.getChildren().add(addProfileButton());
         vBox.getChildren().add(addScoreboardButton());
+        vBox.getChildren().add(addGameMenuButton());
 
         pane.setCenter(vBox);
     }
@@ -51,7 +52,7 @@ public class MainMenu extends Menu {
             @Override
             public void handle(ActionEvent event) {
                 Database.getInstance().setLoggedInUser(null);
-                App.setScene(FirstPage.getInstance().getFirstPane().getScene());
+                App.setScene(FirstPage.getInstance().getPane().getScene());
                 return;
             }
         });
@@ -80,6 +81,18 @@ public class MainMenu extends Menu {
             }
         });
         return scoreboardButton;
+    }
+
+    private GameButton addGameMenuButton() {
+        GameButton gameButton = new GameButton("Game Menu");
+        gameButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                App.setScene(GameMenu.getInstance().getPane().getScene());
+                return;
+            }
+        });
+        return gameButton;
     }
 
 }

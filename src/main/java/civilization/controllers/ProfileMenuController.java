@@ -77,9 +77,9 @@ public class ProfileMenuController {
     // return true;
     // }
 
-    public String run(User user) {
-        return ProfileMenuView.run(database.getUserByUsername(user.getUsername()));
-    }
+//    public String run(User user) {
+//        return ProfileMenuView.run(database.getUserByUsername(user.getUsername()));
+//    }
 
     public void changeAvatar(Avatar avatar) {
         try {
