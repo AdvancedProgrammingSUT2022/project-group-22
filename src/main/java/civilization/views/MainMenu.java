@@ -1,15 +1,12 @@
 package civilization.views;
 
 import civilization.App;
-import civilization.enums.Avatar;
 import civilization.models.Database;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -40,9 +37,10 @@ public class MainMenu extends Menu {
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        vBox.getChildren().add(createText("MAINMENU"));
+        vBox.getChildren().add(createText("MAIN MENU"));
         vBox.getChildren().add(addLogoutButton());
         vBox.getChildren().add(addProfileButton());
+        vBox.getChildren().add(addScoreboardButton());
 
         pane.setCenter(vBox);
     }
@@ -70,6 +68,18 @@ public class MainMenu extends Menu {
             }
         });
         return profileButton;
+    }
+
+    private GameButton addScoreboardButton() {
+        GameButton scoreboardButton = new GameButton("Scoreboard");
+        scoreboardButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                App.setScene(ScoreboardPage.getInstance().getPane().getScene());
+                return;
+            }
+        });
+        return scoreboardButton;
     }
 
 }

@@ -1,1 +1,102 @@
 [
+  {
+    "username": "player1",
+    "password": "player1",
+    "nickname": "alex",
+    "avatar": "ALEXANDER",
+    "civilization": null,
+    "score": 100,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jul 14 2022, 21:07:15"
+  },
+  {
+    "username": "player2",
+    "password": "player2",
+    "nickname": "aman",
+    "avatar": "AMANITORE",
+    "civilization": null,
+    "score": 200,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jan 1 1900, 00:00:00"
+  },
+  {
+    "username": "player3",
+    "password": "player3",
+    "nickname": "ambio",
+    "avatar": "AMBIORIX",
+    "civilization": null,
+    "score": 700,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jul 14 2022, 20:53:46"
+  },
+  {
+    "username": "player4",
+    "password": "player4",
+    "nickname": "basil",
+    "avatar": "BASIL",
+    "civilization": null,
+    "score": 500,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jan 1 1900, 00:00:00"
+  },
+  {
+    "username": "player5",
+    "password": "player5",
+    "nickname": "batrio",
+    "avatar": "BATRIO",
+    "civilization": null,
+    "score": 100,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jan 1 1900, 00:00:00"
+  },
+  {
+    "username": "player6",
+    "password": "player6",
+    "nickname": "cath",
+    "avatar": "CATHERINE_DE_MEDICI",
+    "civilization": null,
+    "score": 300,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jan 1 1900, 00:00:00"
+  },
+  {
+    "username": "player7",
+    "password": "player7",
+    "nickname": "cleo",
+    "avatar": "CLEOPATRA",
+    "civilization": null,
+    "score": 400,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jan 1 1900, 00:00:00"
+  },
+  {
+    "username": "player8",
+    "password": "player8",
+    "nickname": "cyrus",
+    "avatar": "CYRUS",
+    "civilization": null,
+    "score": 400,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jan 1 1900, 00:00:00"
+  },
+  {
+    "username": "player9",
+    "password": "player9",
+    "nickname": "gandhi",
+    "avatar": "GANDHI",
+    "civilization": null,
+    "score": 600,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jan 1 1900, 00:00:00"
+  },
+  {
+    "username": "player10",
+    "password": "player10",
+    "nickname": "gorgo",
+    "avatar": "GORGO",
+    "civilization": null,
+    "score": 600,
+    "lastWinTime": "Jan 1 1900, 00:00:00",
+    "lastLoginTime": "Jan 1 1900, 00:00:00"
+  }
+]

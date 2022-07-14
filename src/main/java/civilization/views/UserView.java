@@ -9,16 +9,16 @@ public class UserView {
     private ImageView avatar;
     private int score;
     private LocalDateTime lastWinTime;
-    private LocalDateTime lastActivityTime;
+    private LocalDateTime lastLoginTime;
     private Boolean isCurrentUser;
 
     public UserView(String nickname, ImageView avatar, int score, LocalDateTime lastWinTime,
-                    LocalDateTime lastActivityTime, Boolean isCurrentUser) {
+            LocalDateTime lastLoginTime, Boolean isCurrentUser) {
         this.nickname = nickname;
         this.avatar = avatar;
         this.score = score;
         this.lastWinTime = lastWinTime;
-        this.lastActivityTime = lastActivityTime;
+        this.lastLoginTime = lastLoginTime;
         this.isCurrentUser = isCurrentUser;
     }
 
@@ -54,12 +54,12 @@ public class UserView {
         this.lastWinTime = lastWinTime;
     }
 
-    public LocalDateTime getLastActivityTime() {
-        return lastActivityTime;
+    public LocalDateTime getLastLoginTime() {
+        return lastLoginTime;
     }
 
-    public void setLastActivityTime(LocalDateTime lastActivityTime) {
-        this.lastActivityTime = lastActivityTime;
+    public void setLastLoginTime(LocalDateTime lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
     public Boolean isCurrentUser() {

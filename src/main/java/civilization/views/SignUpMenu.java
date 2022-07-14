@@ -34,7 +34,7 @@ public class SignUpMenu extends Menu {
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        vBox.getChildren().add(createText("SIGNUPMENU"));
+        vBox.getChildren().add(createText("SIGN UP MENU"));
 
         vBox.getChildren().add(createLabel("username"));
         vBox.getChildren().add(addUsernameField());
@@ -89,10 +89,6 @@ public class SignUpMenu extends Menu {
                 } else if ((password = passwordField.getText()).isEmpty()) {
                     showPopUp("Please enter a password.");
                 } else if (RegisterMenuController.signUp(username, nickname, password)) {
-//                    try {
-//                        RegisterMenuController.saveUsers();
-//                    } catch (Exception e) {
-//                    }
                     showPopUp("user created and logged in successfully");
                     App.setScene(MainMenu.getInstance().getPane().getScene());
                 }

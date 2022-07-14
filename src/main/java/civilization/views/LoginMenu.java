@@ -36,7 +36,7 @@ public class LoginMenu extends Menu {
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        vBox.getChildren().add(createText("LOGINMENU"));
+        vBox.getChildren().add(createText("LOGIN MENU"));
 
         vBox.getChildren().add(createLabel("username"));
         vBox.getChildren().add(addUsernameField());

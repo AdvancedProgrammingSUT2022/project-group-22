@@ -1,21 +1,27 @@
 package civilization.models;
 
-import javafx.scene.image.ImageView;
-
+import java.io.*;
+import java.net.*;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
+import java.util.Base64;
+
+import civilization.App;
+import civilization.enums.Avatar;
+import javafx.scene.image.*;
 
 public class User {
     private String username;
     private String password;
     private String nickname;
-    private ImageView avatar;
+    private Avatar avatar;
     private Civilization civilization;
     private int score;
     private LocalDateTime lastWinTime;
-    private LocalDateTime lastActivityTime;
+    private LocalDateTime lastLoginTime;
 
-    public User(String username, String password, String nickname, ImageView avatar,
-            Civilization civilization, int score, LocalDateTime lastWinTime, LocalDateTime lastActivityTime) {
+    public User(String username, String password, String nickname, Avatar avatar,
+            Civilization civilization, int score, LocalDateTime lastWinTime, LocalDateTime lastLoginTime) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
@@ -23,7 +29,7 @@ public class User {
         this.civilization = civilization;
         this.score = score;
         this.lastWinTime = lastWinTime;
-        this.lastActivityTime = lastActivityTime;
+        this.lastLoginTime = lastLoginTime;
     }
 
     public String getUsername() {
@@ -51,12 +57,22 @@ public class User {
     }
 
     public ImageView getAvatar() {
-        return avatar;
+        return new ImageView(new Image(App.class.getResource(this.avatar.getUrl()).toExternalForm()));
     }
 
-    public void setAvatar(ImageView avatar) {
+    public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
+
+    // public void setAvatar(URL url) {
+    // try {
+    // File file = new File(url.toURI());
+    // byte[] bytes = Files.readAllBytes(file.toPath());
+    // this.avatar = Base64.getEncoder().encodeToString(bytes);
+    // } catch (IOException | URISyntaxException e) {
+    // e.printStackTrace();
+    // }
+    // }
 
     public Civilization getCivilization() {
         return this.civilization;
@@ -82,11 +98,11 @@ public class User {
         this.lastWinTime = lastWinTime;
     }
 
-    public LocalDateTime getLastActivityTime() {
-        return lastActivityTime;
+    public LocalDateTime getLastLoginTime() {
+        return lastLoginTime;
     }
 
-    public void setLastActivityTime(LocalDateTime lastActivityTime) {
-        this.lastActivityTime = lastActivityTime;
+    public void setLastLoginTime(LocalDateTime lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }

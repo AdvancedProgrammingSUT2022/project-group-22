@@ -6,21 +6,17 @@ import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
-public class ProfileMenu extends Menu{
+public class ProfileMenu extends Menu {
     private static ProfileMenu instance = null;
     private static Scene scene;
     private BorderPane pane;
 
-
-    private ProfileMenu(){
+    private ProfileMenu() {
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
@@ -35,27 +31,27 @@ public class ProfileMenu extends Menu{
         return pane;
     }
 
-    private void addElements(){
+    private void addElements() {
         VBox vBox = new VBox();
         vBox.setSpacing(20);
         vBox.setAlignment(Pos.CENTER);
         vBox.maxWidth(350);
 
-        vBox.getChildren().add(createText("PROFILEMENU"));
+        vBox.getChildren().add(createText("PROFILE MENU"));
         vBox.getChildren().add(Database.getInstance().getLoggedInUser().getAvatar());
-//        vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getNickname()));
-//        vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getUsername()));
-//        vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getPassword()));
+        // vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getNickname()));
+        // vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getUsername()));
+        // vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getPassword()));
         vBox.getChildren().add(createAvatarButton());
         vBox.getChildren().add(createPasswordButton());
         vBox.getChildren().add(createNicknameButton());
-        vBox.getChildren().add((createSwitchSceneButton("return to main", MainMenu.getInstance().getPane().getScene())));
+        vBox.getChildren()
+                .add((createSwitchSceneButton("return to main", MainMenu.getInstance().getPane().getScene())));
 
         pane.setCenter(vBox);
     }
 
-
-    private GameButton createAvatarButton(){
+    private GameButton createAvatarButton() {
         GameButton avatarButton = new GameButton("change avatar");
         avatarButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -67,7 +63,7 @@ public class ProfileMenu extends Menu{
         return avatarButton;
     }
 
-    private GameButton createPasswordButton(){
+    private GameButton createPasswordButton() {
         GameButton passwordButton = new GameButton("change password");
         passwordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -80,7 +76,7 @@ public class ProfileMenu extends Menu{
         return passwordButton;
     }
 
-    private GameButton createNicknameButton(){
+    private GameButton createNicknameButton() {
         GameButton nicknameButton = new GameButton("change nickname");
         nicknameButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
