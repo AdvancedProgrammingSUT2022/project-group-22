@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDateTime;
 
 public class UserView {
+    private String username;
     private String nickname;
     private ImageView avatar;
     private int score;
@@ -12,7 +13,7 @@ public class UserView {
     private LocalDateTime lastLoginTime;
     private Boolean isCurrentUser;
 
-    public UserView(String nickname, ImageView avatar, int score, LocalDateTime lastWinTime,
+    public UserView(String username, String nickname, ImageView avatar, int score, LocalDateTime lastWinTime,
             LocalDateTime lastLoginTime, Boolean isCurrentUser) {
         this.nickname = nickname;
         this.avatar = avatar;
@@ -20,6 +21,14 @@ public class UserView {
         this.lastWinTime = lastWinTime;
         this.lastLoginTime = lastLoginTime;
         this.isCurrentUser = isCurrentUser;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getNickname() {

@@ -20,8 +20,8 @@ public class ScoreboardMenuController {
         ArrayList<UserView> scoreboard = new ArrayList<UserView>();
         for (int i = 9; i >= 0; i--) {
             User user = users.get(i);
-            scoreboard.add(new UserView(user.getNickname(), user.getAvatar(), user.getScore(),
-                    user.getLastWinTime(), user.getLastLoginTime(),
+            scoreboard.add(new UserView(user.getUsername(), user.getNickname(), user.getAvatar(),
+                    user.getScore(), user.getLastWinTime(), user.getLastLoginTime(),
                     database.getLoggedInUser() != null && database.getLoggedInUser().equals(user)));
         }
         return scoreboard;

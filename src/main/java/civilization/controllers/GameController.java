@@ -2,16 +2,11 @@ package civilization.controllers;
 
 import civilization.enums.*;
 import civilization.models.*;
-import civilization.views.GameView;
 import java.util.*;
 import java.util.regex.*;
 
-/*********** Please read comments Before any changes ******/
-
 public class GameController {
-    // the problem with these seems to have been solved
     private static GameController instance = null;
-    protected static GameView gameView = GameView.getInstance();
     protected Database database = Database.getInstance();
 
     public static GameController getInstance() {
@@ -110,15 +105,15 @@ public class GameController {
         int j = Integer.parseInt(matcher.group("j"));
         MilitaryUnit milUnit;
         if (!isValidCoordinates(i, j)) {
-            gameView.invalidTile();
+            // gameView.invalidTile();
         } else if ((milUnit = database.getMilitaryUnitByTile(database.getMap()[i][j])) == null) {
-            gameView.invalidMilitaryUnit();
+            // gameView.invalidMilitaryUnit();
         } else if (!database.getUnitOwner(milUnit).equals(database.getCurrentPlayer())) {
-            gameView.unitInaccessible();
+            // gameView.unitInaccessible();
         } else {
             database.getCurrentPlayer().getCivilization().setCurrentMilitary(milUnit);
-            gameView.unitSelected(milUnit.getUnitType().name().toLowerCase(),
-                    milUnit.getPosition().getCoordinates());
+            // gameView.unitSelected(milUnit.getUnitType().name().toLowerCase(),
+            // milUnit.getPosition().getCoordinates());
         }
     }
 
@@ -127,15 +122,15 @@ public class GameController {
         int j = Integer.parseInt(matcher.group("j"));
         CivilianUnit civUnit;
         if (!isValidCoordinates(i, j)) {
-            gameView.invalidTile();
+            // gameView.invalidTile();
         } else if ((civUnit = database.getCivilianUnitByTile(database.getMap()[i][j])) == null) {
-            gameView.invalidCivilianUnit();
+            // gameView.invalidCivilianUnit();
         } else if (!database.getUnitOwner(civUnit).equals(database.getCurrentPlayer())) {
-            gameView.unitInaccessible();
+            // gameView.unitInaccessible();
         } else {
             database.getCurrentPlayer().getCivilization().setCurrentCivilian(civUnit);
-            gameView.unitSelected(civUnit.getUnitType().name().toLowerCase(),
-                    civUnit.getPosition().getCoordinates());
+            // gameView.unitSelected(civUnit.getUnitType().name().toLowerCase(),
+            // civUnit.getPosition().getCoordinates());
         }
     }
 
@@ -143,12 +138,12 @@ public class GameController {
         City city;
         String name = matcher.group("name");
         if ((city = database.getCityByName(name)) == null) {
-            gameView.invalidCity();
+            // gameView.invalidCity();
         } else if (!database.getCityOwner(city).equals(database.getCurrentPlayer())) {
-            gameView.cityInaccessible();
+            // gameView.cityInaccessible();
         } else {
             database.getCurrentPlayer().getCivilization().setCurrentCity(city);
-            gameView.citySelected(city.getName());
+            // gameView.citySelected(city.getName());
         }
     }
 
@@ -157,14 +152,14 @@ public class GameController {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
         if (!isValidCoordinates(i, j)) {
-            gameView.invalidTile();
+            // gameView.invalidTile();
         } else if ((city = database.getCityByTile(database.getMap()[i][j])) == null) {
-            gameView.invalidCity();
+            // gameView.invalidCity();
         } else if (!database.getCityOwner(city).equals(database.getCurrentPlayer())) {
-            gameView.cityInaccessible();
+            // gameView.cityInaccessible();
         } else {
             database.getCurrentPlayer().getCivilization().setCurrentCity(city);
-            gameView.citySelected(city.getName());
+            // gameView.citySelected(city.getName());
         }
     }
 
@@ -175,7 +170,7 @@ public class GameController {
         int i = Integer.parseInt(matcher.group("i"));
         int j = Integer.parseInt(matcher.group("j"));
         if (!isValidCoordinates(i, j)) {
-            gameView.invalidTile();
+            // gameView.invalidTile();
         }
         // else if (database.getMap()[i][j].getPlayer() == null
         // || !database.getMap()[i][j].getPlayer().equals(database.getCurrentPlayer()))
@@ -183,13 +178,13 @@ public class GameController {
         // gameView.tileNotYours();
         // }
         else if (database.getMap()[i][j].getPlayer() != null) {
-            gameView.tileOwned();
+            // gameView.tileOwned();
         } else if ((city = database.getNearbyCity(database.getMap()[i][j],
                 database.getCurrentPlayer())) == null) {
-            gameView.noCityNearby();
+            // gameView.noCityNearby();
         } else if (database.getCurrentPlayer().getCivilization()
                 .getGold() < (price = database.getCurrentPlayer().getCivilization().getTilePrice())) {
-            gameView.goldLow();
+            // gameView.goldLow();
         } else {
             database.getCurrentPlayer().getCivilization()
                     .setGold(database.getCurrentPlayer().getCivilization().getGold() - price);
@@ -203,14 +198,14 @@ public class GameController {
         int amount = Integer.parseInt(matcher.group("amount"));
         Civilization player = database.getCurrentPlayer().getCivilization();
         player.setGold(player.getGold() + amount);
-        gameView.goldIncreased(amount);
+        // gameView.goldIncreased(amount);
     }
 
     public void addBeakers(Matcher matcher) {
         Civilization player = database.getCurrentPlayer().getCivilization();
         int amount = Integer.parseInt(matcher.group("amount"));
         player.setBeakers(player.getBeakers() + amount);
-        gameView.beakersIncreased(amount);
+        // gameView.beakersIncreased(amount);
     }
 
     public void addResource(Matcher matcher) {
@@ -219,7 +214,7 @@ public class GameController {
         int j = Integer.parseInt(matcher.group("j"));
         Resource resource;
         if ((resource = Resource.matchResource(res)) == null) {
-            gameView.noSuchTechnology(res);
+            // gameView.noSuchTechnology(res);
         } else {
             database.getMap()[i][j].addResource(resource);
             database.getCurrentPlayer().getCivilization().getCurrentCity().addResource(resource);
@@ -230,16 +225,16 @@ public class GameController {
         String tech = matcher.group("name").toUpperCase();
         Technology technology;
         if ((technology = Technology.matchTechnology(tech)) == null) {
-            gameView.noSuchTechnology(tech);
+            // gameView.noSuchTechnology(tech);
         } else if (database.getCurrentPlayer().getCivilization().getCities().size() == 0) {
-            gameView.dontHaveCity();
+            // gameView.dontHaveCity();
         } else if (database.getCurrentPlayer().getCivilization().hasTechnology(technology)) {
-            gameView.hadTechnology();
+            // gameView.hadTechnology();
         } else if (database.getCurrentPlayer().getCivilization().getPossibleTechnologies().indexOf(technology) == -1) {
-            gameView.technologyInaccessible();
+            // gameView.technologyInaccessible();
         } else {
             database.getCurrentPlayer().getCivilization().addResearch(technology);
-            gameView.researchAdded();
+            // gameView.researchAdded();
         }
     }
 
@@ -248,27 +243,27 @@ public class GameController {
         Technology tech = player.getcurrentResearch();
         player.addTechnology(tech);
         player.getResearch().remove(tech);
-        gameView.technologyAdded(tech.name());
+        // gameView.technologyAdded(tech.name());
     }
 
     // run
-    public String run() {
-        String state;
-        while (true) {
-            state = gameView.run();
-            if (state.equals("exit")) {
-                return "gameMenu";
-            }
-        }
-    }
+    // public String run() {
+    // String state;
+    // while (true) {
+    // state = gameView.run();
+    // if (state.equals("exit")) {
+    // return "gameMenu";
+    // }
+    // }
+    // }
 
     // info
     public void researchInfo() {
         Civilization player = database.getCurrentPlayer().getCivilization();
-        gameView.printResearchInfo(database.getCurrentPlayer().getNickname(),
-                player.getResearch(),
-                player.getPossibleTechnologies(),
-                player.getTechnologies());
+        // gameView.printResearchInfo(database.getCurrentPlayer().getNickname(),
+        // player.getResearch(),
+        // player.getPossibleTechnologies(),
+        // player.getTechnologies());
 
     }
 
@@ -286,7 +281,7 @@ public class GameController {
                     + milUnit.getPosition().getCoordinates()[0] + ":" + milUnit.getPosition().getCoordinates()[1]
                     + " - " + milUnit.getMovementPoints());
         }
-        gameView.printUnitList(civUnits, milUnits);
+        // gameView.printUnitList(civUnits, milUnits);
     }
 
     public void citiesInfo() {
@@ -295,7 +290,7 @@ public class GameController {
         for (City city : player.getCities()) {
             cities.add(city.getName() + " - Pop." + city.getPopulation());
         }
-        gameView.printCitiesList(cities);
+        // gameView.printCitiesList(cities);
     }
 
     public void demographicInfo() {
@@ -305,7 +300,8 @@ public class GameController {
         info.add(Integer.toString(player.getPopulation()));
         info.add(Integer.toString(player.getHappiness()));
         info.add(Integer.toString(player.getGold()));
-        gameView.printDemographicInfo(database.getCurrentPlayer().getNickname(), info);
+        // gameView.printDemographicInfo(database.getCurrentPlayer().getNickname(),
+        // info);
     }
 
     public void economicInfo() {
@@ -319,7 +315,7 @@ public class GameController {
             info.get(cities.indexOf(city.getName())).add("Food:" + city.getFood());
             info.get(cities.indexOf(city.getName())).add("Production:" + city.getProduction());
         }
-        gameView.printEconomicInfo(cities, info);
+        // gameView.printEconomicInfo(cities, info);
     }
 
     public void addMessage(String msg) {
@@ -327,7 +323,7 @@ public class GameController {
     }
 
     public void notificationInfo() {
-        gameView.printNotifications(database.getCurrentPlayer().getCivilization().getMessages());
+        // gameView.printNotifications(database.getCurrentPlayer().getCivilization().getMessages());
     }
 
     // private void diplomacyInfo() {

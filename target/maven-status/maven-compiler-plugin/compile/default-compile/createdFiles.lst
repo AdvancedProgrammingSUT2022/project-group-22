@@ -21,7 +21,6 @@ civilization/views/ChatPage.class
 civilization/views/Menu$1.class
 civilization/controllers/UnitController.class
 civilization/views/PasswordChangingPage$1.class
-civilization/views/GameView.class
 civilization/views/AvatarChooserPage$2.class
 civilization/views/Menu.class
 civilization/views/ProfileMenu.class
@@ -30,6 +29,7 @@ civilization/views/GameMenu$6.class
 civilization/controllers/LocalDateSerializer.class
 civilization/App.class
 civilization/views/SignUpMenu$1.class
+civilization/views/Game.class
 civilization/views/GameMenu$5.class
 civilization/views/components/AvatarTypeSetter.class
 civilization/views/AvatarChooserPage$1.class
@@ -37,7 +37,6 @@ civilization/controllers/RegisterMenuController.class
 civilization/views/components/GameButton$1.class
 civilization/enums/UnitType.class
 civilization/controllers/ScoreboardMenuController.class
-civilization/views/GameMenuView.class
 civilization/views/UserView.class
 civilization/views/PasswordChangingPage.class
 civilization/views/NicknameChangingPage.class

@@ -1,10 +1,9 @@
 package civilization.controllers;
 
 import civilization.models.*;
-import civilization.views.GameMenuView;
+import civilization.views.*;
 import civilization.enums.*;
 import java.util.*;
-import java.util.regex.*;
 
 public class GameMenuController {
     private static GameMenuController instance = null;
@@ -14,6 +13,16 @@ public class GameMenuController {
     public static GameMenuController getInstance() {
         instance = instance != null ? instance : new GameMenuController();
         return instance;
+    }
+
+    public void startGame(ArrayList<UserView> users) {
+        ArrayList<User> players = new ArrayList<User>();
+        for (UserView user : users) {
+            players.add(database.getUserByUsername(user.getUsername()));
+        }
+        database.createGame(players, 15, 20);
+        // setSettlers(player1, player2);
+        // GameMenuView.getInstance().gameStarted();
     }
 
     // added unit selection for easier testing, could be removed later
@@ -37,33 +46,5 @@ public class GameMenuController {
         i = random.nextInt(tiles.size());
         player2.getCivilization().addCivilianUnit((civUnit = new CivilianUnit(UnitType.SETTLER, tiles.get(i))));
         player2.getCivilization().setCurrentCivilian(civUnit);
-    }
-
-    public void startGame(User player1, User player2) {
-        ArrayList<User> players = new ArrayList<User>();
-        players.add(player1);
-        players.add(player2);
-        database.createGame(players, 20, 42);
-        setSettlers(player1, player2);
-        GameMenuView.getInstance().gameStarted();
-    }
-
-    public Boolean playGame(Matcher matcher) {
-        User player1 = Database.getInstance().getUserByUsername(matcher.group("username1").trim());
-        User player2 = Database.getInstance().getUserByUsername(matcher.group("username2").trim());
-        if (player1 == null) {
-            GameMenuView.getInstance().noUserExists(1);
-            return false;
-        } else if (player2 == null) {
-            GameMenuView.getInstance().noUserExists(2);
-            return false;
-        } else {
-            startGame(player1, player2);
-            return true;
-        }
-    }
-
-    public String run() {
-        return GameMenuView.getInstance().run();
     }
 }
