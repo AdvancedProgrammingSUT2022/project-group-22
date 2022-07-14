@@ -155,3 +155,5 @@ lib/.DS_Store
 src/main/java/civilization/Main.java
 src/main/java/module-info.java
 target/**
+src/main/.DS_Store
+src/main/java/.DS_Store
