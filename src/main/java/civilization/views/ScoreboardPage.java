@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import civilization.controllers.ScoreboardMenuController;
 import javafx.geometry.*;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -35,10 +35,8 @@ public class ScoreboardPage extends Menu {
     }
 
     public void addElements() {
-        Text title = createText("scoreboard");
-        BorderPane.setAlignment(title, Pos.CENTER);
-        BorderPane.setMargin(title, new Insets(70, 0, 0, 0));
-        pane.setTop(title);
+        addTitle();
+        addBackButton();
 
         Rectangle rectangle = new Rectangle(900, 550);
         rectangle.setArcWidth(30);
@@ -60,8 +58,20 @@ public class ScoreboardPage extends Menu {
         centerPane.getChildren().addAll(rectangle, bgGrid, mainGrid);
 
         pane.setCenter(centerPane);
+    }
 
-        pane.setBottom(createSwitchSceneButton("back", ProfileMenu.getInstance().getPane().getScene()));
+    public void addTitle() {
+        Text title = createText("scoreboard");
+        BorderPane.setAlignment(title, Pos.CENTER);
+        BorderPane.setMargin(title, new Insets(70, 0, 0, 0));
+        pane.setTop(title);
+    }
+
+    public void addBackButton() {
+        Button backButton = createSwitchSceneButton("back", MainMenu.getInstance().getPane().getScene());
+        BorderPane.setAlignment(backButton, Pos.CENTER);
+        BorderPane.setMargin(backButton, new Insets(0, 0, 20, 0));
+        pane.setBottom(backButton);
     }
 
     public void addRatings(ArrayList<UserView> users) {

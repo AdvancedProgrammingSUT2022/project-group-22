@@ -62,8 +62,9 @@ public class Menu {
         return label;
     }
 
-    public static Button createSwitchSceneButton(String text , Scene scene) {
+    public static Button createSwitchSceneButton(String text, Scene scene) {
         Button button = new Button(text);
+        button.setFont(textFont);
         button.setStyle("-fx-background-color: none;");
         button.setTextFill(Color.WHITE);
         button.setOnAction(new EventHandler<ActionEvent>() {
