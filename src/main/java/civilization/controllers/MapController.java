@@ -41,7 +41,7 @@ public class MapController extends GameController {
         TileView[][] map = new TileView[database.getMap().length][database.getMap()[0].length];
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                Tile tile = database.getMap()[i][j];
+                map[i][j] = generateTileView(database.getMap()[i][j]);
             }
         }
         return map;
@@ -123,6 +123,6 @@ public class MapController extends GameController {
     }
 
     public TileView generateTileView(Tile tile) {
-        return new TileView(tile.getLandType().getUrl(), tile.getFeature().getUrl());
+        return new TileView(tile.getLandType().getUrl(), tile.getFeature() != null ? tile.getFeature().getUrl() : null);
     }
 }

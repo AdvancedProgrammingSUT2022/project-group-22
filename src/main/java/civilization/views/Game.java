@@ -7,12 +7,12 @@ import civilization.controllers.*;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 
 public class Game extends Menu {
     private static Game instance;
     private ScrollPane pane;
-    private GridPane tiles;
+    private AnchorPane tiles;
 
     public static Game getInstance() {
         return instance != null ? instance : new Game();
@@ -29,7 +29,7 @@ public class Game extends Menu {
                         new ArrayList<UserView>(ScoreboardMenuController.getInstance().createUserView().subList(0, 2)));
 
         pane = new ScrollPane();
-        pane.setContent(tiles = new GridPane());
+        pane.setContent(tiles = new AnchorPane());
         Scene scene = new Scene(pane, 1280, 800);
         createMap(MapController.getInstance().getMap());
     }
@@ -39,7 +39,11 @@ public class Game extends Menu {
             for (int j = 0; j < map[0].length; j++) {
                 ImageView tile = new ImageView(
                         new Image(App.class.getResource(map[i][j].getTileImage()).toExternalForm()));
-                tiles.add(tile, j, i);
+                tile.setFitWidth(100);
+                tile.setPreserveRatio(true);
+                // double xCoord = x * TILE_WIDTH + (y % 2) * n + xStartOffset;
+                // double yCoord = y * TILE_HEIGHT * 0.75 + yStartOffset;
+                tiles.getChildren().add(tile);
             }
         }
     }

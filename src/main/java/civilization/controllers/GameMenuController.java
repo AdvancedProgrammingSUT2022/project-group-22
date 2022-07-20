@@ -17,9 +17,11 @@ public class GameMenuController {
 
     public void startGame(ArrayList<UserView> users) {
         ArrayList<User> players = new ArrayList<User>();
-        for (UserView user : users) {
-            players.add(database.getUserByUsername(user.getUsername()));
-        }
+        // for (UserView user : users) {
+        // players.add(database.getUserByUsername(user.getUsername()));
+        // }
+        players.add(database.getUsers().get(0));
+        players.add(database.getUsers().get(1));
         database.createGame(players, 15, 20);
         // setSettlers(player1, player2);
         // GameMenuView.getInstance().gameStarted();
