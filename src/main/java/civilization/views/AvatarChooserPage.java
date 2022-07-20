@@ -1,36 +1,39 @@
 package civilization.views;
 
 import civilization.App;
-import civilization.controllers.ProfileMenuController;
 import civilization.enums.Avatar;
+import civilization.models.Database;
+import civilization.models.User;
 import civilization.views.components.AvatarTypeSetter;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
-import java.io.*;
-import java.net.MalformedURLException;
-import java.nio.file.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class AvatarChooserPage extends Menu {
+public class AvatarChooserPage extends Menu{
     private static AvatarChooserPage instance = null;
     private static Scene scene;
     private BorderPane avatarPane;
     private Avatar choosenAvatar;
 
-    private AvatarChooserPage() {
+
+    private AvatarChooserPage(){
         avatarPane = new BorderPane();
         scene = new Scene(avatarPane, 1280, 800);
         avatarPane.setBackground(new Background(backgroundImage));
@@ -45,7 +48,8 @@ public class AvatarChooserPage extends Menu {
         return avatarPane;
     }
 
-    private void addElements() {
+
+    private void addElements(){
         VBox vBox = new VBox();
         vBox.setSpacing(20);
         vBox.setAlignment(Pos.CENTER);
@@ -57,17 +61,18 @@ public class AvatarChooserPage extends Menu {
         vBox.getChildren().add(createRandomButton());
         vBox.getChildren().add(createUploadButton());
         vBox.getChildren().add(createApplyButton());
-        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenu.getInstance().getPane().getScene()));
+        vBox.getChildren().add(createSwitchSceneButton("cancel",ProfileMenu.getInstance().getPane().getScene()));
 
         avatarPane.setCenter(vBox);
     }
+
 
     private HBox createAvatarsToChoose() {
         HBox hBox = new HBox();
         hBox.setSpacing(60);
         hBox.setAlignment(Pos.CENTER);
         List<AvatarTypeSetter> avatarList = new ArrayList<>();
-        for (Avatar avatar : Avatar.getAvatarSelection()) {
+        for (Avatar avatar : Avatar.values()) {
             AvatarTypeSetter avatarToPick = new AvatarTypeSetter(avatar);
             avatarList.add(avatarToPick);
             hBox.getChildren().add(avatarToPick);
@@ -80,7 +85,8 @@ public class AvatarChooserPage extends Menu {
                     }
                     avatarToPick.setIsChoosen(true);
                     choosenAvatar = avatarToPick.getAvatar();
-                    ProfileMenuController.getInstance().changeAvatar(choosenAvatar);
+                    ImageView temp = new ImageView(new Image(App.class.getResource(choosenAvatar.getUrl()).toExternalForm()));
+                    Database.getInstance().getLoggedInUser().setAvatar(temp);
                 }
             });
         }
@@ -94,7 +100,8 @@ public class AvatarChooserPage extends Menu {
             public void handle(ActionEvent event) {
                 Random random = new Random();
                 int i = random.nextInt(Avatar.values().length);
-                ProfileMenuController.getInstance().changeAvatar(Avatar.values()[i]);
+                ImageView temp = new ImageView(new Image(App.class.getResource(Avatar.values()[i].getUrl()).toExternalForm()));
+                Database.getInstance().getLoggedInUser().setAvatar(temp);
                 App.setScene(ProfileMenu.getInstance().getPane().getScene());
             }
         });
@@ -110,11 +117,8 @@ public class AvatarChooserPage extends Menu {
                 fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("png Files", "*.png"));
                 File selectedFile = fileChooser.showOpenDialog(null);
                 if (selectedFile != null) {
-                    // try {
-                    // ProfileMenuController.getInstance().changeAvatar(selectedFile.toURI().toURL());
-                    // } catch (MalformedURLException e) {
-                    // e.printStackTrace();
-                    // }
+                    Image image = new Image(selectedFile.toURI().toString());
+                    Database.getInstance().getLoggedInUser().setAvatar(new ImageView(image));
                     App.setScene(ProfileMenu.getInstance().getPane().getScene());
                 }
             }

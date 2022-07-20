@@ -8,25 +8,17 @@ public enum Avatar {
     AMBIORIX("/civilization/png/icons/2.png"),
     BASIL("/civilization/png/icons/3.png"),
     BATRIO("/civilization/png/icons/4.png"),
-    CATHERINE_DE_MEDICI("/civilization/png/icons/5.png"),
-    CLEOPATRA("/civilization/png/icons/6.png"),
-    CYRUS("/civilization/png/icons/7.png"),
-    GANDHI("/civilization/png/icons/8.png"),
-    GORGO("/civilization/png/icons/9.png");
-    // DIDO("/civilization/png/icons/11.png");
+    CATHERINE_DE_MEDICI("/civilization/png/icons/5.png");
+//    CLEOPATRA("/civilization/png/icons/6.png"),
+//    CYRUS("/civilization/png/icons/7.png"),
+//    GANDHI("/civilization/png/icons/8.png"),
+//    GORGO("/civilization/png/icons/9.png");
+//    DIDO("/civilization/png/icons/11.png");
 
     private String url;
 
     private Avatar(String url) {
         this.url = url;
-    }
-
-    public static ArrayList<Avatar> getAvatarSelection() {
-        ArrayList<Avatar> res = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            res.add(Avatar.values()[i]);
-        }
-        return res;
     }
 
     public String getUrl() {

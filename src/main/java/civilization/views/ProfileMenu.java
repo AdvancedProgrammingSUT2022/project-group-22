@@ -3,6 +3,7 @@ package civilization.views;
 import civilization.App;
 import civilization.models.Database;
 import civilization.views.components.GameButton;
+import civilization.views.AvatarChooserPage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

@@ -82,12 +82,12 @@ public class ProfileMenuController {
 //    }
 
     public void changeAvatar(Avatar avatar) {
-        try {
-            database.getLoggedInUser().setAvatar(avatar);
-            RegisterMenuController.saveUsers();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            database.getLoggedInUser().setAvatar(avatar);
+//            RegisterMenuController.saveUsers();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void menuNavigation() {
