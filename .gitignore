@@ -157,3 +157,5 @@ src/main/java/module-info.java
 target/**
 src/main/.DS_Store
 src/main/java/.DS_Store
+src/main/resources/civilization/.DS_Store
+src/main/java/civilization/views/.DS_Store
