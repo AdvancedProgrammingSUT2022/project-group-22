@@ -1,7 +1,7 @@
 package civilization.views;
 
 import civilization.App;
-import civilization.controllers.ProfileMenuController;
+import civilization.models.Database;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,9 +58,13 @@ public class NicknameChangingPage extends Menu{
         applyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String response = ProfileMenuController.getInstance().changeNickname(nicknameField.getText());
-                showPopUp(response);
-                if(response.equals("nickname changed successfully")){
+                if(Database.getInstance().getUserByNickname(nicknameField.getText()) != null){
+                    showPopUp("user with nickname " + nicknameField.getText() + " already exists");
+                }
+                else{
+                    showPopUp("nickname changed successfully");
+                    Database.getInstance().getLoggedInUser().setNickname(nicknameField.getText());
+                    System.out.println(Database.getInstance().getLoggedInUser().getNickname());
                     App.setScene(ProfileMenu.getInstance().getPane().getScene());
                 }
             }

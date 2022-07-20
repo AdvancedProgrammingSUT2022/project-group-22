@@ -14,13 +14,13 @@ public class User {
     private String username;
     private String password;
     private String nickname;
-    private ImageView avatar;
+    private Avatar avatar;
     private Civilization civilization;
     private int score;
     private LocalDateTime lastWinTime;
     private LocalDateTime lastLoginTime;
 
-    public User(String username, String password, String nickname, ImageView avatar,
+    public User(String username, String password, String nickname, Avatar avatar,
             Civilization civilization, int score, LocalDateTime lastWinTime, LocalDateTime lastLoginTime) {
         this.username = username;
         this.password = password;
@@ -57,11 +57,10 @@ public class User {
     }
 
     public ImageView getAvatar() {
-        return avatar;
-//        return new ImageView(new Image(App.class.getResource(this.avatar.getUrl()).toExternalForm()));
+        return new ImageView(new Image(App.class.getResource(this.avatar.getUrl()).toExternalForm()));
     }
 
-    public void setAvatar(ImageView avatar) {
+    public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
 

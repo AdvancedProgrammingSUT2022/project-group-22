@@ -7,9 +7,6 @@ import civilization.views.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -68,15 +65,15 @@ public class RegisterMenuController {
         }
         Random random = new Random();
         int i = random.nextInt(Avatar.values().length);
-        ImageView temp = new ImageView(new Image(App.class.getResource(Avatar.values()[i].getUrl()).toExternalForm()));
-        Database.getInstance().addUser((user = new User(username, password, nickname, temp, null, 0,
-                LocalDateTime.of(1900, 01, 01, 00, 00, 00), LocalDateTime.of(1900, 01, 01, 00, 00, 00))));
+        Database.getInstance()
+                .addUser((user = new User(username, password, nickname, Avatar.values()[i], null, 0,
+                        LocalDateTime.of(1900, 01, 01, 00, 00, 00), LocalDateTime.of(1900, 01, 01, 00, 00, 00))));
         Database.getInstance().setLoggedInUser(user);
-//        try {
-//            RegisterMenuController.saveUsers();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            RegisterMenuController.saveUsers();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
@@ -92,11 +89,11 @@ public class RegisterMenuController {
         }
         Database.getInstance().setLoggedInUser(user);
         Database.getInstance().getLoggedInUser().setLastLoginTime(LocalDateTime.now());
-//        try {
-//            RegisterMenuController.saveUsers();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            RegisterMenuController.saveUsers();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 }

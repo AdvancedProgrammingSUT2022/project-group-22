@@ -3,7 +3,6 @@ package civilization;
 import civilization.controllers.*;
 import civilization.models.Database;
 import civilization.views.*;
-import civilization.views.FirstPage;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,7 +16,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //RegisterMenuController.loadUsers();
+        RegisterMenuController.loadUsers();
         mainStage = new Stage();
         mainStage.setTitle("Civilization");
         mainStage.setScene(FirstPage.getInstance().getPane().getScene());

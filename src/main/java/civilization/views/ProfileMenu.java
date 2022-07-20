@@ -1,9 +1,8 @@
 package civilization.views;
 
 import civilization.App;
-import civilization.controllers.ProfileMenuController;
+import civilization.models.Database;
 import civilization.views.components.GameButton;
-import civilization.views.AvatarChooserPage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -39,7 +38,7 @@ public class ProfileMenu extends Menu {
         vBox.maxWidth(350);
 
         vBox.getChildren().add(createText("PROFILE MENU"));
-        vBox.getChildren().add(ProfileMenuController.getInstance().getAvatar());
+        vBox.getChildren().add(Database.getInstance().getLoggedInUser().getAvatar());
         // vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getNickname()));
         // vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getUsername()));
         // vBox.getChildren().add(createText(Database.getInstance().getLoggedInUser().getPassword()));
