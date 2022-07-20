@@ -7,34 +7,30 @@ public enum LandType {
             Arrays.asList(Resource.IRON, Resource.GOLD, Resource.SILVER, Resource.GEMS, Resource.MARBLE,
                     Resource.COTTON, Resource.INCENSE, Resource.SHEEP),
             Arrays.asList(Improvement.FARM, Improvement.MINE, Improvement.PASTURE, Improvement.PLANTATION,
-                    Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY),
-            "/civilization/png/tiles/Desert.png"),
+                    Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY)),
     GRASSLAND(2, 0, 0, -33, 1, Color.GREEN_BRIGHT_BG, Feature.JUNGLE, Feature.SWAMP,
             Arrays.asList(Resource.IRON, Resource.HORSE, Resource.COAL, Resource.COW, Resource.GOLD,
                     Resource.GEMS, Resource.MARBLE, Resource.COTTON, Resource.SHEEP),
             Arrays.asList(Improvement.FARM, Improvement.MINE, Improvement.PASTURE, Improvement.PLANTATION,
-                    Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY),
-            "/civilization/png/tiles/Grassland.png"),
+                    Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY)),
     HILL(0, 2, 0, +25, 2, Color.RED_BRIGHT_BG, Feature.JUNGLE, Feature.FOREST,
             Arrays.asList(Resource.IRON, Resource.COAL, Resource.GAZELLE,
                     Resource.GOLD, Resource.SILVER, Resource.GEMS, Resource.MARBLE, Resource.SHEEP),
-            Arrays.asList(Improvement.CAMP, Improvement.MINE, Improvement.QUARRY), "/civilization/png/tiles/Hill.png"),
-    MOUNTAIN(0, 0, 0, 0, -1, Color.RED_BG, null, null, null, null, "/civilization/png/tiles/Mountain.png"),
-    OCEAN(0, 0, 0, 0, -1, Color.BLUE_BRIGHT_BG, null, null, null, null, "/civilization/png/tiles/Ocean.png"),
+            Arrays.asList(Improvement.CAMP, Improvement.MINE, Improvement.QUARRY)),
+    MOUNTAIN(0, 0, 0, 0, -1, Color.RED_BG, null, null, null, null),
+    OCEAN(0, 0, 0, 0, -1, Color.BLUE_BRIGHT_BG, null, null, null, null),
     PLAIN(1, 1, 0, -33, 1, Color.GREEN_BG, Feature.JUNGLE, Feature.FOREST,
             Arrays.asList(Resource.IRON, Resource.HORSE, Resource.COAL, Resource.WHEAT, Resource.GOLD, Resource.GEMS,
                     Resource.MARBLE, Resource.IVORY, Resource.COTTON, Resource.INCENSE, Resource.SHEEP),
             Arrays.asList(Improvement.CAMP, Improvement.FARM, Improvement.MINE, Improvement.PASTURE,
-                    Improvement.PLANTATION, Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY),
-            "/civilization/png/tiles/Plain.png"),
+                    Improvement.PLANTATION, Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY)),
     SNOW(0, 0, 0, -33, 1, Color.WHITE_BRIGHT_BG, null, null, Arrays.asList(Resource.IRON),
-            Arrays.asList(Improvement.MINE, Improvement.FACTORY), "/civilization/png/tiles/Snow.png"),
+            Arrays.asList(Improvement.MINE, Improvement.FACTORY)),
     TUNDRA(1, 0, 0, -33, 1, Color.PURPLE_BRIGHT_BG, Feature.JUNGLE, null,
             Arrays.asList(Resource.IRON, Resource.HORSE, Resource.GAZELLE,
                     Resource.SILVER, Resource.GEMS, Resource.MARBLE, Resource.FURS),
             Arrays.asList(Improvement.CAMP, Improvement.FARM, Improvement.MINE, Improvement.PASTURE,
-                    Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY),
-            "/civilization/png/tiles/Tundra.png");
+                    Improvement.QUARRY, Improvement.TRADINGPOST, Improvement.FACTORY));
 
     private final int food;
     private final int production;
@@ -46,12 +42,11 @@ public enum LandType {
     private final Feature feature2;
     private final List<Resource> resources;
     private final List<Improvement> improvements;
-    private final String url;
 
     private final Random random = new Random();
 
     LandType(int food, int production, int gold, int combatModifier, int movementCost, Color color,
-            Feature feature1, Feature feature2, List<Resource> resources, List<Improvement> improvements, String url) {
+            Feature feature1, Feature feature2, List<Resource> resources, List<Improvement> improvements) {
         this.food = food;
         this.combatModifier = combatModifier;
         this.gold = gold;
@@ -62,7 +57,6 @@ public enum LandType {
         this.feature2 = feature2;
         this.resources = resources;
         this.improvements = improvements;
-        this.url = url;
     }
 
     public LandType randomLandType() {
@@ -89,7 +83,7 @@ public enum LandType {
     }
 
     public String getUrl() {
-        return url;
+        return "/civilization/png/map/" + this.name().toLowerCase() + ".png";
     }
 
     public List<Improvement> getImprovements() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import civilization.App;
 import civilization.controllers.*;
+import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.*;
@@ -13,6 +14,12 @@ public class Game extends Menu {
     private static Game instance;
     private ScrollPane pane;
     private AnchorPane tiles;
+
+    private static double TILE_HEIGHT = 196;
+    private static double TILE_WIDTH = 224;
+    private static double OFFSET = 56;
+    private static double FEATURE_WIDTH = 160;
+    private static double RESOURCE_WIDTH = 130;
 
     public static Game getInstance() {
         return instance != null ? instance : new Game();
@@ -30,24 +37,48 @@ public class Game extends Menu {
 
         pane = new ScrollPane();
         pane.setContent(tiles = new AnchorPane());
+        tiles.setStyle("-fx-background-color: #0B589E;");
         Scene scene = new Scene(pane, 1280, 800);
         createMap(MapController.getInstance().getMap());
     }
 
     public void createMap(TileView[][] map) {
-        double tileHeight = 196;
-        double tileWidth = 224;
-        double offset = 56;
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                ImageView tile = new ImageView(
-                        new Image(App.class.getResource(map[i][j].getTileImage()).toExternalForm()));
-                tile.setFitWidth(tileWidth);
-                tile.setPreserveRatio(true);
-                AnchorPane.setTopAnchor(tile, j * tileHeight + i % 2 * tileHeight / 2);
-                AnchorPane.setLeftAnchor(tile, i * (tileWidth - offset));
+                StackPane tile = new StackPane();
+                createTile(map[i][j], tile);
+                AnchorPane.setTopAnchor(tile, j * TILE_HEIGHT + i % 2 * TILE_HEIGHT / 2);
+                AnchorPane.setLeftAnchor(tile, i * (TILE_WIDTH - OFFSET));
                 tiles.getChildren().add(tile);
             }
+        }
+    }
+
+    public void createTile(TileView tileView, StackPane tile) {
+        ImageView terrain = new ImageView(
+                new Image(App.class.getResource(tileView.getTileImage()).toExternalForm()));
+        terrain.setFitWidth(TILE_WIDTH);
+        terrain.setPreserveRatio(true);
+        tile.getChildren().add(terrain);
+
+        if (tileView.getFeatureImage() != null) {
+            ImageView feature = new ImageView(
+                    new Image(App.class.getResource(tileView.getFeatureImage()).toExternalForm()));
+            feature.setFitWidth(FEATURE_WIDTH);
+            feature.setPreserveRatio(true);
+            StackPane.setAlignment(feature, Pos.TOP_RIGHT);
+            StackPane.setMargin(feature, new Insets(3, 3, 0, 0));
+            tile.getChildren().add(feature);
+        }
+
+        if (tileView.getResourceImage() != null) {
+            ImageView resource = new ImageView(
+                    new Image(App.class.getResource(tileView.getResourceImage()).toExternalForm()));
+            resource.setFitWidth(RESOURCE_WIDTH);
+            resource.setPreserveRatio(true);
+            StackPane.setAlignment(resource, Pos.BOTTOM_LEFT);
+            StackPane.setMargin(resource, new Insets(0, 0, 3, 3));
+            tile.getChildren().add(resource);
         }
     }
 }

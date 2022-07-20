@@ -50,6 +50,10 @@ public enum Resource {
         return null;
     }
 
+    public String getUrl() {
+        return "/civilization/png/map/" + this.name().toLowerCase() + ".png";
+    }
+
     public String getType() {
         return this.type;
     }

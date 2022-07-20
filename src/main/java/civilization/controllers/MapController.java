@@ -123,6 +123,7 @@ public class MapController extends GameController {
     }
 
     public TileView generateTileView(Tile tile) {
-        return new TileView(tile.getLandType().getUrl(), tile.getFeature() != null ? tile.getFeature().getUrl() : null);
+        return new TileView(tile.getLandType().getUrl(), tile.getFeature() != null ? tile.getFeature().getUrl() : null,
+                tile.getResource() != null ? tile.getResource().getUrl() : null);
     }
 }
