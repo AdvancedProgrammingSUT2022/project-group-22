@@ -41,7 +41,6 @@ civilization/views/UserView.class
 civilization/views/PasswordChangingPage.class
 civilization/views/NicknameChangingPage.class
 civilization/views/GameMenu$4.class
-civilization/views/Processor.class
 civilization/views/MainMenu$2.class
 civilization/views/GameMenu.class
 civilization/controllers/GameMenuController.class

@@ -35,14 +35,17 @@ public class Game extends Menu {
     }
 
     public void createMap(TileView[][] map) {
+        double tileHeight = 196;
+        double tileWidth = 224;
+        double offset = 56;
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
                 ImageView tile = new ImageView(
                         new Image(App.class.getResource(map[i][j].getTileImage()).toExternalForm()));
-                tile.setFitWidth(100);
+                tile.setFitWidth(tileWidth);
                 tile.setPreserveRatio(true);
-                // double xCoord = x * TILE_WIDTH + (y % 2) * n + xStartOffset;
-                // double yCoord = y * TILE_HEIGHT * 0.75 + yStartOffset;
+                AnchorPane.setTopAnchor(tile, j * tileHeight + i % 2 * tileHeight / 2);
+                AnchorPane.setLeftAnchor(tile, i * (tileWidth - offset));
                 tiles.getChildren().add(tile);
             }
         }
