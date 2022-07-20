@@ -1,26 +1,24 @@
 package civilization.views;
 
 import civilization.App;
-import civilization.models.Database;
+import civilization.controllers.ProfileMenuController;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class PasswordChangingPage extends Menu{
+public class PasswordChangingPage extends Menu {
     private static Scene scene;
     private BorderPane pane;
     private PasswordField firstField;
     private PasswordField secondField;
 
-
-    public PasswordChangingPage(){
+    public PasswordChangingPage() {
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
@@ -31,7 +29,7 @@ public class PasswordChangingPage extends Menu{
         return pane;
     }
 
-    private void addElements(){
+    private void addElements() {
         VBox vBox = new VBox();
         vBox.setSpacing(20);
         vBox.setAlignment(Pos.CENTER);
@@ -44,7 +42,7 @@ public class PasswordChangingPage extends Menu{
         vBox.getChildren().add(addNewPasswordField());
 
         vBox.getChildren().add(createApplyButton());
-        vBox.getChildren().add(createSwitchSceneButton("cancel",ProfileMenu.getInstance().getPane().getScene()));
+        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenu.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }
@@ -65,20 +63,15 @@ public class PasswordChangingPage extends Menu{
         return secondField;
     }
 
-    public GameButton createApplyButton(){
+    public GameButton createApplyButton() {
         GameButton applyButton = new GameButton("Apply");
         applyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if(!firstField.getText().equals(Database.getInstance().getLoggedInUser().getPassword())){
-                    showPopUp("current password is invalid");
-                }
-                else if(firstField.getText().equals(secondField.getText())){
-                    showPopUp("enter a new password");
-                }
-                else{
-                    showPopUp("password changed successfully");
-                    Database.getInstance().getLoggedInUser().setPassword(secondField.getText());
+                String response = ProfileMenuController.getInstance().changePassword(firstField.getText(),
+                        secondField.getText());
+                showPopUp(response);
+                if (response.equals("password changed successfully")) {
                     App.setScene(ProfileMenu.getInstance().getPane().getScene());
                 }
             }

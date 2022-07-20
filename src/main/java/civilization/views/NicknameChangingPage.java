@@ -1,25 +1,23 @@
 package civilization.views;
 
 import civilization.App;
-import civilization.models.Database;
+import civilization.controllers.ProfileMenuController;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class NicknameChangingPage extends Menu{
+public class NicknameChangingPage extends Menu {
     private static Scene scene;
     private BorderPane pane;
     private TextField nicknameField;
 
-
-    public NicknameChangingPage(){
+    public NicknameChangingPage() {
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
@@ -30,7 +28,7 @@ public class NicknameChangingPage extends Menu{
         return pane;
     }
 
-    private void addElements(){
+    private void addElements() {
         VBox vBox = new VBox();
         vBox.setSpacing(20);
         vBox.setAlignment(Pos.CENTER);
@@ -40,7 +38,7 @@ public class NicknameChangingPage extends Menu{
         vBox.getChildren().add(addNicknameField());
 
         vBox.getChildren().add(createApplyButton());
-        vBox.getChildren().add(createSwitchSceneButton("cancel",ProfileMenu.getInstance().getPane().getScene()));
+        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenu.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }
@@ -53,18 +51,14 @@ public class NicknameChangingPage extends Menu{
         return nicknameField;
     }
 
-    public GameButton createApplyButton(){
+    public GameButton createApplyButton() {
         GameButton applyButton = new GameButton("Apply");
         applyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if(Database.getInstance().getUserByNickname(nicknameField.getText()) != null){
-                    showPopUp("user with nickname " + nicknameField.getText() + " already exists");
-                }
-                else{
-                    showPopUp("nickname changed successfully");
-                    Database.getInstance().getLoggedInUser().setNickname(nicknameField.getText());
-                    System.out.println(Database.getInstance().getLoggedInUser().getNickname());
+                String response = ProfileMenuController.getInstance().changeNickname(nicknameField.getText());
+                showPopUp(response);
+                if (response.equals("nickname changed successfully")) {
                     App.setScene(ProfileMenu.getInstance().getPane().getScene());
                 }
             }

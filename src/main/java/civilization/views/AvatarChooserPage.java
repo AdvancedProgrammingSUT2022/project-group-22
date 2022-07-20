@@ -14,12 +14,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Path;
 import javafx.stage.FileChooser;
-
 import java.io.*;
-import java.net.MalformedURLException;
-import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
