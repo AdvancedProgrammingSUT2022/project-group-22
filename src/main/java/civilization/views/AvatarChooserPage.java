@@ -1,15 +1,13 @@
 package civilization.views;
 
 import civilization.App;
+import civilization.controllers.ProfileMenuController;
 import civilization.enums.Avatar;
-import civilization.models.Database;
-import civilization.models.User;
 import civilization.views.components.AvatarTypeSetter;
 import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,7 +16,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -86,7 +83,7 @@ public class AvatarChooserPage extends Menu{
                     avatarToPick.setIsChoosen(true);
                     choosenAvatar = avatarToPick.getAvatar();
                     ImageView temp = new ImageView(new Image(App.class.getResource(choosenAvatar.getUrl()).toExternalForm()));
-                    Database.getInstance().getLoggedInUser().setAvatar(temp);
+                    ProfileMenuController.getInstance().setAvatar(temp);
                 }
             });
         }
@@ -101,7 +98,7 @@ public class AvatarChooserPage extends Menu{
                 Random random = new Random();
                 int i = random.nextInt(Avatar.values().length);
                 ImageView temp = new ImageView(new Image(App.class.getResource(Avatar.values()[i].getUrl()).toExternalForm()));
-                Database.getInstance().getLoggedInUser().setAvatar(temp);
+                ProfileMenuController.getInstance().setAvatar(temp);
                 App.setScene(ProfileMenu.getInstance().getPane().getScene());
             }
         });
@@ -118,7 +115,7 @@ public class AvatarChooserPage extends Menu{
                 File selectedFile = fileChooser.showOpenDialog(null);
                 if (selectedFile != null) {
                     Image image = new Image(selectedFile.toURI().toString());
-                    Database.getInstance().getLoggedInUser().setAvatar(new ImageView(image));
+                    ProfileMenuController.getInstance().setAvatar(new ImageView(image));
                     App.setScene(ProfileMenu.getInstance().getPane().getScene());
                 }
             }
