@@ -4,11 +4,21 @@ public class TileView {
     private String tileImage;
     private String featureImage;
     private String resourceImage;
+    private Boolean fogOfWar;
 
-    public TileView(String tileImage, String featureImage, String resourceImage) {
+    public TileView(String tileImage, String featureImage, String resourceImage, Boolean fogOfWar) {
         this.tileImage = tileImage;
         this.featureImage = featureImage;
         this.resourceImage = resourceImage;
+        this.fogOfWar = fogOfWar;
+    }
+
+    public Boolean getFogOfWar() {
+        return fogOfWar;
+    }
+
+    public void setFogOfWar(Boolean fogOfWar) {
+        this.fogOfWar = fogOfWar;
     }
 
     public String getResourceImage() {

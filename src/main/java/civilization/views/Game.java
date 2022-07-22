@@ -67,7 +67,7 @@ public class Game extends Menu {
             feature.setFitWidth(FEATURE_WIDTH);
             feature.setPreserveRatio(true);
             StackPane.setAlignment(feature, Pos.TOP_RIGHT);
-            StackPane.setMargin(feature, new Insets(3, 3, 0, 0));
+            StackPane.setMargin(feature, new Insets(8, 8, 0, 0));
             tile.getChildren().add(feature);
         }
 
@@ -77,8 +77,17 @@ public class Game extends Menu {
             resource.setFitWidth(RESOURCE_WIDTH);
             resource.setPreserveRatio(true);
             StackPane.setAlignment(resource, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(resource, new Insets(0, 0, 3, 3));
+            StackPane.setMargin(resource, new Insets(0, 0, 5, 5));
             tile.getChildren().add(resource);
         }
+
+        // if (tileView.getFogOfWar()) {
+        // ImageView clouds = new ImageView(
+        // new
+        // Image(App.class.getResource("/civilization/png/map/cloud.png").toExternalForm()));
+        // clouds.setFitWidth(TILE_WIDTH);
+        // clouds.setPreserveRatio(true);
+        // tile.getChildren().add(clouds);
+        // }
     }
 }

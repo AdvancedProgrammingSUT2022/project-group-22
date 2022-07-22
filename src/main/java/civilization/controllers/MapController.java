@@ -123,7 +123,19 @@ public class MapController extends GameController {
     }
 
     public TileView generateTileView(Tile tile) {
-        return new TileView(tile.getLandType().getUrl(), tile.getFeature() != null ? tile.getFeature().getUrl() : null,
-                tile.getResource() != null ? tile.getResource().getUrl() : null);
+        if (database.getCurrentPlayer().getCivilization().findTile(tile) == 1) {
+            return new TileView(tile.getLandType().getUrl(),
+                    tile.getFeature() != null ? tile.getFeature().getUrl() : null,
+                    canShowResource(tile.getResource()) ? tile.getResource().getUrl() : null, false);
+        } else if (database.getCurrentPlayer().getCivilization().findTile(tile) == 0) {
+            Tile revealedTile = database.getCurrentPlayer().getCivilization().getRevealedTile(tile);
+            return new TileView(revealedTile.getLandType().getUrl(),
+                    revealedTile.getFeature() != null ? revealedTile.getFeature().getUrl() : null,
+                    canShowResource(revealedTile.getResource()) ? revealedTile.getResource().getUrl() : null, false);
+        } else {
+            return new TileView(tile.getLandType().getUrl(),
+                    tile.getFeature() != null ? tile.getFeature().getUrl() : null,
+                    canShowResource(tile.getResource()) ? tile.getResource().getUrl() : null, true);
+        }
     }
 }
