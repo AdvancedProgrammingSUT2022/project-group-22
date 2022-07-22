@@ -4,6 +4,8 @@ import java.time.format.*;
 import java.util.ArrayList;
 
 import civilization.controllers.ScoreboardMenuController;
+import civilization.views.components.Menu;
+import civilization.views.components.UserView;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -68,7 +70,7 @@ public class ScoreboardPage extends Menu {
     }
 
     public void addBackButton() {
-        Button backButton = createSwitchSceneButton("back", MainMenu.getInstance().getPane().getScene());
+        Button backButton = createSwitchSceneButton("back", MainMenuPage.getInstance().getPane().getScene());
         BorderPane.setAlignment(backButton, Pos.CENTER);
         BorderPane.setMargin(backButton, new Insets(0, 0, 20, 0));
         pane.setBottom(backButton);

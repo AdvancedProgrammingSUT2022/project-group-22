@@ -1,8 +1,9 @@
-package civilization.views;
+package civilization.views.ProfileMenuView;
 
 import civilization.App;
 import civilization.models.Database;
-import civilization.views.components.GameButton;
+import civilization.views.*;
+import civilization.views.components.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -11,20 +12,20 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class ProfileMenu extends Menu {
-    private static ProfileMenu instance = null;
+public class ProfileMenuPage extends Menu {
+    private static ProfileMenuPage instance = null;
     private static Scene scene;
     private BorderPane pane;
 
-    private ProfileMenu() {
+    private ProfileMenuPage() {
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
         addElements();
     }
 
-    public static ProfileMenu getInstance() {
-        return instance == null ? new ProfileMenu() : instance;
+    public static ProfileMenuPage getInstance() {
+        return instance == null ? new ProfileMenuPage() : instance;
     }
 
     public BorderPane getPane() {
@@ -46,7 +47,7 @@ public class ProfileMenu extends Menu {
         vBox.getChildren().add(createPasswordButton());
         vBox.getChildren().add(createNicknameButton());
         vBox.getChildren()
-                .add((createSwitchSceneButton("return to main", MainMenu.getInstance().getPane().getScene())));
+                .add((createSwitchSceneButton("return to main", MainMenuPage.getInstance().getPane().getScene())));
 
         pane.setCenter(vBox);
     }

@@ -2,6 +2,7 @@ package civilization.controllers;
 
 import civilization.models.*;
 import civilization.views.*;
+import civilization.views.components.UserView;
 import civilization.enums.*;
 import java.util.*;
 

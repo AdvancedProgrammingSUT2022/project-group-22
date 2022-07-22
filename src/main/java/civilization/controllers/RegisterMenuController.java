@@ -4,6 +4,8 @@ import civilization.App;
 import civilization.enums.*;
 import civilization.models.*;
 import civilization.views.*;
+import civilization.views.components.Menu;
+
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;

@@ -1,7 +1,8 @@
 package civilization.views;
 
 import civilization.App;
-import civilization.views.components.GameButton;
+import civilization.views.RegisterMenuView.*;
+import civilization.views.components.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -52,7 +53,7 @@ public class FirstPage extends Menu {
 
             @Override
             public void handle(ActionEvent event) {
-                LoginMenu loginMenu = new LoginMenu();
+                LoginPage loginMenu = new LoginPage();
                 App.setScene(loginMenu.getPane().getScene());
                 return;
             }
@@ -68,7 +69,7 @@ public class FirstPage extends Menu {
 
             @Override
             public void handle(ActionEvent event) {
-                SignUpMenu signUpMenu = new SignUpMenu();
+                SignUpPage signUpMenu = new SignUpPage();
                 App.setScene(signUpMenu.getPane().getScene());
                 return;
             }

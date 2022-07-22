@@ -1,17 +1,19 @@
-package civilization.views;
+package civilization.views.GameView;
 
 import java.util.ArrayList;
 
 import civilization.App;
 import civilization.controllers.*;
+import civilization.views.*;
+import civilization.views.components.*;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 
-public class Game extends Menu {
-    private static Game instance;
+public class Map extends Menu {
+    private static Map instance;
     private ScrollPane pane;
     private AnchorPane tiles;
 
@@ -21,15 +23,15 @@ public class Game extends Menu {
     private static double FEATURE_WIDTH = 160;
     private static double RESOURCE_WIDTH = 130;
 
-    public static Game getInstance() {
-        return instance != null ? instance : new Game();
+    public static Map getInstance() {
+        return instance != null ? instance : new Map();
     }
 
     public ScrollPane getPane() {
         return this.pane;
     }
 
-    private Game() {
+    private Map() {
         // test
         GameMenuController.getInstance()
                 .startGame(

@@ -3,6 +3,8 @@ package civilization.controllers;
 import civilization.enums.*;
 import civilization.models.*;
 import civilization.views.*;
+import civilization.views.components.TileView;
+
 import java.util.*;
 
 public class MapController extends GameController {

@@ -1,5 +1,6 @@
 package civilization.views;
 
+import civilization.views.components.Menu;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;

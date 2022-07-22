@@ -1,10 +1,10 @@
-package civilization.views;
+package civilization.views.ProfileMenuView;
 
+import civilization.views.*;
+import civilization.views.components.*;
 import civilization.App;
 import civilization.controllers.ProfileMenuController;
 import civilization.enums.Avatar;
-import civilization.views.components.AvatarTypeSetter;
-import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -53,7 +53,7 @@ public class AvatarChooserPage extends Menu {
         vBox.getChildren().add(createRandomButton());
         vBox.getChildren().add(createUploadButton());
         vBox.getChildren().add(createApplyButton());
-        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenu.getInstance().getPane().getScene()));
+        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenuPage.getInstance().getPane().getScene()));
 
         avatarPane.setCenter(vBox);
     }
@@ -91,7 +91,7 @@ public class AvatarChooserPage extends Menu {
                 Random random = new Random();
                 int i = random.nextInt(Avatar.values().length);
                 ProfileMenuController.getInstance().changeAvatar(Avatar.values()[i]);
-                App.setScene(ProfileMenu.getInstance().getPane().getScene());
+                App.setScene(ProfileMenuPage.getInstance().getPane().getScene());
             }
         });
         return randomButton;
@@ -111,7 +111,7 @@ public class AvatarChooserPage extends Menu {
                     // } catch (MalformedURLException e) {
                     // e.printStackTrace();
                     // }
-                    App.setScene(ProfileMenu.getInstance().getPane().getScene());
+                    App.setScene(ProfileMenuPage.getInstance().getPane().getScene());
                 }
             }
         });
@@ -123,7 +123,7 @@ public class AvatarChooserPage extends Menu {
         applyButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                App.setScene(ProfileMenu.getInstance().getPane().getScene());
+                App.setScene(ProfileMenuPage.getInstance().getPane().getScene());
             }
         });
         return applyButton;

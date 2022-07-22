@@ -4,6 +4,7 @@ import java.util.*;
 
 import civilization.models.*;
 import civilization.views.*;
+import civilization.views.components.UserView;
 
 public class ScoreboardMenuController {
     private static ScoreboardMenuController instance = null;

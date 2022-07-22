@@ -1,8 +1,9 @@
-package civilization.views;
+package civilization.views.ProfileMenuView;
 
+import civilization.views.*;
+import civilization.views.components.*;
 import civilization.App;
 import civilization.controllers.ProfileMenuController;
-import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -38,7 +39,7 @@ public class NicknameChangingPage extends Menu {
         vBox.getChildren().add(addNicknameField());
 
         vBox.getChildren().add(createApplyButton());
-        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenu.getInstance().getPane().getScene()));
+        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenuPage.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }
@@ -59,7 +60,7 @@ public class NicknameChangingPage extends Menu {
                 String response = ProfileMenuController.getInstance().changeNickname(nicknameField.getText());
                 showPopUp(response);
                 if (response.equals("nickname changed successfully")) {
-                    App.setScene(ProfileMenu.getInstance().getPane().getScene());
+                    App.setScene(ProfileMenuPage.getInstance().getPane().getScene());
                 }
             }
         });

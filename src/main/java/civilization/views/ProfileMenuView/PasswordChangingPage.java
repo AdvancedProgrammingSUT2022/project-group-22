@@ -1,8 +1,9 @@
-package civilization.views;
+package civilization.views.ProfileMenuView;
 
+import civilization.views.*;
+import civilization.views.components.*;
 import civilization.App;
 import civilization.controllers.ProfileMenuController;
-import civilization.views.components.GameButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -42,7 +43,7 @@ public class PasswordChangingPage extends Menu {
         vBox.getChildren().add(addNewPasswordField());
 
         vBox.getChildren().add(createApplyButton());
-        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenu.getInstance().getPane().getScene()));
+        vBox.getChildren().add(createSwitchSceneButton("cancel", ProfileMenuPage.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }
@@ -72,7 +73,7 @@ public class PasswordChangingPage extends Menu {
                         secondField.getText());
                 showPopUp(response);
                 if (response.equals("password changed successfully")) {
-                    App.setScene(ProfileMenu.getInstance().getPane().getScene());
+                    App.setScene(ProfileMenuPage.getInstance().getPane().getScene());
                 }
             }
         });

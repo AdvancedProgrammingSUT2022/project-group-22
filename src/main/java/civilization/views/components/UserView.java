@@ -1,4 +1,4 @@
-package civilization.views;
+package civilization.views.components;
 
 import javafx.scene.image.ImageView;
 

@@ -1,8 +1,9 @@
-package civilization.views;
+package civilization.views.RegisterMenuView;
 
 import civilization.App;
 import civilization.controllers.RegisterMenuController;
-import civilization.views.components.GameButton;
+import civilization.views.*;
+import civilization.views.components.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -13,13 +14,13 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class LoginMenu extends Menu {
+public class LoginPage extends Menu {
     private static Scene scene;
     private BorderPane pane;
     private TextField usernameField;
     private PasswordField passwordField;
 
-    public LoginMenu() {
+    public LoginPage() {
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
@@ -45,7 +46,7 @@ public class LoginMenu extends Menu {
         vBox.getChildren().add(addPasswordField());
 
         vBox.getChildren().add(addLoginButton());
-        vBox.getChildren().add(createSwitchSceneButton("return",FirstPage.getInstance().getPane().getScene()));
+        vBox.getChildren().add(createSwitchSceneButton("return", FirstPage.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }
@@ -80,7 +81,7 @@ public class LoginMenu extends Menu {
                     showPopUp("Please enter a password.");
                 } else if (RegisterMenuController.login(username, password)) {
                     showPopUp("user logged in successfully");
-                    App.setScene(MainMenu.getInstance().getPane().getScene());
+                    App.setScene(MainMenuPage.getInstance().getPane().getScene());
                 }
             }
         });

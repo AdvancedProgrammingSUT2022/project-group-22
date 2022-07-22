@@ -1,4 +1,4 @@
-package civilization.views;
+package civilization.views.components;
 
 public class TileView {
     private String tileImage;

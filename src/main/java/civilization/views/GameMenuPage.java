@@ -1,6 +1,6 @@
 package civilization.views;
 
-import civilization.views.components.GameButton;
+import civilization.views.components.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -11,17 +11,17 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class GameMenu extends Menu {
+public class GameMenuPage extends Menu {
 
-    private static GameMenu instance = null;
+    private static GameMenuPage instance = null;
     private static Scene scene;
     private BorderPane pane;
 
-    public static GameMenu getInstance() {
-        return instance == null ? new GameMenu() : instance;
+    public static GameMenuPage getInstance() {
+        return instance == null ? new GameMenuPage() : instance;
     }
 
-    private GameMenu() {
+    private GameMenuPage() {
         pane = new BorderPane();
         scene = new Scene(pane, 1280, 800);
         pane.setBackground(new Background(backgroundImage));
@@ -45,84 +45,84 @@ public class GameMenu extends Menu {
         vBox.getChildren().add(addMapButton());
         vBox.getChildren().add(addContinueButton());
         vBox.getChildren().add(addAutoSaveButton());
-        vBox.getChildren().add(createSwitchSceneButton("return", MainMenu.getInstance().getPane().getScene()));
+        vBox.getChildren().add(createSwitchSceneButton("return", MainMenuPage.getInstance().getPane().getScene()));
 
         pane.setCenter(vBox);
     }
 
-    private GameButton addStartButton(){
+    private GameButton addStartButton() {
         GameButton startButton = new GameButton("start");
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //ToDo start
+                // ToDo start
             }
         });
-        setTooltip("starts new game",startButton);
+        setTooltip("starts new game", startButton);
         return startButton;
     }
 
-    private GameButton addBattleButton(){
+    private GameButton addBattleButton() {
         GameButton battleButton = new GameButton("battle");
         battleButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //ToDo combat
+                // ToDo combat
             }
         });
         setTooltip("play game with someone you choose", battleButton);
         return battleButton;
     }
 
-    private GameButton addPlayerButton(){
+    private GameButton addPlayerButton() {
         GameButton playerButton = new GameButton("players");
         playerButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //ToDo set player numbers
+                // ToDo set player numbers
             }
         });
         setTooltip("set number of players", playerButton);
         return playerButton;
     }
 
-    private GameButton addMapButton(){
+    private GameButton addMapButton() {
         GameButton mapButton = new GameButton("map");
         mapButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //ToDo set map dimensions
+                // ToDo set map dimensions
             }
         });
         setTooltip("set map dimensions", mapButton);
         return mapButton;
     }
 
-    private GameButton addContinueButton(){
+    private GameButton addContinueButton() {
         GameButton continueButton = new GameButton("continue");
         continueButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //ToDo go to previous games page
+                // ToDo go to previous games page
             }
         });
         setTooltip("Continuation of previous games", continueButton);
         return continueButton;
     }
 
-    private GameButton addAutoSaveButton(){
+    private GameButton addAutoSaveButton() {
         GameButton autoSaveButton = new GameButton("autoSave");
         autoSaveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //ToDo go to auto save setting
+                // ToDo go to auto save setting
             }
         });
         setTooltip("go to auto save setting", autoSaveButton);
         return autoSaveButton;
     }
 
-    private void setTooltip(String text, Button button){
+    private void setTooltip(String text, Button button) {
         Tooltip tooltip = new Tooltip(text);
         Tooltip.install(button, tooltip);
     }
