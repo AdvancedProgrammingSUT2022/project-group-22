@@ -53,8 +53,6 @@ public class MainMenu extends Menu {
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                Database.getInstance().setLoggedInUser(null);
-                // todo log out
                 Request request = new Request();
                 request.setHeader("logout");
                 request.addData("jwt", User.getJwt());

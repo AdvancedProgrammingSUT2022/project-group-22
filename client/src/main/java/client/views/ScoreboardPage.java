@@ -1,10 +1,12 @@
 package client.views;
 
+import client.App;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
@@ -82,16 +84,15 @@ public class ScoreboardPage extends Menu {
     public void addRatings(ArrayList<UserView> users) {
         int i = 1;
         for (UserView user : users) {
-            ImageView avatar = user.getAvatar();
+            ImageView avatar = new ImageView(new Image(App.class.getResource(user.getAvatar()).toExternalForm()));
             avatar.setPreserveRatio(true);
             avatar.setFitHeight(36);
             mainGrid.add(avatar, 1, i);
             mainGrid.add(createLabel(user.getNickname()), 2, i);
             mainGrid.add(createLabel(Integer.toString(user.getScore())), 3, i);
-            mainGrid.add(createLabel(user.getLastWinTime().format(DateTimeFormatter.ofPattern("MMM d uuuu, HH:mm:ss"))),
+            mainGrid.add(createLabel(user.getLastWinTime()),
                     4, i);
-            Label lastLoginTime = createLabel("Last Login: "
-                    + user.getLastLoginTime().format(DateTimeFormatter.ofPattern("MMM d uuuu, HH:mm:ss")));
+            Label lastLoginTime = createLabel("Last Login: " + user.getLastLoginTime());
             lastLoginTime.setTextFill(Color.web(user.isCurrentUser() ? "#404040" : "#587189"));
             mainGrid.add(lastLoginTime, 5, i);
 

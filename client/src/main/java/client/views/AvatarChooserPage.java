@@ -100,7 +100,6 @@ public class AvatarChooserPage extends Menu{
                 Random random = new Random();
                 int i = random.nextInt(Avatar.values().length);
                 //ImageView temp = new ImageView(new Image(App.class.getResource(Avatar.values()[i].getUrl()).toExternalForm()));
-                //todo set avatar at server
                 setAvatarRequest(Avatar.values()[i].getUrl());
                 //ProfileMenuController.getInstance().setAvatar(temp);
                 App.setScene(ProfileMenu.getInstance().getPane().getScene());

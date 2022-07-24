@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 public class UserView {
     private String username;
     private String nickname;
-    private ImageView avatar;
-    private int score;
-    private LocalDateTime lastWinTime;
-    private LocalDateTime lastLoginTime;
+    private String avatar;
+    private String lastWinTime;
+    private String lastLoginTime;
     private Boolean isCurrentUser;
+    private int score;
 
-    public UserView(String username, String nickname, ImageView avatar, int score, LocalDateTime lastWinTime,
-            LocalDateTime lastLoginTime, Boolean isCurrentUser) {
+    public UserView(String username, String nickname, String avatar, int score, String lastWinTime,
+            String lastLoginTime, Boolean isCurrentUser) {
         this.nickname = nickname;
         this.avatar = avatar;
         this.score = score;
@@ -39,11 +39,11 @@ public class UserView {
         this.nickname = nickname;
     }
 
-    public ImageView getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(ImageView avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -55,19 +55,19 @@ public class UserView {
         this.score = score;
     }
 
-    public LocalDateTime getLastWinTime() {
+    public String getLastWinTime() {
         return lastWinTime;
     }
 
-    public void setLastWinTime(LocalDateTime lastWinTime) {
+    public void setLastWinTime(String lastWinTime) {
         this.lastWinTime = lastWinTime;
     }
 
-    public LocalDateTime getLastLoginTime() {
+    public String getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(LocalDateTime lastLoginTime) {
+    public void setLastLoginTime(String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
