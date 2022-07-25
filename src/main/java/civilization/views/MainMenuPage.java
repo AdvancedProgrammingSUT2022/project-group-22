@@ -41,8 +41,8 @@ public class MainMenuPage extends Menu {
         vBox.getChildren().add(createText("MAIN MENU"));
         vBox.getChildren().add(addLogoutButton());
         vBox.getChildren().add(addProfileButton());
-        vBox.getChildren().add(addScoreboardButton());
         vBox.getChildren().add(addGameMenuButton());
+        vBox.getChildren().add(addScoreboardButton());
 
         pane.setCenter(vBox);
     }

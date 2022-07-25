@@ -43,7 +43,15 @@ public class MapController extends GameController {
         TileView[][] map = new TileView[database.getMap().length][database.getMap()[0].length];
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                map[i][j] = generateTileView(database.getMap()[i][j]);
+                Tile tile = database.getMap()[i][j];
+                if (database.getCurrentPlayer().getCivilization().findTile(tile) == 1) {
+                    map[i][j] = generateTileView(tile, false);
+                } else if (database.getCurrentPlayer().getCivilization().findTile(tile) == 0) {
+                    map[i][j] = generateTileView(database.getCurrentPlayer().getCivilization().getRevealedTile(tile),
+                            false);
+                } else {
+                    map[i][j] = generateTileView(tile, true);
+                }
             }
         }
         return map;
@@ -124,20 +132,67 @@ public class MapController extends GameController {
         }
     }
 
-    public TileView generateTileView(Tile tile) {
-        if (database.getCurrentPlayer().getCivilization().findTile(tile) == 1) {
-            return new TileView(tile.getLandType().getUrl(),
-                    tile.getFeature() != null ? tile.getFeature().getUrl() : null,
-                    canShowResource(tile.getResource()) ? tile.getResource().getUrl() : null, false);
-        } else if (database.getCurrentPlayer().getCivilization().findTile(tile) == 0) {
-            Tile revealedTile = database.getCurrentPlayer().getCivilization().getRevealedTile(tile);
-            return new TileView(revealedTile.getLandType().getUrl(),
-                    revealedTile.getFeature() != null ? revealedTile.getFeature().getUrl() : null,
-                    canShowResource(revealedTile.getResource()) ? revealedTile.getResource().getUrl() : null, false);
-        } else {
-            return new TileView(tile.getLandType().getUrl(),
-                    tile.getFeature() != null ? tile.getFeature().getUrl() : null,
-                    canShowResource(tile.getResource()) ? tile.getResource().getUrl() : null, true);
-        }
+    public TileView generateTileView(Tile tile, Boolean fogOfWar) {
+        int[] food = { tile.getLandType().getFood(), 0, 0 };
+        int[] production = { tile.getLandType().getProduction(), 0, 0 };
+        int[] gold = { tile.getLandType().getGold(), 0, 0 };
+        int[] combatModifier = { tile.getLandType().getCombatModifier(), 0 };
+        int[] movementCost = { tile.getLandType().getMovementCost(), 0 };
+
+        return new TileView(food, production, gold, combatModifier, movementCost, tile.getLandType().getUrl(),
+                tile.getFeature() != null ? tile.getFeature().getUrl() : null,
+                canShowResource(tile.getResource()) ? tile.getResource().getUrl() : null, false);
     }
+
+    // int[] food = { tile.getLandType().getFood(),
+    // tile.getFeature() != null ? tile.getFeature().getFood() : null,
+    // tile.getResource() != null ? tile.getResource().getFood() : null };
+    // int[] production = { tile.getLandType().getProduction(),
+    // tile.getFeature() != null ? tile.getFeature().getProduction() : null,
+    // tile.getResource() != null ? tile.getResource().getProduction() : null };
+    // int[] gold = { tile.getLandType().getGold(), tile.getFeature() != null ?
+    // tile.getFeature().getGold() : null,
+    // tile.getResource() != null ? tile.getFeature().getGold() : null };
+    // int[] combatModifier = { tile.getLandType().getCombatModifier(),
+    // tile.getFeature() != null ? tile.getFeature().getCombatModifier() : null };
+    // int[] movementCost = { tile.getLandType().getMovementCost(),
+    // tile.getFeature() != null ? tile.getFeature().getMovementCost() : null };
+
+    // int[] food = { tile.getLandType().getFood() == 0 ? 0 :
+    // tile.getLandType().getFood(),
+    // tile.getFeature() != null ? (tile.getFeature().getFood() == 0 ? 0 :
+    // tile.getFeature().getFood()) : null,
+    // tile.getResource() != null ? (tile.getResource().getFood() == 0 ? 0 :
+    // tile.getResource().getFood())
+    // : null };
+    // int[] production = { tile.getLandType().getProduction() == 0 ? 0 :
+    // tile.getLandType().getProduction(),
+    // tile.getFeature() != null
+    // ? (tile.getFeature().getProduction() == 0 ? 0 :
+    // tile.getFeature().getProduction())
+    // : null,
+    // tile.getResource() != null
+    // ? (tile.getResource().getProduction() == 0 ? 0 :
+    // tile.getResource().getProduction())
+    // : null };
+    // int[] gold = { tile.getLandType().getGold() == 0 ? 0 :
+    // tile.getLandType().getGold(),
+    // tile.getFeature() != null ? (tile.getFeature().getGold() == 0 ? 0 :
+    // tile.getFeature().getGold()) : null,
+    // tile.getResource() != null ? (tile.getResource().getGold() == 0 ? 0 :
+    // tile.getResource().getGold())
+    // : null };
+    // int[] combatModifier = {
+    // tile.getLandType().getCombatModifier() == 0 ? 0 :
+    // tile.getLandType().getCombatModifier(),
+    // tile.getFeature() != null
+    // ? (tile.getFeature().getCombatModifier() == 0 ? 0 :
+    // tile.getFeature().getCombatModifier())
+    // : null };
+    // int[] movementCost = { tile.getLandType().getMovementCost() == 0 ? 0 :
+    // tile.getLandType().getMovementCost(),
+    // tile.getFeature() != null
+    // ? (tile.getFeature().getMovementCost() == 0 ? 0 :
+    // tile.getFeature().getMovementCost())
+    // : null };
 }

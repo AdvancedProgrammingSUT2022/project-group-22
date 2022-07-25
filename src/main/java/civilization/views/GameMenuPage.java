@@ -1,5 +1,7 @@
 package civilization.views;
 
+import civilization.App;
+import civilization.views.GameView.Map;
 import civilization.views.components.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,7 +60,7 @@ public class GameMenuPage extends Menu {
                 // ToDo start
             }
         });
-        setTooltip("starts new game", startButton);
+        setTooltip("Start a new game", startButton);
         return startButton;
     }
 
@@ -70,31 +72,31 @@ public class GameMenuPage extends Menu {
                 // ToDo combat
             }
         });
-        setTooltip("play game with someone you choose", battleButton);
+        setTooltip("Play with other players", battleButton);
         return battleButton;
     }
 
     private GameButton addPlayerButton() {
-        GameButton playerButton = new GameButton("players");
+        GameButton playerButton = new GameButton("set players");
         playerButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // ToDo set player numbers
             }
         });
-        setTooltip("set number of players", playerButton);
+        setTooltip("Set number of players", playerButton);
         return playerButton;
     }
 
     private GameButton addMapButton() {
-        GameButton mapButton = new GameButton("map");
+        GameButton mapButton = new GameButton("map size");
         mapButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // ToDo set map dimensions
             }
         });
-        setTooltip("set map dimensions", mapButton);
+        setTooltip("Set map dimensions", mapButton);
         return mapButton;
     }
 
@@ -103,22 +105,22 @@ public class GameMenuPage extends Menu {
         continueButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // ToDo go to previous games page
+                App.setScene(Map.getInstance().getPane().getScene());
             }
         });
-        setTooltip("Continuation of previous games", continueButton);
+        setTooltip("Continue your last game", continueButton);
         return continueButton;
     }
 
     private GameButton addAutoSaveButton() {
-        GameButton autoSaveButton = new GameButton("autoSave");
+        GameButton autoSaveButton = new GameButton("auto save");
         autoSaveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // ToDo go to auto save setting
             }
         });
-        setTooltip("go to auto save setting", autoSaveButton);
+        setTooltip("Go to auto save setting", autoSaveButton);
         return autoSaveButton;
     }
 

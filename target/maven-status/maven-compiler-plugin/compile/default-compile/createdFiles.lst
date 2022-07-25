@@ -3,6 +3,7 @@ civilization/views/GameMenuPage$1.class
 civilization/models/CivilianUnit.class
 civilization/views/components/GameButton$3.class
 civilization/views/GameView/Map.class
+civilization/views/components/UnitView.class
 civilization/views/GameMenuPage.class
 civilization/models/Civilization.class
 civilization/views/ProfileMenuView/NicknameChangingPage.class
@@ -43,6 +44,7 @@ civilization/views/ScoreboardPage.class
 civilization/enums/Technology.class
 civilization/views/ProfileMenuView/AvatarChooserPage$3.class
 civilization/controllers/RegisterMenuController$1.class
+civilization/views/GameView/Map$1.class
 civilization/views/GameMenuPage$4.class
 civilization/views/FirstPage$3.class
 civilization/models/Database.class
@@ -58,6 +60,7 @@ civilization/views/components/GameButton$1.class
 civilization/views/components/Menu$1.class
 civilization/controllers/ScoreboardMenuController.class
 civilization/controllers/MapController.class
+civilization/views/GameView/Map$2.class
 civilization/views/ProfileMenuView/ProfileMenuPage$1.class
 civilization/views/components/GameButton$2.class
 civilization/views/components/UserView.class
