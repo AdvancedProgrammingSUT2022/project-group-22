@@ -57,6 +57,10 @@ public enum UnitType {
         return null;
     }
 
+    public String getUrl() {
+        return "/civilization/png/units/" + this.name().toLowerCase() + ".png";
+    }
+
     public int getCost() {
         return this.cost;
     }

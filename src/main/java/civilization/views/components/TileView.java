@@ -1,66 +1,109 @@
 package civilization.views.components;
 
 public class TileView {
-    private int[] food;
-    private int[] production;
-    private int[] gold;
-    private int[] combatModifier;
-    private int[] movementCost;
+    private int[] coordinates;
+    private int food;
+    private int production;
+    private int gold;
+    private int combatModifier;
+    private int movementCost;
+    private String landType;
+    private String feature;
+    private String resource;
     private String tileImage;
     private String featureImage;
     private String resourceImage;
     private Boolean fogOfWar;
 
-    public TileView(int[] food, int[] production, int[] gold, int[] combatModifier, int[] movementCost,
-            String tileImage, String featureImage, String resourceImage, Boolean fogOfWar) {
+    public TileView(int[] coordinates, int food, int production, int gold, int combatModifier, int movementCost,
+            String landType,
+            String feature, String resource, String tileImage, String featureImage, String resourceImage,
+            Boolean fogOfWar) {
+        this.coordinates = coordinates;
+
         this.food = food;
-        this.food = production;
-        this.food = gold;
-        this.food = combatModifier;
-        this.food = movementCost;
+        this.production = production;
+        this.gold = gold;
+        this.combatModifier = combatModifier;
+        this.movementCost = movementCost;
+        this.landType = landType;
+        this.feature = feature;
+        this.resource = resource;
         this.tileImage = tileImage;
         this.featureImage = featureImage;
         this.resourceImage = resourceImage;
         this.fogOfWar = fogOfWar;
     }
 
-    public int[] getMovementCost() {
+    public int[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(int[] coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public String getResource() {
+        return resource;
+    }
+
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
+
+    public String getFeature() {
+        return feature;
+    }
+
+    public void setFeature(String feature) {
+        this.feature = feature;
+    }
+
+    public String getLandType() {
+        return landType;
+    }
+
+    public void setLandType(String landType) {
+        this.landType = landType;
+    }
+
+    public int getMovementCost() {
         return movementCost;
     }
 
-    public void setMovementCost(int[] movementCost) {
+    public void setMovementCost(int movementCost) {
         this.movementCost = movementCost;
     }
 
-    public int[] getCombatModifier() {
+    public int getCombatModifier() {
         return combatModifier;
     }
 
-    public void setCombatModifier(int[] combatModifier) {
+    public void setCombatModifier(int combatModifier) {
         this.combatModifier = combatModifier;
     }
 
-    public int[] getGold() {
+    public int getGold() {
         return gold;
     }
 
-    public void setGold(int[] gold) {
+    public void setGold(int gold) {
         this.gold = gold;
     }
 
-    public int[] getProduction() {
+    public int getProduction() {
         return production;
     }
 
-    public void setProduction(int[] production) {
+    public void setProduction(int production) {
         this.production = production;
     }
 
-    public int[] getFood() {
+    public int getFood() {
         return food;
     }
 
-    public void setFood(int[] food) {
+    public void setFood(int food) {
         this.food = food;
     }
 

@@ -17,6 +17,7 @@ civilization/views/ProfileMenuView/NicknameChangingPage$1.class
 civilization/App.class
 civilization/views/components/AvatarTypeSetter.class
 civilization/enums/UnitType.class
+civilization/views/GameView/Map$3.class
 civilization/controllers/GameMenuController.class
 civilization/views/ProfileMenuView/PasswordChangingPage.class
 civilization/controllers/LocalDateTimeSerializer.class

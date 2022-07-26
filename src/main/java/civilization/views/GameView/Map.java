@@ -1,7 +1,6 @@
 package civilization.views.GameView;
 
 import java.util.ArrayList;
-
 import civilization.App;
 import civilization.controllers.*;
 import civilization.views.*;
@@ -12,18 +11,19 @@ import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 
 public class Map extends Menu {
     private static Map instance = null;
+    private Scene scene;
     private StackPane stackPane;
     private ScrollPane scrollPane;
     private AnchorPane tiles;
-    private StackPane infoBox;
+    Text info;
 
     private static double TILE_HEIGHT = 196;
     private static double TILE_WIDTH = 224;
@@ -46,36 +46,48 @@ public class Map extends Menu {
                         new ArrayList<UserView>(ScoreboardMenuController.getInstance().createUserView().subList(0, 2)));
 
         stackPane = new StackPane();
+        scene = new Scene(stackPane, 1280, 800);
         addElements();
-        Scene scene = new Scene(stackPane, 1280, 800);
     }
 
     public void addElements() {
         createMap(MapController.getInstance().getMap());
-        // addInfoBox();
-        // setInfoText(MapController.getInstance().getMap()[1][1], null);
+        addInfoBox();
+        setInfoText(MapController.getInstance().getMap()[1][1], null);
         addBackButton();
+        addCheatMenu();
     }
 
     public void addInfoBox() {
-        infoBox = new StackPane();
-
-        Rectangle background = new Rectangle(300, 400);
-        background.setArcWidth(30);
-        background.setArcHeight(20);
-        background.setFill(Color.web("#00224A", 0.8));
-        infoBox.getChildren().add(background);
-
-        StackPane.setMargin(infoBox, new Insets(0, 20, 20, 0));
+        Rectangle infoBox = new Rectangle(250, 350);
+        infoBox.setArcWidth(30);
+        infoBox.setArcHeight(20);
+        infoBox.setFill(Color.web("#00224A", 0.8));
         StackPane.setAlignment(infoBox, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(infoBox, new Insets(0, 20, 20, 0));
         stackPane.getChildren().add(infoBox);
     }
 
     public void setInfoText(TileView tile, UnitView unit) {
-        if (unit == null) {
-            createLabel("Food");
+        stackPane.getChildren().remove(info);
+
+        if (tile != null) {
+            info = new Text("Coordinates: [" + tile.getCoordinates()[0] + ", " + tile.getCoordinates()[1] + "]"
+                    + "\nLand Type: " + tile.getLandType() + "\nFeature: " + tile.getFeature() + "\nResource: "
+                    + tile.getResource() + "\nFood: " + tile.getFood() + "\nProduction: " + tile.getProduction()
+                    + "\nGold: " + tile.getGold());
         } else {
+            info = new Text();
         }
+        info.setFont(textFont);
+        info.setFill(Color.WHITE);
+        info.setStyle("-fx-font-size: 15;");
+        info.setLineSpacing(8);
+        info.setTextAlignment(TextAlignment.CENTER);
+
+        StackPane.setAlignment(info, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(info, new Insets(0, 60, 130, 0));
+        stackPane.getChildren().add(info);
     }
 
     public void addBackButton() {
@@ -104,15 +116,17 @@ public class Map extends Menu {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
                 StackPane tile = new StackPane();
-                createTile(map[i][j], tile);
-                AnchorPane.setTopAnchor(tile, j * TILE_HEIGHT + i % 2 * TILE_HEIGHT / 2);
-                AnchorPane.setLeftAnchor(tile, i * (TILE_WIDTH - OFFSET));
+                createTile(map[i][j], MapController.getTileUnit(i, j), tile);
+                AnchorPane.setTopAnchor(tile, i * TILE_HEIGHT + (j % 2) * TILE_HEIGHT / 2);
+                AnchorPane.setLeftAnchor(tile, j * (TILE_WIDTH - OFFSET));
                 tiles.getChildren().add(tile);
             }
         }
+
+        addFogOfWar(map);
     }
 
-    public void createTile(TileView tileView, StackPane tile) {
+    public void createTile(TileView tileView, UnitView[] unitViews, StackPane tile) {
         ImageView terrain = new ImageView(
                 new Image(App.class.getResource(tileView.getTileImage()).toExternalForm()));
         terrain.setFitWidth(TILE_WIDTH);
@@ -140,22 +154,56 @@ public class Map extends Menu {
             tile.getChildren().add(resource);
         }
 
-        // if (tileView.getFogOfWar()) {
-        // ImageView clouds = new ImageView(
-        // new
-        // Image(App.class.getResource("/civilization/png/map/cloud.png").toExternalForm()));
-        // clouds.setFitWidth(TILE_WIDTH);
-        // clouds.setPreserveRatio(true);
-        // tile.getChildren().add(clouds);
-        // }
+        if (unitViews[0] != null) {
+        }
+
+        if (unitViews[1] != null) {
+        }
+    }
+
+    public void addFogOfWar(TileView[][] map) {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                if (map[i][j].getFogOfWar()) {
+                    ImageView clouds = new ImageView(
+                            new Image(App.class.getResource("/civilization/png/map/cloud.png").toExternalForm()));
+                    clouds.setFitWidth(TILE_WIDTH);
+                    clouds.setPreserveRatio(true);
+                    AnchorPane.setTopAnchor(clouds, i * TILE_HEIGHT + j % 2 * TILE_HEIGHT / 2);
+                    AnchorPane.setLeftAnchor(clouds, j * (TILE_WIDTH - OFFSET));
+                    tiles.getChildren().add(clouds);
+                } else {
+                    System.out.println(" > " + map[i][j].getCoordinates()[0] + ":" + map[i][j].getCoordinates()[1]);
+                }
+            }
+        }
     }
 
     public void tileUI(ImageView terrain, TileView tileView) {
         terrain.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (!tileView.getFogOfWar()) {
+                if (true || !tileView.getFogOfWar()) {
                     setInfoText(tileView, null);
+                }
+            }
+        });
+    }
+
+    public void addCheatMenu() {
+        KeyCodeCombination cheatMenu = new KeyCodeCombination(KeyCode.W);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                System.out.println("Hi:" + scene);
+                if (cheatMenu.match(event)) {
+                    System.out.println("Here");
+                    TextInputDialog dialog = new TextInputDialog("Enter your cheat code");
+                    dialog.setTitle("Cheat Sheet");
+                    dialog.setContentText("Cheat Code:");
+                    dialog.setHeaderText(null);
+                    dialog.setGraphic(null);
+                    dialog.show();
                 }
             }
         });

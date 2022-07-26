@@ -21,10 +21,11 @@ public class GameMenuController {
         // for (UserView user : users) {
         // players.add(database.getUserByUsername(user.getUsername()));
         // }
-        players.add(database.getUsers().get(0));
-        players.add(database.getUsers().get(1));
+        User player1, player2;
+        players.add((player1 = database.getUsers().get(0)));
+        players.add((player2 = database.getUsers().get(1)));
         database.createGame(players, 15, 20);
-        // setSettlers(player1, player2);
+        setSettlers(player1, player2);
         // GameMenuView.getInstance().gameStarted();
     }
 

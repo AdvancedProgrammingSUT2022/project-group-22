@@ -162,47 +162,32 @@ public class Database {
     public Tile getNeighbor(Tile tile, int side) {
         int i = tile.getCoordinates()[0];
         int j = tile.getCoordinates()[1];
-        int x = map.length;
-        int y = map[0].length;
-        if (side == 0) {
-            return i - 1 >= 0 && i - 1 < x ? map[i - 1][j] : null;
-        } else if (side == 1) {
-            return j % 2 == 1 ? (j + 1 >= 0 && j + 1 < y ? map[i][j + 1] : null)
-                    : (i - 1 >= 0 && i - 1 < x && j + 1 >= 0 && j + 1 < y ? map[i - 1][j + 1] : null);
-        } else if (side == 2) {
-            return j % 2 == 1 ? (i + 1 >= 0 && i + 1 < x && j + 1 >= 0 && j + 1 < y ? map[i + 1][j + 1] : null)
-                    : (j + 1 >= 0 && j + 1 < y ? map[i][j + 1] : null);
-        } else if (side == 3) {
-            return i + 1 >= 0 && i + 1 < x ? map[i + 1][j] : null;
-        } else if (side == 4) {
-            return j % 2 == 1 ? (i + 1 >= 0 && i + 1 < x && j - 1 >= 0 && j - 1 < y ? map[i + 1][j - 1] : null)
-                    : (j - 1 >= 0 && j - 1 < y ? map[i][j - 1] : null);
-        } else if (side == 5) {
-            return j % 2 == 1 ? (j - 1 >= 0 && j - 1 < y ? map[i][j - 1] : null)
-                    : (i - 1 >= 0 && i - 1 < x && j - 1 >= 0 && j - 1 < y ? map[i - 1][j - 1] : null);
+        int ip = i, jp = j;
+        side = (side + 36) % 6;
+
+        if (j % 2 == 0) {
+            ip = (side <= 1 || side == 5) ? i - 1 : (side == 3) ? i + 1 : i;
+        } else {
+            ip = (side >= 2 && side <= 4) ? i + 1 : (side == 0) ? i - 1 : i;
         }
-        return null;
+        jp = (side == 1 || side == 2) ? j + 1 : (side >= 4) ? j - 1 : j;
+
+        if (ip < 0 || ip >= map.length || jp < 0 || jp >= map[0].length)
+            return null;
+        return map[ip][jp];
     }
 
     public void getTilesInRange(Tile tile, int range, ArrayList<Tile> tiles) {
-        if (range == 0 || tiles.contains(tile)) {
+        if (tile == null || range < 0)
+            return;
+        if (!tiles.contains(tile)) {
+            tiles.add(tile);
+        }
+        if ((tile.getLandType().equals(LandType.HILL) || tile.getLandType().equals(LandType.MOUNTAIN)) && range != 2) {
             return;
         }
-        tiles.add(tile);
         for (int i = 0; i < 6; i++) {
-            if (getNeighbor(tile, i) != null) {
-                // if (getNeighbor(tile, i).getLandType().equals(LandType.HILL)
-                // || getNeighbor(tile, i).getLandType().equals(LandType.MOUNTAIN)) {
-                // tiles.add(getNeighbor(tile, i));
-                // for (int j = 0; j < 6; j++) {
-                // if (j != (i + 3) % 6 && getNeighbor(getNeighbor(tile, i), j) != null) {
-                // getTilesInRange(getNeighbor(getNeighbor(tile, i), j), range - 1, tiles);
-                // }
-                // }
-                // } else {
-                getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
-                // }
-            }
+            getTilesInRange(getNeighbor(tile, i), range - 1, tiles);
         }
     }
 

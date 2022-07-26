@@ -7,7 +7,7 @@ import java.util.regex.*;
 
 public class GameController {
     private static GameController instance = null;
-    protected Database database = Database.getInstance();
+    protected static Database database = Database.getInstance();
 
     public static GameController getInstance() {
         instance = instance != null ? instance : new GameController();
