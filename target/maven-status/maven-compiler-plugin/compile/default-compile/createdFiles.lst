@@ -1,5 +1,6 @@
 civilization/controllers/GameController$1.class
 civilization/views/GameMenuPage$1.class
+civilization/views/GameView/Map$4.class
 civilization/models/CivilianUnit.class
 civilization/views/components/GameButton$3.class
 civilization/views/GameView/Map.class

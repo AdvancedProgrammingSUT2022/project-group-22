@@ -2,6 +2,7 @@ package civilization.views;
 
 import civilization.App;
 import civilization.models.Database;
+import civilization.views.GameMenuView.GameMenuPage;
 import civilization.views.ProfileMenuView.ProfileMenuPage;
 import civilization.views.components.*;
 import javafx.event.ActionEvent;

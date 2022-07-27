@@ -131,19 +131,29 @@ public class MapController extends GameController {
                 tile.getFeature() != null ? tile.getFeature().name() : "N/A",
                 canShowResource(tile.getResource()) ? tile.getResource().name() : "N/A",
                 tile.getLandType().getUrl(), tile.getFeature() != null ? tile.getFeature().getUrl() : null,
-                canShowResource(tile.getResource()) ? tile.getResource().getUrl() : null, fogOfWar);
+                canShowResource(tile.getResource()) ? tile.getResource().getUrl() : null,
+                tile.getBuilding() != null ? tile.getBuilding().getUrl() : null, fogOfWar);
     }
 
     public static UnitView[] getTileUnit(int i, int j) {
         UnitView[] unitViews = new UnitView[2];
         Unit unit;
-        if ((unit = database.getCivilianUnitByTile(database.getMap()[i][j])) != null) {
-            unitViews[0] = new UnitView(unit.getUnitType().getUrl(), false);
-        }
-        if ((unit = database.getMilitaryUnitByTile(database.getMap()[i][j])) != null) {
-            unitViews[1] = new UnitView(unit.getUnitType().getUrl(), true);
-        }
+        int[] position = { i, j };
+        unitViews[0] = (unit = database.getCivilianUnitByTile(database.getMap()[i][j])) != null
+                ? new UnitView(unit.getUnitType().getUrl(), false, unit.getUnitType().name(),
+                        unit.getMovementPoints(), unit.getCombatStrength(), position)
+                : null;
+        unitViews[1] = (unit = database.getMilitaryUnitByTile(database.getMap()[i][j])) != null
+                ? new UnitView(unit.getUnitType().getUrl(), true, unit.getUnitType().name(),
+                        unit.getMovementPoints(), unit.getCombatStrength(), position)
+                : null;
         return unitViews;
+    }
+
+    public static UnitView getSettler() {
+        Unit unit = database.getCurrentPlayer().getCivilization().getCurrentCivilian();
+        return new UnitView(unit.getUnitType().getUrl(), false, unit.getUnitType().name(), unit.getMovementPoints(),
+                unit.getCombatStrength(), unit.getPosition().getCoordinates());
     }
 
     public void setSelectedTile(TileView tileView) {
@@ -151,27 +161,57 @@ public class MapController extends GameController {
                 .setSelectedTile(database.getMap()[tileView.getCoordinates()[0]][tileView.getCoordinates()[1]]);
     }
 
+    public void setSelectedUnit(UnitView unitView) {
+        Tile tile = database.getMap()[unitView.getPosition()[0]][unitView.getPosition()[1]];
+        if (unitView.isMilitary()) {
+            database.getCurrentPlayer().getCivilization().setCurrentMilitary(database.getMilitaryUnitByTile(tile));
+        } else {
+            database.getCurrentPlayer().getCivilization().setCurrentCivilian(database.getCivilianUnitByTile(tile));
+        }
+    }
+
+    public static Boolean canAccessUnit(UnitView unitView) {
+        Tile tile = database.getMap()[unitView.getPosition()[0]][unitView.getPosition()[1]];
+        Unit unit;
+        if ((!unitView.isMilitary() && (unit = database.getCivilianUnitByTile(tile)) != null)
+                || (unitView.isMilitary() && (unit = database.getMilitaryUnitByTile(tile)) != null)) {
+            if (database.getUnitOwner(unit).equals(database.getCurrentPlayer())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void cheat(String code) {
         Civilization civ = database.getCurrentPlayer().getCivilization();
+        Tile currentTile = civ.getSelectedTile();
         UnitType unit;
         Unit oldUnit;
         Building building;
-        Building oldBuilding;
-        Tile currentTile = civ.getSelectedTile();
-        if ((unit = UnitType.matchUnitType(code.substring(1))) != null) {
-            if (unit.equals(UnitType.SETTLER) || unit.equals(UnitType.WORKER)) {
-                if ((oldUnit = database.getCivilianUnitByTile(currentTile)) != null) {
-                    civ.removeUnit(oldUnit);
+        if (!currentTile.getLandType().equals(LandType.MOUNTAIN) && !currentTile.getLandType().equals(LandType.OCEAN)) {
+            if ((unit = UnitType.matchUnitType(code.substring(1))) != null) {
+                if (unit.equals(UnitType.SETTLER) || unit.equals(UnitType.WORKER)) {
+                    if ((oldUnit = database.getCivilianUnitByTile(currentTile)) != null) {
+                        civ.removeUnit(oldUnit);
+                    }
                     civ.addCivilianUnit(new CivilianUnit(unit, currentTile));
-
-                }
-            } else {
-                if ((oldUnit = database.getMilitaryUnitByTile(currentTile)) != null) {
-                    civ.removeUnit(oldUnit);
+                } else {
+                    if ((oldUnit = database.getMilitaryUnitByTile(currentTile)) != null) {
+                        civ.removeUnit(oldUnit);
+                    }
                     civ.addMilitaryUnit(new MilitaryUnit(unit, currentTile));
                 }
+                Map.getInstance().createMap(getMap());
+                return;
             }
-            Map.getInstance().createMap(getMap());
+            if ((building = Building.matchBuilding(code.substring(1))) != null) {
+                if (currentTile.getBuilding() != null) {
+                    currentTile.removeBuilding();
+                }
+                currentTile.addBuilding(building);
+                Map.getInstance().createMap(getMap());
+                return;
+            }
         }
     }
 }

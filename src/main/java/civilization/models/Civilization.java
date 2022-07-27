@@ -389,9 +389,7 @@ public class Civilization {
                 this.gold += tile.getGold();
                 city.setFood(city.getFood() + tile.getFood());
                 city.setProduction(city.getProduction() + tile.getProduction());
-                for (Building building : tile.getBuildings()) {
-                    this.gold -= building.getMaintenance();
-                }
+                this.gold -= tile.getBuilding().getMaintenance();
             }
         }
         for (CivilianUnit civUnit : this.civilianUnits) {

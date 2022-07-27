@@ -13,14 +13,13 @@ public class TileView {
     private String tileImage;
     private String featureImage;
     private String resourceImage;
+    private String buildingImage;
     private Boolean fogOfWar;
 
     public TileView(int[] coordinates, int food, int production, int gold, int combatModifier, int movementCost,
-            String landType,
-            String feature, String resource, String tileImage, String featureImage, String resourceImage,
-            Boolean fogOfWar) {
+            String landType, String feature, String resource, String tileImage, String featureImage,
+            String resourceImage, String buildingImage, Boolean fogOfWar) {
         this.coordinates = coordinates;
-
         this.food = food;
         this.production = production;
         this.gold = gold;
@@ -32,7 +31,16 @@ public class TileView {
         this.tileImage = tileImage;
         this.featureImage = featureImage;
         this.resourceImage = resourceImage;
+        this.buildingImage = buildingImage;
         this.fogOfWar = fogOfWar;
+    }
+
+    public String getBuildingImage() {
+        return buildingImage;
+    }
+
+    public void setBuildingImage(String buildingImage) {
+        this.buildingImage = buildingImage;
     }
 
     public int[] getCoordinates() {

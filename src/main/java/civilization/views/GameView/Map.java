@@ -2,9 +2,13 @@ package civilization.views.GameView;
 
 import java.util.*;
 
+import javax.swing.text.Position;
+
 import civilization.App;
 import civilization.controllers.*;
+import civilization.enums.Feature;
 import civilization.views.*;
+import civilization.views.GameMenuView.GameMenuPage;
 import civilization.views.components.*;
 import civilization.views.components.Menu;
 import javafx.event.*;
@@ -31,6 +35,8 @@ public class Map extends Menu {
     private static double OFFSET = 56;
     private static double FEATURE_WIDTH = 160;
     private static double RESOURCE_WIDTH = 130;
+    private static double BUILDING_WIDTH = 220;
+    private static double UNIT_WIDTH = 110;
 
     public static Map getInstance() {
         return instance != null ? instance : (instance = new Map());
@@ -47,6 +53,8 @@ public class Map extends Menu {
                         new ArrayList<UserView>(ScoreboardMenuController.getInstance().createUserView().subList(0, 2)));
 
         stackPane = new StackPane();
+        scrollPane = new ScrollPane();
+        stackPane.getChildren().add(scrollPane);
         scene = new Scene(stackPane, 1280, 800);
         addElements();
     }
@@ -54,7 +62,7 @@ public class Map extends Menu {
     public void addElements() {
         createMap(MapController.getInstance().getMap());
         addInfoBox();
-        setInfoText(MapController.getInstance().getMap()[1][1], null);
+        setInfoText(null, MapController.getSettler());
         addBackButton();
         addCheatMenu();
     }
@@ -78,7 +86,8 @@ public class Map extends Menu {
                     + tile.getResource() + "\nFood: " + tile.getFood() + "\nProduction: " + tile.getProduction()
                     + "\nGold: " + tile.getGold());
         } else {
-            info = new Text();
+            info = new Text("Position: [" + unit.getPosition()[0] + ", " + unit.getPosition()[1] + "]"
+                    + "\nUnit Type: " + unit.getUnitType() + "\nMovement Points: " + unit.getMovementPoints());
         }
         info.setFont(textFont);
         info.setFill(Color.WHITE);
@@ -109,10 +118,8 @@ public class Map extends Menu {
     }
 
     public void createMap(TileView[][] map) {
-        scrollPane = new ScrollPane();
         scrollPane.setContent(tiles = new AnchorPane());
         tiles.setStyle("-fx-background-color: #0B589E;");
-        stackPane.getChildren().add(scrollPane);
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
@@ -127,44 +134,42 @@ public class Map extends Menu {
         addFogOfWar(map);
     }
 
+    public ImageView addImage(StackPane tile, String image, Double width, Pos position, Insets margins) {
+        ImageView img = new ImageView(
+                new Image(App.class.getResource(image).toExternalForm()));
+        img.setFitWidth(width);
+        img.setPreserveRatio(true);
+        StackPane.setAlignment(img, position);
+        StackPane.setMargin(img, margins);
+        tile.getChildren().add(img);
+
+        return img;
+    }
+
     public void createTile(TileView tileView, UnitView[] unitViews, StackPane tile) {
-        ImageView terrain = new ImageView(
-                new Image(App.class.getResource(tileView.getTileImage()).toExternalForm()));
-        terrain.setFitWidth(TILE_WIDTH);
-        terrain.setPreserveRatio(true);
-        tileUI(terrain, tileView);
-        tile.getChildren().add(terrain);
+        tileUI(addImage(tile, tileView.getTileImage(), TILE_WIDTH, Pos.CENTER, new Insets(0, 0, 0, 0)), tileView);
 
-        if (tileView.getFeatureImage() != null) {
-            ImageView feature = new ImageView(
-                    new Image(App.class.getResource(tileView.getFeatureImage()).toExternalForm()));
-            feature.setFitWidth(FEATURE_WIDTH);
-            feature.setPreserveRatio(true);
-            StackPane.setAlignment(feature, Pos.TOP_RIGHT);
-            StackPane.setMargin(feature, new Insets(8, 8, 0, 0));
-            tile.getChildren().add(feature);
+        if (unitViews[1] != null) {
+            unitUI(addImage(tile, unitViews[1].getUnitImage(), UNIT_WIDTH,
+                    tileView.getBuildingImage() == null ? Pos.TOP_LEFT : Pos.BOTTOM_LEFT,
+                    new Insets(0, 100, 0, 0)), unitViews[1]);
         }
 
-        for (UnitView unitView : unitViews) {
-            if (unitView != null) {
-                ImageView unit = new ImageView(
-                        new Image(App.class.getResource(unitView.getUnitImage()).toExternalForm()));
-                unit.setFitWidth(RESOURCE_WIDTH);
-                unit.setPreserveRatio(true);
-                StackPane.setAlignment(unit, unitView.isMilitary() ? Pos.TOP_LEFT : Pos.BOTTOM_RIGHT);
-                StackPane.setMargin(unit, new Insets(0, 50, 0, 0));
-                tile.getChildren().add(unit);
-            }
+        if (tileView.getFeatureImage() != null && tileView.getBuildingImage() == null) {
+            addImage(tile, tileView.getFeatureImage(), FEATURE_WIDTH, Pos.TOP_RIGHT, new Insets(8, 8, 0, 0));
         }
 
-        if (tileView.getResourceImage() != null) {
-            ImageView resource = new ImageView(
-                    new Image(App.class.getResource(tileView.getResourceImage()).toExternalForm()));
-            resource.setFitWidth(RESOURCE_WIDTH);
-            resource.setPreserveRatio(true);
-            StackPane.setAlignment(resource, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(resource, new Insets(0, 0, 5, 5));
-            tile.getChildren().add(resource);
+        if (tileView.getBuildingImage() != null) {
+            addImage(tile, tileView.getBuildingImage(), BUILDING_WIDTH, Pos.TOP_CENTER, new Insets(0, 0, 0, 0));
+        }
+
+        if (unitViews[0] != null) {
+            unitUI(addImage(tile, unitViews[0].getUnitImage(), UNIT_WIDTH, Pos.BOTTOM_RIGHT, new Insets(0, 50, 0, 0)),
+                    unitViews[0]);
+        }
+
+        if (tileView.getResourceImage() != null && tileView.getBuildingImage() == null) {
+            addImage(tile, tileView.getResourceImage(), RESOURCE_WIDTH, Pos.BOTTOM_LEFT, new Insets(0, 0, 5, 5));
         }
     }
 
@@ -196,8 +201,20 @@ public class Map extends Menu {
         });
     }
 
+    public void unitUI(ImageView unit, UnitView unitView) {
+        unit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (MapController.canAccessUnit(unitView)) {
+                    setInfoText(null, unitView);
+                    MapController.getInstance().setSelectedUnit(unitView);
+                }
+            }
+        });
+    }
+
     public void addCheatMenu() {
-        KeyCodeCombination cheatMenu = new KeyCodeCombination(KeyCode.W);
+        KeyCodeCombination cheatMenu = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_ANY);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {

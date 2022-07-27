@@ -1,6 +1,7 @@
-package civilization.views;
+package civilization.views.GameMenuView;
 
 import civilization.App;
+import civilization.views.MainMenuPage;
 import civilization.views.GameView.Map;
 import civilization.views.components.*;
 import javafx.event.ActionEvent;
@@ -57,7 +58,7 @@ public class GameMenuPage extends Menu {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // ToDo start
+                // App.setScene(InitGamePage.getInstance().getPane().getScene());
             }
         });
         setTooltip("Start a new game", startButton);

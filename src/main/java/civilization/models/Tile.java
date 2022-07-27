@@ -20,7 +20,7 @@ public class Tile {
     private MilitaryUnit garrisonUnit;
     private CivilianUnit workerUnit;
     private Improvement improvement;
-    private ArrayList<Building> buildings;
+    private Building building;
     private Boolean hasRoad;
 
     public Tile(int[] coordinates, LandType landType, Feature feature, Resource resource) {
@@ -37,7 +37,7 @@ public class Tile {
         this.player = null;
         this.improvement = null;
         this.hasRiver = new Boolean[6];
-        this.buildings = new ArrayList<Building>();
+        this.building = null;
     }
 
     public User getPlayer() {
@@ -153,12 +153,16 @@ public class Tile {
         Database.getInstance().getCityByTile(this).activateResources(improvement);
     }
 
-    public ArrayList<Building> getBuildings() {
-        return this.buildings;
+    public Building getBuilding() {
+        return this.building;
     }
 
     public void addBuilding(Building building) {
-        this.buildings.add(building);
+        this.building = building;
+    }
+
+    public void removeBuilding() {
+        this.building = null;
     }
 
     public Boolean getHasRoad() {

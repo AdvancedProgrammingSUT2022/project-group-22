@@ -47,6 +47,19 @@ public enum Building {
         this.technologyRequired = technology;
     }
 
+    public static Building matchBuilding(String type) {
+        for (Building building : values()) {
+            if (building.name().equalsIgnoreCase(type)) {
+                return building;
+            }
+        }
+        return null;
+    }
+
+    public String getUrl() {
+        return "/civilization/png/buildings/" + this.name().toLowerCase() + ".png";
+    }
+
     public int getCost() {
         return cost;
     }
