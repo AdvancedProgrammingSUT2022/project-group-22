@@ -101,6 +101,7 @@ public class AvatarChooserPage extends Menu{
                 int i = random.nextInt(Avatar.values().length);
                 //ImageView temp = new ImageView(new Image(App.class.getResource(Avatar.values()[i].getUrl()).toExternalForm()));
                 setAvatarRequest(Avatar.values()[i].getUrl());
+                User.setCustomAvatar(false);
                 //ProfileMenuController.getInstance().setAvatar(temp);
                 App.setScene(ProfileMenu.getInstance().getPane().getScene());
             }
@@ -119,6 +120,8 @@ public class AvatarChooserPage extends Menu{
                 if (selectedFile != null) {
                     Image image = new Image(selectedFile.toURI().toString());
                     //todo set avatar at server
+                    setAvatarRequest(selectedFile.toURI().toString());
+                    User.setCustomAvatar(true);
                     //ProfileMenuController.getInstance().setAvatar(new ImageView(image));
                     App.setScene(ProfileMenu.getInstance().getPane().getScene());
                 }
@@ -133,6 +136,7 @@ public class AvatarChooserPage extends Menu{
             @Override
             public void handle(ActionEvent actionEvent) {
                 setAvatarRequest(choosenAvatar.getUrl());
+                User.setCustomAvatar(false);
                 App.setScene(ProfileMenu.getInstance().getPane().getScene());
             }
         });

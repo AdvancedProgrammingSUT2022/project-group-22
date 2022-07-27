@@ -63,7 +63,13 @@ public class ProfileMenu extends Menu {
         request.addData("jwt", User.getJwt());
         String avatar = (String) NetworkController.send(request).getData().get("avatar");
         System.out.println(avatar);
-        ImageView temp = new ImageView(new Image(App.class.getResource(avatar).toExternalForm()));
+        ImageView temp;
+        if(User.isCustomAvatar()){
+            temp = new ImageView(new Image(avatar));
+        }
+        else {
+            temp = new ImageView(new Image(App.class.getResource(avatar).toExternalForm()));
+        }
         return temp;
     }
 
