@@ -2,6 +2,7 @@ package civilization.controllers;
 
 import civilization.enums.*;
 import civilization.models.*;
+import civilization.views.GameView.Map;
 import civilization.views.components.*;
 
 import java.util.*;
@@ -134,14 +135,43 @@ public class MapController extends GameController {
     }
 
     public static UnitView[] getTileUnit(int i, int j) {
-        UnitView[] unitViews = { null, null };
+        UnitView[] unitViews = new UnitView[2];
         Unit unit;
         if ((unit = database.getCivilianUnitByTile(database.getMap()[i][j])) != null) {
-            unitViews[0] = new UnitView(unit.getUnitType().getUrl());
+            unitViews[0] = new UnitView(unit.getUnitType().getUrl(), false);
         }
         if ((unit = database.getMilitaryUnitByTile(database.getMap()[i][j])) != null) {
-            unitViews[1] = new UnitView(unit.getUnitType().getUrl());
+            unitViews[1] = new UnitView(unit.getUnitType().getUrl(), true);
         }
         return unitViews;
+    }
+
+    public void setSelectedTile(TileView tileView) {
+        database.getCurrentPlayer().getCivilization()
+                .setSelectedTile(database.getMap()[tileView.getCoordinates()[0]][tileView.getCoordinates()[1]]);
+    }
+
+    public void cheat(String code) {
+        Civilization civ = database.getCurrentPlayer().getCivilization();
+        UnitType unit;
+        Unit oldUnit;
+        Building building;
+        Building oldBuilding;
+        Tile currentTile = civ.getSelectedTile();
+        if ((unit = UnitType.matchUnitType(code.substring(1))) != null) {
+            if (unit.equals(UnitType.SETTLER) || unit.equals(UnitType.WORKER)) {
+                if ((oldUnit = database.getCivilianUnitByTile(currentTile)) != null) {
+                    civ.removeUnit(oldUnit);
+                    civ.addCivilianUnit(new CivilianUnit(unit, currentTile));
+
+                }
+            } else {
+                if ((oldUnit = database.getMilitaryUnitByTile(currentTile)) != null) {
+                    civ.removeUnit(oldUnit);
+                    civ.addMilitaryUnit(new MilitaryUnit(unit, currentTile));
+                }
+            }
+            Map.getInstance().createMap(getMap());
+        }
     }
 }

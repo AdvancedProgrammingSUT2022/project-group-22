@@ -34,6 +34,7 @@ public class Civilization {
     private HashMap<CivilianUnit, Feature> removalWorkers = new HashMap<CivilianUnit, Feature>();
 
     private City currentCity;
+    private Tile selectedTile;
     private MilitaryUnit currentMilitary;
     private CivilianUnit currentCivilian;
 
@@ -49,6 +50,14 @@ public class Civilization {
         this.currentMilitary = null;
         this.currentCivilian = null;
         this.possibleTechnologies.add(Technology.AGRICULTURE);
+    }
+
+    public Tile getSelectedTile() {
+        return selectedTile;
+    }
+
+    public void setSelectedTile(Tile selectedTile) {
+        this.selectedTile = selectedTile;
     }
 
     public Color getColor() {
@@ -207,13 +216,9 @@ public class Civilization {
         return this.militaryUnits;
     }
 
-    public void addMilitaryUnits(MilitaryUnit militaryUnit) {
+    public void addMilitaryUnit(MilitaryUnit militaryUnit) {
         this.militaryUnits.add(militaryUnit);
         updateTileStates(null, militaryUnit.position);
-    }
-
-    public void deleteMilitaryUnit(MilitaryUnit militaryUnit) {
-        militaryUnits.remove(militaryUnit);
     }
 
     public ArrayList<CivilianUnit> getCivilianUnits() {
@@ -225,8 +230,12 @@ public class Civilization {
         updateTileStates(null, civilianUnit.position);
     }
 
-    public void deleteCivilianUnit(CivilianUnit civilianUnit) {
-        civilianUnits.remove(civilianUnit);
+    public void removeUnit(Unit unit) {
+        if (unit.getUnitType().equals(UnitType.SETTLER) || unit.getUnitType().equals(UnitType.WORKER)) {
+            civilianUnits.remove(unit);
+        } else {
+            militaryUnits.remove(unit);
+        }
     }
 
     public Boolean checkUnitTasks() {

@@ -50,7 +50,7 @@ public enum UnitType {
 
     public static UnitType matchUnitType(String type) {
         for (UnitType unitType : values()) {
-            if (unitType.name().equals(type)) {
+            if (unitType.name().equalsIgnoreCase(type)) {
                 return unitType;
             }
         }
@@ -58,7 +58,8 @@ public enum UnitType {
     }
 
     public String getUrl() {
-        return "/civilization/png/units/" + this.name().toLowerCase() + ".png";
+        return "/civilization/png/units/" + this.name().substring(0, 1).toUpperCase()
+                + this.name().substring(1).toLowerCase() + ".png";
     }
 
     public int getCost() {

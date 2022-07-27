@@ -13,11 +13,8 @@ public class MilitaryUnit extends Unit {
     private Boolean isSleep = false;
 
     public MilitaryUnit(UnitType unitType, Tile position) {
-        this.unitType = unitType;
-        this.movementPoints = unitType.getMovementPoints();
-        this.combatStrength = unitType.getCombatStrengh();
+        super(unitType, position);
         this.experiencePoints = 0;
-        this.position = position;
         this.range = unitType.getRange();
         this.rangedCombatStrength = unitType.getRangedCombatStrengh();
         this.isSleeping = false;

@@ -11,6 +11,13 @@ public class Unit {
     protected int taskTurns;
     protected Tile target;
 
+    public Unit(UnitType unitType, Tile position) {
+        this.unitType = unitType;
+        this.movementPoints = unitType.getMovementPoints();
+        this.combatStrength = unitType.getCombatStrengh();
+        this.position = position;
+    }
+
     public UnitType getUnitType() {
         return this.unitType;
     }

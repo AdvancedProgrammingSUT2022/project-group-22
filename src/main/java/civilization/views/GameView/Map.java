@@ -1,6 +1,7 @@
 package civilization.views.GameView;
 
-import java.util.ArrayList;
+import java.util.*;
+
 import civilization.App;
 import civilization.controllers.*;
 import civilization.views.*;
@@ -144,6 +145,18 @@ public class Map extends Menu {
             tile.getChildren().add(feature);
         }
 
+        for (UnitView unitView : unitViews) {
+            if (unitView != null) {
+                ImageView unit = new ImageView(
+                        new Image(App.class.getResource(unitView.getUnitImage()).toExternalForm()));
+                unit.setFitWidth(RESOURCE_WIDTH);
+                unit.setPreserveRatio(true);
+                StackPane.setAlignment(unit, unitView.isMilitary() ? Pos.TOP_LEFT : Pos.BOTTOM_RIGHT);
+                StackPane.setMargin(unit, new Insets(0, 50, 0, 0));
+                tile.getChildren().add(unit);
+            }
+        }
+
         if (tileView.getResourceImage() != null) {
             ImageView resource = new ImageView(
                     new Image(App.class.getResource(tileView.getResourceImage()).toExternalForm()));
@@ -152,12 +165,6 @@ public class Map extends Menu {
             StackPane.setAlignment(resource, Pos.BOTTOM_LEFT);
             StackPane.setMargin(resource, new Insets(0, 0, 5, 5));
             tile.getChildren().add(resource);
-        }
-
-        if (unitViews[0] != null) {
-        }
-
-        if (unitViews[1] != null) {
         }
     }
 
@@ -172,8 +179,6 @@ public class Map extends Menu {
                     AnchorPane.setTopAnchor(clouds, i * TILE_HEIGHT + j % 2 * TILE_HEIGHT / 2);
                     AnchorPane.setLeftAnchor(clouds, j * (TILE_WIDTH - OFFSET));
                     tiles.getChildren().add(clouds);
-                } else {
-                    System.out.println(" > " + map[i][j].getCoordinates()[0] + ":" + map[i][j].getCoordinates()[1]);
                 }
             }
         }
@@ -183,8 +188,9 @@ public class Map extends Menu {
         terrain.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (true || !tileView.getFogOfWar()) {
+                if (!tileView.getFogOfWar()) {
                     setInfoText(tileView, null);
+                    MapController.getInstance().setSelectedTile(tileView);
                 }
             }
         });
@@ -195,15 +201,14 @@ public class Map extends Menu {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                System.out.println("Hi:" + scene);
                 if (cheatMenu.match(event)) {
-                    System.out.println("Here");
                     TextInputDialog dialog = new TextInputDialog("Enter your cheat code");
                     dialog.setTitle("Cheat Sheet");
                     dialog.setContentText("Cheat Code:");
                     dialog.setHeaderText(null);
                     dialog.setGraphic(null);
-                    dialog.show();
+                    dialog.showAndWait();
+                    MapController.getInstance().cheat(dialog.getEditor().getText());
                 }
             }
         });

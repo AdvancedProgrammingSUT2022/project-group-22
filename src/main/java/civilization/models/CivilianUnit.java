@@ -8,11 +8,8 @@ public class CivilianUnit extends Unit {
     private Boolean isSleep = false;
 
     public CivilianUnit(UnitType unitType, Tile position) {
-        this.unitType = unitType;
+        super(unitType, position);
         this.isWorker = unitType.name().equals("WORKER") ? true : false;
-        this.movementPoints = unitType.getMovementPoints();
-        this.combatStrength = unitType.getCombatStrengh();
-        this.position = position;
         this.isSleeping = false;
     }
 

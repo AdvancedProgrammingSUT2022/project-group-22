@@ -143,7 +143,7 @@ public class UnitController extends GameController {
             if (unitType.equals(UnitType.SETTLER) || unitType.equals(UnitType.WORKER)) {
                 player.addCivilianUnit(new CivilianUnit(unitType, city.getCenter()));
             } else {
-                player.addMilitaryUnits(new MilitaryUnit(unitType, city.getCenter()));
+                player.addMilitaryUnit(new MilitaryUnit(unitType, city.getCenter()));
             }
             // gameView.unitBought(unitType.name().toLowerCase());
             // mapController.printTile(city.getCenter());
