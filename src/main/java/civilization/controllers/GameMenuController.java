@@ -16,17 +16,13 @@ public class GameMenuController {
         return instance;
     }
 
-    public void startGame(ArrayList<UserView> users) {
+    public void startGame(String username1, String username2, int x, int y) {
         ArrayList<User> players = new ArrayList<User>();
-        // for (UserView user : users) {
-        // players.add(database.getUserByUsername(user.getUsername()));
-        // }
         User player1, player2;
-        players.add((player1 = database.getUsers().get(0)));
-        players.add((player2 = database.getUsers().get(1)));
-        database.createGame(players, 15, 20);
+        players.add((player1 = database.getUserByUsername(username1)));
+        players.add((player2 = database.getUserByUsername(username2)));
+        database.createGame(players, x, y);
         setSettlers(player1, player2);
-        // GameMenuView.getInstance().gameStarted();
     }
 
     // added unit selection for easier testing, could be removed later

@@ -58,7 +58,7 @@ public class GameMenuPage extends Menu {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                // App.setScene(InitGamePage.getInstance().getPane().getScene());
+                App.setScene(InitGamePage.getInstance().getPane().getScene());
             }
         });
         setTooltip("Start a new game", startButton);

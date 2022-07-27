@@ -1,13 +1,8 @@
 package civilization.views.GameView;
 
-import java.util.*;
-
-import javax.swing.text.Position;
-
 import civilization.App;
 import civilization.controllers.*;
-import civilization.enums.Feature;
-import civilization.views.*;
+import civilization.enums.*;
 import civilization.views.GameMenuView.GameMenuPage;
 import civilization.views.components.*;
 import civilization.views.components.Menu;
@@ -47,10 +42,7 @@ public class Map extends Menu {
     }
 
     private Map() {
-        // test
-        GameMenuController.getInstance()
-                .startGame(
-                        new ArrayList<UserView>(ScoreboardMenuController.getInstance().createUserView().subList(0, 2)));
+        GameMenuController.getInstance().startGame("player1", "player2", 12, 10);
 
         stackPane = new StackPane();
         scrollPane = new ScrollPane();
@@ -96,13 +88,13 @@ public class Map extends Menu {
         info.setTextAlignment(TextAlignment.CENTER);
 
         StackPane.setAlignment(info, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(info, new Insets(0, 60, 130, 0));
+        StackPane.setMargin(info, new Insets(0, 60, 160, 0));
         stackPane.getChildren().add(info);
     }
 
     public void addBackButton() {
         ImageView button = new ImageView(
-                new Image(App.class.getResource("/civilization/png/GameBackButton.png").toExternalForm()));
+                new Image(App.class.getResource(Graphic.GAMEBUTTON.getUrl()).toExternalForm()));
         button.setFitWidth(70);
         button.setPreserveRatio(true);
         StackPane.setAlignment(button, Pos.TOP_LEFT);

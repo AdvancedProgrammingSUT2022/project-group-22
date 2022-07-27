@@ -20,7 +20,11 @@ import javafx.stage.PopupWindow;
 
 public class Menu {
     public static final BackgroundImage backgroundImage = new BackgroundImage(
-            new Image(App.class.getResource(Graphic.BACKGROUND.getUrl()).toExternalForm()),
+            new Image(App.class.getResource(Graphic.BACKGROUND1.getUrl()).toExternalForm()),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER, BackgroundSize.DEFAULT);;
+    public static final BackgroundImage altBackgroundImage = new BackgroundImage(
+            new Image(App.class.getResource(Graphic.BACKGROUND2.getUrl()).toExternalForm()),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER, BackgroundSize.DEFAULT);;
 

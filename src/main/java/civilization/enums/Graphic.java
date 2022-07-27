@@ -5,7 +5,9 @@ public enum Graphic {
     CROSS("/civilization/png/cross.png"),
     BUTTON("/civilization/png/button.png"),
     PRESSED_BUTTON("/civilization/png/pressed_button.png"),
-    BACKGROUND("/civilization/png/Menu_background.png");
+    BACKGROUND1("/civilization/png/Menu_background.png"),
+    BACKGROUND2("/civilization/png/Menu_background_2.png"),
+    GAMEBUTTON("/civilization/png/GameBackButton.png");
 
     private String url;
 

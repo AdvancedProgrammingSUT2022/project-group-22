@@ -22,7 +22,7 @@ public class FirstPage extends Menu {
     private FirstPage() {
         firstPane = new BorderPane();
         Scene firstScene = new Scene(firstPane, 1280, 800);
-        firstPane.setBackground(new Background(backgroundImage));
+        firstPane.setBackground(new Background(altBackgroundImage));
         addElements();
     }
 

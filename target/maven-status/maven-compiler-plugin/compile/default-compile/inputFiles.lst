@@ -3,6 +3,7 @@
 /Users/mahya/Projects/Civ/src/main/java/civilization/controllers/MainMenuController.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/enums/Color.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/controllers/ProfileMenuController.java
+/Users/mahya/Projects/Civ/src/main/java/civilization/views/GameMenuView/InitGamePage.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/enums/Avatar.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/views/GameView/Map.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/controllers/MapController.java
@@ -31,8 +32,8 @@
 /Users/mahya/Projects/Civ/src/main/java/civilization/views/components/GameButton.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/controllers/RegisterMenuController.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/MilitaryUnit.java
-/Users/mahya/Projects/Civ/src/main/java/civilization/views/GameMenuPage.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/Tile.java
+/Users/mahya/Projects/Civ/src/main/java/civilization/views/GameMenuView/GameMenuPage.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/Civilization.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/enums/Building.java
 /Users/mahya/Projects/Civ/src/main/java/civilization/models/Unit.java

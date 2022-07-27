@@ -1,6 +1,5 @@
 package civilization.views.ProfileMenuView;
 
-import civilization.views.*;
 import civilization.views.components.*;
 import civilization.App;
 import civilization.controllers.ProfileMenuController;

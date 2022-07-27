@@ -3,6 +3,7 @@ package civilization;
 import civilization.controllers.*;
 import civilization.models.Database;
 import civilization.views.*;
+import civilization.views.GameMenuView.InitGamePage;
 import civilization.views.GameView.Map;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -28,6 +29,8 @@ public class App extends Application {
 
         // map test
         mainStage.setScene(Map.getInstance().getPane().getScene());
+
+        // mainStage.setScene(InitGamePage.getInstance().getPane().getScene());
 
         stage = mainStage;
         stage.show();
