@@ -56,14 +56,14 @@ public class Menu {
 
     public static Label createLabel(String text) {
         Label label = new Label(text);
-        //label.setFont(textFont);
+        label.setFont(textFont);
         label.setTextFill(Color.WHITE);
         return label;
     }
 
     public static Button createSwitchSceneButton(String text, Scene scene) {
         Button button = new Button(text);
-//        button.setFont(textFont);
+        button.setFont(textFont);
         button.setStyle("-fx-background-color: none;");
         button.setTextFill(Color.WHITE);
         button.setOnAction(new EventHandler<ActionEvent>() {

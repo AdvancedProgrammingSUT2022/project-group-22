@@ -52,8 +52,13 @@ public class ProfileMenuController {
         return response;
     }
 
-    public void logout(User user) {
-        Database.getInstance().getLoggedInUsers().remove(user);
+    public void logout(User currentUser) {
+        for (User user :Database.getInstance().getLoggedInUsers()) {
+            if(user.getNickname().equals(currentUser.getNickname())){
+                Database.getInstance().getLoggedInUsers().remove(user);
+                return;
+            }
+        }
     }
 
     public Response setAvatar(String avatar, String username, Date exp) {

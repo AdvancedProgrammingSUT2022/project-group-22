@@ -3,6 +3,8 @@ package server.models;
 import server.controllers.*;
 import server.enums.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -68,6 +70,13 @@ public class Database {
         loggedInUsers.add(loggedInUser);
     }
 
+    public Boolean isLoggedInUser(User user){
+        if(loggedInUsers.contains(user)){
+            return true;
+        }
+        return false;
+    }
+
     public void nextTurn() {
         this.currentPlayer = players
                 .get(players.indexOf(currentPlayer) == players.size() - 1 ? 0 : players.indexOf(currentPlayer) + 1);
@@ -120,8 +129,11 @@ public class Database {
             Collections.sort(this.users, new Comparator<User>() {
                 @Override
                 public int compare(User a, User b) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss");
+                    LocalDateTime ALastWin = LocalDateTime.parse(a.getLastWinTime(), formatter);
+                    LocalDateTime  BLastWin= LocalDateTime.parse(b.getLastWinTime(), formatter);
                     int c1 = a.getScore() < b.getScore() ? -1 : a.getScore() == b.getScore() ? 0 : 1;
-                    int c2 = a.getLastWinTime().compareTo(b.getLastWinTime());
+                    int c2 = ALastWin.compareTo(BLastWin);
                     int c3 = a.getNickname().compareTo(b.getNickname());
                     return (c1 != 0) ? c1 : (c2 != 0) ? c2 : c3;
                 }

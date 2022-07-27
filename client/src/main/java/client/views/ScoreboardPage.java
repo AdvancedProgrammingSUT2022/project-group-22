@@ -1,6 +1,13 @@
 package client.views;
 
 import client.App;
+import client.controller.NetworkController;
+import client.model.Request;
+import client.model.Response;
+import client.model.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +23,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -58,8 +69,11 @@ public class ScoreboardPage extends Menu {
         mainGrid.setHgap(70);
         mainGrid.setVgap(14);
 
-        //todo server scoreboard
-        //addRatings(ScoreboardMenuController.getInstance().createUserView());
+        try {
+            this.listenForUpdates();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         StackPane centerPane = new StackPane();
         centerPane.getChildren().addAll(rectangle, bgGrid, mainGrid);
@@ -87,6 +101,9 @@ public class ScoreboardPage extends Menu {
             ImageView avatar = new ImageView(new Image(App.class.getResource(user.getAvatar()).toExternalForm()));
             avatar.setPreserveRatio(true);
             avatar.setFitHeight(36);
+            if (user.getIsOnline()) {
+                mainGrid.add(createLabel("online"), 0, i);
+            }
             mainGrid.add(avatar, 1, i);
             mainGrid.add(createLabel(user.getNickname()), 2, i);
             mainGrid.add(createLabel(Integer.toString(user.getScore())), 3, i);
@@ -103,5 +120,39 @@ public class ScoreboardPage extends Menu {
 
             bgGrid.add(rectangle, 2, i++);
         }
+    }
+    private void getListFromServer(Response response){
+//        Request request = new Request();
+//        request.setHeader("getScoreBoard");
+//        request.addData("jwt", User.getJwt());
+//        Response response = NetworkController.send(request);
+        Gson gson = new Gson();
+        ArrayList<UserView> userViews = gson.fromJson((String) response.getData().get("scoreBoard"),
+                new TypeToken<ArrayList<UserView>>() {
+                }.getType());
+        Platform.runLater(() -> addRatings(userViews));
+    }
+
+    public  void listenForUpdates() throws IOException {
+        Socket readerSocket = new Socket("localhost", 5000);
+        DataOutputStream outputStream = new DataOutputStream(readerSocket.getOutputStream());
+        DataInputStream inputStream = new DataInputStream(readerSocket.getInputStream());
+        Request request = new Request();
+        request.setHeader("getScoreBoard");
+        request.addData("jwt", User.getJwt());
+        outputStream.writeUTF(request.toJson());
+        outputStream.flush();
+        new Thread(() -> {
+            while (true) {
+                try {
+                    System.out.println("Waiting for update");
+                    Response response = Response.fromJson(inputStream.readUTF());
+                    System.out.println("update received");
+                    this.getListFromServer(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

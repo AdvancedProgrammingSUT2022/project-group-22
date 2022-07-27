@@ -1,26 +1,24 @@
 package server.controllers;
 
-import javafx.scene.image.ImageView;
-
-import java.time.LocalDateTime;
-
 public class UserView {
     private String username;
     private String nickname;
-    private ImageView avatar;
-    private int score;
+    private String avatar;
     private String lastWinTime;
     private String lastLoginTime;
     private Boolean isCurrentUser;
+    private Boolean isOnline;
+    private int score;
 
-    public UserView(String username, String nickname, ImageView avatar, int score, String lastWinTime,
-                    String lastLoginTime, Boolean isCurrentUser) {
+    public UserView(String username, String nickname, String avatar, int score, String lastWinTime,
+                    String lastLoginTime, Boolean isCurrentUser, Boolean isOnline) {
         this.nickname = nickname;
         this.avatar = avatar;
         this.score = score;
         this.lastWinTime = lastWinTime;
         this.lastLoginTime = lastLoginTime;
         this.isCurrentUser = isCurrentUser;
+        this.isOnline = isOnline;
     }
 
     public String getUsername() {
@@ -39,11 +37,11 @@ public class UserView {
         this.nickname = nickname;
     }
 
-    public ImageView getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(ImageView avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -77,5 +75,13 @@ public class UserView {
 
     public void setIsCurrentUser(Boolean isCurrentUser) {
         this.isCurrentUser = isCurrentUser;
+    }
+
+    public Boolean getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(Boolean online) {
+        isOnline = online;
     }
 }

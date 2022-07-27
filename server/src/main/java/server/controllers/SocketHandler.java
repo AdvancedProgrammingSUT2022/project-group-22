@@ -99,7 +99,14 @@ public class SocketHandler extends Thread {
                     JwtController.getUser((String) request.getData().get("jwt")).getUsername(),
                     JwtController.parseJwt((String) request.getData().get("jwt")).getBody().getExpiration());
         }
+        if (header.equals("getScoreBoard")) {
+            Gson gson = new Gson();
+            User user = JwtController.getUser((String) request.getData().get("jwt"));
+            response.addData("scoreBoard", gson.toJson(ScoreboardMenuController.getInstance().createUserView(user)));
+            return response;
+        }
 
+        response.setStatus(400);
         return response;
     }
 }

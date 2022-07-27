@@ -27,7 +27,7 @@ public class GameButton extends Button {
         createBackgrounds();
         this.setBackground(freeBackground);
         this.setTextFill(Color.WHITE);
-        //createFont();
+        createFont();
         initializeButtonListeners();
     }
 

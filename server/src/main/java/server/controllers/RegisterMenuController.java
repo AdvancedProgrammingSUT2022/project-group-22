@@ -88,7 +88,7 @@ public class RegisterMenuController {
         int i = random.nextInt(Avatar.values().length);
         Database.getInstance().addUser((user = new User(username, password, nickname, Avatar.values()[i].getUrl(), null, 0,
                 LocalDateTime.of(1900, 01, 01, 00, 00, 00).format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")),
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd yyy, HH:mm:ss")) )));
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) )));
         Database.getInstance().addLoggedInUser(user);
 //        try {
 //            RegisterMenuController.saveUsers();
@@ -131,7 +131,7 @@ public class RegisterMenuController {
 }
 
 class LocalDateSerializer implements JsonSerializer<LocalDate> {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-d-yyyy");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss");
 
     @Override
     public JsonElement serialize(LocalDate localDate, Type srcType, JsonSerializationContext context) {
@@ -153,7 +153,7 @@ class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
     public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
         return LocalDate.parse(json.getAsString(),
-                DateTimeFormatter.ofPattern("MMM-d-yyyy").withLocale(Locale.ENGLISH));
+                DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss").withLocale(Locale.ENGLISH));
     }
 }
 
